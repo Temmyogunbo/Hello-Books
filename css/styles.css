@@ -1,0 +1,350 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	 font-family: 'Berkshire Swash', cursive;
+}
+
+body {
+    background-image: url("http://cdn.wallpapersafari.com/99/90/zj8TKM.jpg");
+    background-repeat: no-repeat;
+   
+}
+
+.link{
+	text-decoration: none;
+	color: white;
+}
+
+.welcome {
+	font-size: 40px;
+	line-height: 50px;
+	color: #999;
+	float: left;
+	margin-left: 20px;
+}
+header {
+	overflow: hidden;
+}
+nav {
+	width: 100%;
+	text-align: center;
+	padding-top: 30px;
+}
+nav ul {
+	float: right;
+	line-height: 50px;
+	margin-right: 50px;
+}
+nav li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+nav a {
+	padding: 20px;
+	color: #999;
+	color: white;
+}
+nav a: hover {color: #c00;}
+
+.brand {
+	 font-family: 'Berkshire Swash', cursive;
+	font-size: 30px;
+	font-weight: bold;
+	margin-left: -400px;
+}
+
+.welcome-message {
+	float: left;
+	width: 50%;
+	font-family: Berkswire-Swash;
+	color: white;
+}
+
+.welcome-head {
+	font-size: 30px;
+}
+
+.welcome-head-para {
+	margin-top: 50px;
+	font-size: 30px;
+}
+.welcome-message div {
+	margin: 150px 0 0 300px;
+}
+.welcome-message div h2 p {
+	font-size: 40px;
+	margin-top: 1px;
+}
+
+.google-plus-icon {
+	margin: 10px 0 0 0;
+}
+.div-body {
+	float: right;
+	width: 50%;
+	margin-top: -40px;
+	color: white;
+}
+
+.red{
+	color: red;
+}
+.div-body form input{
+	margin-bottom: 20px;
+	border: 0 0 5px 0;
+	padding: 10px;
+	width: 300px;
+}
+.log-in-button {
+	width: 70px;
+	height: 40px;
+	font-size: 15px;
+	float: right;
+	margin-right: 110px;
+	border-radius: 5px;
+	color: white;
+	background: #FF9800;
+	padding: 0;
+	font-weight: bold;
+}
+
+.div-log-in {
+	padding-left: 250px;
+	padding-top: 100px;
+}
+.div-log-in p {
+	font-size: 30px;
+	background-color: #FF9800;
+	width: 60%;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.div-log-in form {
+	margin-top: 15px;
+}
+
+
+/* style for signup.html */
+.div-body-sign-up {
+	float: right;
+	width: 50%;
+}
+.div-body-sign-up form input {
+	margin-bottom: 20px;
+	padding: 10px;
+	width: 300px;
+}
+
+.create-button {
+	width: 120px;
+	height: 40px;
+	font-size: 15px;
+	float: right;
+	margin-right: 110px;
+	border-radius: 5px;
+	color: white;
+	background-color: #FF9800;
+	padding: 0;
+	font-weight: bold;
+}
+
+.div-sign-up {
+	padding-left: 250px;
+	padding-top: 100px;
+	margin-left: 20px;
+	color: white;
+}
+.div-sign-up p {
+	font-size: 30px;
+	background-color: #FF9800;
+	width: 70%;
+	text-align: center;
+	border-radius: 5px;
+}
+.div-sign-up form {
+	margin-top: 20px;
+}
+
+/* style for forgotpassword.html*/
+.div-password {
+	margin: 170px 130px 0 0;
+	color: white;
+	float: right;
+	font-size: 20px;
+}
+
+/*style for dashboard.html*/
+.books-figure {
+	margin: 100px;
+	float: left;
+}
+.dashboard {
+	font-size: 50px;
+	margin-left: 20px;
+}
+.full-name {
+	float: right;
+	margin: -60px 80px 0 0;
+}
+
+.what-to-do {
+	clear: both;
+	margin-left: 500px;
+	font-size: 25px;
+	font-style: italic;
+	font-family: cursive;
+}
+
+/* Media query for tablet */
+@media only screen and (max-width: 768px) {
+header {
+	background-color: white;
+}
+nav {
+	margin-top: -50px; 
+}
+nav ul {
+	float: none;
+	margin-top: 50px;
+	background: #582A13;
+}
+nav li {
+	display: inline;
+}
+nav a {
+	color: #999;
+}
+nav a: hover {
+	color: #000000;
+}
+.figure {
+	float: left;
+	width: 50%;
+}
+.figure img {
+	width: 200px;
+	height: 200px;
+}
+.div-body {
+	float: right;
+	width: 50%;
+}
+.div-log-in {
+	padding-left: 30px;
+	padding-top: 50px;
+}
+.div-body form input[type=submit] {
+	width: 80px;
+	font-size: 20px;
+	float: right;
+	margin-right: 30px;
+	border-radius: 4px;
+	color: #75594E;
+	font-weight: bold;
+}
+/* style for signup.html */
+.div-body-sign-up {
+	float: right;
+	width: 50%;
+}
+.div-sign-up {
+	padding-left: 30px;
+	padding-top: 50px;
+}
+.div-body-sign-up form input[type=submit] {
+	width: 160px;
+	font-size: 20px;
+	float: right;
+	margin-right: 30px;
+	border-radius: 4px;
+	color: #75594E;
+	font-weight: bold;
+}
+
+}
+
+
+
+/* Media query for smartphone*/
+
+@media only screen and (max-width: 480px) {
+.welcome{
+	margin-top: -50px;
+	text-align: center;
+	float: none;
+}
+
+nav ul {
+	float: none;
+	background: #582A13;;
+	margin-top: 0px;
+}
+nav {
+	margin-top: 50px; 
+}
+nav li {
+	display: inline;
+}
+nav a {
+	color: #999;
+	display: block;
+	border-bottom: 1px dotted #ccc;
+	margin: 0;
+	padding: 2px;
+}
+nav a: hover {
+	color: #000000;
+}
+
+.figure {
+	display: none;
+}
+
+.div-body {
+	float: none;
+	width: 50%;
+}
+.div-log-in {
+	margin-left: -10px;
+	margin-top: -20px;
+}
+.div-body form input {
+	margin: 0;
+	padding: 10px;
+	width: 250px;
+}
+.div-body form input[type=submit] {
+	width: 80px;
+	font-size: 15px;
+	margin-right: 140px;
+	border-radius: 4px;
+	color: #75594E;
+	font-weight: bold;
+}
+/* style for sighnup.html */
+
+.div-body-sign-up {
+	float: none;
+	width: 50%;
+}
+.div-sign-up {
+	margin-left: -10px;
+	margin-top: -20px;
+}
+.div-body-sign-up form input {
+	margin: 0;
+	padding: 10px;
+	width: 250px;
+}
+.div-body-sign-up form input[type=submit] {
+	width: 120px;
+	font-size: 15px;
+	margin-right: 100px;
+	border-radius: 4px;
+	color: #75594E;
+	font-weight: bold;
+}
+}
