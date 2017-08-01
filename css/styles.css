@@ -7,7 +7,6 @@
 
 body {
     background-image: url("http://cdn.wallpapersafari.com/99/90/zj8TKM.jpg");
-    background-repeat: no-repeat;
    
 }
 
@@ -16,24 +15,16 @@ body {
 	color: white;
 }
 
-.welcome {
-	font-size: 40px;
-	line-height: 50px;
-	color: #999;
-	float: left;
-	margin-left: 20px;
-}
+
 header {
 	overflow: hidden;
 }
 nav {
 	width: 100%;
-	text-align: center;
 	padding-top: 30px;
 }
 nav ul {
 	float: right;
-	line-height: 50px;
 	margin-right: 50px;
 }
 nav li {
@@ -46,13 +37,12 @@ nav a {
 	color: #999;
 	color: white;
 }
-nav a: hover {color: #c00;}
 
 .brand {
 	 font-family: 'Berkshire Swash', cursive;
-	font-size: 30px;
+	font-size: 40px;
 	font-weight: bold;
-	margin-left: -400px;
+	margin-left: 200px;
 }
 
 .welcome-message {
@@ -117,7 +107,7 @@ nav a: hover {color: #c00;}
 .div-log-in p {
 	font-size: 30px;
 	background-color: #FF9800;
-	width: 60%;
+	width: 75%;
 	text-align: center;
 	border-radius: 5px;
 }
@@ -160,7 +150,7 @@ nav a: hover {color: #c00;}
 .div-sign-up p {
 	font-size: 30px;
 	background-color: #FF9800;
-	width: 70%;
+	width: 78%;
 	text-align: center;
 	border-radius: 5px;
 }
