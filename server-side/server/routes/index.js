@@ -7,4 +7,6 @@ module.exports = (app) => {
   app.post('/api/v1/users/signup', usersController.createUser);
 
   app.post('/api/v1/books', booksController.createBook);
+  app.get('/api/v1/books', booksController.findBooks);
+  app.put('/api/v1/books/:bookId', booksController.updateBook);
 };

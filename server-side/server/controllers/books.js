@@ -2,6 +2,14 @@ const Books = require('../models').Books;
 
 module.exports = {
   createBook(req, res) {
+    const title = req.body.title;
+    const category = req.body.category;
+    const author = req.body.author;
+    const quantity = req.body.quantity;
+    const quantityBorrowed = req.body.quantityBorrowed;
+    if (!title || !category || !author || !quantity || !quantityBorrowed) {
+      res.status(401).send('Inavlid logins details');
+    }
     return Books
       .create({
         title: req.body.title,
@@ -15,13 +23,29 @@ module.exports = {
   },
   findBooks(req, res) {
     return Books
+      .findAll({})
+      .then((books) => {
+        if (books.length === 0) {
+          res.status(200).send('No books in the library');
+        }
+        res.status(200).send(books);
+      })
+      .catch(err => res.status(404).send(err));
+  },
+  updateBook(req, res) {
+    return Books
       .findOne({
         where: {
-          author: req.body.author
+          id: req.params.bookId
         }
       })
-      .then(books => res.status(200).send(books))
+      .then((user) => {
+        user.updateAttributes({
+          category: req.body.category
+        })
+          .then(resp => res.status(200).send(resp));
+      })
       .catch(err => res.status(400).send(err));
-  },
+  }
 };
 
