@@ -175,7 +175,13 @@ nav a {
 	font-size: 50px;
 	margin-left: 20px;
 }
-.full-name {
+.first-name {
+	float: right;
+	margin: -60px 80px 0 0;
+}
+
+}
+.last-name {
 	float: right;
 	margin: -60px 80px 0 0;
 }
