@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "oracle",
+    "database": "postgres",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "oracle",
+    "database": "postgres",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
