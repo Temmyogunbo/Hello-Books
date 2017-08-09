@@ -4,7 +4,8 @@
     "password": "oracle",
     "database": "postgres",
     "host": "localhost",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "secretKey": "123$&65498&6655"
   },
   "test": {
     "username": "postgres",
