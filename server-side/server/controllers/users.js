@@ -1,16 +1,16 @@
-
 import db from '../models';
-const env = process.env.NODE_ENV || 'development';
-const config = require(`${__dirname}/../config/config.json`)[env];
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+require('dotenv').config();
 
 const usersController = {
   createUser(req, res) {
     req.check('firstName', 'FirstName is required').notEmpty();
     req.check('userName', 'userName is required').notEmpty();
     req.check('membership', 'membership is required').notEmpty();
-    //req.check('membership', 'membership must either be silver, gold, or platinum').isMember();
+    // req.check('membership', 'membership must either be silver, gold, or platinum').isMember();
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
     req.check('password', 'Password is required').notEmpty();
@@ -51,7 +51,7 @@ const usersController = {
                 password: user.password,
                 role: user.role
               });
-              const token = jwt.sign(payLoad, config.secretKey, {
+              const token = jwt.sign(payLoad, process.env.SECRET_KEY, {
                 expiresIn: 3600 * 24
               });
               res.status(201).json({

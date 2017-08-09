@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./server-side/bin/www",
-    "dev": "node --exec babel ./server-side/bin/www"
+    "dev": "node --exec babel-node ./server-side/bin/www"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
@@ -16,6 +16,7 @@
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "debug": "^2.6.8",
+    "dotenv": "^4.0.0",
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.3.1",
     "express": "^4.15.3",
