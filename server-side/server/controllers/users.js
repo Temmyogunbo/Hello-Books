@@ -10,7 +10,7 @@ const usersController = {
     req.check('firstName', 'FirstName is required').notEmpty();
     req.check('userName', 'userName is required').notEmpty();
     req.check('membership', 'membership is required').notEmpty();
-    req.check('membership', 'membership must either be silver, gold, or platinum').isMember();
+    //req.check('membership', 'membership must either be silver, gold, or platinum').isMember();
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
     req.check('password', 'Password is required').notEmpty();
@@ -28,19 +28,12 @@ const usersController = {
         email: req.body.email,
         membership: req.body.membership
       })
-        .then(user => res.status(201).send(user))
-        .catch(err => res.status(400).send(err.errors[0].message));
+        .then(() => res.status(201).send('You are now registered'))
+        .catch(err => res.status(400).send(err.errors[0].msg));
     }
   },
 
   findUser(req, res) {
-    req.check('userName', 'Username is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
-
-    const errors = req.validationErrors();
-    if (errors) {
-      res.status(400).json({ errors });
-    } else {
       return db.User.findOne({
         where: {
           userName: req.body.userName
@@ -71,7 +64,6 @@ const usersController = {
           }
         })
         .catch(err => res.status(400).send(err));
-    }
   }
 };
 

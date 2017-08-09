@@ -1,17 +1,7 @@
-// //import Book from '../models/book';
-// const Book = require('../models/book');
 import db from '../models';
 
 const booksController = {
   createBook(req, res) {
-    const errors = req.validationErrors();
-    req.check('title', 'Title is required').notEmpty();
-    req.check('author', 'Author is required').notEmpty();
-    req.check('category', 'Category is required').notEmpty();
-    req.check('quantity', 'Quantity is required').notEmpty();
-    if (errors) {
-      res.status(400).json({ errors });
-    } else {
       db.Book.create({
         title: req.body.title,
         category: req.body.category,
@@ -20,7 +10,6 @@ const booksController = {
       })
         .then(book => res.status(201).send(book))
         .catch(err => res.status(400).send(err));
-    }
   },
   findBooks(req, res) {
     return db.Book.findAll({})
@@ -33,14 +22,6 @@ const booksController = {
       .catch(err => res.status(404).send(err));
   },
   updateBook(req, res) {
-    const errors = req.validationErrors();
-    req.check('title', 'Title is required').notEmpty();
-    req.check('author', 'Author is required').notEmpty();
-    req.check('category', 'Category is required').notEmpty();
-    req.check('quantity', 'Quantity is required').notEmpty();
-    if (errors) {
-      res.status(400).json({ errors });
-    } else {
       return db.Book.update({
         category: req.body.category,
         title: req.body.title,
@@ -59,7 +40,6 @@ const booksController = {
         .catch((err) => {
           res.status(405).send(err);
         });
-    }
   }
 };
 export default booksController;

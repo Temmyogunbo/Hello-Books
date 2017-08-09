@@ -1,12 +1,12 @@
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const expressValidator = require('express-validator');
+import express from 'express';
+import path from 'path';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import expressValidator from 'express-validator';
+import route from './server/routes';
 
 // const index = require('./server/routes/index');
-// const users = require('./server/routes/users');
 
 // creating express application
 const app = express();
@@ -18,12 +18,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
-
 //
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
+
+app.get('/', (request, response) => {
+	response.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Require our routes into the application.
-require('./server/routes')(app);
+(route)(app);
 
-module.exports = app;
+export default app;

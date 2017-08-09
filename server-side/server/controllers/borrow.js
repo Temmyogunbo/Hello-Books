@@ -2,10 +2,11 @@ import db from '../models';
 
 const bookHistoryController = {
   borrowBook(req, res) {
+    const cur = new Date();
     return db.Book.findById(req.params.bookId).then((book) => {
       if (req.body.membership === 'platinum' && req.body.numberOfBook < 2) {
         db.Book.update({
-          quantity: book.quantity - req.body.numberOfBook
+          quantity: parseInt(book.quantity) - parseInt(req.body.numberOfBook)
         },
         {
           fields: ['quantity'],
@@ -18,7 +19,7 @@ const bookHistoryController = {
               UserId: req.body.UserId,
               BookId: req.body.BookId,
               quantityBorrowed: req.body.numberOfBook,
-              dueDate: (new Date(new Date().getDay() + 2))
+              dueDate: (cur.SetDate(cur.getDate() + 2))
             })
               .then(() => res.status(201).send('You successfully borrow a book'))
               .catch(err => res.status(400).send(err));
@@ -39,7 +40,7 @@ const bookHistoryController = {
               UserId: req.body.UserId,
               BookId: req.body.BookId,
               quantityBorrowed: req.body.numberOfBook,
-              dueDate: new Date(new Date().getDay() + 4)
+              dueDate: (cur.SetDate(cur.getDate() + 4))
             })
               .then(() => res.status(201).send('You successfully borrow a book'))
               .catch(err => res.status(400).send(err));
@@ -59,7 +60,7 @@ const bookHistoryController = {
             UserId: req.body.UserId,
             BookId: req.body.BookId,
             quantityBorrowed: req.body.quantity,
-            dueDate: new Date(new Date().getDay() + 6)
+            dueDate: (cur.SetDate(cur.getDate() + 6))
           })
             .then(() => res.status(201).send('You successfully borrow a book'))
             .catch(err => res.status(400).send(err));
@@ -95,7 +96,7 @@ const bookHistoryController = {
         db.Book.findOne(
           {
             where: {
-              bookId: history.BookId
+              id: history.dataValues.BookId
             }
           }
         )
@@ -103,12 +104,12 @@ const bookHistoryController = {
           // update book if it exist
             db.Book.update(
               {
-                quantity: book.quantity + history.quantityBorrowed
+                quantity: parseInt(book.quantity) + parseInt(history.quantityBorrowed)
               },
               {
                 fields: ['quantity'],
                 where: {
-                  id: history.BookId
+                  id: book.id
                 }
               })
               .then(() => {
@@ -118,7 +119,7 @@ const bookHistoryController = {
                 {
                   fields: ['returned'],
                   where: {
-                    id: history.BookId
+                    BookId: history.BookId
                   }
                 })
                   .then(() => {

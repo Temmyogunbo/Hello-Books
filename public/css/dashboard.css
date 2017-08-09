@@ -1,0 +1,259 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Berkshire Swash', cursive;
+}
+
+body, html {
+	background-color: #fafafa;
+}
+
+.link{
+	text-decoration: none;
+	color: white;
+}
+
+.welcome {
+	font-size: 40px;
+	line-height: 50px;
+	color: #999;
+	float: left;
+	margin-left: 20px;
+}
+header {
+	overflow: hidden;
+	background: #FF9800;
+}
+nav {
+	width: 100%;
+	text-align: center;
+	padding-top: 30px;
+}
+nav ul {
+	float: right;
+	line-height: 50px;
+	margin-right: 50px;
+}
+nav li {
+	display: inline;
+	list-style-type: none;
+}
+nav a {
+	padding: 10px;
+	color: #999;
+	color: white;
+}
+nav a: hover {color: #c00;}
+
+.brand {
+	font-family: 'Berkshire Swash', cursive;
+	font-size: 30px;
+	font-weight: bold;
+	margin-left: -400px;
+}
+
+.dashboard {
+	margin: 10px 600px 0 600px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.borrow-return {
+	margin-left: 1000px;
+}
+
+.borrow {
+	margin-right: 50px;
+	background: #FF9800;
+	border-radius: 10px;
+	width: 80px;
+}
+
+.return {
+	background: #FF9800;
+	border-radius: 10px;
+	width: 80px;
+}
+
+.categories {
+	margin: 50px 0 0 100px;
+	float: left;
+	width: 40%;
+}
+
+.categories div {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.list-categories {
+	margin-top: 40px;
+}
+
+.file-icon {
+	color: black;
+}
+.mathematics, .programming, .romance {
+	margin-top: 30px;
+}
+.mathematics img, .programming img, .romance img {
+	margin: 10px 20px 0 0;
+}
+
+.view-book {
+	float: right;
+	width: 60%;
+	margin-top: -250px;
+}
+
+.book {
+	margin-left: -75px;
+}
+
+.book button {
+	margin-left: 70px;
+	background: #FF9800;
+	width: 100px;
+}
+
+.inferno-cover1 {
+	float: left;
+}
+.inferno-cover2 {
+	float: right;
+	margin-right: 550px;
+}
+
+.inferno-cover3 {
+	float: right;
+	margin-right: -250px;
+}
+
+.inferno-cover4 {
+	float: right;
+	margin-right: -400px;
+}
+
+.inferno-cover5 {
+	float: right;
+	margin-right: -550px;
+}
+
+/* Styles for Admin Dashboard */
+
+.admin-dashboard {
+	margin: 10px 600px 0 600px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #1f1a18;
+	width: 200px;
+}
+
+.book-views {
+	width: 60%;
+	float: right;
+	margin-top: -350px
+}
+.available-books-head {
+	margin: 80px -1000px 0 0;
+	font-size: 25px;
+	font-weight: bold;
+	color: #1f1a18;
+}
+
+.modify-buttons {
+	float: right;
+	margin: 10px 60px 0 0;
+} 
+
+.modify-buttons button {
+	margin-bottom: 20px
+}
+
+.button-add {
+	background: #FF9800;
+	border-radius: 5px;
+	color: white;
+	font-weight: bold;
+}
+
+.button-edit {
+	width: 50px;
+	background: blue;
+	border-radius: 5px;
+	color: white;
+	font-weight: bold;
+}
+
+.button-delete {
+	width: 80px;
+	background: red;
+	border-radius: 5px;
+	color: white;
+	font-weight: bold;
+}
+.available-books {
+	margin-top: 4px
+}
+
+table {
+	width: 600px;
+}
+
+th, td {
+	padding: 7px 10px 10px 10px; 
+}
+
+th {
+	text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 90%;
+    border-bottom: 2px solid #111111;
+    border-top: 1px solid #999;
+    text-align: left;
+}
+
+tr.even {
+	background-color: #efefef;
+}
+
+tr: hover {
+    background-color: #FF9800;
+}
+
+.qty {
+    text-align: right;
+}
+
+.borrowed-views {
+	clear: both;
+	margin-left: 550px
+}
+
+.borrowed-books-head {
+	margin: 80px -1000px 0 0;
+	font-size: 25px;
+	font-weight: bold;
+	color: #1f1a18;
+}
+
+/* Styles for profile.html */
+.profile-head {
+	width: 100;
+	background: #0d1011;
+	color: white;
+}
+
+.my-profile {
+	float: left;
+}
+
+.borrowed-profile {
+	float: right;
+	margin-right: -1000px;
+}
+
+.history-profile {
+	float: right;
+}
