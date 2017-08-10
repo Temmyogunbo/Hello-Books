@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
 import logger from 'morgan';
-import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 import route from './server/routes';
@@ -18,12 +17,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
-//
-app.use(cookieParser());
+
 app.use(express.static('public'));
 
 app.get('/', (request, response) => {
-	response.sendFile(path.join(__dirname, 'public', 'index.html'));
+	 response.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Require our routes into the application.
