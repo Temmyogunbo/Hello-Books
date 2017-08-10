@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/babel-node ./server-side/bin/www",
-    "dev": "node --exec babel-node ./server-side/bin/www"
+    "start": "./node_modules/.bin/babel-node ./bin/www",
+    "dev": "node --exec babel-node ./bin/www",
+    "test": "mocha ./server/test/ --compilers js:babel-core/register"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
@@ -14,6 +15,8 @@
     "babel-preset-stage-0": "^6.24.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0",
     "cookie-parser": "^1.4.3",
     "debug": "^2.6.8",
     "dotenv": "^4.0.0",
@@ -23,9 +26,10 @@
     "express-validator": "^3.2.1",
     "jade": "~1.11.0",
     "jsonwebtoken": "^7.4.2",
+    "mocha": "^3.5.0",
     "morgan": "^1.8.2",
     "path": "^0.12.7",
-    "pg": "^7.0.2",
+    "pg": "^6.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.4.2",
     "sequelize-cli": "^2.7.0",
@@ -34,6 +38,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "eslint": "^4.3.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "pg": "^6.4.0"
   }
 }
