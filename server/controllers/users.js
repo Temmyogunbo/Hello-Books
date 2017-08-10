@@ -19,7 +19,7 @@ const usersController = {
     if (errors) {
       res.status(400).json({ errors });
     } else {
-      db.User.create({
+      return db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         userName: req.body.userName,
@@ -33,36 +33,46 @@ const usersController = {
   },
 
   findUser(req, res) {
-    return db.User.findOne({
-      where: {
-        userName: req.body.userName
-      }
-    })
-      .then((user) => {
-        if (!user) {
-          res.status(200).send('You are not registered');
-        } else if (user) {
-          if (bcrypt.compareSync(req.body.password, user.password)) {
-            const payLoad = ({
-              email: user.email,
-              id: user.id,
-              userName: user.userName,
-              password: user.password,
-              role: user.role
-            });
-            const token = jwt.sign(payLoad, process.env.SECRET_KEY, {
-              expiresIn: 3600 * 24
-            });
-            res.status(201).json({
-              success: true,
-              token,
-            });
-          } else {
-            res.status(401).send('Wrong password');
-          }
+    req.check('userName', 'userName is required').notEmpty();
+    req.check('password', 'Password is required').notEmpty();
+    const errors = req.validationErrors();
+    if (errors) {
+      res.status(400).json({ errors });
+    } else {
+      return db.User.findOne({
+        where: {
+          userName: req.body.userName
         }
       })
-      .catch(err => res.status(400).send(err));
+        .then((user) => {
+          if (!user) {
+            res.status(401).send('You are not registered');
+          } else if (user) {
+            if (bcrypt.compareSync(req.body.password, user.password)) {
+              const payLoad = ({
+                email: user.email,
+                id: user.id,
+                userName: user.userName,
+                password: user.password,
+                role: user.role
+              });
+              const token = jwt.sign(payLoad, process.env.SECRET_KEY, {
+                expiresIn: 3600 * 24
+              });
+              res.status(200).json({
+                success: true,
+                token,
+              });
+            } else {
+              res.status(401).json({
+                success: false,
+                message: 'Authentication failed. Wrong password.'
+              });
+            }
+          }
+        })
+        .catch(err => res.status(400).send(err));
+    }
   }
 };
 

@@ -22,24 +22,24 @@ const booksController = {
       .catch(err => res.status(404).send(err));
   },
   updateBook(req, res) {
-      return db.Book.update({
-        category: req.body.category,
-        title: req.body.title,
-        author: req.body.author,
-        quantity: req.body.quantity
-      },
-      {
-        fields: ['category', 'title', 'author', 'quantity'],
-        where: {
-          id: req.params.bookId
-        }
+    return db.Book.update({
+      category: req.body.category,
+      title: req.body.title,
+      author: req.body.author,
+      quantity: req.body.quantity
+    },
+    {
+      fields: ['category', 'title', 'author', 'quantity'],
+      where: {
+        id: req.params.bookId
+      }
+    })
+      .then(() => {
+        res.status(201).send('You updated a book');
       })
-        .then(() => {
-          res.status(201).send('You updated a book');
-        })
-        .catch((err) => {
-          res.status(405).send(err);
-        });
+      .catch((err) => {
+        res.status(405).send(err);
+      });
   }
 };
 export default booksController;

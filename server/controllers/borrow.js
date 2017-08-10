@@ -4,28 +4,8 @@ const bookHistoryController = {
   borrowBook(req, res) {
     const cur = new Date();
     return db.Book.findById(req.params.bookId).then((book) => {
-      if (req.body.membership === 'platinum' && req.body.numberOfBook < 2) {
-        db.Book.update({
-          quantity: parseInt(book.quantity) - parseInt(req.body.numberOfBook)
-        },
-        {
-          fields: ['quantity'],
-          where: {
-            id: req.params.bookId
-          }
-        })
-          .then(() => {
-            db.History.create({
-              UserId: req.body.UserId,
-              BookId: req.body.BookId,
-              quantityBorrowed: req.body.numberOfBook,
-              dueDate: (cur.SetDate(cur.getDate() + 2))
-            })
-              .then(() => res.status(201).send('You successfully borrow a book'))
-              .catch(err => res.status(400).send(err));
-          })
-          .catch(err => res.status(400).send(err));
-      } else if (req.body.membership === 'gold' && (req.body.numberOfBook > 2 && req.body.numberOfBook < 4)) {
+      console.log('...............', req.body.BookId, req.body.UserId);
+      if (req.body.membership === 'platinum' && req.body.numberOfBook < 4) {
         db.Book.update({
           quantity: parseInt(book.quantity) - parseInt(req.body.numberOfBook)
         },
@@ -46,7 +26,28 @@ const bookHistoryController = {
               .catch(err => res.status(400).send(err));
           })
           .catch(err => res.status(400).send(err));
-      } else if (req.body.membership === 'silver' && req.body.numberOfBook < 6) {
+      } else if (req.body.membership === 'gold' && (req.body.numberOfBook > 4 && req.body.numberOfBook < 8)) {
+        db.Book.update({
+          quantity: parseInt(book.quantity) - parseInt(req.body.numberOfBook)
+        },
+        {
+          fields: ['quantity'],
+          where: {
+            id: req.params.bookId
+          }
+        })
+          .then(() => {
+            db.History.create({
+              UserId: req.body.UserId,
+              BookId: req.body.BookId,
+              quantityBorrowed: req.body.numberOfBook,
+              dueDate: (cur.SetDate(cur.getDate() + 8))
+            })
+              .then(() => res.status(201).send('You successfully borrow a book'))
+              .catch(err => res.status(400).send(err));
+          })
+          .catch(err => res.status(400).send(err));
+      } else if (req.body.membership === 'silver' && (req.body.numberOfBook > 8 && req.body.numberOfBook < 16)) {
         db.Book.update({
           quantity: parseInt(book.quantity) - parseInt(req.body.numberOfBook)
         },
@@ -60,7 +61,7 @@ const bookHistoryController = {
             UserId: req.body.UserId,
             BookId: req.body.BookId,
             quantityBorrowed: req.body.quantity,
-            dueDate: (cur.SetDate(cur.getDate() + 6))
+            dueDate: (cur.SetDate(cur.getDate() + 16))
           })
             .then(() => res.status(201).send('You successfully borrow a book'))
             .catch(err => res.status(400).send(err));
