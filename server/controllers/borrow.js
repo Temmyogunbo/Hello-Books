@@ -2,10 +2,12 @@ import db from '../models';
 
 const bookHistoryController = {
   borrowBook(req, res) {
-    const cur = new Date();
     return db.Book.findById(req.params.bookId).then((book) => {
-      console.log('...............', req.body.BookId, req.body.UserId);
+      if (parseInt(book.quantity) - parseInt(req.body.numberOfBook) < 0) {
+        return res.status(404).send('You can not borrow below book limit');
+      }
       if (req.body.membership === 'platinum' && req.body.numberOfBook < 4) {
+        console.log('...............', req.params.bookId, req.params.userId, req.body.membership, req.body.numberOfBook);
         db.Book.update({
           quantity: parseInt(book.quantity) - parseInt(req.body.numberOfBook)
         },
@@ -17,10 +19,10 @@ const bookHistoryController = {
         })
           .then(() => {
             db.History.create({
-              UserId: req.body.UserId,
-              BookId: req.body.BookId,
+              UserId: req.params.userId,
+              BookId: req.params.bookId,
               quantityBorrowed: req.body.numberOfBook,
-              dueDate: (cur.SetDate(cur.getDate() + 4))
+              dueDate: new Date(new Date().getTime() + (4 * 24 * 3600 * 1000))
             })
               .then(() => res.status(201).send('You successfully borrow a book'))
               .catch(err => res.status(400).send(err));
@@ -38,10 +40,10 @@ const bookHistoryController = {
         })
           .then(() => {
             db.History.create({
-              UserId: req.body.UserId,
-              BookId: req.body.BookId,
+              UserId: req.params.userId,
+              BookId: req.params.bookId,
               quantityBorrowed: req.body.numberOfBook,
-              dueDate: (cur.SetDate(cur.getDate() + 8))
+              dueDate: new Date(new Date().getTime() + (8 * 24 * 3600 * 1000))
             })
               .then(() => res.status(201).send('You successfully borrow a book'))
               .catch(err => res.status(400).send(err));
@@ -58,10 +60,10 @@ const bookHistoryController = {
           }
         }).then(() => {
           db.History.create({
-            UserId: req.body.UserId,
-            BookId: req.body.BookId,
-            quantityBorrowed: req.body.quantity,
-            dueDate: (cur.SetDate(cur.getDate() + 16))
+            UserId: req.params.userId,
+            BookId: req.params.bookId,
+            quantityBorrowed: req.body.numberOfBook,
+            dueDate: new Date(new Date().getTime() + (16 * 24 * 3600 * 1000))
           })
             .then(() => res.status(201).send('You successfully borrow a book'))
             .catch(err => res.status(400).send(err));
