@@ -5,11 +5,14 @@ HelloBooks
 HelloBooks provides REST endpoints for library application system. It supports the CRUD operation which are create, read, update, and delete. It only allows authorized users to use the application.
 
 API DOCUMENTATION
+
 The API uses HTTP response code to indicate its status and errors.
 
 
 Features
+
 Users: A created user will have by default the role of a user
+
  . A user 
    . Can create account
    . sign in into his account 
