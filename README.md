@@ -7,6 +7,7 @@ HelloBooks provides REST endpoints for library application system. It supports t
 API DOCUMENTATION
 The API uses HTTP response code to indicate its status and errors.
 
+
 Features
 Users: A created user will have by default the role of a user
  . A user 
@@ -22,32 +23,54 @@ Users: A created user will have by default the role of a user
    
    A book can have a category, title, quantity, and author.
    
-   Authentication: Users are authenticated using jsonwebtoken(jwt).
+   Authentication: 
+   Users are authenticated using jsonwebtoken(jwt).
    
    Endpoints
    . POST - api/v1//users/signup
+   
    . POST - api/users/signin
+   
    . POST -'/api/v1/books'
-   . GET - '/api/v1/books'
+  
+  . GET - '/api/v1/books'
+  
   . PUT- '/api/v1/books/:bookId'
-  . POST - '/api/v1/users/:userId/:bookId'
-  . GET - '/api/v1/users/:userId/books'
-  . PUT '/api/v1/users/:userId/:bookId'
+ 
+ . POST - '/api/v1/users/:userId/:bookId'
+ 
+ . GET - '/api/v1/users/:userId/books'
+ 
+ 
+ . PUT '/api/v1/users/:userId/:bookId'
 
 Developments
+
 HelloBooks is built using the following technologies
+
 . ECMASCRIPT2016
+
 . Nodejs and Express framework
+
 . Sequelize
+
 . Postgres
 
 Installation
+
+
 Install NodeJs and Postgres on your machine
+
 Clone the repository $ git clone https://github.com/temmyogunbo.github.io/hellobooks.git
+
 Change into the directory $ cd /temmyogunbo.github.io
+
 Install all required dependencies with $ npm install
+
 Create a .env file in your root directory
+
 Start the app with npm start
+
 Run Test npm test
 
 License
