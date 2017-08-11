@@ -1,33 +1,33 @@
-* {
-	margin: 0;
-	padding: 0;
-	font-family: 'Berkshire Swash', cursive;
+@media screen and (max-width:590px){
+        #profile-table table{
+        width: 80%;
+        margin-top: 23%;
+    }
+
+        #dash-page-heading{
+            margin-top: 8%;
+        }
 }
 
-body {
-	background: #f7f6f6;
+@media screen and (min-width:591px) and (max-width:790px){
+      #profile-table table{
+        width: 75%;
+        margin-top: 16%;
+    }
+
+     #dash-page-heading{
+            margin-top: 6%;
+        }
 }
 
-.nav-color {
-	background: #ff9800;
-}
 
-.edit-button {
-	width: 50px;
-	background: #ff9800
-}
+@media screen and (min-width:790px) and (max-width:924px){
+    #profile-table table{
+        width: 70%;
+        margin-top: 12%;
+    }
 
-.my-profile {
-	background: #32353c;
-	border: 0;
-}
-
-.table-width {
-	width: 50%;
-	margin-top: 10px;
-	margin-left: 15px;
-}
-
-.borrowed-history {
-	margin-top: 15px;
+     #dash-page-heading{
+            margin-top: 4%;
+        }
 }

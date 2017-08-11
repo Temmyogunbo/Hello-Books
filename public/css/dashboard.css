@@ -1,259 +1,534 @@
-* {
-	margin: 0;
-	padding: 0;
-	font-family: 'Berkshire Swash', cursive;
+*{
+    margin: 0;
 }
 
-body, html {
-	background-color: #fafafa;
+header,footer{
+    width: 100%;
+    overflow: hidden;
+    background: rgb(255,152,0);
 }
+
+footer{
+    color: ghostwhite;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 19px;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-top: 3%;
+
+}
+/* General Styling*/
+
+.red{
+	color: red;
+}
+
 
 .link{
 	text-decoration: none;
 	color: white;
 }
 
-.welcome {
+#logo-wrap{
+    float: left;
+    margin-left: 11%;
+}
+
+#logo-wrap a{
+    font-family: 'Berkshire Swash', cursive;
 	font-size: 40px;
-	line-height: 50px;
-	color: #999;
-	float: left;
-	margin-left: 20px;
-}
-header {
-	overflow: hidden;
-	background: #FF9800;
-}
-nav {
-	width: 100%;
-	text-align: center;
-	padding-top: 30px;
-}
-nav ul {
-	float: right;
-	line-height: 50px;
-	margin-right: 50px;
-}
-nav li {
-	display: inline;
-	list-style-type: none;
-}
-nav a {
-	padding: 10px;
-	color: #999;
-	color: white;
-}
-nav a: hover {color: #c00;}
-
-.brand {
-	font-family: 'Berkshire Swash', cursive;
-	font-size: 30px;
-	font-weight: bold;
-	margin-left: -400px;
-}
-
-.dashboard {
-	margin: 10px 600px 0 600px;
-	font-size: 20px;
 	font-weight: bold;
 }
 
-.borrow-return {
-	margin-left: 1000px;
+#dash-welcome{
+    width:100%;
+    padding-left: -200px;
+    overflow: hidden;
+    padding: 10px;
+    padding-bottom: 0px;
 }
 
-.borrow {
-	margin-right: 50px;
-	background: #FF9800;
-	border-radius: 10px;
-	width: 80px;
+#dash-welcome div{
+    float: right;
+    font-size: 22px;
+    font-family: avro;
+    margin-right: 10%;
+    color: white;
 }
 
-.return {
-	background: #FF9800;
-	border-radius: 10px;
-	width: 80px;
+#all-dash{
+    box-sizing: border-box;
+    width: 100%;
+    padding-bottom: 15px;
+    overflow: hidden;
 }
 
-.categories {
-	margin: 50px 0 0 100px;
-	float: left;
-	width: 40%;
+#dash-nav{
+    float: right;
+    margin-right: 5%;
+    margin-top: 1.5%;
 }
 
-.categories div {
-	font-size: 20px;
+#dash-nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin-right: 14px;
+}
+
+#dash-nav ul li a{
+    text-decoration:none;
+    color: white;
+    font-family: cursive;
+    padding-bottom: 5px;
+}
+
+#dash-nav ul li a:hover{
+    border-bottom: 3px solid rgb(40,44,42);
+}
+
+#dash-page-heading{
+    width:82%;
+    font-size: 29px;
+    font-family: avro;
+    color:white;
+    background:rgb(40,44,42);
+    padding: 10px;
+    border-left: 14px solid rgb(0,120,215);
+    margin: 2% auto;
+}
+
+#dash-book-action{
+    float: right;
+    margin-right: 8%;
+}
+
+#dash-book-action button{
+    background: rgb(255,152,0);
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    color: ghostwhite;
+    padding: 10px;
+    font-size: 17px;
+    font-family: avro;
+}
+
+#dash-book-action button:hover{
+    cursor: pointer;
+    border-color: rgb(40,44,42)
+}
+
+#dash-main-body{
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin-top: 4%;
+}
+
+#dash-categories{
+    float: left;
+    margin-left: 7%;
+    width: 30%;
+    margin-top: 4%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 7px;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+#dash-categories p{
+    margin-left: 7%;
+    font-size: 30px;
+}
+
+#dash-book-cover{
+    margin-top: 9%;
+    float: right;
+    width: 60%;
+}
+
+
+#admin-dash-table{
+    margin-top: 4%;
+    float: right;
+    width: 60%;
+}
+
+.categories{
+    width: 80%;
+    margin: 10% auto;
+    overflow: hidden;
+}
+
+
+.cat-logo{
+    float: left;
+}
+
+.cat-name{
+    float: left;
+    font-family: avro;
+    font-size: 23px;
+    color: rgb(40,44,42);
+    margin: 3% 0% 0% 5%;
+}
+
+.cat-name a{
+    color: rgb(40,44,42);
+    text-decoration: none;
+}
+
+.book-section{
+    width: 20%;
+    margin-right: 3%;
+    background: #eee;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.book-image{
+    width: 100%;
+    height: 170px;
+}
+
+.book-image img{
+    width: 100%;
+    height: 100%;
+}
+
+.about-book-snip{
+    width: 100%;
+    padding: 5px;
+    text-align: justify;
+    margin-bottom: 3%;
+    box-sizing: border-box;
+}
+
+.book-title,.book-author{
+    font-size: 17px;
+    font-family: avro;
+    padding: 3px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    width: 100%;
+    min-height: 30px;
+}
+
+.book-author{
+    padding-top: 5%;
+    border-bottom: none;
+}
+
+.book-section button{
+    padding: 5px;
+    color: rgb(40,44,42);
+    border: 1px solid rgba(0,0,0,0.1);
+    font-family: avro;
+    font-size: 16px;
+    width: 100%;
+    margin: 1% auto;
+}
+
+#dash-mobile-menu-head{
+    width: 100%;
+    overflow: hidden;
+    background: rgb(255,152,0);
+    padding-bottom: 8px;
+    padding-top: 4px;
+    display: none;
+}
+
+#dash-mobile-menu-logo{
+    float: left;
+    margin-left: 4%;
+}
+
+#dash-mobile-menu-logo a{
+    font-family: 'Berkshire Swash', cursive;
+	font-size: 40px;
 	font-weight: bold;
-	font-style: italic;
 }
 
-.list-categories {
-	margin-top: 40px;
+#dash-mobile-menu{
+    width: 50px;
+    position: relative;
+    float: right;
+    margin-right: 5%;
+    font-weight: bold;
 }
 
-.file-icon {
-	color: black;
-}
-.mathematics, .programming, .romance {
-	margin-top: 30px;
-}
-.mathematics img, .programming img, .romance img {
-	margin: 10px 20px 0 0;
+#mobile-nav{
+    width: 100%;
+    background: rgb(40,44,42);
+    display: none;
+    margin-top: 0.05%;
+    border-bottom: 9px solid rgb(0,120,215);
 }
 
-.view-book {
-	float: right;
-	width: 60%;
-	margin-top: -250px;
+#mobile-nav p{
+    color: white;
+    padding: 10px;
+    font-size: 22px;
+    font-family: avro;
 }
 
-.book {
-	margin-left: -75px;
+#mobile-nav {
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.book button {
-	margin-left: 70px;
-	background: #FF9800;
-	width: 100px;
+#mobile-nav li{
+    list-style: none;
+    width: 100%;
+    border-bottom: 1px solid white;
+    padding-left: 40px;
+    box-sizing: border-box;
 }
 
-.inferno-cover1 {
-	float: left;
-}
-.inferno-cover2 {
-	float: right;
-	margin-right: 550px;
+#mobile-nav li:last-child{
+    border-bottom: none;
 }
 
-.inferno-cover3 {
-	float: right;
-	margin-right: -250px;
+#mobile-nav li:hover{
+     background: rgba(0,0,0,0.7);
+     cursor: pointer;
 }
 
-.inferno-cover4 {
-	float: right;
-	margin-right: -400px;
+#mobile-nav li a{
+    text-decoration: none; 
+    box-sizing: border-box;
+    color: white;
+    font-size: 17px;
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    height: 100%;
 }
 
-.inferno-cover5 {
-	float: right;
-	margin-right: -550px;
+/*Admin Dashboard*/
+#admin-dash-table-available{
+    width: 80%;
 }
 
-/* Styles for Admin Dashboard */
-
-.admin-dashboard {
-	margin: 10px 600px 0 600px;
-	font-size: 20px;
-	font-weight: bold;
-	color: #1f1a18;
-	width: 200px;
+#admin-dash-table p{
+   color: rgb(40,44,42);
+   font-size: 30px;     
+   font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+   font-weight: bold;
+   margin-bottom: 2%;
+   margin-left: 0.5%;
 }
 
-.book-views {
-	width: 60%;
-	float: right;
-	margin-top: -350px
-}
-.available-books-head {
-	margin: 80px -1000px 0 0;
-	font-size: 25px;
-	font-weight: bold;
-	color: #1f1a18;
+#admin-dash-table-available tr:nth-child(odd){
+    background: rgb(239, 239, 239)
 }
 
-.modify-buttons {
-	float: right;
-	margin: 10px 60px 0 0;
-} 
-
-.modify-buttons button {
-	margin-bottom: 20px
+#admin-dash-table-available tr:first-child td{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background: rgb(250,250,250);
 }
 
-.button-add {
-	background: #FF9800;
-	border-radius: 5px;
-	color: white;
-	font-weight: bold;
+#admin-dash-table-available tr td{
+    font-size: 19px;
+    font-family: avro;
+    padding: 10px;
 }
 
-.button-edit {
-	width: 50px;
-	background: blue;
-	border-radius: 5px;
-	color: white;
-	font-weight: bold;
+#admin-dash-table-borrowed{
+     width: 80%;
 }
 
-.button-delete {
-	width: 80px;
-	background: red;
-	border-radius: 5px;
-	color: white;
-	font-weight: bold;
-}
-.available-books {
-	margin-top: 4px
+#admin-dash-table-borrowed tr:nth-child(odd){
+    background: rgb(239, 239, 239)
 }
 
-table {
-	width: 600px;
+#admin-dash-table-borrowed tr:first-child td{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background: rgb(250,250,250);
 }
 
-th, td {
-	padding: 7px 10px 10px 10px; 
+#admin-dash-table-borrowed tr td{
+    font-size: 19px;
+    font-family: avro;
+    padding: 10px;
 }
 
-th {
-	text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 90%;
-    border-bottom: 2px solid #111111;
-    border-top: 1px solid #999;
-    text-align: left;
+@media screen and (max-width:492px){
+
+
+    #all-dash,#dash-welcome{
+        display: none;
+    }
+
+    #dash-book-cover{
+    float: none;
+    width: 100%;
+    margin: 10% auto;
 }
 
-tr.even {
-	background-color: #efefef;
+#admin-dash-table{
+    float: none;
+    width: 100%;
+    margin: 10% auto;
 }
 
-tr: hover {
-    background-color: #FF9800;
+    #dash-categories{
+        float: none;
+        width: 80%;
+    }
+
+       .book-section{
+        width: 35%;
+        margin-bottom: 5%;
+        margin-right: 4%;
+    }
+
+    #dash-book-cover{
+        padding-left: 12%;
+
+    }
+
+    
+
+     #dash-mobile-menu-head{
+        display: block;
+    }
+
+    #dash-page-heading{
+        margin-top: 9%;
+        margin-bottom: 5%;
+    }
+
+    #dash-book-action{
+      margin-bottom: 2%;
+    }
+
+    #admin-dash-table-available{
+    margin: 2% auto;
 }
 
-.qty {
-    text-align: right;
+#admin-dash-table-borrowed{
+    margin: 2% auto;
 }
 
-.borrowed-views {
-	clear: both;
-	margin-left: 550px
 }
 
-.borrowed-books-head {
-	margin: 80px -1000px 0 0;
-	font-size: 25px;
-	font-weight: bold;
-	color: #1f1a18;
+/*Stylingfor profile*/
+#profile-table table{
+    width: 50%;
+    margin: 5% auto;
+    background: rgba(230,230,230,0.4);
+    border-left: 9px solid slategrey;
+       border-collapse: collapse;
 }
 
-/* Styles for profile.html */
-.profile-head {
-	width: 100;
-	background: #0d1011;
-	color: white;
+
+#profile-table table tr td{
+    text-align: center;
+       padding: 18px;
+       border: 1px solid rgba(0,0,0,0.2);
+       font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+       font-size: 19px;
+       color: rgb(40,44,42)
+    }
+
+@media screen and (min-width:492px) and (max-width:759px){
+      #all-dash,#dash-welcome{
+        display: none;
+    }
+
+#dash-book-cover{
+    float: none;
+    width: 100%;
+    margin: 10% auto;
 }
 
-.my-profile {
-	float: left;
+#admin-dash-table{
+    float: none;
+    width: 100%;
+    margin: 10% auto;
 }
 
-.borrowed-profile {
-	float: right;
-	margin-right: -1000px;
+ #dash-book-cover{
+        padding-left: 5%;
+
+    }
+
+#admin-dash-table-available{
+    margin: 2% auto;
 }
 
-.history-profile {
-	float: right;
+#admin-dash-table-borrowed{
+    margin: 2% auto;
+}
+    
+#admin-dash-table p{
+    padding-left: 10%;
+}
+    #dash-categories{
+        float: none;
+        width: 80%;
+    }
+
+    #dash-mobile-menu-head{
+        display: block;
+    }
+
+    #dash-page-heading{
+        margin-top: 4%;
+        margin-bottom: 2%;
+    }
+
+      #dash-book-action{
+      margin-bottom: 2%;
+    }
+}
+
+@media screen and (min-width:760px) and (max-width:795px){
+    #all-dash,#dash-welcome{
+        display: none;
+    }
+
+      .book-section{
+        width: 35%;
+        margin-bottom: 5%;
+        margin-right: 4;
+    }
+
+    #dash-book-cover{
+        padding-left: 2%;
+
+    }
+
+
+.cat-name{
+    font-size: 18px;
+}
+
+ #dash-mobile-menu-head{
+        display: block;
+    }
+
+}
+
+
+@media screen and (min-width:795px) and (max-width:870px){
+    .book-section{
+        width: 35%;
+        margin-bottom: 5%;
+        margin-right: 4;
+    }
+
+    #dash-book-cover{
+        padding-left: 2%;
+
+    }
+
+    #dash-nav{
+        margin-top: 2.5%;
+    }
 }
