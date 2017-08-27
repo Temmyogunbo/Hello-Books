@@ -1,32 +1,42 @@
 import jwt from 'jsonwebtoken';
 
-const env = process.env.NODE_ENV || 'development';
-const config = require(`${__dirname}/../config/config.json`)[env];
+require('dotenv').config();
 
-const verify = {
+// defining class for token
+class Token {
   getToken(user) {
-    return jwt.sign(user, config.secretKey, {
-      expiresIn: 3600
+    return jwt.sign(user, process.env.SECRET_KEY, {
+      expiresIn: 3600 * 24
     });
-  },
+  }
   verifyOrdinaryUser(req, res, next) {
-    const token = req.headers.authorization || req.headers['x-access-token'];
+    const token = req.headers.authorization || req.body.token ||
+     req.headers['x-access-token'];
     if (token) {
-      jwt.verify(token, jwt, (err, decoded) => {
+      jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
-          res.json({ success: false, message: 'Failed to authenticate token.' });
+          const err = new Error('You are not authenticated');
+          err.status = 401;
+          return next(err);
         } else {
           req.decoded = decoded;
-          next();
+          if (req.decoded.roleId === 1) {
+            next();
+          } else {
+            const err = new Error('You are not authorised');
+            err.status = 403;
+            return next(err);
+          }
         }
       });
     } else {
-      return res.status(403).send({
-        success: false,
-        message: 'No token provided.'
-      });
+      // No token provided
+      const err = new Error('No token provided');
+      err.status = 403;
+      return next(err);
     }
   }
-};
+}
+const verify = new Token();
 export default verify;
 

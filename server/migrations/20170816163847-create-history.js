@@ -9,6 +9,8 @@ module.exports = {
       },
       UserId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         references: {
           model: 'Users',
           key: 'id'
@@ -16,16 +18,11 @@ module.exports = {
       },
       BookId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         references: {
           model: 'Books',
           key: 'id'
-        }
-      },
-      quantityBorrowed: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          isNumeric: true
         }
       },
       dueDate: {

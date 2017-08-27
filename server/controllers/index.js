@@ -2,7 +2,7 @@ import users from './users';
 import books from './books';
 import bookHistory from './borrow';
 
-module.exports = {
+export default  {
   users,
   books,
   bookHistory

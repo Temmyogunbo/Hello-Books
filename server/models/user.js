@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     userName: {
       type: DataTypes.STRING,
@@ -35,24 +35,23 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
+        isEmail: true,
+        notEmpty: true
       }
     },
     membership: {
-      field: 'membershipLevel',
       type: DataTypes.ENUM,
-      values: ['platinum', 'gold', 'silver'],
-      allowNull: false
+      values: ['platinum', 'gold', 'silver']
     },
-    role: {
-      type: DataTypes.STRING,
+    roleId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 'user'
+      defaultValue: 0
     },
   }, {
     classMethods: {
       associate: (models) => {
-        // will add historyId to user, delete and update dependencies 
+        // will add userId to History, delete and update dependencies 
         // if user is deleted and updated respectively
         User.hasMany(models.History, {
           onDelete: 'CASCADE',

@@ -1,30 +1,27 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const History = sequelize.define('History', {
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isNumeric: true
+        isInt: true,
+        notEmpty: true
       }
     },
     BookId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isNumeric: true
-      }
-    },
-    quantityBorrowed: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isNumeric: true
+        isInt: true,
+        notEmpty: true
       }
     },
     dueDate: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW
+      validate: {
+        notEmpty: true
+      }
     },
     borrowedDate: {
       type: DataTypes.DATE,
@@ -42,13 +39,16 @@ module.exports = (sequelize, DataTypes) => {
         // if book is deleted and updated respectively
         History.belongsTo(models.User, {
           onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
           foreignKey: {
             allowNull: false
           }
         });
+        // Will add bookId to History
         History.belongsTo(models.Book, {
 
           onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
           foreignKey: {
             allowNull: false
           }

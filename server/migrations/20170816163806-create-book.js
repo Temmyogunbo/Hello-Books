@@ -32,7 +32,13 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         validate: {
-          isNumeric: false
+          isInt: false,
+          notEmpty: true,
+          isPositive(value) {
+            if (parseInt(value) < 0) {
+              throw new Error('Only positive value is allow');
+            }
+          }
         }
       },
       createdAt: {

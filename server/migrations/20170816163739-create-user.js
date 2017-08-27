@@ -1,4 +1,4 @@
-module.exports = {
+module.exports  =  {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('Users', {
       id: {
@@ -31,8 +31,9 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
         validate: {
+          notEmpty: true,
           min: 5
         }
       },
@@ -45,13 +46,13 @@ module.exports = {
         }
       },
       membership: {
-        field: 'membershipLevel',
         type: Sequelize.ENUM,
         values: ['platinum', 'gold', 'silver']
       },
-      role: {
-        type: Sequelize.STRING,
-        default: 'user'
+      roleId: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -67,6 +68,4 @@ module.exports = {
     return queryInterface.dropTable('Users');
   }
 };
-
-
 
