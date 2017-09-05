@@ -1,19 +1,37 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import jwtDecode from 'jwt-decode';
+import { Provider } from 'react-redux';
+import 'babel-polyfill';
 import Signup from './auth/Signup.jsx';
-var array =[
-  {product:"Apple", price:3},
-  {product:"Banana", price:1},
-  {product:"Carrot", price:2},
-  {product:"Donuts", price:5},
-  {product:"Eggplant", price:4}
-]
+import store from '../store/store';
+import Authorization from '../../utils/authorization';
+import { setAuthUser } from '../actions/userActions';
+import Navigation from './users/Navigation.jsx';
+import WelcomeMessage from './users/WelcomeMessage.jsx';
+import SignIn from './users/SignIn.jsx';
+import SignUp from './users/SignUp.jsx';
+import '../sass/style.scss';
+import '../../../../node_modules/toastr/toastr.scss';
 
-var elements = array.map( (item) => {
-  return <li>Product: {item.product} | Price: ${item.price}  </li>>
-})
+const history = createBrowserHistory();
+
+if (localStorage.jwtToken) {
+  Authorization.setAuthToken(localStorage.jwtToken);
+  store.dispatch(setAuthUser(jwtDecode(localStorage.jwtToken)));
+}
 
 ReactDOM.render(
-  <ol>{elements}</ol>,
+  <Provider store={store}>
+    <Router history={history}>
+      <Switch>
+        <Route exact path='/' component={WelcomeMessage} />
+        <Route exact path='/signin' component={SignIn} />
+        <Route exact path='/signup' component={SignUp} />
+      </Switch>
+    </Router>
+  </Provider>,
   document.getElementById('app')
-)
+);

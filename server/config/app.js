@@ -3,10 +3,10 @@ import webpack from 'webpack';
 import path from 'path';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from '../../webpack.config';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
+import config from '../../webpack.config';
 import route from '../routes';
 
 // creating express application
@@ -25,12 +25,6 @@ if (env === 'development') {
   app.use(webpackMiddleware(compiler));
   app.use(webpackHotMiddleware(compiler));
 }
-if (env === 'test') {
-  console.log('RUnning in test environment');
-};
-if (env === 'development') {
-  console.log('Running in development environment');
-};
 // Require our routes into the application.
 (route)(app);
 

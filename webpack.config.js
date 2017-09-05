@@ -2,19 +2,31 @@ const webpack = require('webpack');
 const path = require('path');
 const env = require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const jwtDecode = require('jwt-decode');
 
 const config = {
   entry: './client/app/src/components/App.jsx',
   output: {
     filename: 'bundle.js',
-    path: `${__dirname}/client/app/public`
+    path: path.resolve(`${__dirname}/client/app/public`)
   },
   resolve: {
     extensions: ['.jsx', '.js', '.json']
   },
   devServer: {
     historyApiFallback: true,
+    hot: true,
+    inline: true,
+
+    host: 'localhost',
+    port: 3000,
+    proxy: {
+      '^/api/*': {
+        target: 'http://localhost:8000/api/',
+        secure: false
+      }
+    }
   },
   module: {
 
@@ -33,7 +45,8 @@ const config = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader', 'resolve-url-loader', 'sass-loader?sourceMap'],
+          use: ['css-loader', 'sass-loader', 'resolve-url-loader',
+            'sass-loader?sourceMap'],
         }),
       },
       {
@@ -54,12 +67,18 @@ const config = {
   },
   plugins: [
     new ExtractTextPlugin('css/style.css'),
+    new webpack.HotModuleReplacementPlugin({
+      multistep: true
+    }),
     new webpack.DefinePlugin({
-      'process': {
-        'env': {
-          'JWT_SECRET': JSON.stringify(process.env.JWT_SECRET),
+      proces: {
+        env: {
+          JWT_SECRET: JSON.stringify(process.env.JWT_SECRET),
         }
       }
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(`${__dirname}/client/app/index.html`)
     })
   ]
 };

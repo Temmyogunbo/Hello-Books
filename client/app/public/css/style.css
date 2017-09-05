@@ -1,0 +1,431 @@
+* {
+  margin: 0;
+  font-family: 'Berkshire Swash', cursive; }
+
+body {
+  background: url("http://cdn.wallpapersafari.com/99/90/zj8TKM.jpg"); }
+
+.custom-nav-wrapper {
+  background: transparent;
+  float: right;
+  margin-right: 9%;
+  margin-top: 20px; }
+
+/* General Styling*/
+.red {
+  color: red; }
+
+.custom-logo-wrap {
+  float: left;
+  margin-left: 18%;
+  font-size: 50%;
+  font-weight: bold; }
+
+.custom-nav-list li {
+  margin-left: 50px;
+  font-size: 30px; }
+
+/* Body Styling */
+#body-content {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; }
+
+#left-content {
+  float: left;
+  width: 45%;
+  margin-top: 11%;
+  padding-left: 17%;
+  box-sizing: border-box;
+  color: white; }
+
+#right-content {
+  width: 50%;
+  float: left;
+  margin-top: 6%;
+  overflow: hidden; }
+
+.welcome-head-para {
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 15%; }
+
+.welcome-head {
+  font-size: 30px; }
+
+/* Login Form Styling*/
+.div-log-in form input {
+  margin-bottom: 20px;
+  margin-top: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  padding: 10px;
+  width: 84%; }
+
+.log-in-button {
+  width: 40%;
+  font-size: 25px;
+  margin: 0 auto;
+  border-radius: 2px;
+  color: white;
+  background: #FF9800;
+  border: 1px solid #FF9800;
+  padding: 5px;
+  padding-top: 3px;
+  font-weight: bold; }
+
+.div-log-in {
+  float: right;
+  padding: 15px;
+  width: 65%;
+  margin-right: 5%;
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-sizing: border-box; }
+
+.div-log-in p {
+  font-size: 30px;
+  background-color: #FF9800;
+  width: 90%;
+  text-align: left;
+  border-radius: 2px;
+  color: white;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  box-sizing: border-box; }
+
+.div-log-in form {
+  margin-top: 15px; }
+
+.div-log-in form label {
+  font-size: 20px; }
+
+/* Mobile Header Styling*/
+#mobile-menu-head {
+  width: 100%;
+  overflow: hidden;
+  display: none; }
+
+#mobile-menu-logo {
+  float: left;
+  margin-left: 4%; }
+
+#mobile-menu-logo a {
+  font-family: 'Berkshire Swash', cursive;
+  font-size: 40px;
+  font-weight: bold; }
+
+#mobile-menu {
+  width: 50px;
+  position: relative;
+  float: right;
+  margin-right: 5%;
+  font-weight: bold; }
+
+#mobile-nav {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none; }
+
+#mobile-nav {
+  width: 100%;
+  box-sizing: border-box; }
+
+#mobile-nav li {
+  list-style: none;
+  width: 100%;
+  border-bottom: 1px solid white;
+  padding-left: 40px;
+  box-sizing: border-box; }
+
+#mobile-nav li:last-child {
+  border-bottom: none; }
+
+#mobile-nav li:hover {
+  background: rgba(0, 0, 0, 0.7);
+  cursor: pointer; }
+
+#mobile-nav li a {
+  text-decoration: none;
+  box-sizing: border-box;
+  color: white;
+  font-size: 17px;
+  display: block;
+  width: 100%;
+  padding: 20px;
+  height: 100%; }
+
+/* Sign Up Styling*/
+.div-body-sign-up {
+  float: right;
+  margin-right: 5%;
+  width: 70%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding-top: 5px; }
+
+.div-body-sign-up form input {
+  margin-bottom: 20px;
+  margin-top: 2px;
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+  width: 90%; }
+
+.div-body-sign-up form input:focus {
+  border: 1px solid #FF9800;
+  outline: 1px solid #FF9800; }
+
+.create-button {
+  font-size: 18px;
+  margin-right: 110px;
+  border-radius: 2px;
+  color: white;
+  background-color: #FF9800;
+  border: 1px solid #FF9800;
+  padding: 10px;
+  font-weight: bold; }
+
+.div-sign-up {
+  margin-left: 20px;
+  color: white; }
+
+.div-sign-up p {
+  font-size: 30px;
+  background-color: #FF9800;
+  width: 93%;
+  text-align: center;
+  border-radius: 2px;
+  padding: 5px; }
+
+.div-sign-up form {
+  margin-top: 20px; }
+
+/* End Sign Up*/
+/* Forgot Password Styling */
+.reset-password,
+.sign-in-forgot-password {
+  width: auto;
+  font-size: 16px;
+  float: right;
+  margin-right: 10%;
+  font-weight: normal; }
+
+.sign-in-forgot-password {
+  float: left;
+  margin-right: 0%; }
+
+/*  Responsive Styling */
+@media screen and (max-width: 793px) {
+  #mobile-menu-head {
+    display: block; }
+  header {
+    display: none; }
+  #mobile-menu:hover {
+    cursor: pointer; }
+  #nav {
+    display: none; }
+  #logo-wrap {
+    margin-left: 4%; }
+  #left-content {
+    width: 100%;
+    margin-top: 8%;
+    float: none;
+    box-sizing: border-box;
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding-left: 0px; }
+  .welcome-head {
+    font-size: 30px;
+    color: white; }
+  .welcome-head-para {
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 0px;
+    font-size: 15px; }
+  #right-content {
+    float: none;
+    width: 100%;
+    margin-top: 8%;
+    padding-left: 10%;
+    overflow: hidden;
+    box-sizing: border-box;
+    color: white;
+    background: rgba(0, 0, 0, 0.1); }
+  .div-log-in {
+    width: 90%;
+    margin-right: -8%;
+    float: none; }
+  .div-body-sign-up {
+    float: none;
+    width: 90%; }
+  .div-log-in p {
+    font-size: 19px;
+    padding: 4px;
+    text-align: center; }
+  .head-forgot-password {
+    background: red; } }
+
+@media screen and (min-width: 794px) and (max-width: 842px) {
+  .head-forgot-password {
+    display: none; }
+  #logo-wrap {
+    margin-left: 4%; }
+  #left-content {
+    width: 100%;
+    margin-top: 8%;
+    float: none;
+    box-sizing: border-box;
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding-left: 0px; }
+  .welcome-head {
+    font-size: 30px;
+    color: white; }
+  .welcome-head-para {
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 0px;
+    font-size: 15px; }
+  #right-content {
+    float: none;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 8%;
+    padding-left: 10%;
+    box-sizing: border-box;
+    color: white;
+    background: rgba(0, 0, 0, 0.1); }
+  .div-log-in {
+    width: 90%;
+    margin-right: -8%;
+    float: none;
+    overflow: hidden; }
+  .div-body-sign-up {
+    float: none;
+    width: 90%; }
+  #nav {
+    float: right;
+    margin-right: 5%;
+    margin-top: 15px; }
+  #nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 19px; }
+  .div-log-in p {
+    font-size: 19px;
+    padding: 4px;
+    text-align: center; } }
+
+@media screen and (min-width: 843px) and (max-width: 894px) {
+  .div-body-sign-up {
+    float: right;
+    margin-right: 0%;
+    width: 80%; }
+  .div-body-sign-up form input {
+    margin-bottom: 20px;
+    margin-top: 2px;
+    padding: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    width: 90%; }
+  .create-button {
+    font-size: 16px;
+    border-radius: 2px;
+    color: white;
+    background-color: #FF9800;
+    border: 1px solid #FF9800;
+    padding: 10px;
+    font-weight: bold; }
+  .div-sign-up {
+    margin-left: 20px;
+    color: white; }
+  .div-sign-up p {
+    font-size: 25px;
+    background-color: #FF9800;
+    width: 93%;
+    text-align: center;
+    border-radius: 2px;
+    padding: 5px; }
+  .div-sign-up form {
+    margin-top: 20px; }
+  #logo-wrap {
+    margin-left: 4%; }
+  #left-content {
+    float: left;
+    width: 42%;
+    margin-top: 18%;
+    padding-left: 10%;
+    box-sizing: border-box;
+    color: white; }
+  #right-content {
+    margin-top: 10%;
+    overflow: hidden; }
+  .div-log-in {
+    width: 90%;
+    margin-right: -8%; }
+  #nav {
+    float: right;
+    margin-right: 5%;
+    margin-top: 15px; }
+  .welcome-head-para {
+    font-size: 15px; }
+  #nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 19px; } }
+
+@media screen and (min-width: 895px) and (max-width: 1040px) {
+  .div-sign-up p {
+    font-size: 25px;
+    background-color: #FF9800;
+    width: 93%;
+    text-align: center;
+    border-radius: 2px;
+    padding: 5px; }
+  #logo-wrap {
+    margin-left: 7%; }
+  #left-content {
+    float: left;
+    width: 45%;
+    margin-top: 15%;
+    padding-left: 14%;
+    box-sizing: border-box;
+    color: white; }
+  .div-log-in {
+    width: 80%; }
+  #nav {
+    float: right;
+    margin-right: 9%;
+    margin-top: 15px; }
+  #nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 19px; } }
+
+@media screen and (min-width: 1041px) and (max-width: 1175px) {
+  #left-content {
+    float: left;
+    width: 45%;
+    margin-top: 9%;
+    padding-left: 15%;
+    box-sizing: border-box;
+    color: white; }
+  #right-content {
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    margin-top: 5%; }
+  .div-log-in {
+    width: 67%; }
+  #nav {
+    float: right;
+    margin-right: 9%;
+    margin-top: 15px; }
+  #nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 19px; } }
