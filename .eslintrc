@@ -1,10 +1,23 @@
 {
   "root": true,
   "extends": "airbnb-base",
+   "plugins": [
+    "react"
+  ],
   "env": {
-  "node": true,
-  "es6": true,
-  "mocha": true
+    "node": true,
+    "es6": true,
+    "mocha": true,
+    "jquery": true,
+    "browser": true
+  },
+  "parserOptions": {
+  "ecmaVersion": 6,
+  "sourceType": "module",
+  "allowImportExportEverywhere": true,
+  "ecmaFeatures": {
+    "jsx": true
+    }
   },
   "rules": {
     "one-var": 0,
