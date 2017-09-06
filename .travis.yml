@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - 6
+after_success: npm run coverage
+services:
+  - postgresql
+before_script:
+  - npm install -g mocha
+  - npm install -g nyc
+  - npm install -g sequelize-cli
+script:
+  - npm test
+after_script:
+  - npm run coverage

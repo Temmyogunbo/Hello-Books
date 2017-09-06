@@ -1,0 +1,2 @@
+export const SET_AUTH_USERS = 'SET_AUTH_USERS';
+export const SET_AUTH_USERS_ERROR = 'SET_AUTH_USERS_ERROR';

@@ -1,0 +1,8 @@
+node_modules/
+.env
+.DS_Store
+npm-debug.log
+client/app/public/bundle.js/
+.nyc_output/
+coverage/
+reports/

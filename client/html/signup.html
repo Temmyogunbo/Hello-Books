@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+     <head>
+        <title>Josh Pharmacy</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" href="../style.css" />
+     </head>
+     <body>
+        <header>
+            <div id="logo-wrap">
+                <a href="../index.html" class="link">HelloBooks</a>
+            </div>
+             
+         
+            
+            <div id="nav-body">
+               
+                <nav id="nav">
+                  <ul>
+                    <li><a href="html/mydashboard.html" class="link">Admin</a></li>
+                    <li><a href="" class="link">About Us</a></li>
+                    <li><a href="" class="link">Contact Us</a></li>
+                    <li><a href="../index.html" class="link">Sign In</a></li>
+                 </ul>
+                </nav>
+            </div>
+        </header>
+        <div id="mobile-menu-head">
+                 <div id="mobile-menu-logo">
+                     <a href="../index.html" class="link">HelloBooks</a>
+                 </div>
+                 <div id="mobile-menu">
+                   <img src="../img/menu-icon.png" height="50px" width="50px" />
+                 </div>
+            </div>
+               <script>
+                document.getElementById('mobile-menu').onclick = function(){
+                    if(!document.getElementById('mobile-nav').hasAttribute("toggle")){
+                        document.getElementById('mobile-nav').setAttribute("toggle","toggled");
+                        document.getElementById('mobile-nav').style.display = "block";
+                        document.getElementById('mobile-menu-head').style.backgroundColor ="rgba(0,0,0,0.7)";
+                    }else if(document.getElementById('mobile-nav').hasAttribute("toggle")){
+                        document.getElementById('mobile-nav').style.display = "none";
+                        document.getElementById('mobile-nav').removeAttribute("toggle");
+                        document.getElementById('mobile-menu-head').style.background = "rgba(0,0,0,0)";
+                    };
+                }
+            </script>
+        <div id="mobile-nav">
+                    <li><a href="html/mydashboard.html" class="link">Admin</a></li>
+                    <li><a href="" class="link">About Us</a></li>
+                    <li><a href="" class="link">Contact Us</a></li>
+                    <li><a href="../index.html" class="link">Sign In</a></li>
+            </div>
+        <section id="body-content">
+            <div id="left-content">
+                <h2 class="welcome-head">Welcome to HelloBooks</h2>
+                    <p class="welcome-head-para">
+                        Your platform to up to date books.<br>You can borrow, and read<br>books online.
+                    </p>
+            </div>
+            <div id="right-content">
+                <div class="div-body-sign-up">
+                    <div class="div-sign-up">
+                        <p>Create an account:</p>
+                        <form action="mydashboard.html" method="get">
+                            <label>Username:<br>
+                                <input type="text" name="username" placeholder="your username">
+                            </label><br>
+                            <label>Full name:<br>
+                                <input type="text" name="full-name" placeholder="your full name">
+                            </label><br>
+                            <label>Email:<br>
+                                <input type="email" name="email" placeholder="your email">
+                            </label><br>
+                            <label>Password:<br>
+                                <input type="password" name="password" placeholder="password"><br>
+                            </label>
+                            <button class="create-button">Create account</button>
+                        </form>
+                        <div class="div-sign-in">
+                    </div>
+    	        </div>
+             </div>
+        </div>
+        </section><br><br>
+     </body>
+</html>
