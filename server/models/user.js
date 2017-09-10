@@ -8,14 +8,7 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
-    lastName: {
+    fullName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

@@ -27,16 +27,18 @@ const setAuthUserError = error => ({
  * sends an object of the created user and returns an auth token for the user
  * @param {object} userData - userdetails to be registered
  */
-const signupAction = userData => dispatch =>
-  axios.post('/api/v1/users/signup', userData).then((response) => {
-  	console.log('i see u', response)
-    const token = response.data.token;
-    localStorage.setItem('jwtToken', token);
-    Authorization.setAuthToken(token);
-    dispatch(setAuthUser(jwtDecode(token)));
-  }).catch((error) => {
-    dispatch(setAuthUserError(error.response.data));
-  });
+export const signupAction = userData => dispatch =>
+  axios.post('/api/v1/users/signup', userData)
+    .then((response) => {
+      const token = response.data.token;
+      localStorage.setItem('jwtToken', token);
+      Authorization.setAuthToken(token);
+      dispatch(setAuthUser(jwtDecode(token)));
+    })
+    .catch((error) => {
+      dispatch(setAuthUserError(error.response.data));
+      return error;
+    });
 
 
 /**
@@ -50,21 +52,22 @@ const signupAction = userData => dispatch =>
  * sends the users details to be verified before proceeding
  * @param {object} user - logged in user payload
  */
-const signinAction = (user) => {
-	return dispatch =>
-axios.post('/api/v1/users/signin', user).then((response) => {
-	console.log('enter there', user)
-  const token = response.data.token;
-  localStorage.setItem('jwtToken', token);
-  Authorization.setAuthToken(token);
-  dispatch(setAuthUser(jwtDecode(token)));
-}).catch((error) => {
-  dispatch(setAuthUserError(error.response.data));
-  return error;
-});
-}
+export const signinAction = (user) => {
+  return dispatch => (
+    axios.post('/api/v1/users/signin', user)
+  )
+    .then(({ data }) => {
+      const token = data.token;
+      localStorage.setItem('jwtToken', token);
+      Authorization.setAuthToken(token);
+      dispatch(setAuthUser(jwtDecode(token)));
+    }).catch(({ response }) => {
+      dispatch(setAuthUserError(response.data.message));
+      return response;
+    });
+};
 
 export default {
-	signupAction,
-	signinAction
+  signupAction,
+  signinAction
 };

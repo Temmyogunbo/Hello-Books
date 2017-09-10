@@ -14,21 +14,22 @@ const initialState = {
  * @returns {object} - returns users in an object
 */
 
-const usersReducer = (state = initialState, action = {}) => {
+export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_AUTH_USERS: {
-      return { ...state,
+    case SET_AUTH_USERS:
+      return {
+        ...state,
         user: action.user,
         isAuthenticated: !isEmpty(action.user),
         error: {}
       };
-    }
     case SET_AUTH_USERS_ERROR:
-      return { ...state,
+      return {
+        ...state,
         error: action.error
       };
     default:
       return state;
   }
 };
-export default usersReducer;
+

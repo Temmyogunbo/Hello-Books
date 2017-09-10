@@ -9,7 +9,7 @@ body {
 .custom-nav-wrapper {
   background: transparent;
   float:right;
-  padding-right: 12%;
+  padding-right: 5%;
   margin-top: 20px;
 }
 .welcome-message {
@@ -19,7 +19,7 @@ body {
 
 .welcome-message-container {
   font-size: 30px;
-  padding-top:10%;
+  padding-top:20%;
   text-align: center;
 }
 .welcome-message-container h2{
@@ -38,7 +38,11 @@ body {
 
 .custom-nav-list {
     margin-left: 50px;
-    font-size: 100%;
+    font-size: 200%;
+}
+
+.custom-nav-list li a{
+    font-size: 60% !important;
 }
 .welcome-container-button {
   padding: 5px;
@@ -87,7 +91,7 @@ body {
 }
 .div-container-form form {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50% !important;
   transform: translate(-50%, -50%);
   background: rgba(47, 47, 45, 0.7);
@@ -131,6 +135,46 @@ body {
   color: white !important;
 }
 
+.log-in-title {
+    padding-top: 180px;
+    margin-left: 400px;
+}
+
+.sign-up-title {
+    padding-top: 150px;
+    margin-left: 350px;
+}
+
+.error-block {
+    color: red;
+}
+
+.container-book-categories {
+    width: 25%;
+    float: left;
+}
+
+.category {
+    color: red;
+    margin: auto;
+}
+
+.books-compartment {
+    width: 70%;
+    padding-top: 100px;
+    float: right;
+}
+
+.book-size {
+    width: 30%;
+    display: inline-block;
+    margin-right: 20px;
+    max-height: 500px !important;
+    padding: 0;
+}
+.description {
+    color: red;
+}
 /* Body Styling */
 
 #body-content{

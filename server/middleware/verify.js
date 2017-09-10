@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 require('dotenv').config();
 
 // defining class for token
-class Token {
+export default {
   getToken(user) {
     return jwt.sign(user, process.env.SECRET_KEY, {
       expiresIn: 3600 * 24
     });
-  }
+  },
   verifyOrdinaryUser(req, res, next) {
     const token = req.headers.authorization || req.body.token ||
      req.headers['x-access-token'];
@@ -37,6 +37,6 @@ class Token {
     }
   }
 }
-const verify = new Token();
-export default verify;
+//const verify = new Token();
+//export default verify;
 

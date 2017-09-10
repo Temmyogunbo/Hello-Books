@@ -3,8 +3,7 @@ const bcrypt = require('bcrypt');
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Users', [{
-      firstName: 'Emmanuel',
-      lastName: 'Ogunbo',
+      fullName: 'Emmanuel Ogunbo',
       userName: 'admin',
       membership: 'gold',
       email: 'Ogunbotemilola@yahoo.com',
@@ -13,8 +12,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      firstName: 'Temilola',
-      lastName: 'Ogunbo',
+      fullName: 'Temilola Olushola',
       userName: 'temmy',
       membership: 'silver',
       email: 'temmyogunbo@gmail.com',
@@ -24,8 +22,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      firstName: 'Joshua',
-      lastName: 'Ogunbo',
+      firstName: 'Joshua Ogunbo',
       userName: 'joshcena',
       membership: 'silver',
       email: 'ogunbojoshua@gmail.com',

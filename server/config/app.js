@@ -10,10 +10,12 @@ import config from '../../webpack.config';
 import route from '../routes';
 
 // creating express application
+// const publicPath = express.static(path.join(__dirname, '../../client/app/public'));
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 const compiler = webpack(config);
 app.use(logger('dev'));
+// app.use('/', publicPath);
 
 // format request data
 app.use(bodyParser.json());
@@ -29,7 +31,7 @@ if (env === 'development') {
 (route)(app);
 
 app.use('*', (request, response) => {
-   response.sendFile(path.join(__dirname, '../../client/app', 'index.html'));
+  response.sendFile(path.join(__dirname, '/../../client/app/public/js/index.html'));
 });
 
 // error handler
