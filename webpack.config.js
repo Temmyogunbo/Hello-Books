@@ -6,27 +6,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const jwtDecode = require('jwt-decode');
 
 const config = {
-  entry: './client/app/src/components/App.jsx',
+  entry: './client/app/src/index.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(`${__dirname}/client/app/public`)
+    path: path.resolve(`${__dirname}/client/app/public/js`)
   },
   resolve: {
-    extensions: ['.jsx', '.js', '.json']
+    extensions: ['.js', '.jsx', '.json']
   },
   devServer: {
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-
-    host: 'localhost',
-    port: 3000,
-    proxy: {
-      '^/api/*': {
-        target: 'http://localhost:8000/api/',
-        secure: false
-      }
-    }
+    historyApiFallback: true
   },
   module: {
 
@@ -65,15 +54,18 @@ const config = {
       { test: /\.json$/, loader: 'json-loader' },
     ]
   },
+  externals: {
+    jquery: 'jQuery'
+  },
   plugins: [
-    new ExtractTextPlugin('css/style.css'),
+    new ExtractTextPlugin('../css/style.css'),
     new webpack.HotModuleReplacementPlugin({
       multistep: true
     }),
     new webpack.DefinePlugin({
       proces: {
         env: {
-          JWT_SECRET: JSON.stringify(process.env.JWT_SECRET),
+          SECRET_KEY: JSON.stringify(process.env.SECRET_KEY),
         }
       }
     }),

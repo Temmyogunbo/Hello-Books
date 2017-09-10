@@ -1,21 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 import WelcomeMessage from './WelcomeMessage.jsx';
 
 class Navigation extends React.Component {
   componentDidMount() {
-    $( document ).ready(function(){$('.button-collapse').sideNav();});
+    $(document).ready(() => { $(this.refs.buttonCollapse).sideNav(); });
   }
   render() {
     return (
       <div>
-        <nav className="button-collapse custom-nav-wrapper">
+        <nav className="custom-nav-wrapper">
           <div className="nav-wrapper">
-            <a href="index.html" className="brand-logo custom-logo-wrap">HelloBooks</a>
-            <ul id="nav-mobile" className="right hide-on-med-and-down custom-nav-list">
+            <Link to="/" className="brand-logo custom-logo-wrap">HelloBooks</Link>
+            <a href="/"
+              data-activates="mobile-demo"
+              className="button-collapse"
+              ref="buttonCollapse"
+            >
+              <i className="material-icons">menu</i>
+            </a>
+            <ul
+              id="nav-mobile"
+              className="right hide-on-med-and-down custom-nav-list"
+            >
+              <li><Link to="">{this.props.about}</Link></li>
+              <li><Link to="">{this.props.contact}</Link></li>
+              <li><Link to={this.props.whereTo}>{this.props.sign}</Link></li>
+            </ul>
+            <ul
+              id="mobile-demo"
+              className="side-nav"
+            >
               <li><a href="">{this.props.about}</a></li>
-              <li><a href="/signup">{this.props.contact}</a></li>
-              <li><Link to='signin'>{this.props.signup}</Link></li>
+              <li><a href="">{this.props.contact}</a></li>
+              <li><Link to={this.props.whereTo}>{this.props.sign}</Link></li>
             </ul>
           </div>
         </nav>

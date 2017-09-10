@@ -15,14 +15,7 @@ module.exports  =  {
           notEmpty: true
         }
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
-      },
-      lastName: {
+      fullName: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {

@@ -4,16 +4,19 @@ import { connect } from 'react-redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import Navigation from './Navigation.jsx';
-import signinAction from '../../actions/userActions';
+import { signinAction } from '../../actions/userActions';
+import signInValidation from '../../../../../server/helper/signinValidation';
 
-class SignIn extends React.Component {
+
+class SignInPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userName: '',
       password: '',
       userId: '',
-      errors: {}
+      errors: {},
+      isLoading: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -22,56 +25,78 @@ class SignIn extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   /**
+  **@description Checks that form is valid
+  * @return {Boolean}
+	*/
+  validateForm() {
+    const { errors, isValid } = signInValidation(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
+  /**
    *
    * @return {void} the login action is dispatched
    * @param {void} event - on click event
    * @memberof LoginPage
    */
   onSubmit(event) {
-    event.preventDefault();
-    this.setState({ errors: { } });
-    this.props.signin(this.state).then((error) => {
-    	console.log('I am not here', error)
-      if (!error) {
-        this.props.history.push('/');
-        toastr.success('You are Logged in successfully');
-      } else {
-        this.props.history.push('/');
-        this.setState({ errors: error.response.data });
-        if (error.response.data.message) {
-          toastr.error(this.state.errors.message);
+    if (this.validateForm()) {
+      event.preventDefault();
+      this.setState({ errors: {}, isLoading: true });
+      this.props.signin(this.state).then((error) => {
+        if (!error) {
+          this.props.history.replace('/');
+          toastr.success('You are Logged in successfully');
+        } else {
+          this.setState({ errors: error.data.message, isLoading: false });
+          toastr.error(error.data.message);
         }
-      }
-    });
+      });
+    }
   }
   render() {
-    const { errors } = this.state;
+    const { errors, isLoading } = this.state;
     return (
       <div>
-        <Navigation about='About us' contact='Contact us' signup='Sign up' />
+        <Navigation about="About us" contact="Contact us" sign="Sign up" whereTo="/signup" />
+        <h3 className="log-in-title">Log in:</h3>
         <div className="row div-container-form">
           <form className="col.s12" onSubmit={this.onSubmit}>
             <div className="row">
               <div className="input-field col.s5">
-                <label htmlFor="first_name"><i className="material-icons">person</i> Username</label>
-                 {errors.userName &&
-                   <span className="error-block">{errors.userName}</span>}
-                <input name='userName' id="first_name" type="text" className="validate" value={this.state.name} onChange = {this.handleChange} />
+                <label htmlFor="first_name">
+                  <i className="material-icons">person</i> Username
+                </label>
+                <input
+                  name="userName" id="first_name" type="text"
+                  className="validate" value={this.state.name}
+                  onChange={this.handleChange} />
+                <span className="error-block">
+                  {errors.userName}
+                </span>
               </div>
             </div>
             <div className="row">
               <div className="input-field col.s5">
-                <input name='password' type="password" className="validate"
-                  value={this.state.name} id='password' onChange={this.handleChange}/>
-                   {errors.password &&
-                   <span className="error-block">{errors.password}</span>}
-                <label htmlFor="password"><i className="material-icons">lock</i> Password</label>
+                <input
+                  name="password" type="password" className="validate"
+                  value={this.state.name} id="password"
+                  onChange={this.handleChange} />
+                <span className="error-block">
+                  {errors.password}
+                </span>
+                <label htmlFor="password">
+                  <i className="material-icons">lock</i> Password</label>
               </div>
             </div>
-            <button className='login-button' type='submit'
-              data-action='log-in-form'>
+            <button
+              className="login-button" type="submit"
+              data-action="log-in-form"
+              disabled={isLoading}>
               Log in
-            </button><br/><br/>
+            </button><br /><br />
             <a href=''>Did you forget your password?</a>
           </form>
         </div>
@@ -79,19 +104,18 @@ class SignIn extends React.Component {
     );
   }
 }
-SignIn.propTypes = {
+SignInPage.propTypes = {
   history: PropTypes.object.isRequired,
-  signinAction: PropTypes.func.isRequired
+  signin: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  user: state.usersReducer
+const mapDispatchToProps = dispatch => ({
+  signin: signinCredentials => dispatch(
+    signinAction(signinCredentials)
+  )
 });
 
-const mapDispatchToProps = dispatch => ({
-  signin: signinCredentials => dispatch(signinAction.signinAction(signinCredentials))
-});
-export default connect(mapStateToProps,
+export default connect(null,
   mapDispatchToProps)(
-  withRouter(SignIn)
-); 
+  withRouter(SignInPage)
+);

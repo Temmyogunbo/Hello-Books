@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "oracle",
+    "username": "andeladeveloper",
     "database": "postgres",
+    "password": "oracle",
     "host": "localhost",
     "dialect": "postgres"
   },
@@ -12,6 +12,7 @@
     "database": "fzrreent",
     "host": "stampy.db.elephantsql.com",
     "use_env_variable": "DATABASE_URL_TEST",
+    "port": 5433,
     "dialect": "postgres"
   },
   "production": {
