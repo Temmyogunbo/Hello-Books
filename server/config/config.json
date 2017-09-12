@@ -7,12 +7,10 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "fzrreent",
-    "password": "24-C-Zq06JAZASG2GB9OAwTNyMW-l2wX",
-    "database": "fzrreent",
-    "host": "stampy.db.elephantsql.com",
-    "use_env_variable": "DATABASE_URL_TEST",
-    "port": 5433,
+    "username": "andeladeveloper",
+    "database": "hellobooks",
+    "password": "oracle",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "production": {

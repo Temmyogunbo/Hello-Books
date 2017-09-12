@@ -44,12 +44,12 @@ const config = {
       },
 
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=1000000&mimetype=application/font-woff',
       },
       {
-        test: /\.(ttf|eot|svg|png|jpe?g)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader?name=/[name].[ext]'
+        test: /\.(svg|png|jpe?g)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
       },
       { test: /\.json$/, loader: 'json-loader' },
     ]
@@ -58,7 +58,7 @@ const config = {
     jquery: 'jQuery'
   },
   plugins: [
-    new ExtractTextPlugin('../css/style.css'),
+    new ExtractTextPlugin('./style.css'),
     new webpack.HotModuleReplacementPlugin({
       multistep: true
     }),

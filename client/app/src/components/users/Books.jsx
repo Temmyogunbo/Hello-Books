@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
+import image from '../../images/mathcover.jpg';
 
 class Books extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class Books extends React.Component {
         <div className="card-image waves-effect waves-block waves-light">
           <img
             className="activator"
-            src="../../sass/img/mathcover.jpg" alt=""
+            src={image} alt="book-cover"
           />
         </div>
         <div className="card-content">

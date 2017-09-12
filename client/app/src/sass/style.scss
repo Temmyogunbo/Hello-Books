@@ -4,7 +4,7 @@
   color: white;
 }
 body {
-  background: url("http://cdn.wallpapersafari.com/99/90/zj8TKM.jpg");
+
 }
 .custom-nav-wrapper {
   background: transparent;
@@ -21,6 +21,8 @@ body {
   font-size: 30px;
   padding-top:20%;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  height: 100vh; 
 }
 .welcome-message-container h2{
   font-weight: bold;
@@ -89,6 +91,11 @@ body {
   margin-right: 2%;
   margin-left: 10%;
 }
+
+.div-container-form {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    height: 1000vh;
+}
 .div-container-form form {
   position: absolute;
   top: 60%;
@@ -155,8 +162,9 @@ body {
 }
 
 .category {
-    color: red;
+    color: black;
     margin: auto;
+    border: 0;
 }
 
 .books-compartment {
@@ -167,6 +175,7 @@ body {
 
 .book-size {
     width: 30%;
+    height: 30%;
     display: inline-block;
     margin-right: 20px;
     max-height: 500px !important;
@@ -174,6 +183,29 @@ body {
 }
 .description {
     color: red;
+}
+
+.admin-books {
+    width: 75%;
+    float: right;
+}
+
+.image {
+    background: url("http://cdn.wallpapersafari.com/99/90/zj8TKM.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh !important;
+}
+
+.dashboard-color {
+    background-color: gray;
+    height: 100vh;
+}
+.dashboard-head-color {
+    background: #FF9800 !important;
+    margin-top: auto;
 }
 /* Body Styling */
 

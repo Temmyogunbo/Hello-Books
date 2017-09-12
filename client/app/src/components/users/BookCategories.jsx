@@ -10,13 +10,13 @@ class BookCategories extends React.Component {
       <div className="col s3 m7 container-book-categories">
         <h2 className="header">categories</h2>
         <div className="card horizontal">
-              <p className="category">Programming</p>
+          <p className="category">Programming</p>
         </div>
         <div className="card horizontal">
-              <p className="category">Mathematics</p>
+          <p className="category">Mathematics</p>
         </div>
         <div className="card horizontal">
-              <p className="category">Romance</p>
+          <p className="category">Romance</p>
         </div>
       </div>
     );

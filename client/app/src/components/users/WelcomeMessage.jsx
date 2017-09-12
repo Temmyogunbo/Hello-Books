@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const WelcomeMessage = () =>
   (
-    <div>
+    <div className="image">
       <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin"/>
       <div className='welcome-message-container'>
         <h1>Welcome to HelloBooks</h1>

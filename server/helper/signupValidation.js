@@ -29,8 +29,8 @@ export default function signUpValidation(formData) {
   if (!Validator.equals(formData.password, formData.confirmPassword)) {
     errors.confirmPassword = 'Passwords must match';
   }
-  if (!Validator.isLength(formData.password, { min: 5, max: 100 })) {
-    errors.password = 'Password must be minimum of 6 characters';
+  if (!Validator.isLength(formData.password, { min: 5, max: 50 })) {
+    errors.password = 'Password must be minimum of 5 characters';
   }
   return {
     errors,

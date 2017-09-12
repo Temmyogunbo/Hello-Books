@@ -61,9 +61,9 @@ class SignUp extends React.Component {
    * @memberof SignupPage
    */
   onSubmit(event) {
+    event.preventDefault()
     if (this.validateForm()) {
       this.setState({ errors: {}, isLoading: true });
-      event.preventDefault();
       this.props.signup(this.state).then((error) => {
         if (error) {
           this.setState({ errors: error.data.message, isLoading: false });
@@ -83,7 +83,7 @@ class SignUp extends React.Component {
   render() {
     const { errors, isLoading } = this.state;
     return (
-      <div>
+      <div className="image">
         <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin"/>
         <h4 className='sign-up-title'>Sign up to HelloBooks:</h4>
         <div className="row div-container-signup-form">

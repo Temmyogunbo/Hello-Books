@@ -42,12 +42,17 @@ class SignInPage extends React.Component {
    * @memberof LoginPage
    */
   onSubmit(event) {
+    event.preventDefault();
     if (this.validateForm()) {
-      event.preventDefault();
       this.setState({ errors: {}, isLoading: true });
       this.props.signin(this.state).then((error) => {
         if (!error) {
-          this.props.history.replace('/');
+          if (this.props.user.roleId === 1) {
+            this.props.history.replace('/admindashboard');
+            toastr.success('You are Logged in successfully');
+            return;
+          }
+          this.props.history.replace('/dashboard');
           toastr.success('You are Logged in successfully');
         } else {
           this.setState({ errors: error.data.message, isLoading: false });
@@ -59,7 +64,7 @@ class SignInPage extends React.Component {
   render() {
     const { errors, isLoading } = this.state;
     return (
-      <div>
+      <div className="image">
         <Navigation about="About us" contact="Contact us" sign="Sign up" whereTo="/signup" />
         <h3 className="log-in-title">Log in:</h3>
         <div className="row div-container-form">
@@ -109,13 +114,19 @@ SignInPage.propTypes = {
   signin: PropTypes.func.isRequired
 };
 
+function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user
+  };
+}
+
 const mapDispatchToProps = dispatch => ({
   signin: signinCredentials => dispatch(
     signinAction(signinCredentials)
   )
 });
 
-export default connect(null,
+export default connect(mapStateToProps,
   mapDispatchToProps)(
   withRouter(SignInPage)
 );

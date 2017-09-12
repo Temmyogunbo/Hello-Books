@@ -1,4 +1,3 @@
-// Import dependencies
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../config/app';

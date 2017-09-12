@@ -7,18 +7,17 @@ require('dotenv').config();
 
 const usersController = {
   createUser(req, res) {
-    req.check('fullName', 'fullName is required').notEmpty();
-    req.check('userName', 'userName is required').notEmpty();
+    req.check('fullName', 'Fullname is required').notEmpty();
+    req.check('userName', 'Username is required').notEmpty();
     // req.check('membership', 'membership is required').notEmpty();
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
     // req.check('roleId', 'Id must be an integer').isInt();
     req.check('password', 'Password is required').notEmpty();
-    req.check('password', 'Password must be a mininum of 4 character')
-      .isLength(5, 50);
+    req.check('password', 'Password must be a mininum of 5 character').isLength({ min: 5 });
     const errors = req.validationErrors();
     if (errors) {
-      return res.status(400).json({ errors });
+      return res.status(400).json({ error: errors[0] });
     }
     return db.User
       .create({
@@ -45,32 +44,32 @@ const usersController = {
         const token = verify.getToken(payload);
         res.status(201).json({
           success: true,
-          message: 'Registration successful',
+          msg: 'Registration successful',
           token
         });
       })
       .catch((err) => {
         if (err.errors[0].path === 'userName') {
           res.status(401).json({
-            message: 'Username must be unique'
+            msg: 'Username must be unique'
           });
         } else if (err.errors[0].path === 'email') {
           res.status(401).json({
-            message: 'Email must be unique'
+            msg: 'Email must be unique'
           });
         } else {
           res.status(401).json({
-            message: 'Something went wrong'
+            msg: 'Something went wrong'
           });
         }
       });
   },
   findUser(req, res) {
-    req.check('userName', 'userName is required').notEmpty();
+    req.check('userName', 'Username is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
-      res.status(400).json({ errors });
+      res.status(400).json({ error: errors[0] });
     } else {
       return db.User.findOne({
         where: {
@@ -80,7 +79,7 @@ const usersController = {
         .then((user) => {
           if (!user) {
             res.status(401).send({
-              message: 'You are not registered'
+              msg: 'You are not registered'
             });
           } else if (user) {
             if (bcrypt.compareSync(req.body.password, user.password)) {
@@ -94,19 +93,19 @@ const usersController = {
               const token = verify.getToken(payload);
               res.status(200).send({
                 success: true,
-                message: 'You are signed in',
+                msg: 'You are signed in',
                 token
               });
             } else {
               res.status(401).send({
                 success: false,
-                message: 'Authentication failed. Wrong password.'
+                msg: 'Authentication failed. Wrong password.'
               });
             }
           }
         })
         .catch(() => res.status(500).json({
-          message: 'Something went wrong'
+          msg: 'Something went wrong'
         }));
     }
   }

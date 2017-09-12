@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
+import dotenv from 'dotenv';
 import dbconfig from '../config/config.json';
 
+dotenv.config();
 const basename = path.basename(module.filename);
 
 const env = process.env.NODE_ENV || 'development';
@@ -12,13 +14,14 @@ const db = {};
 // we define connection to the database i.e models/tables are connected to the db
 let sequelize;
 if (config.use_env_variable) {
-  // sequelize = new Sequelize(process.env[config.use_env_variable]);
-  sequelize = new Sequelize(
-    config.database, config.username, config.password, {
-      host: config.host,
-      dialect: config.dialect,
-    }
-  );
+  sequelize = new Sequelize(process.env[config.use_env_variable]);
+  /* sequelize = new Sequelize(
+     config.database, config.username, config.password, {
+       host: config.host,
+       dialect: config.dialect,
+     }
+   );
+   */
 } else {
   sequelize = new Sequelize(
     config.database, config.username, config.password, {
