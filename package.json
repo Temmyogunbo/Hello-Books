@@ -7,7 +7,8 @@
     "dev": "npm run build:dev",
     "build:dev": "webpack-dev-server --hot --inline --open && babel-node -- server/bin/www",
     "pretest": "npm run cleardb && cross-env NODE_ENV=test sequelize db:migrate && cross-env NODE_ENV=test sequelize db:seed:all",
-    "test": "cross-env NODE_ENV=test nyc mocha --timeout 10000 ./server/test/**/*.js",
+    "test": "cross-env NODE_ENV=test nyc mocha --timeout 15gi0000 --compilers js:babel-register ./server/test/**/*.js",
+    "test:nyc": "cross-env NODE_ENV=test nyc --reporter=html mocha --timeout 150000 --compilers js:babel-register ./server/test/**/*.js",
     "cleardb": "cross-env NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "nyc": {
@@ -66,7 +67,6 @@
     "mocha": "^3.5.0",
     "morgan": "^1.8.2",
     "node-sass": "^4.0.0",
-    "nyc": "^11.0.2",
     "path": "^0.12.7",
     "pg": "^6.4.1",
     "pg-hstore": "^2.3.2",
@@ -125,7 +125,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
-    "nyc": "^11.0.2",
+    "nyc": "^11.2.1",
     "pg": "^6.4.0",
     "toastr": "^2.1.2",
     "webpack-dev-server": "^2.7.1"
