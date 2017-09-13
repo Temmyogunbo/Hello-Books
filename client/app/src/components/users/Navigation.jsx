@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
-import WelcomeMessage from './WelcomeMessage.jsx';
 
 class Navigation extends React.Component {
   componentDidMount() {

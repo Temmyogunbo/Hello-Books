@@ -4,7 +4,7 @@ import app from '../../config/app';
 
 const should = chai.should();
 chai.use(chaiHttp);
-let userToken, adminToken;
+let userToken, adminToken='';
 
 before((done) => {
   chai.request(app)
@@ -71,6 +71,7 @@ describe('/POST book', () => {
       .set('X-ACCESS-TOKEN', adminToken)
       .send(book)
       .end((err, res) => {
+        console.log('===========', res.body, '++++++++++++', adminToken);
         res.should.have.status(400);
         res.body.should.have.property('errors');
         res.body.errors[0].should.have.property('param').eql('quantity');

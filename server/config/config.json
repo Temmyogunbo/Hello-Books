@@ -8,7 +8,7 @@
   },
   "test": {
     "username": "andeladeveloper",
-    "database": "hellobooks",
+    "database": "postgres",
     "password": "oracle",
     "host": "localhost",
     "dialect": "postgres"

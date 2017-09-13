@@ -61,16 +61,16 @@ class SignUp extends React.Component {
    * @memberof SignupPage
    */
   onSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
     if (this.validateForm()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.signup(this.state).then((error) => {
         if (error) {
-          this.setState({ errors: error.data.message, isLoading: false });
-          toastr.error(error.response.data.message);
+          this.setState({ errors: this.props.error.msg, isLoading: false });
+          toastr.error(this.props.error.msg);
         } else {
           this.setState({ errors: {}, isLoading: true });
-          this.props.history.replace('/');
+          this.props.history.replace('/dashboard');
           toastr.success('You have successfully signed up');
         }
       });
@@ -163,11 +163,18 @@ class SignUp extends React.Component {
 }
 SignUp.propTypes = {
   history: PropTypes.object.isRequired,
-  signup: PropTypes.func.isRequired
+  signup: PropTypes.func.isRequired,
+  error: PropTypes.object.isRequired
 };
+function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user,
+    error: state.userReducer.error
+  };
+}
 const mapDispatchToProps = dispatch => ({
-  signup: signupCredentials => dispatch(signupAction(signupCredentials))
+  signup: signupCredentials => dispatch(signupAction(signupCredentials)),
 });
 
-export default connect(null,
+export default connect(mapStateToProps,
   mapDispatchToProps)(withRouter(SignUp));

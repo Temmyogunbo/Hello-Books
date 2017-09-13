@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signOutAction } from '../../actions/userActions';
 
 class DashboardHead extends React.Component {
   componentDidMount() {
     $(document).ready(() => { $(this.refs.buttonCollapse).sideNav(); });
+  }
+  signOutAction(event) {
+    event.preventDefault();
+    this.props.signOutAction();
   }
   render() {
     return (
@@ -22,21 +29,31 @@ class DashboardHead extends React.Component {
             id="nav-mobile"
             className="right hide-on-med-and-down custom-nav-list"
           >
-            <li><a href="">{this.props.help}</a></li>
-            <li><a href="">{this.props.name}</a></li>
-            <li><Link to=''>{this.props.signOut}</Link></li>
+            <li><a href="">Help</a></li>
+            <li><a href="">{this.props.user.userName}</a></li>
+            <li><Link to="/" onClick={this.signOutAction.bind(this)} >Sign out</Link></li>
           </ul>
           <ul
             id="mobile-demo"
             className="side-nav"
           >
-            <li><a href="">{this.props.help}</a></li>
-            <li><a href="">{this.props.name}</a></li>
-            <li><Link to=''>{this.props.signOut}</Link></li>
+            <li><a href="">Help</a></li>
+            <li><a href="">{this.props.user.userName}</a></li>
+            <li><Link to="/" onClick={this.signOutAction.bind(this)}>Sign out</Link></li>
           </ul>
         </div>
       </nav>
     );
   }
 }
-export default DashboardHead;
+DashboardHead.PropTypes = {
+  signOutAction: PropTypes.func.isRequired,
+  userName: PropTypes.object.isRequired
+};
+function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user
+  };
+}
+
+export default connect(mapStateToProps, { signOutAction })(DashboardHead);

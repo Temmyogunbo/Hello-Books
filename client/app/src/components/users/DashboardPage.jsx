@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import DashboardHead from './DashboardHeader';
 import BookCategories from './BookCategories';
@@ -14,17 +13,24 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <div className="dashboard-color">
-        <DashboardHead help="Help" name={this.props.user.userName} signOut="Sign out" className="dashboard-head-color" />
+        <DashboardHead
+          name={this.props.user.userName}
+          className="dashboard-head-color" {...this.props} />
         <BookCategories />
         <BooksCompartment />
       </div>
     );
   }
 }
+DashboardPage.PropTypes = {
+  name: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
   return {
     user: state.userReducer.user
   };
 }
-export default connect(mapStateToProps, null)(DashboardPage);
+export default connect(mapStateToProps)(DashboardPage);
 

@@ -2,8 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import Navigation from './Navigation.jsx';
+import Navigation from './Navigation';
 import { signinAction } from '../../actions/userActions';
 import signInValidation from '../../../../../server/helper/signinValidation';
 
@@ -48,15 +49,15 @@ class SignInPage extends React.Component {
       this.props.signin(this.state).then((error) => {
         if (!error) {
           if (this.props.user.roleId === 1) {
-            this.props.history.replace('/admindashboard');
+            this.props.history.push('/admindashboard');
             toastr.success('You are Logged in successfully');
             return;
           }
           this.props.history.replace('/dashboard');
           toastr.success('You are Logged in successfully');
         } else {
-          this.setState({ errors: error.data.message, isLoading: false });
-          toastr.error(error.data.message);
+          this.setState({ errors: this.props.error, isLoading: false });
+          toastr.error(this.props.error.msg);
         }
       });
     }
@@ -102,7 +103,7 @@ class SignInPage extends React.Component {
               disabled={isLoading}>
               Log in
             </button><br /><br />
-            <a href=''>Did you forget your password?</a>
+            <a href="">Did you forget your password?</a>
           </form>
         </div>
       </div>
@@ -111,12 +112,15 @@ class SignInPage extends React.Component {
 }
 SignInPage.propTypes = {
   history: PropTypes.object.isRequired,
-  signin: PropTypes.func.isRequired
+  signin: PropTypes.func.isRequired,
+  error: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    error: state.userReducer.error
   };
 }
 

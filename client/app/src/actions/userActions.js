@@ -7,7 +7,7 @@ import { SET_AUTH_USERS, SET_AUTH_USERS_ERROR } from '../constants/actionTypes';
  * sends created user response as a payload to the reducer
  * @param {object} user - created user payload
  */
-const setAuthUser = user => ({
+export const setAuthUser = user => ({
   type: SET_AUTH_USERS,
   user
 });
@@ -62,12 +62,21 @@ export const signinAction = (user) => {
       Authorization.setAuthToken(token);
       dispatch(setAuthUser(jwtDecode(token)));
     }).catch(({ response }) => {
-      dispatch(setAuthUserError(response.data.message));
+      dispatch(setAuthUserError(response.data));
       return response;
     });
 };
 
+export function signOutAction() {
+  return dispatch => {
+    localStorage.removeItem('jwtToken');
+    Authorization.setAuthToken(false);
+    dispatch(setAuthUser({}));
+  };
+};
+
 export default {
   signupAction,
-  signinAction
+  signinAction,
+  signOutAction
 };

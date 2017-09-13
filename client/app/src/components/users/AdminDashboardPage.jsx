@@ -15,13 +15,24 @@ class AdminDashboardPage extends React.Component {
   render() {
     return (
       <div className="dashboard-color">
-        <DashboardHead help="Help" name="username" signOut="Sign out"
-        className="dashboard-head-color" />
+        <DashboardHead
+          name={this.props.user.userName}
+          className="dashboard-head-color" {...this.props} />
         <BookCategories />
         <AdminBooks />
       </div>
-    )
+    );
   }
 }
+AdminDashboardPage.PropTypes = {
+  name: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
+};
 
-export default AdminDashboardPage;
+function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user
+  };
+}
+
+export default connect(mapStateToProps)(AdminDashboardPage);

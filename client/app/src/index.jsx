@@ -20,11 +20,10 @@ const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );
-
-// if (localStorage.jwtToken) {
-//   Authorization.setAuthToken(localStorage.jwtToken);
-//   store.dispatch(setAuthUser(jwtDecode(localStorage.jwtToken)));
-// }
+if (localStorage.jwtToken) {
+  Authorization.setAuthToken(localStorage.jwtToken);
+  store.dispatch(setAuthUser(jwtDecode(localStorage.jwtToken)));
+}
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,16 +1,17 @@
 import React from 'react';
-import Navigation from './Navigation.jsx';
 import { Link } from 'react-router-dom';
+import Navigation from './Navigation';
+import UserDetailsHeader from './UsersDetailsHeader';
 
 const WelcomeMessage = () =>
   (
     <div className="image">
-      <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin"/>
+      <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin" />
       <div className='welcome-message-container'>
         <h1>Welcome to HelloBooks</h1>
         <p className='welcome-message'>
-          Your platform to up to date books.<br/>
-            You can borrow, and read <br/>
+          Your platform to up to date books.<br />
+            You can borrow, and read <br />
               books online.
         </p>
         <div className='welcome-container-div-button'>
