@@ -6,6 +6,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
+import dotenv from 'dotenv';
 import config from '../../webpack.config';
 import route from '../routes';
 
@@ -13,6 +14,7 @@ import route from '../routes';
 // const publicPath = express.static(path.join(__dirname, '../../client/app/public'));
 const app = express();
 const env = process.env.NODE_ENV || 'development';
+dotenv.config();
 const compiler = webpack(config);
 app.use(logger('dev'));
 // app.use('/', publicPath);
