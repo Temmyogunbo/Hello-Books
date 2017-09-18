@@ -1,16 +1,19 @@
 *{
 	margin: 0;
-	font-family: 'Berkshire Swash', cursive;
   color: white;
 }
 body {
-
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .custom-nav-wrapper {
   background: transparent;
   float:right;
   padding-right: 5%;
   margin-top: 20px;
+}
+
+.users-head-details {
+    background: #ff9800;
 }
 .welcome-message {
   margin-top: 20px;
@@ -38,14 +41,6 @@ body {
     font-weight: bold;
 }
 
-.custom-nav-list {
-    margin-left: 50px;
-    font-size: 200%;
-}
-
-.custom-nav-list li a{
-    font-size: 60% !important;
-}
 .welcome-container-button {
   padding: 5px;
   border-radius: 2px;
@@ -161,25 +156,43 @@ body {
     float: left;
 }
 
-.category {
-    color: black;
-    margin: auto;
-    border: 0;
-}
-
 .books-compartment {
     width: 70%;
-    padding-top: 100px;
     float: right;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: -150px;
 }
-
+.admin-books {
+    width: 70%;
+    float: right;
+    margin: auto;
+    margin-top: -70px;
+}
+.admin-books div {
+    margin-top: -100px;
+    float: right
+}
+.books-categories {
+    padding-top: 150px;
+    width: 25%;
+}
 .book-size {
-    width: 30%;
-    height: 30%;
+    width: 20%;
     display: inline-block;
     margin-right: 20px;
-    max-height: 500px !important;
-    padding: 0;
+}
+.categories-component {
+    margin-left: 15px;
+    font-size: 30px;
+}
+.text-size {
+    font-size: 100% !important;
+}
+
+.custom-card-content {
+    padding: 0 !important;
 }
 .description {
     color: red;
@@ -206,6 +219,19 @@ body {
 .dashboard-head-color {
     background: #FF9800 !important;
     margin-top: auto;
+}
+
+.users-profile {
+    background: gray;
+    color: black;
+    width: 50%;
+}
+.users-profile thead{
+    background: black;
+}
+
+.button-color {
+    background: blue;
 }
 /* Body Styling */
 

@@ -1,16 +1,16 @@
 {
   "development": {
-    "username": "andeladeveloper",
-    "database": "postgres",
-    "password": "oracle",
-    "host": "localhost",
+    "username": "fekjvroo",
+    "database": "fekjvroo",
+    "password": "wejdbqwvr2xB-ADnz3Eyjf7bf56BbRLX",
+    "host": "pellefant.db.elephantsql.com",
     "dialect": "postgres"
   },
   "test": {
-    "username": "andeladeveloper",
-    "database": "postgres",
-    "password": "oracle",
-    "host": "localhost",
+    "username": "vvprrike",
+    "database": "vvprrike",
+    "password": "ryrf1v-GFvBKbQyA37_q9z7Yx5ZWBupG",
+    "host": "stampy.db.elephantsql.com",
     "dialect": "postgres"
   },
   "production": {

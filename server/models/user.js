@@ -41,17 +41,14 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // will add userId to History, delete and update dependencies 
-        // if user is deleted and updated respectively
-        User.hasMany(models.History, {
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE'
-        });
-      }
-    }
   });
+  User.associate = function (models) {
+    // will add userId to History, delete and update dependencies 
+  // if user is deleted and updated respectively
+  User.hasMany(models.History, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  });
+};
   return User;
 };

@@ -20,8 +20,6 @@ const setAuthUserError = error => ({
   type: SET_AUTH_USERS_ERROR,
   error
 });
-
-
 /**
  * @return {object} - created user from the server side
  * sends an object of the created user and returns an auth token for the user

@@ -88,7 +88,8 @@ const usersController = {
                 fullName: user.fullName,
                 userName: user.userName,
                 id: user.id,
-                roleId: user.roleId
+                roleId: user.roleId,
+                membership: user.membership
               };
               const token = verify.getToken(payload);
               res.status(200).send({

@@ -4,7 +4,8 @@ import silver from '../helper/silver';
 
 const bookHistoryController = {
   borrowBook(req, res, next) {
-    const userId = parseInt(req.params[0], 10)
+    const userId = parseInt(req.params[0], 10);
+    console.log(req.body.bookId, req.params[0])
     return db.Book.findById(req.body.bookId).then((book) => {
       // book doesn't exist
       if (!book) {
@@ -202,6 +203,22 @@ const bookHistoryController = {
       .catch(() => res.status(404).json({
         message: 'No record for borrowed book'
       }));
+  },
+  findUserHistory(req, res) {
+    const userId = parseInt(req.params[0], 10);
+    return db.History
+      .findAndCountAll({
+        where: {
+          UserId: userId
+        },
+        attributes: ['dueDate', 'borrowedDate', 'returned'],
+        include: [
+          { model: db.Book, attributes: ['author', 'title'] }
+        ]
+      })
+      .then((result) => {
+        res.status(200).json(result.rows);
+      });
   }
 };
 export default bookHistoryController;

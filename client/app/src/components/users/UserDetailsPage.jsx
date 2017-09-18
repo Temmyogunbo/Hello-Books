@@ -1,12 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import UsersDetailsHeader from './UsersDetailsHeader';
+import ProfileContainer from './ProfileContainer';
 
 class UserDetailsPage extends React.Component {
   render() {
+    const { user } = this.props;
     return (
-      <UsersDetailsHeader />
+      <div>
+        <UsersDetailsHeader
+          profileaddress="/user"
+          profile="PROFILE"
+          historyaddress="/history"
+          history="HISTORY"
+        />
+        <ProfileContainer {...user} />
+      </div>
     );
   }
 }
-export default UserDetailsPage;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user,
+  };
+};
+
+export default connect(mapStateToProps)(UserDetailsPage);

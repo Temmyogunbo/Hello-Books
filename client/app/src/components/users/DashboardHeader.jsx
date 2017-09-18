@@ -30,7 +30,7 @@ class DashboardHead extends React.Component {
             className="right hide-on-med-and-down custom-nav-list"
           >
             <li><a href="">Help</a></li>
-            <li><a href="">{this.props.user.userName}</a></li>
+            <li><a href={this.props.address}>{this.props.user.userName}</a></li>
             <li><Link to="/" onClick={this.signOutAction.bind(this)} >Sign out</Link></li>
           </ul>
           <ul
@@ -38,7 +38,7 @@ class DashboardHead extends React.Component {
             className="side-nav"
           >
             <li><a href="">Help</a></li>
-            <li><a href="">{this.props.user.userName}</a></li>
+            <li><a href={this.props.address}>{this.props.user.userName}</a></li>
             <li><Link to="/" onClick={this.signOutAction.bind(this)}>Sign out</Link></li>
           </ul>
         </div>
@@ -50,10 +50,10 @@ DashboardHead.PropTypes = {
   signOutAction: PropTypes.func.isRequired,
   userName: PropTypes.object.isRequired
 };
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user
   };
-}
+};
 
 export default connect(mapStateToProps, { signOutAction })(DashboardHead);

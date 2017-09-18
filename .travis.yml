@@ -6,12 +6,6 @@ node_js:
 services:
   - postgresql
 
-before_script:
-  - npm install -g codeclimate-test-reporter
-  - psql -c 'drop database if exists hellobooks;' -U postgres
-  - psql -c 'create database hellobooks;' -U postgres
-  - psql -c "create user andeladeveloper with login password 'oracle';" -U postgres
-
 env:
   - NODE_ENV=test
 

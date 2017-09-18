@@ -15,7 +15,7 @@ export default (req, res, next, book) => {
         // user has not borrowed before
         // update book table
         db.Book.update({
-          quantity: parseInt(book.dataValues.quantity) - 1
+          quantity: parseInt(book.dataValues.quantity, 10) - 1
         },
         {
           fields: ['quantity'],

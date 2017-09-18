@@ -32,29 +32,25 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // will add userId to history, will delete and update dependencies
-        // if book is deleted and updated respectively
-        History.belongsTo(models.User, {
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-        // Will add bookId to History
-        History.belongsTo(models.Book, {
-
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
+  });
+  History.associate = function (models) {
+    // Will add bookId to History
+    History.belongsTo(models.Book, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      foreignKey: {
+      allowNull: false
       }
+    });
+    // will add userId to history, will delete and update dependencies
+   // if book is deleted and updated respectively
+  History.belongsTo(models.User, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    foreignKey: {
+      allowNull: false
     }
   });
+};
   return History;
 };

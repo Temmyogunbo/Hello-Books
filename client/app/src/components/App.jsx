@@ -9,6 +9,7 @@ import DashboardPage from './users/DashboardPage';
 import AdminDashboardPage from './users/AdminDashboardPage';
 import UserDetailsPage from './users/UserDetailsPage';
 import CheckSignedInContainer from '../../utils/CheckSignedInContainer';
+import HistoryPage from './users/HistoryPage';
 import '../sass/style.scss';
 import '../../../../node_modules/toastr/toastr.scss';
 
@@ -23,6 +24,7 @@ const App = () => (
       <Route path="/dashboard" component={CheckSignedInContainer(DashboardPage)} />
       <Route path="/admindashboard" component={CheckSignedInContainer(AdminDashboardPage)} />
       <Route path="/user" component={CheckSignedInContainer(UserDetailsPage)} />
+      <Route path="/history" component={CheckSignedInContainer(HistoryPage)} />
     </Switch>
   </Router>
 );

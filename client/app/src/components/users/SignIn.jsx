@@ -49,7 +49,7 @@ class SignInPage extends React.Component {
       this.props.signin(this.state).then((error) => {
         if (!error) {
           if (this.props.user.roleId === 1) {
-            this.props.history.push('/admindashboard');
+            this.props.history.replace('/admindashboard');
             toastr.success('You are Logged in successfully');
             return;
           }

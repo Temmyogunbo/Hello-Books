@@ -1,11 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './ButtonComponent';
+
 
 class AdminBooks extends React.Component {
   render() {
+    let bookItems;
+    if (this.props.books) {
+      bookItems = this.props.books.map(book => (
+        <tr key={book.id}>
+          <th>{book.category}</th>
+          <th>{book.author}</th>
+          <th>{book.title}</th>
+          <th>{book.quantity}</th>
+        </tr>
+      ));
+    }
     return (
-      <div>
-        <Button name="ADD BOOK" />
+      <div className="admin-books">
+        <div>
+          <Button name="ADD BOOK" />
+          <Button name="EDIT" />
+          <Button name="DELETE BOOK" />
+        </div>
         <table className="highlight bordered centered admin-books">
           <thead>
             <tr>
@@ -16,31 +33,18 @@ class AdminBooks extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Mathematics</td>
-              <td>Abstract Algebra</td>
-              <td>White Head & C</td>
-              <td>30</td>
-            </tr>
-            <tr>
-              <td>Programming</td>
-              <td>Control the Dummy</td>
-              <td>Emmanuel Ogunbo</td>
-              <td>40</td>
-            </tr>
-            <tr>
-              <td>Romance</td>
-              <td>Romeo $ Juliet</td>
-              <td>Williams Shakespare</td>
-              <td>20</td>
-            </tr>
+            {bookItems}
           </tbody>
         </table>
-        <Button name="EDIT" />
-        <Button name="DELETE BOOK" />
       </div>
     );
   }
 }
 
+AdminBooks.PropTypes = {
+  bookItems: PropTypes.object.isRequired,
+  map: PropTypes.func.isRequired
+};
+
 export default AdminBooks;
+

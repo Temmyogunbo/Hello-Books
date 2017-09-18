@@ -29,9 +29,9 @@ const booksController = {
             message: 'No books in the library'
           });
         }
-        return res.status(200).json({ books });
+        return res.status(200).json(books);
       })
-      .catch(err => res.status(404).json({err}));
+      .catch(err => res.status(404).json({ err }));
   },
   updateBook(req, res) {
     const bookId = parseInt(req.params[0], 10);
@@ -61,24 +61,24 @@ const booksController = {
   deleteBook(req, res) {
     const bookId = parseInt(req.params[0], 10);
     return db.Book.findById(bookId)
-    .then((book) => {
-      if (!book) {
-        return res.status(404).json({
-          message: 'Book cannot be found'
+      .then((book) => {
+        if (!book) {
+          return res.status(404).json({
+            message: 'Book cannot be found'
+          });
+        }
+        db.Book.destroy({
+          where: {
+            id: bookId
+          }
         })
-      }
-      db.Book.destroy({
-      where: {
-        id: bookId
-      }
-    })
-      .then(() => res.status(200).json({
-        message: 'Book successfully deleted!'
-      }))
-      .catch(() => res.status(400).json({
-        message: 'Oops!Something went wrong. Check your details'
-      }));
-    })
-  }
+          .then(() => res.status(200).json({
+            message: 'Book successfully deleted!'
+          }))
+          .catch(() => res.status(400).json({
+            message: 'Oops!Something went wrong. Check your details'
+          }));
+      });
+  },
 };
 export default booksController;

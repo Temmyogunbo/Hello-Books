@@ -1,43 +1,63 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signOutAction } from '../../actions/userActions';
 
 class UsersDetailsHeader extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      eachDetails: 'PROFILE'
+    };
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.signOutAction = this.signOutAction.bind(this);
+  }
+  signOutAction(event) {
+    event.preventDefault();
+    this.props.signOutAction();
+  }
+
+  handleUpdate(details) {
+    this.setState(() => {
+      return {
+        eachDetails: details
+      };
+    });
+  }
   componentDidMount() {
     $(document).ready(() => { $(this.refs.buttonCollapse).sideNav(); });
   }
+
   render() {
     return (
       <div>
-        <ul id="dropdown1" className="dropdown-content">
-          <li><a href="">USername</a></li>
-          <li><a href="#!">Sign out</a></li>
-          <li className="divider"></li>
-        </ul>
-        <nav>
+        <nav className="users-head-details">
           <div className="nav-wrapper">
-            <a href="#!" className="brand-logo">HelloBooks</a>
-            <ul className="right hide-on-med-and-down">
-              <li><a href="">PROFILE</a></li>
-              <li><a href="">BORROWED BOOKS</a></li>
-              <li><a href="">HISTORY</a></li>
-              <li><a
-               className="dropdown-button"
-               href="#!" data-activates="dropdown1">
-                <i
-                className="material-icons right button-collapse" ref="buttonCollapse">arrow_drop_down</i></a></li>
+            <Link to="" className="brand-logo custom-logo-wrap">HelloBooks</Link>
+            <a href=""
+              data-activates="mobile-demo"
+              className="button-collapse"
+              ref="buttonCollapse"
+            >
+              <i className="material-icons">menu</i>
+            </a>
+            <ul
+              id="nav-mobile"
+              className="right hide-on-med-and-down custom-nav-list"
+            >
+              <li><Link to={this.props.profileaddress}>{this.props.profile}</Link></li>
+              <li><Link to={this.props.historyaddress}>{this.props.history}</Link></li>
+              <li><Link to="/" onClick={this.signOutAction.bind(this)}>Sign out</Link></li>
             </ul>
-            <ul className="" id="mobile-demo">
-              <li><a href="">PROFILE</a></li>
-              <li><a href="">BORROWED BOOKS</a></li>
-              <li><a href="">HISTORY</a></li>
-              <li><a href="">Mobile</a></li>
-              <li><a
-                className="dropdown-button"
-                href="#!" data-activates="mobile-demo">
-                <i
-                  className="material-icons right button-collapse" ref="buttonCollapse">arrow_drop_down</i></a>
-              </li>
+            <ul
+              id="mobile-demo"
+              className="side-nav"
+            >
+              <li><Link to={this.props.profileaddress}>{this.props.profile}</Link></li>
+              <li><Link to={this.props.historyaddress}>{this.props.history}</Link></li>
+              <li><Link to="/" onClick={this.signOutAction.bind(this)}>Sign out</Link></li>
             </ul>
           </div>
         </nav>
@@ -45,4 +65,5 @@ class UsersDetailsHeader extends React.Component {
     );
   }
 }
-export default UsersDetailsHeader;
+
+export default connect(null, { signOutAction })(UsersDetailsHeader);

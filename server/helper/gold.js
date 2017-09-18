@@ -15,7 +15,7 @@ export default (req, res, next, book) => {
         // user has not borrowed before
         // update book table
         db.Book.update({
-          quantity: parseInt(book.dataValues.quantity) - 1
+          quantity: parseInt(book.dataValues.quantity, 10) - 1
         },
         {
           fields: ['quantity'],
@@ -56,7 +56,7 @@ export default (req, res, next, book) => {
         } else {
         // user wants to borrow the same book again
           for (let i = size; i--;) {
-            if (parseInt(req.body.bookId) === parseInt(result[i].dataValues.BookId)) {
+            if (parseInt(req.body.bookId, 10) === parseInt(result[i].dataValues.BookId, 10)) {
               const err = new Error('You cannot borrow the same book again');
               err.status = 403;
               next(err);
@@ -64,7 +64,7 @@ export default (req, res, next, book) => {
           }
           // user is borrowing different book and has not exceeded his limit
           db.Book.update({
-            quantity: parseInt(book.quantity) - 1
+            quantity: parseInt(book.quantity, 10) - 1
           },
           {
             fields: ['quantity'],

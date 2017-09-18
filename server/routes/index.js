@@ -16,4 +16,5 @@ export default (app) => {
   app.post(/^\/api\/v1\/users\/(\d+)\/books$/, bookHistoryController.borrowBook);
   app.get(/^\/api\/v1\/users\/(\d+)\/books$/, bookHistoryController.yetToReturn);
   app.put(/^\/api\/v1\/users\/(\d+)\/books$/, bookHistoryController.returnBook);
+  app.get(/^\/api\/v1\/users\/(\d+)\/history$/, bookHistoryController.findUserHistory);
 };

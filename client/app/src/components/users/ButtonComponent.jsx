@@ -3,7 +3,7 @@ import React from 'react';
 class Button extends React.Component {
   render() {
     return (
-      <button>
+      <button className="button-color">
         {this.props.name}
       </button>
     );

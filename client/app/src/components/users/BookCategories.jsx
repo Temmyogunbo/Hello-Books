@@ -1,25 +1,23 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
+import CategoriesComponent from './CategoriesComponent';
 
 class BookCategories extends React.Component {
   render() {
+    let bookItems;
+    if (this.props.books) {
+      bookItems = this.props.books.map(book => (
+        <CategoriesComponent key={book.id} {...book} />
+      ));
+    }
     return (
-      <div className="col s3 m7 container-book-categories">
-        <h2 className="header">categories</h2>
-        <div className="card horizontal">
-          <p className="category">Programming</p>
-        </div>
-        <div className="card horizontal">
-          <p className="category">Mathematics</p>
-        </div>
-        <div className="card horizontal">
-          <p className="category">Romance</p>
-        </div>
+      <div className="books-categories">
+        {bookItems}
       </div>
     );
   }
 }
+BookCategories.PropTypes = {
+  map: PropTypes.func.isRequired
+};
 export default BookCategories;

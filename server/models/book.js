@@ -34,17 +34,15 @@ export default (sequelize, DataTypes) => {
         }
       }
     }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // will add bookId to History2, will delete and update dependencies
+  });
+  Book.associate = function (models) {
+            // will add bookId to History2, will delete and update dependencies
         // if book is deleted and updated respectively
         Book.hasMany(models.History, {
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE'
         });
-      }
-    }
-  });
+};
   return Book;
 };
+

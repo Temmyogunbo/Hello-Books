@@ -1,11 +1,34 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert2';
+import { borrowBookAction } from '../../actions/bookAction';
+// import Button from './ButtonComponent';
 import image from '../../images/mathcover.jpg';
 
 class Books extends React.Component {
+  constructor(props) {
+    super(props);
+    this.dialogueBox = this.dialogueBox.bind(this);
+  }
+
+  dialogueBox() {
+    swal({
+      title: 'Will you borrow this book?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    })
+      .then((yes) => {
+        if (yes) {
+          this.props.borrowBook({ bookId: this.props.id, userId: this.props.user.id, membership: this.props.user.membership })
+            .then(console.log(this.props.borrowBookReducer.error.message, 'entered promise'));
+        }
+      })
+      .catch(swal.noop);
+  }
   render() {
     return (
       <div className="card book-size">
@@ -15,25 +38,35 @@ class Books extends React.Component {
             src={image} alt="book-cover"
           />
         </div>
-        <div className="card-content">
-          <span className="card-title activator grey-text text-darken-4">
+        <div className="card-content custom-card-content">
+          <span className="card-title activator grey-text text-darken-4 text-size">
             {this.props.title}
           </span>
         </div>
         <div className="card-reveal">
-          <span className="card-title grey-text text-darken-4">
+          <span className="card-title grey-text text-darken-4 text-size">
             {this.props.author}
           </span>
-          <p className="description">{this.props.description}</p>
-          <div><Link to=""><button>Borrow Book</button></Link></div>
+
+          <div><button onClick={this.dialogueBox}>Borrow Book</button></div>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user,
+    borrowBookReducer: state.borrowBookReducer
+  };
+};
+
 Books.PropTypes = {
   title: PropTypes.object.isRequired,
   author: PropTypes.object.isRequired,
-  description: PropTypes.object.isRequired
+  dialogueBox: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
-export default Books;
+export default
+connect(mapStateToProps, { borrowBook: borrowBookAction })(Books);
