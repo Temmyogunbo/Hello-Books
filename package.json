@@ -1,6 +1,6 @@
 {
   "name": "temmyogunbo",
-  "version": "1.0.0",
+  "version": "6.11.2",
   "private": true,
   "scripts": {
     "start": "nodemon --watch server --exec babel-node -- ./server/bin/www.js",
