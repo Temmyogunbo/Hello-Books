@@ -3,33 +3,39 @@ import { connect } from 'react-redux';
 import HistoryContainer from './HistoryContainer';
 import PropTypes from 'prop-types';
 import UsersDetailsHeader from './UsersDetailsHeader';
-import { getHistoryAction } from '../../actions/bookAction';
+import {
+  getHistoryAction,
+  returnBookAction
+} from '../../actions/bookAction';
 
 class HistoryPage extends React.Component {
   componentDidMount() {
     this.props.getHistory({ userId: this.props.user.id });
   }
   render() {
-    console.log('history page', this.props)
-    const { history } = this.props;
+    const { userHistory, returnBook, returnBookReducer } = this.props;
+    const { id } = this.props.user;
     return (
       <div>
         <UsersDetailsHeader
           profileaddress="/user"
           profile="PROFILE"
           historyaddress="/history"
-          history="HISTORY"
+          historyHead="HISTORY"
         />
-        <HistoryContainer {...history} />
+        <HistoryContainer {...userHistory} returnBook={returnBook} id={id} returnBookReducer={returnBookReducer} />
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
   return {
-    history: state.historyReducer.history,
-    user: state.userReducer.user
+    userHistory: state.historyReducer.detailedHistory,
+    user: state.userReducer.user,
+    returnBookReducer: state.returnBookReducer
   };
 };
 export default
-connect(mapStateToProps, { getHistory: getHistoryAction })(HistoryPage);
+connect(mapStateToProps, {
+  getHistory: getHistoryAction,
+  returnBook: returnBookAction })(HistoryPage);
