@@ -1,9 +1,8 @@
 {
   "development": {
-    "username": "fekjvroo",
-    "database": "fekjvroo",
-    "password": "wejdbqwvr2xB-ADnz3Eyjf7bf56BbRLX",
-    "host": "pellefant.db.elephantsql.com",
+    "username": "andeladeveloper",
+    "database": "hellobooks",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
