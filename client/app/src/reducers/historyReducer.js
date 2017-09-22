@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   thereIsHistory: false,
-  history: {},
+  detailedHistory: {},
   error: {}
 };
 
@@ -15,8 +15,8 @@ export default (state = initialState, action = {}) => {
   case GET_USER_HISTORY:
     return {
       ...state,
-      history: action.history,
-      thereIsHistory: !isEmpty(action.history),
+      detailedHistory: action.detailedHistory,
+      thereIsHistory: !isEmpty(action.detailedHistory),
       error: {}
     };
   case GET_USER_HISTORY_ERROR:
