@@ -5,7 +5,9 @@ import {
   BORROW_A_BOOK,
   BORROW_A_BOOK_ERROR,
   GET_USER_HISTORY,
-  GET_USER_HISTORY_ERROR
+  GET_USER_HISTORY_ERROR,
+  RETURN_A_BOOK,
+  RETURN_A_BOOK_ERROR
 } from '../constants/actionTypes';
 
 /**
@@ -43,19 +45,33 @@ const borrowBookError = error => ({
 /**
  *
  * @return {object} All history
- * @param {error} history - dispatched history object
+ * @param {error} detailedHistory - dispatched history object
  */
-const getHistory = history => ({
+const getHistory = detailedHistory => ({
   type: GET_USER_HISTORY,
-  history
+  detailedHistory
 });
 /**
  *
  * @return {object} error
  * @param {error} error - dispatched error object
  */
-const getHistoryError  = error => ({
+const getHistoryError = error => ({
   type: GET_USER_HISTORY_ERROR,
+  error
+});
+/**
+ *
+ * @return {object} return book details
+ * @param {error} error - dispatched error object
+ */
+const returnBook = returnMessage => ({
+  type: RETURN_A_BOOK,
+  returnMessage
+});
+
+const returnBookEror = error => ({
+  type: RETURN_A_BOOK_ERROR,
   error
 });
 /**
@@ -76,33 +92,52 @@ export const borrowBookAction = bookData => dispatch =>
     { membership: bookData.membership, bookId: `${bookData.bookId}` })
     .then((response) => {
       const bookMessage = response.data;
-      console.log('working as intended',bookMessage);
       dispatch(borrowBook({ bookMessage }));
     })
     .catch((error) => {
-      dispatch(borrowBookError(error.response.data));
-      return error;
+      const errorMessage = error.response.data;
+      dispatch(borrowBookError(errorMessage));
     }
     );
-  /**
- * @return {object} - returns an object of history
- * @param {object} book - contains user history in the library
- */
+/**
+* @return {object} - returns an object of history
+* @param {object} book - contains user history in the library
+*/
 export const getHistoryAction = userData => dispatch =>
   axios.get(`/api/v1/users/${userData.userId}/history`)
     .then((response) => {
-      const history = response.data;
-      console.log('This is awesome', history);
-      dispatch(getHistory({ history }));
+      const userHistory = response.data;
+      console.log('this is awesome', userHistory);
+      dispatch(getHistory({ userHistory }));
     })
     .catch((error) => {
-      console.log('something went wrong', error);
+      console.log('error was here', error);
       dispatch(getHistoryError(error.response.data));
       return error;
     });
 
+/**
+ * @return {object} - returns an object of return book
+ */
+export const returnBookAction = (returnData) => {
+  const { userId } = { returnData };
+  console.log('ooooooooooo', `${userId}`);
+  console.log(`api/v1/users/${returnData.userId}/books`, '-------');
+  return dispatch =>
+    axios.put(`api/v1/users/${returnData.userId}/books`, { bookId: returnData.BookId })
+      .then((response) => {
+        console.log('return book was here', response);
+        const returnMessage = response.data;
+        dispatch(returnBook({ returnMessage }));
+      })
+      .catch((error) => {
+        dispatch(returnBookEror(error.response.data));
+        return error;
+      });
+};
 export default {
   getAllBooksAction,
   borrowBookAction,
-  getHistoryAction
+  getHistoryAction,
+  returnBookAction
 };
