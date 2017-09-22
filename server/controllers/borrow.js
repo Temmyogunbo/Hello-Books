@@ -5,7 +5,6 @@ import silver from '../helper/silver';
 const bookHistoryController = {
   borrowBook(req, res, next) {
     const userId = parseInt(req.params[0], 10);
-    console.log(req.body.bookId, req.params[0])
     return db.Book.findById(req.body.bookId).then((book) => {
       // book doesn't exist
       if (!book) {
@@ -145,16 +144,18 @@ const bookHistoryController = {
   },
   returnBook(req, res) {
   // find book if it exists in the history table
+  console.log('qqqqqq',req.body)
     return db.History
       .findOne({
         where: {
-          BookId: [req.body.bookId],
+          BookId: req.body.bookId,
           UserId: req.params.userId,
           returned: false
         }
       })
       .then((history) => {
       // find book if it exists in the Books table
+      // console.log("i made it here alive", history.dataValues.BookId)
         db.Book.findOne(
           {
             where: {
@@ -181,7 +182,7 @@ const bookHistoryController = {
                 {
                   fields: ['returned'],
                   where: {
-                    BookId: [history.BookId],
+                    BookId: history.BookId,
                     UserId: req.params.userId
                   }
                 })
@@ -211,7 +212,7 @@ const bookHistoryController = {
         where: {
           UserId: userId
         },
-        attributes: ['dueDate', 'borrowedDate', 'returned'],
+        attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
           { model: db.Book, attributes: ['author', 'title'] }
         ]
