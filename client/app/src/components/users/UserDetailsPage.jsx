@@ -12,7 +12,7 @@ class UserDetailsPage extends React.Component {
           profileaddress="/user"
           profile="PROFILE"
           historyaddress="/history"
-          history="HISTORY"
+          historyHead="HISTORY"
         />
         <ProfileContainer {...user} />
       </div>
