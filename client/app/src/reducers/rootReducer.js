@@ -3,10 +3,12 @@ import userReducer from './userReducer';
 import bookReducer from './bookReducer';
 import borrowBookReducer from './borrowBookReducer';
 import historyReducer from './historyReducer';
+import returnBookReducer from './returnBookReducer';
 
 export default combineReducers({
   userReducer,
   bookReducer,
   borrowBookReducer,
-  historyReducer
+  historyReducer,
+  returnBookReducer
 });
