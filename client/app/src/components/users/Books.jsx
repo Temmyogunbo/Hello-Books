@@ -12,7 +12,6 @@ class Books extends React.Component {
     super(props);
     this.dialogueBox = this.dialogueBox.bind(this);
   }
-
   dialogueBox() {
     swal({
       title: 'Will you borrow this book?',
@@ -23,8 +22,18 @@ class Books extends React.Component {
     })
       .then((yes) => {
         if (yes) {
-          this.props.borrowBook({ bookId: this.props.id, userId: this.props.user.id, membership: this.props.user.membership })
-            .then(console.log(this.props.borrowBookReducer.error.message, 'entered promise'));
+          this.props.borrowBook({
+            bookId: this.props.id,
+            userId: this.props.user.id,
+            membership: this.props.user.membership
+          })
+            .then(() => {
+              if (this.props) {
+                swal(
+                  this.props.borrowBookReducer.error.message
+                ).catch(swal.noop);
+              }
+            });
         }
       })
       .catch(swal.noop);
