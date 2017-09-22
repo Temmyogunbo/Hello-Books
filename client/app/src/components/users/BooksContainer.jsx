@@ -5,7 +5,6 @@ import swal from 'sweetalert2';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import Books from './Books';
-import borrowBookAction from '../../actions/bookAction';
 
 class BooksCompartment extends React.Component {
   render() {
@@ -22,4 +21,4 @@ class BooksCompartment extends React.Component {
     );
   }
 }
-export default connect(null, { borrowBookAction })(BooksCompartment);
+export default BooksCompartment;
