@@ -47,17 +47,37 @@ class UsersDetailsHeader extends React.Component {
               id="nav-mobile"
               className="right hide-on-med-and-down custom-nav-list"
             >
-              <li><Link to={this.props.profileaddress}>{this.props.profile}</Link></li>
-              <li><Link to={this.props.historyaddress}>{this.props.history}</Link></li>
-              <li><Link to="/" onClick={this.signOutAction.bind(this)}>Sign out</Link></li>
+              <li>
+                <Link to={this.props.profileaddress}>         {this.props.profile}
+                </Link>
+              </li>
+              <li>
+                <Link to={this.props.historyaddress}>  {this.props.historyHead}
+                </Link>
+              </li>
+              <li>
+                <Link to="/" onClick={this.signOutAction.bind(this)}>
+                   Sign out
+                </Link>
+              </li>
             </ul>
             <ul
               id="mobile-demo"
               className="side-nav"
             >
-              <li><Link to={this.props.profileaddress}>{this.props.profile}</Link></li>
-              <li><Link to={this.props.historyaddress}>{this.props.history}</Link></li>
-              <li><Link to="/" onClick={this.signOutAction.bind(this)}>Sign out</Link></li>
+              <li>
+                <Link to={this.props.profileaddress}>         {this.props.profile}
+                </Link>
+              </li>
+              <li>
+                <Link to={this.props.historyaddress}>  {this.props.historyHead}
+                </Link>
+              </li>
+              <li>
+                <Link to="/" onClick={this.signOutAction.bind(this)}>
+                Sign out
+                </Link>
+              </li>
             </ul>
           </div>
         </nav>
