@@ -65,8 +65,8 @@ export const signinAction = (user) => {
     });
 };
 
-export function signOutAction() {
-  return dispatch => {
+export const signOutAction = () => {
+  return (dispatch) => {
     localStorage.removeItem('jwtToken');
     Authorization.setAuthToken(false);
     dispatch(setAuthUser({}));
