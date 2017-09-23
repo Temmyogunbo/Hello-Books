@@ -7,9 +7,29 @@ import {
   GET_USER_HISTORY,
   GET_USER_HISTORY_ERROR,
   RETURN_A_BOOK,
-  RETURN_A_BOOK_ERROR
+  RETURN_A_BOOK_ERROR,
+  ADD_BOOK,
+  ADD_BOOK_ERROR,
+  DELETE_BOOK,
+  DELETE_BOOK_ERROR
 } from '../constants/actionTypes';
 
+/**
+ *
+ * @param {msg} message - dispatched message object
+ */
+const deleteCategory = deleteMessage => ({
+  type: DELETE_BOOK,
+  deleteMessage
+});
+/**
+ *
+ * @param {error} error - dispatched error object
+ */
+const deleteCategoryError = error => ({
+  type: DELETE_BOOK_ERROR,
+  error
+});
 /**
  *
  * @return {object} All books
@@ -69,6 +89,24 @@ const returnBook = returnMessage => ({
   type: RETURN_A_BOOK,
   returnMessage
 });
+/**
+ *
+ * @return {object} message on success
+ * @param {error} error - dispatched error object
+ */
+const addBook = message => ({
+  type: ADD_BOOK,
+  message
+});
+/**
+ *
+ * @return {object} error
+ * @param {error} error - dispatched error object
+ */
+const addBookError = error => ({
+  type: ADD_BOOK_ERROR,
+  error
+});
 
 const returnBookEror = error => ({
   type: RETURN_A_BOOK_ERROR,
@@ -91,8 +129,7 @@ export const borrowBookAction = bookData => dispatch =>
   axios.post(`/api/v1/users/${bookData.userId}/books`,
     { membership: bookData.membership, bookId: `${bookData.bookId}` })
     .then((response) => {
-      const bookMessage = response.data;
-      dispatch(borrowBook({ bookMessage }));
+      dispatch(borrowBook(response.data));
     })
     .catch((error) => {
       const errorMessage = error.response.data;
@@ -101,17 +138,15 @@ export const borrowBookAction = bookData => dispatch =>
     );
 /**
 * @return {object} - returns an object of history
-* @param {object} book - contains user history in the library
+* @param {object} history - contains user history in the library
 */
 export const getHistoryAction = userData => dispatch =>
   axios.get(`/api/v1/users/${userData.userId}/history`)
     .then((response) => {
       const userHistory = response.data;
-      console.log('this is awesome', userHistory);
       dispatch(getHistory({ userHistory }));
     })
     .catch((error) => {
-      console.log('error was here', error);
       dispatch(getHistoryError(error.response.data));
       return error;
     });
@@ -120,24 +155,40 @@ export const getHistoryAction = userData => dispatch =>
  * @return {object} - returns an object of return book
  */
 export const returnBookAction = (returnData) => {
-  const { userId } = { returnData };
-  console.log('ooooooooooo', `${userId}`);
-  console.log(`api/v1/users/${returnData.userId}/books`, '-------');
   return dispatch =>
     axios.put(`api/v1/users/${returnData.userId}/books`, { bookId: returnData.BookId })
       .then((response) => {
-        console.log('return book was here', response);
-        const returnMessage = response.data;
-        dispatch(returnBook({ returnMessage }));
+        dispatch(returnBook(response.data));
       })
       .catch((error) => {
         dispatch(returnBookEror(error.response.data));
         return error;
       });
 };
+/**
+* @return {object} - returns an object of book
+* @param {object} book - contains book message in the library
+*/
+export const addBookAction = (bookData) => {
+  return dispatch =>
+    axios.post('api/v1/books', bookData)
+      .then((response) => {
+        dispatch(addBook(response.data));
+      })
+      .catch((error) => {
+        dispatch(addBookError(error.response.data));
+        return error;
+      });
+};
+/**
+ * @param {object} message - contains delete message from the library
+*/
+export const deleteBookActio = (bookData) => {}
+
 export default {
   getAllBooksAction,
   borrowBookAction,
   getHistoryAction,
-  returnBookAction
+  returnBookAction,
+  addBookAction
 };

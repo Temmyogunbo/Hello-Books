@@ -1,25 +1,24 @@
 import isEmpty from 'lodash/isEmpty';
 import {
-  RETURN_A_BOOK,
-  RETURN_A_BOOK_ERROR
+  ADD_BOOK,
+  ADD_BOOK_ERROR
 } from '../constants/actionTypes';
 
 const initialState = {
-  BookIsReturn: false,
-  message: {},
+  bookAdded: false,
+  bookMessage: {},
   error: {}
 };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-  case RETURN_A_BOOK:
+  case ADD_BOOK:
     return {
       ...state,
-      BookIsReturn: isEmpty(action.message),
-      message: action.returnMessage,
-      error: {}
+      bookMessage: action.message,
+      bookAdded: !isEmpty(action.message)
     };
-  case RETURN_A_BOOK_ERROR:
+  case ADD_BOOK_ERROR:
     return {
       ...state,
       error: action.error

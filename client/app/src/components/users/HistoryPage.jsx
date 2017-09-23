@@ -13,8 +13,7 @@ class HistoryPage extends React.Component {
     this.props.getHistory({ userId: this.props.user.id });
   }
   render() {
-    const { userHistory, returnBook, returnBookReducer } = this.props;
-    const { id } = this.props.user;
+    const { userHistory, returnBook, returnBookReducer, history, getHistory, user } = this.props;
     return (
       <div>
         <UsersDetailsHeader
@@ -23,7 +22,13 @@ class HistoryPage extends React.Component {
           historyaddress="/history"
           historyHead="HISTORY"
         />
-        <HistoryContainer {...userHistory} returnBook={returnBook} id={id} returnBookReducer={returnBookReducer} />
+        <HistoryContainer
+          {...userHistory}
+          returnBook={returnBook}
+          returnBookReducer={returnBookReducer}
+          getHistory={getHistory}
+          user={user}
+        />
       </div>
     );
   }

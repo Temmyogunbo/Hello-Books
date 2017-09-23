@@ -12,7 +12,7 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       BookIsBorrowed: isEmpty(action.message),
-      message: action.message,
+      message: action.book,
       error: {}
     };
   case BORROW_A_BOOK_ERROR:

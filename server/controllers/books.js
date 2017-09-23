@@ -2,8 +2,8 @@ import db from '../models';
 
 const booksController = {
   createBook(req, res) {
-    req.check('title', 'title is required').notEmpty();
     req.check('category', 'category is required').notEmpty();
+    req.check('title', 'title is required').notEmpty();
     req.check('author', 'author is required').notEmpty();
     req.check('quantity', 'quantity is required').notEmpty();
     req.check('quantity', 'quantity must be an integer').isInt();
@@ -17,16 +17,19 @@ const booksController = {
       author: req.body.author,
       quantity: req.body.quantity
     })
-      .then(book => res.status(201).send(book))
+      .then(() => res.status(201).json({
+        msg: 'You have a record successful'
+      }))
       .catch(() => res.status(400).json({
-        message: 'Cannot create book' }));
+        errors: [{ msg: 'Cannot create book' }]
+      }));
   },
   findBooks(req, res) {
     return db.Book.findAll({ limit: 10 })
       .then((books) => {
         if (books.length === 0) {
           return res.status(404).json({
-            message: 'No books in the library'
+            msg: 'No books in the library'
           });
         }
         return res.status(200).json(books);
@@ -49,12 +52,12 @@ const booksController = {
     })
       .then(() => {
         return res.status(200).json({
-          message: 'You updated a book'
+          msg: 'You updated a book'
         });
       })
       .catch(() => {
         res.status(403).json({
-          message: 'Invalid details'
+          msg: 'Invalid details'
         });
       });
   },
@@ -64,7 +67,7 @@ const booksController = {
       .then((book) => {
         if (!book) {
           return res.status(404).json({
-            message: 'Book cannot be found'
+            msg: 'Book cannot be found'
           });
         }
         db.Book.destroy({
@@ -73,10 +76,10 @@ const booksController = {
           }
         })
           .then(() => res.status(200).json({
-            message: 'Book successfully deleted!'
+            msg: 'Book successfully deleted!'
           }))
           .catch(() => res.status(400).json({
-            message: 'Oops!Something went wrong. Check your details'
+            msg: 'Oops!Something went wrong. Check your details'
           }));
       });
   },

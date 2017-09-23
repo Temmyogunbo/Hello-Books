@@ -1,17 +1,10 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
-import { borrowBookAction } from '../../actions/bookAction';
 // import Button from './ButtonComponent';
 import image from '../../images/mathcover.jpg';
 
 class Books extends React.Component {
-  constructor(props) {
-    super(props);
-    this.dialogueBox = this.dialogueBox.bind(this);
-  }
   dialogueBox() {
     swal({
       title: 'Will you borrow this book?',
@@ -28,10 +21,16 @@ class Books extends React.Component {
             membership: this.props.user.membership
           })
             .then(() => {
-              if (this.props) {
+              if (this.props.borrowBookReducer.BookIsBorrowed) {
+                swal(
+                  this.props.borrowBookReducer.message.message
+                ).catch(swal.noop);
+                this.props.getAllBooks();
+              } else {
                 swal(
                   this.props.borrowBookReducer.error.message
                 ).catch(swal.noop);
+                this.props.getAllBooks();
               }
             });
         }
@@ -57,25 +56,18 @@ class Books extends React.Component {
             {this.props.author}
           </span>
 
-          <div><button onClick={this.dialogueBox}>Borrow Book</button></div>
+          <div><button onClick={this.dialogueBox.bind(this)}>Borrow Book</button></div>
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.userReducer.user,
-    borrowBookReducer: state.borrowBookReducer
-  };
-};
-
 Books.PropTypes = {
   title: PropTypes.object.isRequired,
   author: PropTypes.object.isRequired,
   dialogueBox: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  borrowBookReducer: PropTypes.object.isRequired
 };
-export default
-connect(mapStateToProps, { borrowBook: borrowBookAction })(Books);
+export default Books;

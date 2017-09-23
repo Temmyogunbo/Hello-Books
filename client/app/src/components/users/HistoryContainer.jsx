@@ -1,6 +1,7 @@
 import React from 'react';
 import swal from 'sweetalert2';
 
+
 class HistoryContainer extends React.Component {
   handleReturnBook(historyId) {
     if (this.props) {
@@ -9,30 +10,37 @@ class HistoryContainer extends React.Component {
         swal('You want to return this book')
           .then(() => {
             // fire an action to return book
-            this.props.returnBook({ BookId: historyId.BookId, userId: this.props.id })
+            this.props.returnBook({
+              BookId: historyId.BookId,
+              userId: this.props.user.id
+            })
               .then(() => {
                 // if book is returned succesfully
                 if (this.props.returnBookReducer.BookIsReturn) {
-                  swal(this.props.returnBookReducer.message);
+                  swal(this.props.returnBookReducer.message.message)
+                    .catch(swal.noop);
+                  this.props.getHistory({ userId: this.props.user.id });
+                } else {
+                  swal(this.props.returnBookReducer.error.message)
+                    .catch(swal.noop);
                 }
-                swal(this.props.returnBookReducer.error.message);
               });
-          });
+          }).catch(swal.noop);
       }
     }
   }
   render() {
     let historyItem;
     if (this.props.userHistory) {
-      historyItem = this.props.userHistory.map(history => (
-        <tr key={history.Book.title}>
-          <td>{history.Book.title}</td>
-          <td>{history.Book.author}</td>
-          <td>{history.dueDate}</td>
-          <td>{history.borrowedDate}</td>
+      historyItem = this.props.userHistory.map((historyObj, index) => (
+        <tr key={index}>
+          <td>{historyObj.Book.title}</td>
+          <td>{historyObj.Book.author}</td>
+          <td>{historyObj.dueDate}</td>
+          <td>{historyObj.borrowedDate}</td>
           <td>
-            <button onClick={() => { this.handleReturnBook.bind(this)(history)}}>
-              {history.returned.toString()}
+            <button onClick={() => { this.handleReturnBook.bind(this)(historyObj)}}>
+              {historyObj.returned.toString()}
             </button></td>
         </tr>
       ));

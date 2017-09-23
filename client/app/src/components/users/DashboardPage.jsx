@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import DashboardHead from './DashboardHeader';
 import BookCategories from './BookCategories';
 import BooksContainer from './BooksContainer';
-import { getAllBooksAction } from '../../actions/bookAction';
+import { getAllBooksAction, borrowBookAction } from '../../actions/bookAction';
 
 class DashboardPage extends React.Component {
   componentDidMount() {
@@ -14,17 +14,23 @@ class DashboardPage extends React.Component {
     this.props.getAllBooks();
   }
   render() {
-    const { user, books } = this.props;
+    const { user, books, borrowBook, borrowBookReducer, getAllBooks } = this.props;
     return (
       <div className="dashboard-color">
         <DashboardHead
           address="/user"
           name={this.props.user.userName}
           className="dashboard-head-color"
-          {...this.props.user}
+          {...user}
         />
-        <BookCategories {...this.props.books} />
-        <BooksContainer {...this.props.books} />
+        <BookCategories {...books} />
+        <BooksContainer
+          {...books}
+          user={user}
+          borrowBook={borrowBook}
+          borrowBookReducer={borrowBookReducer}
+          getAllBooks={getAllBooks}
+        />
       </div>
     );
   }
@@ -39,14 +45,15 @@ DashboardPage.PropTypes = {
 const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
-    books: state.bookReducer.books
+    books: state.bookReducer.books,
+    borrowBookReducer: state.borrowBookReducer
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  getAllBooks: () => dispatch(
-    getAllBooksAction()
-  )
-});
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+
+export default
+connect(mapStateToProps,
+  { getAllBooks: getAllBooksAction,
+    borrowBook: borrowBookAction
+  })(DashboardPage);
 

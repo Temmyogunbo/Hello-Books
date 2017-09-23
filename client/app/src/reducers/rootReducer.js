@@ -4,11 +4,13 @@ import bookReducer from './bookReducer';
 import borrowBookReducer from './borrowBookReducer';
 import historyReducer from './historyReducer';
 import returnBookReducer from './returnBookReducer';
+import addBookReducer from './addBookReducer';
 
 export default combineReducers({
   userReducer,
   bookReducer,
   borrowBookReducer,
   historyReducer,
-  returnBookReducer
+  returnBookReducer,
+  addBookReducer
 });

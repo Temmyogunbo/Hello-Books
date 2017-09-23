@@ -144,12 +144,11 @@ const bookHistoryController = {
   },
   returnBook(req, res) {
   // find book if it exists in the history table
-  console.log('qqqqqq',req.body)
     return db.History
       .findOne({
         where: {
           BookId: req.body.bookId,
-          UserId: req.params.userId,
+          UserId: req.params[0],
           returned: false
         }
       })
@@ -183,7 +182,7 @@ const bookHistoryController = {
                   fields: ['returned'],
                   where: {
                     BookId: history.BookId,
-                    UserId: req.params.userId
+                    UserId: req.params[0]
                   }
                 })
                   .then(() => res.status(200).json({

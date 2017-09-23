@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CategoriesComponent from './CategoriesComponent';
 
 class BookCategories extends React.Component {
   render() {
     let bookItems;
     if (this.props.books) {
       bookItems = this.props.books.map(book => (
-        <CategoriesComponent key={book.id} {...book} />
+        <p key={book.id}><a href="">{book.category}</a></p>
       ));
     }
     return (
-      <div className="books-categories">
+      <div className="books-categories categories-component">
         {bookItems}
       </div>
     );
