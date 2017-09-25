@@ -16,7 +16,8 @@ import {
 
 /**
  *
- * @param {msg} message - dispatched message object
+ * @param {deleteMessage} deleteMessage - dispatched deleteMessage 
+ * @return {object} deleteMessage
  */
 const deleteBook = deleteMessage => ({
   type: DELETE_BOOK,
@@ -25,6 +26,7 @@ const deleteBook = deleteMessage => ({
 /**
  *
  * @param {error} error - dispatched error object
+ * @return {object} error
  */
 const deleteBookError = error => ({
   type: DELETE_BOOK_ERROR,
@@ -32,7 +34,7 @@ const deleteBookError = error => ({
 });
 /**
  *
- * @return {object} All books
+ * @return {object} books - Return an array of books
  * @param {error} books - dispatched book object
  */
 const getAllBooks = books => ({
@@ -51,13 +53,17 @@ const getAllBooksError = error => ({
 /**
  *
  * @return {object} All books
- * @param {error} books - dispatched book object
+ * @param {error} book - dispatched book object
  */
 const borrowBook = book => ({
   type: BORROW_A_BOOK,
   book
 });
-
+/**
+ *
+ * @return {object} error
+ * @param {error} error - dispatched error object
+ */
 const borrowBookError = error => ({
   type: BORROW_A_BOOK_ERROR,
   error
@@ -65,7 +71,7 @@ const borrowBookError = error => ({
 /**
  *
  * @return {object} All history
- * @param {error} detailedHistory - dispatched history object
+ * @param {detailedHistory} detailedHistory - dispatched history object
  */
 const getHistory = detailedHistory => ({
   type: GET_USER_HISTORY,
@@ -82,8 +88,8 @@ const getHistoryError = error => ({
 });
 /**
  *
- * @return {object} return book details
- * @param {error} error - dispatched error object
+ * @return {returnMessage} returnMessage - dispatched returned message
+ * @param {object} returnMessage book details
  */
 const returnBook = returnMessage => ({
   type: RETURN_A_BOOK,
@@ -91,8 +97,8 @@ const returnBook = returnMessage => ({
 });
 /**
  *
- * @return {object} message on success
- * @param {error} message - dispatched error object
+ * @param {object} message
+ * @return {message} message - dispatched message object
  */
 const addBook = message => ({
   type: ADD_BOOK,
@@ -107,14 +113,17 @@ const addBookError = error => ({
   type: ADD_BOOK_ERROR,
   error
 });
-
+/**
+ *
+ * @return {object} error
+ * @param {error} error - dispatched error object
+ */
 const returnBookEror = error => ({
   type: RETURN_A_BOOK_ERROR,
   error
 });
 /**
  * @return {object} - returns an object of books
- * @param {object} book - contains books in the library
  */
 export const getAllBooksAction = () => dispatch =>
   axios.get('/api/v1/books').then((response) => {
@@ -125,6 +134,10 @@ export const getAllBooksAction = () => dispatch =>
       dispatch(getAllBooksError(error.response.data));
       return error;
     });
+ /**
+ * @param {bookData} bookData
+ * @return {object} response
+ */
 export const borrowBookAction = bookData => dispatch =>
   axios.post(`/api/v1/users/${bookData.userId}/books`,
     { membership: bookData.membership, bookId: `${bookData.bookId}` })
