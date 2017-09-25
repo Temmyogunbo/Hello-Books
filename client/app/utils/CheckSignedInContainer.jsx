@@ -8,7 +8,7 @@ const history = createBrowserHistory();
 
 export default (ComposedComponent) => {
   class CheckSignedInContainer extends React.Component {
-    componentWillMount() {
+    componentDidlMount() {
       if (!this.props.isAuthenticated) {
         toastr.error('You need to sign in');
         this.props.history.replace('/signin');
@@ -30,10 +30,10 @@ export default (ComposedComponent) => {
     isAuthenticated: PropTypes.bool.isRequired,
     history: PropTypes.object.isRequired
   };
-  function mapStateToProps(state) {
+  const mapStateToProps = (state) => {
     return {
       isAuthenticated: state.userReducer.isAuthenticated
     };
-  }
+  };
   return connect(mapStateToProps)(CheckSignedInContainer);
 };
