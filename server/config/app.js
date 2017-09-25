@@ -11,13 +11,11 @@ import config from '../../webpack.config';
 import route from '../routes';
 
 // creating express application
-// const publicPath = express.static(path.join(__dirname, '../../client/app/public'));
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 dotenv.config();
 const compiler = webpack(config);
 app.use(logger('dev'));
-// app.use('/', publicPath);
 
 // format request data
 app.use(bodyParser.json());
