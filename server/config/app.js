@@ -31,7 +31,7 @@ if (env === 'development') {
 (route)(app);
 
 app.use('*', (request, response) => {
-  response.sendFile(path.join(__dirname, '/../../client/app/public/js/index.html'));
+  response.sendFile(path.join(__dirname, '/../../client/app/public/index.html'));
 });
 
 // error handler
