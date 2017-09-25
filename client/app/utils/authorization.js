@@ -7,6 +7,6 @@ class Authorization {
     } else {
       delete axios.defaults.headers.common.authorizaton;
     }
-  };
+  }
 }
 export default Authorization;
