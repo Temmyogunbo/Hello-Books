@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Navigation from './Navigation';
 import UserDetailsHeader from './UsersDetailsHeader';
 
-const WelcomeMessage = () =>
+const WelcomeMessagePage = () =>
   (
     <div className="image">
       <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin" />
@@ -32,4 +32,4 @@ const WelcomeMessage = () =>
       </div>
     </div>
   );
-export default WelcomeMessage;
+export default WelcomeMessagePage;

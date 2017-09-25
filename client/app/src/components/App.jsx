@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import WelcomeMessage from './users/WelcomeMessage';
+import WelcomeMessagePage from './users/WelcomeMessagePage';
 import SignInPage from './users/SignInPage';
 import SignUpPage from './users/SignUpPage';
 import DashboardPage from './users/DashboardPage';
@@ -18,7 +18,7 @@ const history = createBrowserHistory();
 const App = () => (
   <Router history={history}>
     <Switch>
-      <Route exact path="/" component={WelcomeMessage} />
+      <Route exact path="/" component={WelcomeMessagePage} />
       <Route exact path="/signin" component={SignInPage} />
       <Route exact path="/signup" component={SignUpPage} />
       <Route path="/dashboard" component={CheckSignedInContainer(DashboardPage)} />
