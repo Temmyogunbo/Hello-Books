@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
-import Navigation from './Navigation.jsx';
+import Navigation from './Navigation';
 import { signupAction } from '../../actions/userActions';
 import signUpValidation from '../../../../../server/helper/signupValidation';
 
@@ -14,7 +14,7 @@ import signUpValidation from '../../../../../server/helper/signupValidation';
  * @extends {React.Component}
  */
 
-class SignUp extends React.Component {
+class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,9 +36,6 @@ class SignUp extends React.Component {
    * @return {void} null
    * @memberof SignupPage
   */
-  //componentWillReceiveProps(nextProps) {
-    //this.setState({ errors: nextProps.error });
-  // }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -161,20 +158,20 @@ class SignUp extends React.Component {
     );
   }
 }
-SignUp.propTypes = {
+SignUpPage.propTypes = {
   history: PropTypes.object.isRequired,
   signup: PropTypes.func.isRequired,
   error: PropTypes.object.isRequired
 };
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     error: state.userReducer.error
   };
-}
+};
 const mapDispatchToProps = dispatch => ({
   signup: signupCredentials => dispatch(signupAction(signupCredentials)),
 });
 
 export default connect(mapStateToProps,
-  mapDispatchToProps)(withRouter(SignUp));
+  mapDispatchToProps)(withRouter(SignUpPage));

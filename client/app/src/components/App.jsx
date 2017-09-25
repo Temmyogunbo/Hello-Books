@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import WelcomeMessage from './users/WelcomeMessage';
-import SignIn from './users/SignIn';
-import SignUp from './users/SignUp';
+import SignInPage from './users/SignInPage';
+import SignUpPage from './users/SignUpPage';
 import DashboardPage from './users/DashboardPage';
 import AdminDashboardPage from './users/AdminDashboardPage';
 import UserDetailsPage from './users/UserDetailsPage';
@@ -19,8 +19,8 @@ const App = () => (
   <Router history={history}>
     <Switch>
       <Route exact path="/" component={WelcomeMessage} />
-      <Route exact path="/signin" component={SignIn} />
-      <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/signin" component={SignInPage} />
+      <Route exact path="/signup" component={SignUpPage} />
       <Route path="/dashboard" component={CheckSignedInContainer(DashboardPage)} />
       <Route path="/admindashboard" component={CheckSignedInContainer(AdminDashboardPage)} />
       <Route path="/user" component={CheckSignedInContainer(UserDetailsPage)} />

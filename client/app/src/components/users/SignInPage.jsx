@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
-import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import Navigation from './Navigation';
 import { signinAction } from '../../actions/userActions';
@@ -27,8 +26,9 @@ class SignInPage extends React.Component {
   }
   /**
   **@description Checks that form is valid
-  * @return {Boolean}
-	*/
+  * @return {Boolean} boolen
+  */
+  
   validateForm() {
     const { errors, isValid } = signInValidation(this.state);
     if (!isValid) {
@@ -117,12 +117,12 @@ SignInPage.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     error: state.userReducer.error
   };
-}
+};
 
 const mapDispatchToProps = dispatch => ({
   signin: signinCredentials => dispatch(
