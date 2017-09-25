@@ -1,9 +1,9 @@
-import users from './users';
-import books from './books';
-import bookHistory from './borrow';
+import UsersController from './UsersController';
+import BooksController from './BooksController';
+import BookHistoryController from './BookHistoryController';
 
-export default  {
-  users,
-  books,
-  bookHistory
+export default {
+  UsersController,
+  BooksController,
+  BookHistoryController
 };

@@ -1,6 +1,6 @@
 import db from '../models';
 
-const booksController = {
+const BooksController = {
   createBook(req, res) {
     req.check('category', 'category is required').notEmpty();
     req.check('title', 'title is required').notEmpty();
@@ -84,4 +84,4 @@ const booksController = {
       });
   },
 };
-export default booksController;
+export default BooksController;

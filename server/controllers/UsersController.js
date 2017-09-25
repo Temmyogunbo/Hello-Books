@@ -5,14 +5,12 @@ import verify from '../middleware/verify';
 
 require('dotenv').config();
 
-const usersController = {
+const UsersController = {
   createUser(req, res) {
     req.check('fullName', 'Fullname is required').notEmpty();
     req.check('userName', 'Username is required').notEmpty();
-    // req.check('membership', 'membership is required').notEmpty();
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
-    // req.check('roleId', 'Id must be an integer').isInt();
     req.check('password', 'Password is required').notEmpty();
     req.check('password', 'Password must be a mininum of 5 character').isLength({ min: 5 });
     const errors = req.validationErrors();
@@ -112,4 +110,4 @@ const usersController = {
   }
 };
 
-export default usersController;
+export default UsersController;

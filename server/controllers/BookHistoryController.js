@@ -2,7 +2,7 @@ import db from '../models';
 import gold from '../helper/gold';
 import silver from '../helper/silver';
 
-const bookHistoryController = {
+const BookHistoryController = {
   borrowBook(req, res, next) {
     const userId = parseInt(req.params[0], 10);
     return db.Book.findById(req.body.bookId).then((book) => {
@@ -84,8 +84,8 @@ const bookHistoryController = {
                       UserId: userId,
                       BookId: req.body.bookId,
                       borrowedDate: new Date(),
-                      dueDate: new Date(new Date().
-                        getTime() + (4 * 24 * 3600 * 1000))
+                      dueDate: new Date(new Date()
+                        .getTime() + (4 * 24 * 3600 * 1000))
                     })
                       .then(() => res.status(200).json({
                         message: 'You successfully borrow a book'
@@ -221,4 +221,4 @@ const bookHistoryController = {
       });
   }
 };
-export default bookHistoryController;
+export default BookHistoryController;
