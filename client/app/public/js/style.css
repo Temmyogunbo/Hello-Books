@@ -1,7 +1,10 @@
 * {
   margin: 0;
-  font-family: 'Berkshire Swash', cursive;
   color: white; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: white; }
 
 .custom-nav-wrapper {
   background: transparent;
@@ -34,13 +37,6 @@
   float: left;
   margin-left: 15%;
   font-weight: bold; }
-
-.custom-nav-list {
-  margin-left: 50px;
-  font-size: 200%; }
-
-.custom-nav-list li a {
-  font-size: 60% !important; }
 
 .welcome-container-button {
   padding: 5px;
@@ -90,7 +86,7 @@
 
 .div-container-form {
   background-color: rgba(0, 0, 0, 0.5) !important;
-  height: 1000vh; }
+  height: 100vh; }
 
 .div-container-form form {
   position: absolute;
@@ -121,6 +117,10 @@
   border: 1px solid rgba(255, 152, 0, 0.9);
   border-radius: 4px; }
 
+.div-container-signup-form {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  height: 120vh; }
+
 .div-container-signup-form form {
   position: absolute;
   margin-top: 10%;
@@ -136,12 +136,7 @@
   color: white !important; }
 
 .log-in-title {
-  padding-top: 180px;
-  margin-left: 400px; }
-
-.sign-up-title {
-  padding-top: 150px;
-  margin-left: 350px; }
+  text-align: center; }
 
 .error-block {
   color: red; }
@@ -151,22 +146,35 @@
   float: left; }
 
 .books-compartment {
+  margin-top: 90px;
   width: 70%;
-  float: right; }
+  float: right;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; }
 
-.books-categories {
-  padding-top: 150px;
+.book-categories {
+  float: left;
+  margin: 100px 0  0 10px;
+  font-size: 30px;
   width: 25%; }
+
+.link-color {
+  color: white; }
+
+.admin-books {
+  width: 70%;
+  float: right;
+  margin: -400px 10px 0 0; }
+
+.btn-edit-add {
+  float: right;
+  margin-top: 40px; }
 
 .book-size {
   width: 20%;
   display: inline-block;
-  margin-right: 20px;
-  padding-top: -95px; }
-
-.categories-component {
-  margin-left: 15px;
-  font-size: 30px; }
+  margin-right: 20px; }
 
 .text-size {
   font-size: 100% !important; }
@@ -190,12 +198,15 @@
   height: 100vh !important; }
 
 .dashboard-color {
-  background-color: gray;
+  background-color: rgba(6, 0, 0, 0.9);
   height: 100vh; }
 
 .dashboard-head-color {
   background: #FF9800 !important;
   margin-top: auto; }
+
+.return-book-button {
+  background-color: #555555; }
 
 .users-profile {
   background: gray;
