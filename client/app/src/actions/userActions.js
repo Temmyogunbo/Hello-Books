@@ -64,7 +64,11 @@ export const signinAction = (user) => {
       return response;
     });
 };
-
+/**
+ *  @return {object} - array of users
+ * Destroy the user token and remove from localstorage
+ *
+ */
 export const signOutAction = () => {
   return (dispatch) => {
     localStorage.removeItem('jwtToken');
