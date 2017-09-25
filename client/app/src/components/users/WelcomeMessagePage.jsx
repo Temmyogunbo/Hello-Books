@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from './Navigation';
-import UserDetailsHeader from './UsersDetailsHeader';
 
 const WelcomeMessagePage = () =>
   (
