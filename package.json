@@ -3,7 +3,7 @@
   "version": "6.11.2",
   "private": true,
   "scripts": {
-    "start": "sequelize db:migrate && babel-node -- server/bin/www.js",
+    "start": "babel-node -- server/bin/www.js && cross-env NODE_ENV=production sequelize db:migrate",
     "dev": "npm run build:dev",
     "build:dev": "nodemon --watch server --exec babel-node -- ./server/bin/www.js test:watch",
     "pretest": "npm run cleardb && cross-env NODE_ENV=test sequelize db:migrate && cross-env NODE_ENV=test sequelize db:seed:all",
