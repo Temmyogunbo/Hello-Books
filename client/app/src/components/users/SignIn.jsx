@@ -67,9 +67,9 @@ class SignInPage extends React.Component {
     return (
       <div className="image">
         <Navigation about="About us" contact="Contact us" sign="Sign up" whereTo="/signup" />
-        <h3 className="log-in-title">Log in:</h3>
         <div className="row div-container-form">
           <form className="col.s12" onSubmit={this.onSubmit}>
+            <h3 className="log-in-title">Log in:</h3>
             <div className="row">
               <div className="input-field col.s5">
                 <label htmlFor="first_name">

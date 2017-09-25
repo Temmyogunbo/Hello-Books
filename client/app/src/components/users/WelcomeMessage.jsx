@@ -20,7 +20,12 @@ const WelcomeMessage = () =>
           </button>
           <Link to='/signup'>
             <button className='welcome-container-button'><p>sign up with</p>
-              <img width='30' height='30' src='https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300'/>
+              <img
+                width="30"
+                height="30"
+                alt="google fonts"
+                src='https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300'
+              />
             </button>
           </Link>
         </div>

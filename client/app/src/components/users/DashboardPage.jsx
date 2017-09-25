@@ -23,14 +23,17 @@ class DashboardPage extends React.Component {
           className="dashboard-head-color"
           {...user}
         />
-        <BookCategories {...books} />
-        <BooksContainer
-          {...books}
-          user={user}
-          borrowBook={borrowBook}
-          borrowBookReducer={borrowBookReducer}
-          getAllBooks={getAllBooks}
-        />
+        <div>
+          <BookCategories
+            {...books} />
+          <BooksContainer
+            {...books}
+            user={user}
+            borrowBook={borrowBook}
+            borrowBookReducer={borrowBookReducer}
+            getAllBooks={getAllBooks}
+          />
+        </div>
       </div>
     );
   }

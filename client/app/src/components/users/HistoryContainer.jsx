@@ -38,8 +38,10 @@ class HistoryContainer extends React.Component {
           <td>{historyObj.Book.author}</td>
           <td>{historyObj.dueDate}</td>
           <td>{historyObj.borrowedDate}</td>
-          <td>
-            <button onClick={() => { this.handleReturnBook.bind(this)(historyObj)}}>
+          <td >
+            <button
+              className="return-book-button"
+              onClick={() => { this.handleReturnBook.bind(this)(historyObj)}}>
               {historyObj.returned.toString()}
             </button></td>
         </tr>

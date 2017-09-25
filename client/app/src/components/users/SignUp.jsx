@@ -84,10 +84,10 @@ class SignUp extends React.Component {
     const { errors, isLoading } = this.state;
     return (
       <div className="image">
-        <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin"/>
-        <h4 className='sign-up-title'>Sign up to HelloBooks:</h4>
+        <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin" />
         <div className="row div-container-signup-form">
           <form className="col.s12" onSubmit={this.onSubmit}>
+            <h4 className="sign-up-title">Sign up to HelloBooks:</h4>
             <div className="row">
               <div className="input-field col.s5">
                 <label htmlFor="first_name">Full Name</label>

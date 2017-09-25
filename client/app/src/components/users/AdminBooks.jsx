@@ -62,12 +62,14 @@ class AdminBooks extends React.Component {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     }).then(() => {
-      console.log('sss', book)
-      swal(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
+      this.props.deleteBook(book.id)
+        .then(() => {
+          if (this.props.deleteMessage.bookDeleted) {
+            swal(this.props.deleteMessage.deleteMessage.msg)
+            return this.props.getAllBooks();
+          }
+          swal(this.props.deleteMessage.error.msg);
+        })
     }).catch(swal.noop);
   }
   render() {
@@ -75,7 +77,7 @@ class AdminBooks extends React.Component {
     if (this.props.books) {
       bookItems = this.props.books.map(book => (
         <tr key={book.id}>
-          <th><a onClick={ () => { this.handleDelete.bind(this)(book)}} >{book.category}</a></th>
+          <th><a className="link-color" onClick={() => { this.handleDelete.bind(this)(book)}}>{book.category}</a></th>
           <th>{book.author}</th>
           <th>{book.title}</th>
           <th>{book.quantity}</th>
@@ -83,8 +85,8 @@ class AdminBooks extends React.Component {
       ));
     }
     return (
-      <div className="admin-books">
-        <div>
+      <div>
+        <div className="btn-edit-add">
           <button onClick={this.handleCategory.bind(this)}>ADD BOOK</button>
           <button>EDIT BOOK</button>
         </div>

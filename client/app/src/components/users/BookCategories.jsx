@@ -6,17 +6,18 @@ class BookCategories extends React.Component {
     let bookItems;
     if (this.props.books) {
       bookItems = this.props.books.map(book => (
-        <p key={book.id}><a href="">{book.category}</a></p>
+        <p key={book.id}><a href="" className="categories-color">{book.category}</a></p>
       ));
     }
     return (
-      <div className="books-categories categories-component">
+      <div className="book-categories">
         {bookItems}
       </div>
     );
   }
 }
 BookCategories.PropTypes = {
-  map: PropTypes.func.isRequired
+  map: PropTypes.func.isRequired,
+  books: PropTypes.object.isRequired
 };
 export default BookCategories;

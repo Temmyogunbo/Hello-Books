@@ -5,6 +5,7 @@ import borrowBookReducer from './borrowBookReducer';
 import historyReducer from './historyReducer';
 import returnBookReducer from './returnBookReducer';
 import addBookReducer from './addBookReducer';
+import deleteBookReducer from './deleteBookReducer';
 
 export default combineReducers({
   userReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   borrowBookReducer,
   historyReducer,
   returnBookReducer,
-  addBookReducer
+  addBookReducer,
+  deleteBookReducer
 });

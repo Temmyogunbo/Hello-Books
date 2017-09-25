@@ -6,7 +6,11 @@ import PropTypes from 'prop-types';
 import DashboardHead from './DashboardHeader';
 import BookCategories from './BookCategories';
 import AdminBooks from './AdminBooks';
-import { getAllBooksAction, addBookAction } from '../../actions/bookAction';
+import {
+  getAllBooksAction,
+  addBookAction,
+  deleteBookAction
+} from '../../actions/bookAction';
 
 class AdminDashboardPage extends React.Component {
   componentWillMount() {
@@ -19,19 +23,26 @@ class AdminDashboardPage extends React.Component {
     this.props.getAllBooks();
   }
   render() {
-    const { addCategory, getAllBooks, bookMessage } = this.props;
+    const { addCategory, getAllBooks, bookMessage, deleteMessage, deleteBook } = this.props;
     return (
       <div className="dashboard-color">
         <DashboardHead
           name={this.props.user.userName}
           className="dashboard-head-color" {...this.props} />
-        <BookCategories {...this.props.books} />
-        <AdminBooks
-          {...this.props.books}
-          addCategory={addCategory}
-          getAllBooks={getAllBooks}
-          bookMessage={bookMessage}
-        />
+        <div>
+          <BookCategories
+            {...this.props.books}
+          />
+          <AdminBooks
+            className="admin-books"
+            {...this.props.books}
+            addCategory={addCategory}
+            getAllBooks={getAllBooks}
+            bookMessage={bookMessage}
+            deleteMessage={deleteMessage}
+            deleteBook={deleteBook}
+          />
+        </div>
       </div>
     );
   }
@@ -46,12 +57,14 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     books: state.bookReducer.books,
-    bookMessage: state.addBookReducer
+    bookMessage: state.addBookReducer,
+    deleteMessage: state.deleteBookReducer
   };
 };
 export default
 connect(mapStateToProps,
   {
     getAllBooks: getAllBooksAction,
-    addCategory: addBookAction
+    addCategory: addBookAction,
+    deleteBook: deleteBookAction
   })(withRouter(AdminDashboardPage));

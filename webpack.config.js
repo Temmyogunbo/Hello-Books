@@ -9,7 +9,7 @@ const config = {
   entry: './client/app/src/index.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(`${__dirname}/client/app/public/js`)
+    path: path.resolve(`${__dirname}/client/app/public/js/index.html`)
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']

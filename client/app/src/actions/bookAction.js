@@ -18,7 +18,7 @@ import {
  *
  * @param {msg} message - dispatched message object
  */
-const deleteCategory = deleteMessage => ({
+const deleteBook = deleteMessage => ({
   type: DELETE_BOOK,
   deleteMessage
 });
@@ -26,7 +26,7 @@ const deleteCategory = deleteMessage => ({
  *
  * @param {error} error - dispatched error object
  */
-const deleteCategoryError = error => ({
+const deleteBookError = error => ({
   type: DELETE_BOOK_ERROR,
   error
 });
@@ -92,7 +92,7 @@ const returnBook = returnMessage => ({
 /**
  *
  * @return {object} message on success
- * @param {error} error - dispatched error object
+ * @param {error} message - dispatched error object
  */
 const addBook = message => ({
   type: ADD_BOOK,
@@ -137,8 +137,8 @@ export const borrowBookAction = bookData => dispatch =>
     }
     );
 /**
-* @return {object} - returns an object of history
-* @param {object} history - contains user history in the library
+* @return {object} - returns an object of user's history
+* @param {object} userData - contains user id
 */
 export const getHistoryAction = userData => dispatch =>
   axios.get(`/api/v1/users/${userData.userId}/history`)
@@ -153,10 +153,12 @@ export const getHistoryAction = userData => dispatch =>
 
 /**
  * @return {object} - returns an object of return book
+ * @param {object} returnData - contains details of user history
  */
 export const returnBookAction = (returnData) => {
   return dispatch =>
-    axios.put(`api/v1/users/${returnData.userId}/books`, { bookId: returnData.BookId })
+    axios.put(`api/v1/users/${returnData.userId}/books`,
+      { bookId: returnData.BookId })
       .then((response) => {
         dispatch(returnBook(response.data));
       })
@@ -167,7 +169,7 @@ export const returnBookAction = (returnData) => {
 };
 /**
 * @return {object} - returns an object of book
-* @param {object} book - contains book message in the library
+* @param {object} bookData - contains book message in the library
 */
 export const addBookAction = (bookData) => {
   return dispatch =>
@@ -181,14 +183,26 @@ export const addBookAction = (bookData) => {
       });
 };
 /**
- * @param {object} message - contains delete message from the library
+ *  @return {object} - returns an object of book
+ * @param {object} bookData - contains id of book to be deleted
 */
-export const deleteBookActio = (bookData) => {}
+export const deleteBookAction = (bookData) => {
+  return dispatch =>
+    axios.delete(`api/v1/books/${bookData}`)
+      .then((response) => {
+        dispatch(deleteBook(response.data));
+      })
+      .catch((error) => {
+        dispatch(deleteBookError(error.response.data));
+        return error;
+      });
+};
 
 export default {
   getAllBooksAction,
   borrowBookAction,
   getHistoryAction,
   returnBookAction,
-  addBookAction
+  addBookAction,
+  deleteBookAction
 };

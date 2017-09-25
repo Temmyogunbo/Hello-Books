@@ -4,6 +4,7 @@
 }
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: white;
 }
 .custom-nav-wrapper {
   background: transparent;
@@ -89,7 +90,7 @@ body {
 
 .div-container-form {
     background-color: rgba(0, 0, 0, 0.5) !important;
-    height: 1000vh;
+    height: 100vh;
 }
 .div-container-form form {
   position: absolute;
@@ -121,7 +122,10 @@ body {
   border: 1px solid rgba(255, 152, 0, 0.9);
   border-radius: 4px;
 }
-
+.div-container-signup-form {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    height: 120vh;
+}
 .div-container-signup-form form {
   position: absolute;
   margin-top: 10%;
@@ -138,13 +142,7 @@ body {
 }
 
 .log-in-title {
-    padding-top: 180px;
-    margin-left: 400px;
-}
-
-.sign-up-title {
-    padding-top: 150px;
-    margin-left: 350px;
+    text-align: center;
 }
 
 .error-block {
@@ -157,35 +155,36 @@ body {
 }
 
 .books-compartment {
+    margin-top: 90px; 
     width: 70%;
     float: right;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: -150px;
+    
+}
+.book-categories {
+    float: left;
+    margin: 100px 0  0 10px;
+    font-size: 30px;
+    width: 25%;
+}
+.link-color {
+    color: white;
 }
 .admin-books {
     width: 70%;
     float: right;
-    margin: auto;
-    margin-top: -70px;
+    margin: -400px 10px 0 0;
 }
-.admin-books div {
-    margin-top: -100px;
-    float: right
-}
-.books-categories {
-    padding-top: 150px;
-    width: 25%;
+.btn-edit-add {
+    float: right;
+    margin-top: 40px;
 }
 .book-size {
     width: 20%;
     display: inline-block;
     margin-right: 20px;
-}
-.categories-component {
-    margin-left: 15px;
-    font-size: 30px;
 }
 .text-size {
     font-size: 100% !important;
@@ -213,14 +212,16 @@ body {
 }
 
 .dashboard-color {
-    background-color: gray;
+    background-color: rgba(6, 0, 0, 0.90);
     height: 100vh;
 }
 .dashboard-head-color {
     background: #FF9800 !important;
     margin-top: auto;
 }
-
+.return-book-button {
+    background-color: #555555;
+}
 .users-profile {
     background: gray;
     color: black;
