@@ -9,18 +9,18 @@ export default {
       expiresIn: 3600 * 24
     });
   },
-  verifyOrdinaryUser(req, res, next) {
-    const token = req.headers.authorization || req.body.token ||
-     req.headers['x-access-token'];
+  verifyOrdinaryUser(request, response, next) {
+    const token = request.headers.authorization || request.body.token ||
+     request.headers['x-access-token'];
     if (token) {
       jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
           const err = new Error('You are not authenticated');
           err.status = 401;
-          return next(err);
+          next(err);
         } else {
-          req.decoded = decoded;
-          if (req.decoded.roleId === 1) {
+          request.decoded = decoded;
+          if (request.decoded.roleId === 1) {
             next();
           } else {
             const err = new Error('You are not authorised');
