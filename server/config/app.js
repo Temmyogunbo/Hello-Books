@@ -39,7 +39,17 @@ app.use('*', (request, response) => {
 if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
     return res.status(err.status || 500).json({
-      message: err.message,
+      msg: err.msg,
+      error: err
+    });
+  });
+}
+
+// error handler test environment
+if (app.get('env') === 'test') {
+  app.use((err, req, res, next) => {
+    return res.status(err.status || 500).json({
+      msg: err.msg,
       error: err
     });
   });
@@ -47,7 +57,7 @@ if (app.get('env') === 'development') {
 // production error handler
 app.use((err, req, res, next) => {
   return res.status(err.status || 500).json({
-    message: err.message,
+    msg: err.msg,
     error: err
   });
 });
