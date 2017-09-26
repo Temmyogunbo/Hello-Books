@@ -9,7 +9,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 describe('Users', () => {
-  const userToken, adminToken, sampleUserToken;
+  let userToken, adminToken, sampleUserToken;
   before((done) => {
     chai.request(app)
       .post('/api/v1/users/signin')
