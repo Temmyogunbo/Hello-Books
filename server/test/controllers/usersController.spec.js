@@ -68,7 +68,7 @@ describe('Users', () => {
         .end((err, res) => {
       res.should.have.status(400);
           res.body.error.param.should.eql('userName');
-          res.body.error.msg.should.eql('Username is required');    
+          res.body.error.msg.should.eql('Username is required');  
           done();
         });
     });
@@ -156,7 +156,7 @@ describe('Users', () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.error.param.should.eql('userName');
-          res.body.error.msg.should.eql('Username is required');
+          res.body.error.msg.should.eql('Username/Password is required');
           done();
         });
     });

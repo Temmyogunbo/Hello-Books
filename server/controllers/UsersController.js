@@ -47,13 +47,9 @@ const UsersController = {
         });
       })
       .catch((err) => {
-        if (err.errors[0].path === 'userName') {
+        if (err.name === 'SequelizeUniqueConstraintError') {
           res.status(401).json({
-            msg: 'Username must be unique'
-          });
-        } else if (err.errors[0].path === 'email') {
-          res.status(401).json({
-            msg: 'Email must be unique'
+            msg: 'Username/Email must be unique'
           });
         } else {
           res.status(401).json({
@@ -63,8 +59,8 @@ const UsersController = {
       });
   },
   findUser(req, res) {
-    req.check('userName', 'Username is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
+    req.check('userName', 'Username/Password is required').notEmpty();
+    req.check('password', 'Username/Password is required').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       res.status(400).json({ error: errors[0] });
