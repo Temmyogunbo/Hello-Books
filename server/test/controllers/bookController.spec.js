@@ -4,7 +4,7 @@ import app from '../../config/app';
 
 const should = chai.should();
 chai.use(chaiHttp);
-let userToken, adminToken='';
+let userToken, adminToken;
 
 before((done) => {
   chai.request(app)
