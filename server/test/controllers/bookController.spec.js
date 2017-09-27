@@ -12,6 +12,7 @@ before((done) => {
     .send({ userName: 'admin', password: 'emmanuel' })
     .end((err, res) => {
       adminToken = res.body.token;
+      console.log('heyyyyyy', adminToken);
       done();
     });
 });

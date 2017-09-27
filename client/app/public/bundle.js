@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2cce8cb1229fa1333ac3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f27f047f03501c763023"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -49514,9 +49514,48 @@ var AdminBooks = function (_React$Component) {
       }).catch(_sweetalert2.default.noop);
     }
   }, {
+    key: 'handleEdit',
+    value: function handleEdit(book) {
+      var _this4 = this;
+
+      console.log(book.title);
+      (0, _sweetalert2.default)({
+        title: 'EDIT BOOK',
+        inputValue: 100,
+        html: '<label>CATEGORY</label>' + ('<input id="cat" className="swal2-input" value=' + book.category + '>') + '<label>TITLE</label>' + ('<input id="tit" className="swal2-input" value=' + book.title + '>') + '<label>AUTHOR</label>' + ('<input id="auth" className="swal2-input" value=' + book.author + '>') + '<label>QUANTITY</label>' + ('<input id="quant" className="swal2-input" value=' + book.quantity + '>'),
+        confirmButtonText: 'EDIT',
+        focusConfirm: false,
+        preConfirm: function preConfirm() {
+          return new Promise(function (resolve) {
+            resolve([$('#category').val(), $('#title').val(), $('#author').val(), $('#quantity').val()]);
+          });
+        }
+      }).then(function (result) {
+        if (result[0] === '' || result[1] === '' || result[2] === '' || result[3] === '') {
+          return (0, _sweetalert2.default)('You entered an invalid input');
+        }
+        if (isNaN(result[3])) {
+          return (0, _sweetalert2.default)('Quantity must be an integer');
+        }
+        _this4.props.addCategory({
+          category: result[0],
+          title: result[1],
+          author: result[2],
+          quantity: result[3]
+        }).then(function () {
+          if (_this4.props.bookMessage.bookAdded) {
+            (0, _sweetalert2.default)(_this4.props.bookMessage.bookMessage.msg);
+            _this4.props.getAllBooks();
+          } else {
+            (0, _sweetalert2.default)(_this4.props.bookMessage.error.errors[0].msg);
+          }
+        });
+      }).catch(_sweetalert2.default.noop);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var bookItems = void 0;
       if (this.props.books) {
@@ -49530,7 +49569,7 @@ var AdminBooks = function (_React$Component) {
               _react2.default.createElement(
                 'a',
                 { className: 'link-color', onClick: function onClick() {
-                    _this4.handleDelete.bind(_this4)(book);
+                    _this5.handleDelete.bind(_this5)(book);
                   } },
                 book.category
               )
@@ -49549,6 +49588,17 @@ var AdminBooks = function (_React$Component) {
               'th',
               null,
               book.quantity
+            ),
+            _react2.default.createElement(
+              'th',
+              null,
+              _react2.default.createElement(
+                'a',
+                { onClick: function onClick() {
+                    _this5.handleEdit.bind(_this5)(book);
+                  } },
+                '+'
+              )
             )
           );
         });
@@ -49598,7 +49648,8 @@ var AdminBooks = function (_React$Component) {
                 'th',
                 null,
                 'Quantity'
-              )
+              ),
+              _react2.default.createElement('th', null)
             )
           ),
           _react2.default.createElement(

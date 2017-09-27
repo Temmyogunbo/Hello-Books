@@ -71,6 +71,55 @@ class AdminBooks extends React.Component {
         })
     }).catch(swal.noop);
   }
+  handleEdit(book) {
+    console.log(book.title)
+    swal({
+      title: 'EDIT BOOK',
+      inputValue: 100,
+      html:
+        '<label>CATEGORY</label>' +
+        `<input id="cat" className="swal2-input" value=${book.category}>` +
+        '<label>TITLE</label>' +
+        `<input id="tit" className="swal2-input" value=${book.title}>` +
+        '<label>AUTHOR</label>' +
+        `<input id="auth" className="swal2-input" value=${book.author}>` +
+        '<label>QUANTITY</label>' +
+        `<input id="quant" className="swal2-input" value=${book.quantity}>`,
+      confirmButtonText: 'EDIT',
+      focusConfirm: false,
+      preConfirm: () => {
+        return new Promise((resolve) => {
+          resolve([
+            $('#category').val(),
+            $('#title').val(),
+            $('#author').val(),
+            $('#quantity').val()
+          ]);
+        });
+      }
+    }).then((result) => {
+      if (result[0] === '' || result[1] === '' || result[2] === '' || result[3] === '') {
+        return swal('You entered an invalid input');
+      }
+      if (isNaN(result[3])) {
+        return swal('Quantity must be an integer');
+      }
+      this.props.addCategory({
+        category: result[0],
+        title: result[1],
+        author: result[2],
+        quantity: result[3]
+      })
+        .then(() => {
+          if (this.props.bookMessage.bookAdded) {
+            swal(this.props.bookMessage.bookMessage.msg);
+            this.props.getAllBooks();
+          } else {
+            swal(this.props.bookMessage.error.errors[0].msg);
+          }
+        });
+    }).catch(swal.noop);
+  }
   render() {
     let bookItems;
     if (this.props.books) {
@@ -80,6 +129,7 @@ class AdminBooks extends React.Component {
           <th>{book.author}</th>
           <th>{book.title}</th>
           <th>{book.quantity}</th>
+          <th><a onClick={() => { this.handleEdit.bind(this)(book)}}>+</a></th>
         </tr>
       ));
     }
@@ -96,6 +146,7 @@ class AdminBooks extends React.Component {
               <th>Author</th>
               <th>Title</th>
               <th>Quantity</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
