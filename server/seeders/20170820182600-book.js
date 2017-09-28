@@ -1,6 +1,5 @@
-
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: (queryInterface) => {
     return queryInterface.bulkInsert('Books', [{
       title: 'Half of a yellow sun',
       category: 'History',
@@ -27,7 +26,7 @@ module.exports = {
     }], {});
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: (queryInterface) => {
     return queryInterface.bulkDelete('Books', null, {});
   }
 };
