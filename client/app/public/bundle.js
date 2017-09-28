@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f27f047f03501c763023"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7af4c006aa06ae479d51"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -46547,7 +46547,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * @description Validates Sign In form
  * @param  {object} formData
- * @return {object}
+ * @return {object} object- contains errors and boolean
  */
 function signInValidation(formData) {
   var errors = {};
@@ -48911,7 +48911,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * @description Validates Sign Up form data
  * @param  {object} formData
- * @return {object}
+ * @return {object} object- contains error and boolean
  */
 function signUpValidation(formData) {
   var errors = {};
