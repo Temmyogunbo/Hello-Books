@@ -2,7 +2,7 @@ import db from '../models';
 
 export default (req, res, next, book) => {
   const userId = parseInt(req.params[0], 10);
-// gold can borrow 4 books for 6 days
+  // gold can borrow 4 books for 6 days
   db.History.findAll({
     where: {
       UserId: userId,
@@ -10,7 +10,7 @@ export default (req, res, next, book) => {
     }
   })
     .then((result) => {
-    	const size = result.length;
+      const size = result.length;
       if (size === 0) {
         // user has not borrowed before
         // update book table
