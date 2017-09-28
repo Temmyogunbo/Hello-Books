@@ -23,7 +23,7 @@ const UsersController = {
         userName: req.body.userName,
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
         email: req.body.email,
-        membership: 'silver',
+        membership: 'platinum',
         roleId: 0
       },
       {
