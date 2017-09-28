@@ -23,7 +23,7 @@ describe('POST /api/v1/users/2/books', () => {
   it('should not borrow a book again', (done) => {
     chai.request(app)
       .post('/api/v1/users/2/books')
-      .send({ membership: 'platinum', bookId: 3 })
+      .send({ membership: 'platinum', bookId: 2 })
       .end((err, res) => {
         res.should.have.status(403);
         res.should.be.a('object');

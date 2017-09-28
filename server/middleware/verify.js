@@ -36,7 +36,4 @@ export default {
       return next(err);
     }
   }
-}
-//const verify = new Token();
-//export default verify;
-
+};
