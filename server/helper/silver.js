@@ -53,43 +53,42 @@ export default (req, res, next, book) => {
           return res.status(403).json({
             message: 'You have to return the previous book'
           });
-        } else {
-        // user wants to borrow the same book again
-          for (let i = size; i--;) {
-            if (parseInt(req.body.bookId) === parseInt(result[i].dataValues.BookId)) {
-              return res.status(403).json({
-                message: 'You cannot borrow the same book again'
-              });
-            }
-          }
-          // user is borrowing different book and has not exceeded his limit
-          db.Book.update({
-            quantity: parseInt(book.quantity) - 1
-          },
-          {
-            fields: ['quantity'],
-            where: {
-              id: req.body.bookId
-            }
-          })
-            .then(() => {
-              db.History.create({
-                UserId: userId,
-                BookId: req.body.bookId,
-                borrowedDate: new Date(),
-                dueDate: new Date(new Date().getTime() + (6 * 24 * 3600 * 1000))
-              })
-                .then(() => res.status(200).json({
-                  message: 'You successfully borrow a book'
-                }))
-                .catch(() => res.status(400).json({
-                  message: 'Cannot create a record'
-                }));
-            })
-            .catch(() => res.status(400).json({
-              message: 'Cannot update book'
-            }));
         }
+        // user wants to borrow the same book again
+        for (let i = size; i--;) {
+          if (parseInt(req.body.bookId, 10) === parseInt(result[i].dataValues.BookId, 10)) {
+            return res.status(403).json({
+              message: 'You cannot borrow the same book again'
+            });
+          }
+        }
+        // user is borrowing different book and has not exceeded his limit
+        db.Book.update({
+          quantity: parseInt(book.quantity, 10) - 1
+        },
+        {
+          fields: ['quantity'],
+          where: {
+            id: req.body.bookId
+          }
+        })
+          .then(() => {
+            db.History.create({
+              UserId: userId,
+              BookId: req.body.bookId,
+              borrowedDate: new Date(),
+              dueDate: new Date(new Date().getTime() + (6 * 24 * 3600 * 1000))
+            })
+              .then(() => res.status(200).json({
+                message: 'You successfully borrow a book'
+              }))
+              .catch(() => res.status(400).json({
+                message: 'Cannot create a record'
+              }));
+          })
+          .catch(() => res.status(400).json({
+            message: 'Cannot update book'
+          }));
       } else {
         // user wants to borrow more than the allowed book for his membership
         return res.status(403).json({
