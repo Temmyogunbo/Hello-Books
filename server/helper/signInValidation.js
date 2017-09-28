@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 /**
  * @description Validates Sign In form
  * @param  {object} formData
- * @return {object}
+ * @return {object} object- contains errors and boolean
  */
 export default function signInValidation(formData) {
   const errors = {};
