@@ -6,6 +6,7 @@ import historyReducer from './historyReducer';
 import returnBookReducer from './returnBookReducer';
 import addBookReducer from './addBookReducer';
 import deleteBookReducer from './deleteBookReducer';
+import categoryReducer from './categoryReducer';
 
 export default combineReducers({
   userReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   historyReducer,
   returnBookReducer,
   addBookReducer,
-  deleteBookReducer
+  deleteBookReducer,
+  categoryReducer
 });

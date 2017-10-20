@@ -4,31 +4,25 @@ import Button from './ButtonComponent';
 
 class ProfileContainer extends React.Component {
   render() {
-    console.log('i made it', this.props)
     return (
-      <table className="users-profile">
-        <thead>
-          <tr>
-            <th>My Profile</th>
-            <th><Button name="EDIT" /></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>Full Name</td>
-            <td>{this.props.fullName}</td>
-          </tr>
-          <tr>
-            <td>Username</td>
-            <td>{this.props.userName}</td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>{this.props.email}</td>
-          </tr>
-        </tbody>
-      </table>
+              <div className="wrap-profile">
+                <h4>My Profile</h4>
+                <button>EDIT</button>
+                <ul>
+                  <li>
+                    <h4>Full Name</h4>
+                    <div>{this.props.fullName}</div>
+                  </li>
+                  <li>
+                    <h4>Username</h4>
+                    <div>{this.props.userName}</div>
+                  </li>
+                  <li>
+                    <h4>Email</h4>
+                    <div>{this.props.email}</div>
+                  </li>
+                </ul>
+              </div>
     );
   }
 }

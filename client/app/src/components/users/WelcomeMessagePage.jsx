@@ -23,7 +23,7 @@ const WelcomeMessagePage = () =>
                 width="30"
                 height="30"
                 alt="google fonts"
-                src='https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300'
+                src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
               />
             </button>
           </Link>

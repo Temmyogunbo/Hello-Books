@@ -8,18 +8,32 @@ import AdminBooks from './AdminBooks';
 import {
   getAllBooksAction,
   addBookAction,
-  deleteBookAction
+  deleteBookAction,
+  getCategoryAction
 } from '../../actions/bookAction';
 
 class AdminDashboardPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: []
+    }
+  }
   componentWillMount() {
-    if (this.props.user.roleId !== 1) {
+    if (this.props.user.role !== 'admin') {
       this.props.history.push('/');
     }
   }
   componentDidMount() {
     document.getElementsByClassName('custom-nav-wrapper')[0].className += ' dashboard-head-color';
     this.props.getAllBooks();
+    this.props.getCategory();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.category !== this.props.category) {
+      this.setState({ categories: nextProps.category })
+    }
   }
   render() {
     const { addCategory, getAllBooks, bookMessage, deleteMessage, deleteBook } = this.props;
@@ -29,9 +43,7 @@ class AdminDashboardPage extends React.Component {
           name={this.props.user.userName}
           className="dashboard-head-color" {...this.props} />
         <div>
-          <BookCategories
-            {...this.props.books}
-          />
+          <BookCategories categories={this.state.categories} />
           <AdminBooks
             className="admin-books"
             {...this.props.books}
@@ -49,7 +61,8 @@ class AdminDashboardPage extends React.Component {
 AdminDashboardPage.PropTypes = {
   name: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  category: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -57,13 +70,15 @@ const mapStateToProps = (state) => {
     user: state.userReducer.user,
     books: state.bookReducer.books,
     bookMessage: state.addBookReducer,
-    deleteMessage: state.deleteBookReducer
+    deleteMessage: state.deleteBookReducer,
+    category: state.categoryReducer.category
   };
 };
 export default
-connect(mapStateToProps,
-  {
-    getAllBooks: getAllBooksAction,
-    addCategory: addBookAction,
-    deleteBook: deleteBookAction
-  })(withRouter(AdminDashboardPage));
+  connect(mapStateToProps,
+    {
+      getAllBooks: getAllBooksAction,
+      addCategory: addBookAction,
+      deleteBook: deleteBookAction,
+      getCategory: getCategoryAction
+    })(withRouter(AdminDashboardPage));

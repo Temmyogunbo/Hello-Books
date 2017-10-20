@@ -21,9 +21,20 @@ module.exports = {
           notEmpty: true
         }
       },
+      imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
       category: {
         type: Sequelize.STRING,
         allowNull: false,
+        references: {
+          model: 'Categories',
+          key: 'category'
+        },
         validate: {
           notEmpty: true
         }
@@ -35,7 +46,7 @@ module.exports = {
           isInt: false,
           notEmpty: true,
           isPositive(value) {
-            if (parseInt(value) < 0) {
+            if (parseInt(value, 10) < 0) {
               throw new Error('Only positive value is allow');
             }
           }
@@ -51,7 +62,7 @@ module.exports = {
       }
     });
   },
-  down(queryInterface, Sequelize) {
+  down(queryInterface) {
     return queryInterface.dropTable('Books');
   }
 };

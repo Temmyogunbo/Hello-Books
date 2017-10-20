@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import createHistory from 'history/createBrowserHistory';
 import WelcomeMessagePage from './users/WelcomeMessagePage';
 import SignInPage from './users/SignInPage';
 import SignUpPage from './users/SignUpPage';
@@ -12,7 +12,7 @@ import HistoryPage from './users/HistoryPage';
 import '../sass/style.scss';
 import '../../../../node_modules/toastr/toastr.scss';
 
-const history = createBrowserHistory();
+const history = createHistory();
 
 const App = () => (
   <Router history={history}>

@@ -8,10 +8,10 @@ import {
   GET_USER_HISTORY_ERROR,
   RETURN_A_BOOK,
   RETURN_A_BOOK_ERROR,
-  ADD_BOOK,
-  ADD_BOOK_ERROR,
   DELETE_BOOK,
-  DELETE_BOOK_ERROR
+  DELETE_BOOK_ERROR,
+  GET_CATEGORY,
+  GET_CATEGORY_ERROR
 } from '../constants/actionTypes';
 
 /**
@@ -95,24 +95,7 @@ const returnBook = returnMessage => ({
   type: RETURN_A_BOOK,
   returnMessage
 });
-/**
- *
- * @param {object} message
- * @return {message} message - dispatched message object
- */
-const addBook = message => ({
-  type: ADD_BOOK,
-  message
-});
-/**
- *
- * @return {object} error
- * @param {error} error - dispatched error object
- */
-const addBookError = error => ({
-  type: ADD_BOOK_ERROR,
-  error
-});
+
 /**
  *
  * @return {object} error
@@ -122,6 +105,25 @@ const returnBookEror = error => ({
   type: RETURN_A_BOOK_ERROR,
   error
 });
+/**
+ *
+ * @param {object} category
+ * @return {object} category - dispatched category object
+ */
+const getCategory = category => ({
+  type: GET_CATEGORY,
+  category
+});
+/**
+ *
+ * @param {object} error
+ * @return {object} error - dispatched error object
+ */
+const getCategoryError = error => ({
+  type: GET_CATEGORY_ERROR,
+  error
+});
+
 /**
  * @return {object} - returns an object of books
  */
@@ -181,21 +183,6 @@ export const returnBookAction = (returnData) => {
       });
 };
 /**
-* @return {object} - returns an object of book
-* @param {object} bookData - contains book message in the library
-*/
-export const addBookAction = (bookData) => {
-  return dispatch =>
-    axios.post('api/v1/books', bookData)
-      .then((response) => {
-        dispatch(addBook(response.data));
-      })
-      .catch((error) => {
-        dispatch(addBookError(error.response.data));
-        return error;
-      });
-};
-/**
  *  @return {object} - returns an object of book
  * @param {object} bookData - contains id of book to be deleted
 */
@@ -211,11 +198,24 @@ export const deleteBookAction = (bookData) => {
       });
 };
 
+/**
+ *  @return {object} - returns an object of category
+*/
+export const getCategoryAction = () => {
+  return dispatch =>
+    axios.get('api/v1/category')
+      .then((response) => {
+        dispatch(getCategory(response.data));
+      })
+      .catch((error) => {
+        dispatch(getCategoryError(error.response.data));
+        return error;
+      });
+};
 export default {
   getAllBooksAction,
   borrowBookAction,
   getHistoryAction,
   returnBookAction,
-  addBookAction,
   deleteBookAction
 };

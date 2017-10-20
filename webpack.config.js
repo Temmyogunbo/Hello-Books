@@ -3,7 +3,6 @@ const path = require('path');
 const env = require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const jwtDecode = require('jwt-decode');
 
 const config = {
   entry: './client/app/src/index.jsx',
@@ -53,6 +52,10 @@ const config = {
       },
       { test: /\.json$/, loader: 'json-loader' },
     ]
+  },
+  devtool: 'source-map',
+  node: {
+    fs: 'empty'
   },
   externals: {
     jquery: 'jQuery'

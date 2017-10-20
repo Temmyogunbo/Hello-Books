@@ -12,3 +12,5 @@ export const ADD_BOOK = 'ADD_BOOK';
 export const ADD_BOOK_ERROR = 'ADD_BOOK_ERROR';
 export const DELETE_BOOK = 'DELETE_BOOK';
 export const DELETE_BOOK_ERROR = 'DELETE_BOOK_ERROR';
+export const GET_CATEGORY = 'GET_CATEGORY';
+export const GET_CATEGORY_ERROR = 'GET_CATEGORY_ERROR';

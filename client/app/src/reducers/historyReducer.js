@@ -12,19 +12,19 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-  case GET_USER_HISTORY:
-    return {
-      ...state,
-      detailedHistory: action.detailedHistory,
-      thereIsHistory: !isEmpty(action.detailedHistory),
-      error: {}
-    };
-  case GET_USER_HISTORY_ERROR:
-    return {
-      ...state,
-      error: action.error
-    };
-  default:
-    return state;
+    case GET_USER_HISTORY:
+      return {
+        ...state,
+        detailedHistory: action.detailedHistory,
+        thereIsHistory: !isEmpty(action.detailedHistory),
+        error: {}
+      };
+    case GET_USER_HISTORY_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    default:
+      return state;
   }
 };

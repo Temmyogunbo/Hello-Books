@@ -27,8 +27,7 @@ class SignInPage extends React.Component {
   /**
   **@description Checks that form is valid
   * @return {Boolean} boolen
-  */
-  
+  */ 
   validateForm() {
     const { errors, isValid } = signInValidation(this.state);
     if (!isValid) {
@@ -48,7 +47,7 @@ class SignInPage extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.signin(this.state).then((error) => {
         if (!error) {
-          if (this.props.user.roleId === 1) {
+          if (this.props.user.role === 'admin') {
             this.props.history.replace('/admindashboard');
             toastr.success('You are Logged in successfully');
             return;

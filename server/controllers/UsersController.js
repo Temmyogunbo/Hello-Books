@@ -1,12 +1,18 @@
 // import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import db from '../models';
-import verify from '../middleware/verify';
+import verify from '../authentication/verify';
 
 require('dotenv').config();
 
 const UsersController = {
   createUser(req, res) {
+    const {
+      fullName,
+      userName,
+      email,
+      password,
+    } = req.body;
     req.check('fullName', 'Fullname is required').notEmpty();
     req.check('userName', 'Username is required').notEmpty();
     req.check('email', 'Email is required').notEmpty();
@@ -19,25 +25,33 @@ const UsersController = {
     }
     return db.User
       .create({
-        fullName: req.body.fullName,
-        userName: req.body.userName,
-        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
-        email: req.body.email,
-        membership: 'platinum',
-        roleId: 0
+        fullName,
+        userName,
+        email,
+        password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
+        membership: 'gold',
+        role: 'users'
       },
       {
         fields: ['fullName', 'userName', 'password',
-          'email', 'membership', 'roleId']
+          'email', 'membership', 'role']
       })
       .then((user) => {
+        const {
+          email,
+          fullName,
+          userName,
+          membership,
+          id,
+          role
+        } = user;
         const payload = {
-          email: user.email,
-          fullName: user.fullName,
-          userName: user.userName,
-          membership: user.membership,
-          id: user.id,
-          roleId: user.roleId
+          email,
+          fullName,
+          userName,
+          membership,
+          id,
+          role,
         };
         const token = verify.getToken(payload);
         res.status(201).json({
@@ -48,9 +62,15 @@ const UsersController = {
       })
       .catch((err) => {
         if (err.name === 'SequelizeUniqueConstraintError') {
-          res.status(401).json({
-            msg: 'Username/Email must be unique'
-          });
+          if (err.fields.userName) {
+            res.status(401).json({
+              msg: 'Username must be unique'
+            });
+          } else {
+            res.status(401).json({
+              msg: 'Email must be unique'
+            });
+          }
         } else {
           res.status(401).json({
             msg: 'Something went wrong'
@@ -58,51 +78,69 @@ const UsersController = {
         }
       });
   },
-  findUser(req, res) {
+  signUserIn(req, res) {
     req.check('userName', 'Username/Password is required').notEmpty();
     req.check('password', 'Username/Password is required').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
-      res.status(400).json({ error: errors[0] });
-    } else {
-      return db.User.findOne({
-        where: {
-          userName: req.body.userName
-        }
-      })
-        .then((user) => {
-          if (!user) {
-            res.status(401).send({
-              msg: 'You are not registered'
-            });
-          } else if (user) {
-            if (bcrypt.compareSync(req.body.password, user.password)) {
-              const payload = {
-                email: user.email,
-                fullName: user.fullName,
-                userName: user.userName,
-                id: user.id,
-                roleId: user.roleId,
-                membership: user.membership
-              };
-              const token = verify.getToken(payload);
-              res.status(200).send({
+      return res.status(400).json({ error: errors[0] });
+    }
+    // console.log(req.body.userName, req.body.password)
+    return db.User.findOne({
+      where: {
+        userName: req.body.userName
+      },
+      attributes: ['userName',
+        'password',
+        'email', 'membership', 'role']
+    })
+      .then((user) => {
+        if (!user) {
+          res.status(401).json({
+            msg: 'You are not registered'
+          });
+        } else if (user) {
+          const {
+            email,
+            fullName,
+            userName,
+            id,
+            role,
+            membership,
+          } = user;
+          if (bcrypt.compareSync(req.body.password, user.password)) {
+            const payload = {
+              email,
+              fullName,
+              userName,
+              id,
+              role,
+              membership,
+            };
+            const token = verify.getToken(payload);
+            if (token) {
+              res.status(200).json({
                 success: true,
                 msg: 'You are signed in',
                 token
               });
             } else {
-              res.status(401).send({
+              res.status(500).json({
                 success: false,
-                msg: 'Authentication failed. Wrong password.'
+                msg: 'Something went wrong try again'
               });
             }
+          } else {
+            res.status(401).json({
+              success: false,
+              msg: 'Wrong username/password.'
+            });
           }
-        })
-        .catch(() => res.status(500).json({
-          msg: 'Something went wrong'
-        }));
-    }
+        }
+      })
+      .catch(err => res.status(500).json({
+        err
+      }));
   }
 };
 

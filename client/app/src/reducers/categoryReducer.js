@@ -1,25 +1,25 @@
 import isEmpty from 'lodash/isEmpty';
 import {
-  GET_ALL_BOOKS,
-  GET_ALL_BOOKS_ERRORS
+  GET_CATEGORY,
+  GET_CATEGORY_ERRORS
 } from '../constants/actionTypes';
 
 const initialState = {
-  thereIsBook: false,
-  books: {},
+  thereIsCategory: false,
+  category: {},
   error: {}
 };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case GET_ALL_BOOKS:
+    case GET_CATEGORY:
       return {
         ...state,
-        books: action.books,
-        thereIsBook: !isEmpty(action.books),
+        category: action.category,
+        thereIsCategory: !isEmpty(action.category),
         error: {}
       };
-    case GET_ALL_BOOKS_ERRORS:
+    case GET_CATEGORY_ERRORS:
       return {
         ...state,
         error: action.error

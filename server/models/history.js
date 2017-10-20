@@ -1,4 +1,7 @@
+import sendMail from '../helper/sendMail';
+
 export default (sequelize, DataTypes) => {
+  const Book = sequelize.model('Book');
   const History = sequelize.define('History', {
     UserId: {
       type: DataTypes.INTEGER,
@@ -31,26 +34,57 @@ export default (sequelize, DataTypes) => {
     returned: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    },
+    }
   });
-  History.associate = function (models) {
+  History.beforeUpdate((borrowedBook) => {
+    Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
+      Book.update({
+        quantity: parseInt(book.quantity, 10) + 1
+      },
+      {
+        fields: ['quantity'],
+        where: {
+          id: borrowedBook.dataValues.BookId
+        }
+      }).then(() => {
+        sendMail('Ogunbotemilola@yahoo.com', 'Book Borrowed');
+      });
+    });
+  });
+  History.afterCreate((borrowedBook) => {
+    Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
+      Book.update({
+        quantity: parseInt(book.quantity, 10) - 1
+      },
+      {
+        fields: ['quantity'],
+        where: {
+          id: borrowedBook.dataValues.BookId
+        }
+      }).then(() => {
+        console.log(sendMail)
+        sendMail('Ogunbotemilola@yahoo.com', 'Book Borrowed');
+      });
+    });
+  });
+  History.associate = (models) => {
     // Will add bookId to History
     History.belongsTo(models.Book, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       foreignKey: {
-      allowNull: false
+        allowNull: false
       }
     });
     // will add userId to history, will delete and update dependencies
-   // if book is deleted and updated respectively
-  History.belongsTo(models.User, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    foreignKey: {
-      allowNull: false
-    }
-  });
-};
+    // if book is deleted and updated respectively
+    History.belongsTo(models.User, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
   return History;
 };

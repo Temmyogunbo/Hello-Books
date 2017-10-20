@@ -8,19 +8,19 @@ const initialState = {
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-  case BORROW_A_BOOK:
-    return {
-      ...state,
-      BookIsBorrowed: isEmpty(action.message),
-      message: action.book,
-      error: {}
-    };
-  case BORROW_A_BOOK_ERROR:
-    return {
-      ...state,
-      error: action.error
-    };
-  default:
-    return state;
+    case BORROW_A_BOOK:
+      return {
+        ...state,
+        BookIsBorrowed: isEmpty(action.message),
+        message: action.book,
+        error: {}
+      };
+    case BORROW_A_BOOK_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    default:
+      return state;
   }
 };

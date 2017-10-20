@@ -5,6 +5,7 @@ module.exports = {
       category: 'History',
       author: 'Chimanda Adichie',
       quantity: 30,
+      imageUrl: 'localhost:4000',
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -13,6 +14,7 @@ module.exports = {
       category: 'History',
       author: 'Edward Luttwark',
       quantity: 30,
+      imageUrl: 'localhost:3000',
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -21,6 +23,7 @@ module.exports = {
       category: 'Adventure',
       author: 'Bruno Mars',
       quantity: 30,
+      imageUrl: 'localhost:5000',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});

@@ -1,55 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
+import BookForm from './BookForm';
 
 
 class AdminBooks extends React.Component {
-  handleCategory() {
-    swal({
-      title: 'ADD BOOK BY CATEGORY',
-      html:
-        '<label>CATEGORY</label>' +
-        '<input id="category" className="swal2-input">' +
-        '<label>TITLE</label>' +
-        '<input id="title" className="swal2-input">' +
-        '<label>AUTHOR</label>' +
-        '<input id="author" className="swal2-input">' +
-        '<label>QUANTITY</label>' +
-        '<input id="quantity" className="swal2-input">',
-      confirmButtonText: 'ADD',
-      focusConfirm: false,
-      preConfirm: () => {
-        return new Promise((resolve) => {
-          resolve([
-            $('#category').val(),
-            $('#title').val(),
-            $('#author').val(),
-            $('#quantity').val()
-          ]);
-        });
-      }
-    }).then((result) => {
-      if (result[0] === '' || result[1] === '' || result[2] === '' || result[3] === '') {
-        return swal('You entered an invalid input');
-      }
-      if (isNaN(result[3])) {
-        return swal('Quantity must be an integer');
-      }
-      this.props.addCategory({
-        category: result[0],
-        title: result[1],
-        author: result[2],
-        quantity: result[3]
-      })
-        .then(() => {
-          if (this.props.bookMessage.bookAdded) {
-            swal(this.props.bookMessage.bookMessage.msg);
-            this.props.getAllBooks();
-          } else {
-            swal(this.props.bookMessage.error.errors[0].msg);
-          }
-        });
-    }).catch(swal.noop);
+  componentDidMount(){
+    $(document).ready(function(){
+    $('#modal').modal();
+  });
   }
   handleDelete(book) {
     swal({
@@ -68,11 +27,10 @@ class AdminBooks extends React.Component {
             return this.props.getAllBooks();
           }
           swal(this.props.deleteMessage.error.msg);
-        })
+        });
     }).catch(swal.noop);
   }
   handleEdit(book) {
-    console.log(book.title)
     swal({
       title: 'EDIT BOOK',
       inputValue: 100,
@@ -135,10 +93,16 @@ class AdminBooks extends React.Component {
     }
     return (
       <div>
+        <BookForm />
         <div className="btn-edit-add">
-          <button onClick={this.handleCategory.bind(this)}>ADD BOOK</button>
-          <button>EDIT BOOK</button>
+          <div>
+            <a className="waves-effect waves-light btn modal-trigger" href="#modal">
+              ADD BOOK
+            </a>
+          </div>
+            <button>EDIT BOOK</button>
         </div>
+        <div>
         <table className="bordered centered admin-books">
           <thead>
             <tr>
@@ -153,6 +117,7 @@ class AdminBooks extends React.Component {
             {bookItems}
           </tbody>
         </table>
+        </div>
       </div>
     );
   }

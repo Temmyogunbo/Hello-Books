@@ -4,7 +4,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: true,
+        min: 2
       }
     },
     title: {
@@ -14,9 +15,13 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    category: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -28,21 +33,21 @@ export default (sequelize, DataTypes) => {
         notEmpty: true,
         isInt: true,
         isPositive(value) {
-          if (parseInt(value) < 0) {
+          if (parseInt(value, 10) < 0) {
             throw new Error('Only positive value is allow');
           }
         }
       }
     }
   });
-  Book.associate = function (models) {
-            // will add bookId to History2, will delete and update dependencies
-        // if book is deleted and updated respectively
-        Book.hasMany(models.History, {
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE'
-        });
-};
+  Book.associate = (models) => {
+    Book.belongsTo(models.Categories, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      foreignKey: 'category',
+      targetKey: 'category'
+    });
+  };
   return Book;
 };
 

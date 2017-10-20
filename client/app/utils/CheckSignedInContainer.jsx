@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
-import { createBrowserHistory } from 'history';
+import createHistory from 'history/createBrowserHistory';
 
-const history = createBrowserHistory();
+const history = createHistory();
 
 export default (ComposedComponent) => {
   class CheckSignedInContainer extends React.Component {

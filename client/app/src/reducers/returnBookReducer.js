@@ -12,19 +12,19 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-  case RETURN_A_BOOK:
-    return {
-      ...state,
-      BookIsReturn: isEmpty(action.message),
-      message: action.returnMessage,
-      error: {}
-    };
-  case RETURN_A_BOOK_ERROR:
-    return {
-      ...state,
-      error: action.error
-    };
-  default:
-    return state;
+    case RETURN_A_BOOK:
+      return {
+        ...state,
+        BookIsReturn: isEmpty(action.message),
+        message: action.returnMessage,
+        error: {}
+      };
+    case RETURN_A_BOOK_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    default:
+      return state;
   }
 };

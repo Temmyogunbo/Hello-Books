@@ -2,7 +2,15 @@ import db from '../models';
 
 const BooksController = {
   createBook(req, res) {
+    const {
+      title,
+      category,
+      author,
+      quantity,
+      imageUrl
+    } = req.body;
     req.check('category', 'category is required').notEmpty();
+    req.check('imageUrl', 'imageUrl is required').notEmpty();
     req.check('title', 'title is required').notEmpty();
     req.check('author', 'author is required').notEmpty();
     req.check('quantity', 'quantity is required').notEmpty();
@@ -12,52 +20,87 @@ const BooksController = {
       return res.status(400).json({ errors });
     }
     return db.Book.create({
-      title: req.body.title,
-      category: req.body.category,
-      author: req.body.author,
-      quantity: req.body.quantity
+      title,
+      category,
+      author,
+      quantity,
+      imageUrl
     })
-      .then(() => res.status(201).json({
-        msg: 'You have a record successful'
+      .then(book => res.status(201).json({
+        book
       }))
       .catch(() => res.status(400).json({
         errors: [{ msg: 'Cannot create book' }]
       }));
   },
+  createCategory(req, res) {
+    req.check('category', 'category is required').notEmpty();
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({ errors });
+    }
+    return db.Categories.create({
+      category: req.body.category
+    })
+      .then(result => res.status(201).json({
+        result
+      }))
+      .catch(() => res.status(400).json({
+        errors: [{ msg: 'Cannot create category' }]
+      }));
+  },
   findBooks(req, res) {
-    return db.Book.findAll({ limit: 10 })
+    return db.Book.findAll({
+  
+      limit: 10 })
       .then((books) => {
         if (books.length === 0) {
           return res.status(404).json({
-            msg: 'No books in the library'
+            errors: [{ msg: 'No books in the library' }]
           });
         }
         return res.status(200).json(books);
       })
+      .catch(err => res.status(500).json({ err }));
+  },
+  findCategory(req, res) {
+    return db.Categories.findAll({ limit: 10 })
+      .then((category) => {
+        if (category.length === 0) {
+          return res.status(404).json({
+            errors: [{ msg: 'No categories in the library' }]
+          });
+        }
+        return res.status(200).json(category);
+      })
       .catch(err => res.status(404).json({ err }));
   },
   updateBook(req, res) {
+    const {
+      title,
+      category,
+      author,
+      quantity,
+      imageUrl
+    } = req.body;
     const bookId = parseInt(req.params[0], 10);
     return db.Book.update({
-      category: req.body.category,
-      title: req.body.title,
-      author: req.body.author,
-      quantity: req.body.quantity
+      category,
+      title,
+      author,
+      quantity,
+      imageUrl
     },
     {
-      fields: ['category', 'title', 'author', 'quantity'],
       where: {
         id: bookId
       }
     })
-      .then(() => {
-        return res.status(200).json({
-          msg: 'You updated a book'
-        });
-      })
+      .then(book => res.status(201).json({ book })
+      )
       .catch(() => {
         res.status(403).json({
-          msg: 'Invalid details'
+          errors: [{ msg: 'Please specify your details correctly' }]
         });
       });
   },
@@ -67,7 +110,7 @@ const BooksController = {
       .then((book) => {
         if (!book) {
           return res.status(404).json({
-            msg: 'Book cannot be found'
+            errors: [{ msg: 'Book cannot be found' }]
           });
         }
         db.Book.destroy({
@@ -76,10 +119,10 @@ const BooksController = {
           }
         })
           .then(() => res.status(200).json({
-            msg: 'Book successfully deleted!'
+            errors: [{ msg: 'Book succesfully deleted' }]
           }))
           .catch(() => res.status(400).json({
-            msg: 'Oops!Something went wrong. Check your details'
+            errors: [{ msg: 'Oops!Something went wrong. Check your details' }]
           }));
       });
   },

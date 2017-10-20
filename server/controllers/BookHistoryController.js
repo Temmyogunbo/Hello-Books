@@ -1,26 +1,26 @@
 import db from '../models';
-import gold from '../helper/gold';
-import silver from '../helper/silver';
+import BookFunc from '../helper/BookFunc';
 
 const BookHistoryController = {
-  borrowBook(req, res, next) {
+  borrowBook(req, res) {
     const userId = parseInt(req.params[0], 10);
-    return db.Book.findById(req.body.bookId).then((book) => {
-      // book doesn't exist
+    const { bookId, membership } = req.body;
+    return db.Book.findById(bookId).then((book) => {
+      console.log(book)
       if (!book) {
         return res.status(404).json({
           message: 'No such book in the library'
         });
       }
-      // Make sure there are books that can be borrowed
       if (parseInt(book.dataValues.quantity, 10) < 1) {
         return res.status(404).json({
-          message: 'No more books'
+          message: 'No more books in the library'
         });
       }
-      if (req.body.membership === 'platinum') {
-        // platinum cannot borrow more than 2 books for 4 days
-        // only one book can be borrow at a time but max of 2 once i.e a day
+      if (membership === 'gold' || membership === 'silver'
+        || membership === 'platinum') {
+        const numberofBooksAllowedWithDays =
+          BookFunc.checkMembership(membership);
         db.History.findAll({
           where: {
             UserId: userId,
@@ -28,99 +28,56 @@ const BookHistoryController = {
           }
         })
           .then((result) => {
-            if (result.length === 0) {
-              // user has not borrowed before
-              // update book table
-              db.Book.update({
-                quantity: parseInt(book.dataValues.quantity, 10) - 1
-              },
-              {
-                fields: ['quantity'],
-                where: {
-                  id: req.body.bookId
-                }
-              })
-                .then(() => {
-                  db.History.create({
-                    UserId: userId,
-                    BookId: req.body.bookId,
-                    borrowedDate: new Date(),
-                    dueDate: new Date(new Date()
-                      .getTime() + (4 * 24 * 3600 * 1000))
-                  })
-                    .then(() => res.status(200).json({
-                      message: 'You successfully borrow a book'
-                    }))
-                    .catch(() => res.status(400).json({
-                      message: 'Cannot create a record'
-                    }));
-                })
-                .catch(() => res.status(400).json({
-                  message: 'Cannot update book'
-                }));
-            } else if (result.length === 1) {
-              // user has borrowed before
+            const numberofBooksBorrowed = result.length;
+            if ((numberofBooksBorrowed > 0 &&
+              numberofBooksBorrowed < numberofBooksAllowedWithDays[0])
+              || numberofBooksBorrowed === 0) {
               // check if user borrow in the present day
-              if (result[0].dataValues.borrowedDate.getDate() === new Date().getDate() && result[0].dataValues.borrowedDate.getMonth() + 1 === new Date().getMonth() + 1 && result[0].dataValues.borrowedDate.getFullYear() === new Date().getFullYear()) {
-                // user wants to borrow the same book again
-                if (req.body.bookId === result[0].dataValues.bookId) {
-                  return res.status(403).json({
-                    message: 'You cannot borrow the same book again'
-                  });
+              if (numberofBooksBorrowed > 0) {
+                const borrowDay = result[numberofBooksBorrowed - 1]
+                  .dataValues.borrowedDate.getDate();
+                const borrowMonth = result[numberofBooksBorrowed - 1]
+                  .dataValues.borrowedDate.getMonth() + 1;
+                const borrowYear = result[numberofBooksBorrowed - 1]
+                  .dataValues.borrowedDate.getFullYear();
+                const presentDay = new Date().getDate();
+                const presentMonth = new Date().getMonth() + 1;
+                const presentYear = new Date().getFullYear();
+                if (borrowDay !== presentDay || borrowMonth !== presentMonth
+                  || borrowYear !== presentYear) {
+                  BookFunc.returnMessage(res, 400,
+                    'You have to return the previous book');
                 }
-                // user is borrowing different book and 
-                // has not exceeded his limit
-                db.Book.update({
-                  quantity: parseInt(book.quantity, 10) - 1
-                },
-                {
-                  fields: ['quantity'],
-                  where: {
-                    id: req.body.bookId
-                  }
-                })
-                  .then(() => {
-                    db.History.create({
-                      UserId: userId,
-                      BookId: req.body.bookId,
-                      borrowedDate: new Date(),
-                      dueDate: new Date(new Date()
-                        .getTime() + (4 * 24 * 3600 * 1000))
-                    })
-                      .then(() => res.status(200).json({
-                        message: 'You successfully borrow a book'
-                      }))
-                      .catch(() => res.status(400).json({
-                        message: 'Cannot create a record'
-                      }));
-                  })
-                  .catch(() => res.status(400).json({
-                    message: 'Cannot update book'
-                  }));
-              } else {
-                return res.status(403).json({
-                  message: 'You have to return the previous book or you read online'
-                });
               }
+              for (let i = numberofBooksBorrowed; i--;) {
+                if (parseInt(bookId, 10) === parseInt(result[i].dataValues.BookId, 10)) {
+                  return BookFunc.returnMessage(res, 400,
+                    'You cannot borrow the same book again');
+                }
+              }
+              // user is borrowing different book and has not exceeded his limit
+              db.History
+                .create({
+                  UserId: userId,
+                  BookId: bookId,
+                  borrowedDate: new Date(),
+                  dueDate: new Date(new Date().getTime() +
+                    (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000))
+                })
+                .then(() => BookFunc.returnMessage(res, 200,
+                  'You successfully borrow a book'))
+                .catch(() => BookFunc.returnMessage(res, 400,
+                  'Cannot create a record'));
             } else {
-              // user wants to borrow more than the allowed book 
-              // for his membership
-              return res.status(403).json({
-                message: 'You cannot borrow more than your membership level'
-              });
+              return BookFunc.returnMessage(res, 403,
+                'You cannot borrow more than your membership level');
             }
           })
-          .catch(() => res.status(400).send('Something went wrong'));
-      } else if (req.body.membership === 'gold') {
-        gold(req, res, next, book);
-      } else if (req.body.membership === 'silver') {
-        silver(req, res, next, book);
-      } else {
-        return res.status(403).json({
-          message: 'You have to declare your membership'
-        });
+          .catch(() => BookFunc.returnMessage(res, 400,
+            'Something went wrong'));
       }
-    });
+    })
+      .catch(() => BookFunc.returnMessage(res, 500, 'Something went wrong'));
   },
   yetToReturn(req, res) {
     return db.History.findAll({
@@ -130,79 +87,70 @@ const BookHistoryController = {
       }
     }).then((history) => {
       if (history.length === 0) {
-        return res.status(200).json({
-          message: 'No books to be returned'
-        });
+        return BookFunc.returnMessage(res, 200, 'No books to be returned');
       }
-      return res.status(200).json({
-        message: `You have ${history.length} book(s) to be returned`
-      });
+      return BookFunc.returnMessage(res, 200,
+        `You have ${history.length} book(s) to be returned`);
     })
-      .catch(() => res.status(400).json({
-        message: 'Cannot perform this operation'
-      }));
+      .catch(() => BookFunc.returnMessage(res, 400,
+        'Cannot perform this operation'));
   },
   returnBook(req, res) {
-  // find book if it exists in the history table
+    const bookId = parseInt(req.body.bookId, 10);
+    const userId = parseInt(req.params[0], 10);
+    // find book if it exists in the history table
     return db.History
-      .findOne({
+      .findAll({
         where: {
-          BookId: req.body.bookId,
-          UserId: req.params[0],
+          UserId: userId,
+          BookId: bookId,
           returned: false
-        }
+        },
+        attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
+        include: [
+          { model: db.Book, attributes: ['author', 'title', 'quantity'] }
+        ]
       })
       .then((history) => {
-      // find book if it exists in the Books table
-      // console.log("i made it here alive", history.dataValues.BookId)
-        db.Book.findOne(
-          {
-            where: {
-              id: history.dataValues.BookId
-            }
+        console.log('history is here', history)
+        if (!history.rows.length) {
+          return res.status(404).json({
+            message: 'No book to be returned'
+          });
+        }
+        console.log('history is here now', history.rows.Book)
+        db.Book.update({
+          quantity: parseInt(history.rows.Book.quantity, 10) + 1
+        },
+        {
+          fields: ['quantity'],
+          where: {
+            id: bookId
           }
-        )
-          .then((book) => {
-          // update book if it exist
-            db.Book.update(
-              {
-                quantity: parseInt(book.quantity, 10) + 1
-              },
-              {
-                fields: ['quantity'],
-                where: {
-                  id: book.id
-                }
-              })
-              .then(() => {
-                db.History.update({
-                  returned: true
-                },
-                {
-                  fields: ['returned'],
-                  where: {
-                    BookId: history.BookId,
-                    UserId: req.params[0]
-                  }
-                })
-                  .then(() => res.status(200).json({
-                    message: 'You return a book'
-                  }))
-                  .catch(() => res.status(404).json({
-                    message: 'Something went wrong'
-                  }));
-              })
-              .catch(() => res.status(500).json({
-                message: 'Something went wrong'
+        })
+          .then(() => {
+            db.History.update({
+              returned: true
+            },
+            {
+              fields: ['returned'],
+              where: {
+                BookId: history.rows.BookId,
+                UserId: userId
+              }
+            })
+              .then(() => res.status(200).json({
+                message: 'You returned a book'
+              }))
+              .catch(() => res.status(404).json({
+                message: 'Your record cannot be updated'
               }));
           })
           .catch(() => res.status(404).json({
-            message: 'No record for such book'
+            message: 'Your record cannot be updated. Try later.'
           }));
       })
-      .catch(() => res.status(404).json({
-        message: 'No record for borrowed book'
-      }));
+      .catch(err => res.status(400).send(err));
   },
   findUserHistory(req, res) {
     const userId = parseInt(req.params[0], 10);
@@ -222,3 +170,58 @@ const BookHistoryController = {
   }
 };
 export default BookHistoryController;
+
+
+// if (!history) {
+//   return res.status(404).json({
+//     message: 'No book to be returned'
+//   });
+// }
+//   db.Book.findOne(
+//     {
+//       where: {
+//         id: history.dataValues.BookId
+//       }
+//     }
+//   )
+//     .then((book) => {
+//     // update book if it exist
+//       db.Book.update(
+//         {
+//           quantity: parseInt(book.quantity, 10) + 1
+//         },
+//         {
+//           fields: ['quantity'],
+//           where: {
+//             id: book.id
+//           }
+//         })
+//         .then(() => {
+//           db.History.update({
+//             returned: true
+//           },
+//           {
+//             fields: ['returned'],
+//             where: {
+//               BookId: history.BookId,
+//               UserId: req.params[0]
+//             }
+//           })
+//             .then(() => res.status(200).json({
+//               message: 'You return a book'
+//             }))
+//             .catch(() => res.status(404).json({
+//               message: 'Something went wrong'
+//             }));
+//         })
+//         .catch(() => res.status(500).json({
+//           message: 'Something went wrong'
+//         }));
+//     })
+//     .catch(() => res.status(404).json({
+//       message: 'No record for such book'
+//     }));
+// })
+// .catch(() => res.status(404).json({
+//   message: 'No record for borrowed book'
+// }));

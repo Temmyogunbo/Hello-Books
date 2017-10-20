@@ -6,24 +6,24 @@ import {
 
 const initialState = {
   bookAdded: false,
-  bookMessage: {},
+  book: {},
   error: {}
 };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-  case ADD_BOOK:
-    return {
-      ...state,
-      bookMessage: action.message,
-      bookAdded: !isEmpty(action.message)
-    };
-  case ADD_BOOK_ERROR:
-    return {
-      ...state,
-      error: action.error
-    };
-  default:
-    return state;
+    case ADD_BOOK:
+      return {
+        ...state,
+        book: action.book,
+        bookAdded: !isEmpty(action.book)
+      };
+    case ADD_BOOK_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    default:
+      return state;
   }
 };

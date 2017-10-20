@@ -17,12 +17,12 @@ module.exports = {
       membership: 'silver',
       email: 'temmyogunbo@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
-      roleId: 0,
+      roleId: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
       fullName: 'Enodi Audu',
-      userName: 'enodi',
+      userName: 'kill',
       membership: 'platinum',
       email: 'enodiaudu@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
@@ -36,7 +36,7 @@ module.exports = {
       membership: 'silver',
       email: 'ogunbojoshua@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
-      roleId: 0,
+      roleId: 3,
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});

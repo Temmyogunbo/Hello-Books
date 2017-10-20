@@ -50,31 +50,27 @@ export const signupAction = userData => dispatch =>
  * sends the users details to be verified before proceeding
  * @param {object} user - logged in user payload
  */
-export const signinAction = (user) => {
-  return dispatch => (
-    axios.post('/api/v1/users/signin', user)
-  )
-    .then(({ data }) => {
-      const token = data.token;
-      localStorage.setItem('jwtToken', token);
-      Authorization.setAuthToken(token);
-      dispatch(setAuthUser(jwtDecode(token)));
-    }).catch(({ response }) => {
-      dispatch(setAuthUserError(response.data));
-      return response;
-    });
-};
+export const signinAction = user => dispatch => (
+  axios.post('/api/v1/users/signin', user)
+)
+  .then(({ data }) => {
+    const token = data.token;
+    localStorage.setItem('jwtToken', token);
+    Authorization.setAuthToken(token);
+    dispatch(setAuthUser(jwtDecode(token)));
+  }).catch(({ response }) => {
+    dispatch(setAuthUserError(response.data));
+    return response;
+  });
 /**
  *  @return {object} - array of users
  * Destroy the user token and remove from localstorage
  *
  */
-export const signOutAction = () => {
-  return (dispatch) => {
-    localStorage.removeItem('jwtToken');
-    Authorization.setAuthToken(false);
-    dispatch(setAuthUser({}));
-  };
+export const signOutAction = () => (dispatch) => {
+  localStorage.removeItem('jwtToken');
+  Authorization.setAuthToken(false);
+  dispatch(setAuthUser({}));
 };
 
 export default {

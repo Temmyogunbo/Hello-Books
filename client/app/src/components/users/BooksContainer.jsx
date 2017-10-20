@@ -4,7 +4,7 @@ import Books from './Books';
 
 class BooksCompartment extends React.Component {
   render() {
-    const {user, borrowBookReducer, borrowBook, getAllBooks } = this.props;
+    const { user, borrowBookReducer, borrowBook, getAllBooks } = this.props;
     let bookItems;
     if (this.props.books) {
       bookItems = this.props.books.map(book => (

@@ -1,6 +1,9 @@
 *{
 	margin: 0;
-  color: white;
+}
+html {
+    background: #1d364d;
+    color: white;
 }
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -12,9 +15,8 @@ body {
   padding-right: 5%;
   margin-top: 20px;
 }
-
 .users-head-details {
-    background: #ff9800;
+    background: #372118;
 }
 .welcome-message {
   margin-top: 20px;
@@ -37,8 +39,7 @@ body {
 	color: red;
 }
 .custom-logo-wrap{
-    float: left;
-    margin-left: 15%;
+    margin-left: 2%;
     font-weight: bold;
 }
 
@@ -49,18 +50,18 @@ body {
   border: 1px solid #FF9800;
   font-size: 17px;
   font-weight: normal;
+  color: white !important;
   display: inline-block;
 }
 .welcome-container-button:focus {
   background-color: #FF9800;
 }
-.welcome-container-button:first-child {
+.welcome-container-button {
   float: left;
   min-width: 100px;
   padding-top: 8px;
   padding-bottom: 8px;
   background-color: rgba(255, 152, 0, 0.6);
-  color: white !important;
 }
 .welcome-container-button:last-child, .welcome-container-button:last-child:focus {
   float: left;
@@ -68,8 +69,11 @@ body {
   overflow: hidden;
   line-height: 10px;
   min-width: 200px;
-  background: rgba(13, 14, 9, 0.6);
-  border-color: #0D0E09;
+  background-color: rgba(255, 152, 0, 0.6);
+  border-color: rgba(255, 152, 0, 0.6);
+}
+.welcome-container-button a {
+    color: white !important;
 }
 .welcome-container-div-button {
   width: 30%;
@@ -86,11 +90,15 @@ body {
   margin-top: 5%;
   margin-right: 2%;
   margin-left: 10%;
+  color: white !important;
 }
 
 .div-container-form {
     background-color: rgba(0, 0, 0, 0.5) !important;
     height: 100vh;
+}
+.book-form {
+    background-color: rgba(0, 0, 0, 0.5) !important;
 }
 .div-container-form form {
   position: absolute;
@@ -109,9 +117,6 @@ body {
   font-weight: bold;
 }
 
-.input-field input[type='text'] {
-  color: white !important;
-}
 .login-button, .login-button:focus {
   width: 30%;
   margin: 0 auto;
@@ -210,13 +215,8 @@ body {
     background-size: cover;
     height: 100vh !important;
 }
-
-.dashboard-color {
-    background-color: rgba(6, 0, 0, 0.90);
-    height: 100vh;
-}
 .dashboard-head-color {
-    background: #FF9800 !important;
+    background: #372118 !important;
     margin-top: auto;
 }
 .return-book-button {
@@ -234,7 +234,10 @@ body {
 .button-color {
     background: blue;
 }
-/* Body Styling */
+.add-book-modal{
+    color: black;
+}
+/* Body Styling old styles*/
 
 #body-content{
     width: 100%;
