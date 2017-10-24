@@ -4,8 +4,13 @@ const env = require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const PORT2 = process.env.PORT;
+
 const config = {
-  entry: './client/app/src/index.jsx',
+  entry: [
+    './client/app/src/index.jsx'
+  ],
+  target: 'web',
   output: {
     filename: 'bundle.js',
     path: path.resolve(`${__dirname}/client/app/public`)
@@ -14,7 +19,17 @@ const config = {
     extensions: ['.js', '.jsx', '.json']
   },
   devServer: {
-    historyApiFallback: true
+    contentBase: path.join(__dirname, 'client/app/public'),
+    compress: true,
+    port: PORT2,
+    publicPath: `http://localhost:${PORT2}/`,
+    historyApiFallback: true,
+    hot: true,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    },
+    overlay: true,
+    watchContentBase: true
   },
   module: {
 

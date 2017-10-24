@@ -180,7 +180,7 @@ body {
 .admin-books {
     width: 70%;
     float: right;
-    margin: -400px 10px 0 0;
+    margin-top: 100px;
 }
 .btn-edit-add {
     float: right;
@@ -234,7 +234,7 @@ body {
 .button-color {
     background: blue;
 }
-.add-book-modal{
+.add-book-modal, .edit-book-modal{
     color: black;
 }
 /* Body Styling old styles*/

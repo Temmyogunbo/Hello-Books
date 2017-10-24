@@ -9,7 +9,8 @@
     "pretest": "npm run cleardb && cross-env NODE_ENV=test sequelize db:migrate && cross-env NODE_ENV=test sequelize db:seed:all",
     "test": "cross-env NODE_ENV=test nyc mocha --timeout 10000 ./server/test/**/*.js",
     "test:watch": "npm run test -- --watch",
-    "cleardb": "cross-env NODE_ENV=test sequelize db:migrate:undo:all"
+    "cleardb": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
+    "client:dev": "webpack-dev-server"
   },
   "nyc": {
     "require": [
@@ -100,7 +101,6 @@
     "validator": "^8.2.0",
     "webpack": "^3.5.5",
     "webpack-dev-middleware": "^1.10.2",
-    "webpack-dev-server": "^2.4.5",
     "webpack-hot-middleware": "^2.18.0"
   },
   "devDependencies": {
@@ -132,6 +132,6 @@
     "nyc": "^10.3.2",
     "pg": "^6.4.0",
     "toastr": "^2.1.2",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.9.3"
   }
 }

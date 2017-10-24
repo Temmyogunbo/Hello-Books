@@ -98,9 +98,8 @@ const BookHistoryController = {
   returnBook(req, res) {
     const bookId = parseInt(req.body.bookId, 10);
     const userId = parseInt(req.params[0], 10);
-    // find book if it exists in the history table
     return db.History
-      .findAll({
+      .findOne({
         where: {
           UserId: userId,
           BookId: bookId,
@@ -108,19 +107,17 @@ const BookHistoryController = {
         },
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: db.Book, attributes: ['author', 'title', 'quantity'] }
+          { model: db.Book }
         ]
       })
       .then((history) => {
-        console.log('history is here', history)
-        if (!history.rows.length) {
+        if (history === null) {
           return res.status(404).json({
-            message: 'No book to be returned'
+            message: 'No record found'
           });
         }
-        console.log('history is here now', history.rows.Book)
         db.Book.update({
-          quantity: parseInt(history.rows.Book.quantity, 10) + 1
+          quantity: parseInt(history.Book.quantity, 10) + 1
         },
         {
           fields: ['quantity'],
@@ -135,7 +132,7 @@ const BookHistoryController = {
             {
               fields: ['returned'],
               where: {
-                BookId: history.rows.BookId,
+                BookId: bookId,
                 UserId: userId
               }
             })
@@ -170,58 +167,3 @@ const BookHistoryController = {
   }
 };
 export default BookHistoryController;
-
-
-// if (!history) {
-//   return res.status(404).json({
-//     message: 'No book to be returned'
-//   });
-// }
-//   db.Book.findOne(
-//     {
-//       where: {
-//         id: history.dataValues.BookId
-//       }
-//     }
-//   )
-//     .then((book) => {
-//     // update book if it exist
-//       db.Book.update(
-//         {
-//           quantity: parseInt(book.quantity, 10) + 1
-//         },
-//         {
-//           fields: ['quantity'],
-//           where: {
-//             id: book.id
-//           }
-//         })
-//         .then(() => {
-//           db.History.update({
-//             returned: true
-//           },
-//           {
-//             fields: ['returned'],
-//             where: {
-//               BookId: history.BookId,
-//               UserId: req.params[0]
-//             }
-//           })
-//             .then(() => res.status(200).json({
-//               message: 'You return a book'
-//             }))
-//             .catch(() => res.status(404).json({
-//               message: 'Something went wrong'
-//             }));
-//         })
-//         .catch(() => res.status(500).json({
-//           message: 'Something went wrong'
-//         }));
-//     })
-//     .catch(() => res.status(404).json({
-//       message: 'No record for such book'
-//     }));
-// })
-// .catch(() => res.status(404).json({
-//   message: 'No record for borrowed book'
-// }));

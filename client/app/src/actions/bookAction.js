@@ -133,13 +133,15 @@ export const getAllBooksAction = () => dispatch =>
     dispatch(getAllBooks({ books }));
   })
     .catch((error) => {
-      dispatch(getAllBooksError(error.response.data));
-      return error;
+      console.log(error);
+
+      // dispatch(getAllBooksError(error.response.data));
+      // return error;
     });
- /**
- * @param {bookData} bookData
- * @return {object} response
- */
+/**
+* @param {bookData} bookData
+* @return {object} response
+*/
 export const borrowBookAction = bookData => dispatch =>
   axios.post(`/api/v1/users/${bookData.userId}/books`,
     { membership: bookData.membership, bookId: `${bookData.bookId}` })
@@ -170,8 +172,7 @@ export const getHistoryAction = userData => dispatch =>
  * @return {object} - returns an object of return book
  * @param {object} returnData - contains details of user history
  */
-export const returnBookAction = (returnData) => {
-  return dispatch =>
+export const returnBookAction = (returnData) => dispatch =>
     axios.put(`api/v1/users/${returnData.userId}/books`,
       { bookId: returnData.BookId })
       .then((response) => {
@@ -181,13 +182,11 @@ export const returnBookAction = (returnData) => {
         dispatch(returnBookEror(error.response.data));
         return error;
       });
-};
 /**
  *  @return {object} - returns an object of book
  * @param {object} bookData - contains id of book to be deleted
 */
-export const deleteBookAction = (bookData) => {
-  return dispatch =>
+export const deleteBookAction = (bookData) => dispatch =>
     axios.delete(`api/v1/books/${bookData}`)
       .then((response) => {
         dispatch(deleteBook(response.data));
@@ -196,22 +195,20 @@ export const deleteBookAction = (bookData) => {
         dispatch(deleteBookError(error.response.data));
         return error;
       });
-};
 
 /**
  *  @return {object} - returns an object of category
 */
-export const getCategoryAction = () => {
-  return dispatch =>
+export const getCategoryAction = () => dispatch =>
     axios.get('api/v1/category')
       .then((response) => {
         dispatch(getCategory(response.data));
       })
       .catch((error) => {
-        dispatch(getCategoryError(error.response.data));
+        console.log('error', error)
+        //dispatch(getCategoryError(error.response.data));
         return error;
       });
-};
 export default {
   getAllBooksAction,
   borrowBookAction,

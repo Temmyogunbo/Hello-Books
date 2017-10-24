@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import DashboardHead from './DashboardHeader';
 import BookCategories from './BookCategories';
 import AdminBooks from './AdminBooks';
+import addBookAction from '../../actions/addBookAction';
 import {
   getAllBooksAction,
-  addBookAction,
   deleteBookAction,
   getCategoryAction
 } from '../../actions/bookAction';
@@ -16,7 +16,8 @@ class AdminDashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
+      books: []
     }
   }
   componentWillMount() {
@@ -34,9 +35,12 @@ class AdminDashboardPage extends React.Component {
     if (nextProps.category !== this.props.category) {
       this.setState({ categories: nextProps.category })
     }
+    if (nextProps.books !== this.props.books) {
+      this.setState({ books: nextProps.books })
+    }
   }
   render() {
-    const { addCategory, getAllBooks, bookMessage, deleteMessage, deleteBook } = this.props;
+    const { addBook, getAllBoroks, bookMessage, deleteMessage, deleteBook } = this.props;
     return (
       <div className="dashboard-color">
         <DashboardHead
@@ -46,12 +50,11 @@ class AdminDashboardPage extends React.Component {
           <BookCategories categories={this.state.categories} />
           <AdminBooks
             className="admin-books"
-            {...this.props.books}
-            addCategory={addCategory}
-            getAllBooks={getAllBooks}
-            bookMessage={bookMessage}
+            books={this.state.books}
+            addBook={addBook}
             deleteMessage={deleteMessage}
             deleteBook={deleteBook}
+            categories={this.state.categories}
           />
         </div>
       </div>
@@ -68,8 +71,7 @@ AdminDashboardPage.PropTypes = {
 const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
-    books: state.bookReducer.books,
-    bookMessage: state.addBookReducer,
+    books: state.bookReducer.books.books,
     deleteMessage: state.deleteBookReducer,
     category: state.categoryReducer.category
   };
@@ -78,7 +80,7 @@ export default
   connect(mapStateToProps,
     {
       getAllBooks: getAllBooksAction,
-      addCategory: addBookAction,
+      addBook: addBookAction,
       deleteBook: deleteBookAction,
       getCategory: getCategoryAction
     })(withRouter(AdminDashboardPage));

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 class BookCategories extends React.Component {
   render() {
-    console.log('wawu', this.props.categories)
     let categoryItems;
     if (this.props.categories) {
       categoryItems = this.props.categories.map(category => (

@@ -5,16 +5,43 @@ import BookForm from './BookForm';
 
 
 class AdminBooks extends React.Component {
-  componentDidMount(){
-    $(document).ready(function(){
-    $('#modal').modal();
-  });
+  constructor(props) {
+    super(props);
+    this.state = {
+      book: {},
+      books: []
+    }
+    this.onClickEditBook = this.onClickEditBook.bind(this);
   }
+  componentDidMount() {
+    $(document).ready(function () {
+      $('#book-form-modal').modal({
+        dismissible: false
+      });
+      $('#book-form-modal').modal({
+        dismissible: false
+      });
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.books !== this.props.books) {
+      this.setState({ books: nextProps.books })
+    }
+  }
+  onClickEditBook(event) {
+    event.preventDefault();
+    const bookId = event.target.parentNode.id;
+    const book = this.props.books.find(book => parseInt(book.id, 10) === parseInt(bookId, 10));
+    this.setState({
+      book: book
+    });
+  }
+
   handleDelete(book) {
     swal({
       title: 'Delete this book?',
       text: "You won't be able to revert this!",
-      type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -30,93 +57,66 @@ class AdminBooks extends React.Component {
         });
     }).catch(swal.noop);
   }
-  handleEdit(book) {
-    swal({
-      title: 'EDIT BOOK',
-      inputValue: 100,
-      html:
-        '<label>CATEGORY</label>' +
-        `<input id="cat" className="swal2-input" value=${book.category}>` +
-        '<label>TITLE</label>' +
-        `<input id="tit" className="swal2-input" value=${book.title}>` +
-        '<label>AUTHOR</label>' +
-        `<input id="auth" className="swal2-input" value=${book.author}>` +
-        '<label>QUANTITY</label>' +
-        `<input id="quant" className="swal2-input" value=${book.quantity}>`,
-      confirmButtonText: 'EDIT',
-      focusConfirm: false,
-      preConfirm: () => {
-        return new Promise((resolve) => {
-          resolve([
-            $('#category').val(),
-            $('#title').val(),
-            $('#author').val(),
-            $('#quantity').val()
-          ]);
-        });
-      }
-    }).then((result) => {
-      if (result[0] === '' || result[1] === '' || result[2] === '' || result[3] === '') {
-        return swal('You entered an invalid input');
-      }
-      if (isNaN(result[3])) {
-        return swal('Quantity must be an integer');
-      }
-      this.props.addCategory({
-        category: result[0],
-        title: result[1],
-        author: result[2],
-        quantity: result[3]
-      })
-        .then(() => {
-          if (this.props.bookMessage.bookAdded) {
-            swal(this.props.bookMessage.bookMessage.msg);
-            this.props.getAllBooks();
-          } else {
-            swal(this.props.bookMessage.error.errors[0].msg);
-          }
-        });
-    }).catch(swal.noop);
-  }
+
   render() {
     let bookItems;
-    if (this.props.books) {
-      bookItems = this.props.books.map(book => (
+    if (this.state.books) {
+      bookItems = this.state.books.map((book, index) => (
         <tr key={book.id}>
-          <th><a className="link-color" onClick={() => { this.handleDelete.bind(this)(book)}}>{book.category}</a></th>
+          <th>{index + 1}</th>
+          <th>{book.category}</th>
           <th>{book.author}</th>
           <th>{book.title}</th>
           <th>{book.quantity}</th>
-          <th><a onClick={() => { this.handleEdit.bind(this)(book)}}>+</a></th>
+          <th id={book.id}>
+            <a
+              className="waves-effect waves-light modal-trigger"
+              href="#book-form-modal"
+            >
+              +
+          </a>
+          </th>
+          <th>
+            <a className="link-color" onClick={() => { this.handleDelete.bind(this)(book) }}>
+              <i className="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </th>
         </tr>
       ));
     }
     return (
       <div>
-        <BookForm />
+        <BookForm
+          book={this.state.book}
+          categories={this.props.categories}
+          addBook={this.props.addBook} />
         <div className="btn-edit-add">
           <div>
-            <a className="waves-effect waves-light btn modal-trigger" href="#modal">
+            <a
+              className="waves-effect waves-light btn modal-trigger"
+              href="#book-form-modal"
+            >
               ADD BOOK
             </a>
           </div>
-            <button>EDIT BOOK</button>
         </div>
         <div>
-        <table className="bordered centered admin-books">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Author</th>
-              <th>Title</th>
-              <th>Quantity</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookItems}
-          </tbody>
-        </table>
+          <table className="bordered centered admin-books">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Quantity</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookItems}
+            </tbody>
+          </table>
         </div>
       </div>
     );
@@ -125,8 +125,7 @@ class AdminBooks extends React.Component {
 
 AdminBooks.PropTypes = {
   bookItems: PropTypes.object.isRequired,
-  map: PropTypes.func.isRequired,
-  bookMessage: PropTypes.object.isRequired
+  map: PropTypes.func.isRequired
 };
 
 export default AdminBooks;

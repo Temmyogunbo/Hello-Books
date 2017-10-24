@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 
 import addBookValidation from '../../../../../server/helper/addBookValidation';
 
-class BookForm extends React.Component {
+class EditBookForm extends React.Component {
   constructor(props) {
     super(props);
+    console.log('see it here', this.props)
     this.state = {
       category: '',
-      title: '',
+      title: this.props.book.title,
       author: '',
       quantity: '',
       imageUrl: '',
@@ -21,6 +22,11 @@ class BookForm extends React.Component {
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.book !== this.props.book) {
+      this.setState({ title: nextProps.book.title })
+    }
   }
   /**
 **@description Checks that form is valid
@@ -48,6 +54,7 @@ class BookForm extends React.Component {
     }
   }
   render() {
+    console.log('you work with this', this.props.book)
     const { errors, isLoading } = this.state;
     const categoryItems = this.props.categories.map(category => (
       <option
@@ -57,20 +64,12 @@ class BookForm extends React.Component {
       </option>
     ));
     return (
-      <div id="book-form-modal" className="add-book-modal modal">
+      <div id="edit-book-modal" className="edit-book-modal modal">
         <div className="modal-content">
-          <div>ADD BOOK BY CATEGORY</div>
+          <div>EDIT BOOK BY CATEGORY</div>
           <form onSubmit={this.onSubmit}>
             <div>
               <label>Category</label>
-              <select
-                className="browser-default"
-                onChange={this.handleChange}
-                name="category"
-                value={this.state.category}>
-                <option>Select a category</option>
-                {categoryItems}
-              </select>
               <span className="error-block">
                 {errors.category}
               </span>
@@ -92,13 +91,6 @@ class BookForm extends React.Component {
             </div>
             <div>
               <div className="input-field">
-                <input
-                  name="author"
-                  type="text"
-                  className="validate"
-                  value={this.state.author}
-                  onChange={this.handleChange}
-                />
                 <span className="error-block">
                   {errors.author}
                 </span>
@@ -107,13 +99,6 @@ class BookForm extends React.Component {
             </div>
             <div>
               <div className="input-field">
-                <input
-                  type="text"
-                  name="quantity"
-                  className="validate"
-                  value={this.state.quantity}
-                  onChange={this.handleChange}
-                />
                 <span className="error-block">
                   {errors.quantity}
                 </span>
@@ -123,12 +108,7 @@ class BookForm extends React.Component {
             <div>
               <div className="file-field input-field">
                 <div className="btn">
-                  <span>Add Book Cover</span>
-                  <input
-                    type="file"
-                    name="imageUrl"
-                    onChange={this.handleChange}
-                  />
+                  <span>EDIT Book Cover</span>
                 </div>
                 <div className="file-path-wrapper">
                   <input
@@ -143,23 +123,23 @@ class BookForm extends React.Component {
             <button
               type="submit"
               disabled={isLoading}>
-              ADD BOOK
+              EDIT BOOK
             </button>
           </form>
           <button
-              className="modal-close">
-              close
+            className="modal-close">
+            close
             </button>
         </div>
       </div>
     )
   }
 }
-BookForm.PropTypes = {
+EditBookForm.PropTypes = {
   categories: PropTypes.array.isRequired,
   category: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired
 };
-export default BookForm;
+export default EditBookForm;
