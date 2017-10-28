@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import uploadFile from '../../../utils/uploadFile';
 
 import addBookValidation from '../../../../../server/helper/addBookValidation';
 
@@ -18,7 +19,15 @@ class BookForm extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onClick = this.uploadToCloudinary.bind(this);
+
   }
+  uploadToCloudinary(event) {
+    //this.setState({ [event.target.name]: event.target.value });
+    const file = document.querySelector('input[type="file"]').files[0];
+    uploadFile(file)
+  }
+
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -44,10 +53,11 @@ class BookForm extends React.Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.addbook(this.state);
+      //this.props.addBook(this.state);
     }
   }
   render() {
+  
     const { errors, isLoading } = this.state;
     const categoryItems = this.props.categories.map(category => (
       <option
@@ -123,11 +133,11 @@ class BookForm extends React.Component {
             <div>
               <div className="file-field input-field">
                 <div className="btn">
-                  <span>Add Book Cover</span>
+                  <span>Add Book Cover and Submit</span>
                   <input
                     type="file"
                     name="imageUrl"
-                    onChange={this.handleChange}
+                    onChange={this.uploadToCloudinary}
                   />
                 </div>
                 <div className="file-path-wrapper">
@@ -135,8 +145,6 @@ class BookForm extends React.Component {
                     className="file-path validate"
                     type="text"
                   />
-                  <span className="error-block">
-                    {errors.imageUrl}</span>
                 </div>
               </div>
             </div>
@@ -147,8 +155,8 @@ class BookForm extends React.Component {
             </button>
           </form>
           <button
-              className="modal-close">
-              close
+            className="modal-close">
+            close
             </button>
         </div>
       </div>

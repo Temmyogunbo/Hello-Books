@@ -1,6 +1,5 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
-import validateFileUpload from './validateFileUpload';
 
 /**
  * @description Validates Sign In form
@@ -9,6 +8,7 @@ import validateFileUpload from './validateFileUpload';
  */
 export default function addBookValidation(formData) {
   const errors = {};
+  const numberReg = new RegExp('^[0-9]+$');
   if (Validator.isEmpty(formData.title)) {
     errors.title = 'Title is Required';
   }
@@ -18,14 +18,11 @@ export default function addBookValidation(formData) {
   if (Validator.isEmpty(formData.quantity)) {
     errors.quantity = 'Quantity is required';
   }
-  if (typeof Number(formData.quantity) !== 'number') {
+  if (!numberReg.test(formData.quantity)) {
     errors.quantity = 'Quantity must be number';
   }
   if (Validator.isEmpty(formData.author)) {
     errors.author = 'Author is required';
-  }
-  if (validateFileUpload(formData.imageUrl)) {
-    errors.imageUrl = 'Please provide an image to be uploaded';
   }
   return {
     errors,

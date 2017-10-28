@@ -4,7 +4,7 @@ const env = require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const PORT2 = process.env.PORT;
+const CLIENTPORT = process.env.CLIENTPORT;
 
 const config = {
   entry: [
@@ -19,10 +19,9 @@ const config = {
     extensions: ['.js', '.jsx', '.json']
   },
   devServer: {
-    contentBase: path.join(__dirname, 'client/app/public'),
     compress: true,
-    port: PORT2,
-    publicPath: `http://localhost:${PORT2}/`,
+    port: CLIENTPORT,
+    publicPath: `http://localhost:${CLIENTPORT}/`,
     historyApiFallback: true,
     hot: true,
     proxy: {

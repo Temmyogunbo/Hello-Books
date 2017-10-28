@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import BookForm from './BookForm';
+import EditBookForm from './EditBookForm';
 
 
 class AdminBooks extends React.Component {
@@ -18,7 +19,7 @@ class AdminBooks extends React.Component {
       $('#book-form-modal').modal({
         dismissible: false
       });
-      $('#book-form-modal').modal({
+      $('#edit-book-form-modal').modal({
         dismissible: false
       });
     });
@@ -57,6 +58,19 @@ class AdminBooks extends React.Component {
         });
     }).catch(swal.noop);
   }
+    /**
+ *
+ * @return {void} the add book action is dispatched
+ * @param {void} event - on click event
+ * @memberof add Book form
+ */
+handleSubmit(event) {
+  event.preventDefault();
+  if (this.validateForm()) {
+    this.setState({ errors: {}, isLoading: true });
+    this.props.addbook(this.state);
+  }
+}
 
   render() {
     let bookItems;
@@ -71,7 +85,8 @@ class AdminBooks extends React.Component {
           <th id={book.id}>
             <a
               className="waves-effect waves-light modal-trigger"
-              href="#book-form-modal"
+              href="#edit-book-form-modal"
+              onClick={this.onClickEditBook}
             >
               +
           </a>
@@ -87,6 +102,10 @@ class AdminBooks extends React.Component {
     return (
       <div>
         <BookForm
+          book={this.state.book}
+          categories={this.props.categories}
+          addBook={this.props.addBook} />
+          <EditBookForm
           book={this.state.book}
           categories={this.props.categories}
           addBook={this.props.addBook} />
@@ -129,4 +148,5 @@ AdminBooks.PropTypes = {
 };
 
 export default AdminBooks;
+
 
