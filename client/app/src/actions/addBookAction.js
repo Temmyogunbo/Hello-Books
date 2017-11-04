@@ -30,7 +30,7 @@ const addBookAction = (bookData) => {
   return dispatch =>
     axios.post('api/v1/books', bookData)
       .then((response) => {
-        dispatch(addBook(response.data));
+        dispatch(addBook(response.data.book));
       })
       .catch((error) => {
         dispatch(addBookError(error.response.data));

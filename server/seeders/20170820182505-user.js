@@ -8,7 +8,7 @@ module.exports = {
       membership: 'gold',
       email: 'Ogunbotemilola@yahoo.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10), null),
-      roleId: 1,
+      role: 'admin',
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
@@ -17,7 +17,7 @@ module.exports = {
       membership: 'silver',
       email: 'temmyogunbo@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
-      roleId: 2,
+      role: 'users',
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
@@ -26,7 +26,7 @@ module.exports = {
       membership: 'platinum',
       email: 'enodiaudu@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
-      roleId: 1,
+      role: 'users',
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -36,7 +36,7 @@ module.exports = {
       membership: 'silver',
       email: 'ogunbojoshua@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
-      roleId: 3,
+      role: 'admin',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});

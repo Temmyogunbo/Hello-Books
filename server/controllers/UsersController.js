@@ -1,4 +1,3 @@
-// import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import db from '../models';
 import verify from '../authentication/verify';
@@ -18,7 +17,8 @@ const UsersController = {
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
     req.check('password', 'Password is required').notEmpty();
-    req.check('password', 'Password must be a mininum of 5 character').isLength({ min: 5 });
+    req.check('password',
+      'Password must be a mininum of 5 characters').isLength({ min: 5 });
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({ error: errors[0] });
@@ -57,6 +57,7 @@ const UsersController = {
         res.status(201).json({
           success: true,
           msg: 'Registration successful',
+          payload,
           token
         });
       })
@@ -85,14 +86,14 @@ const UsersController = {
     if (errors) {
       return res.status(400).json({ error: errors[0] });
     }
-    // console.log(req.body.userName, req.body.password)
     return db.User.findOne({
       where: {
         userName: req.body.userName
       },
       attributes: ['userName',
         'password',
-        'email', 'membership', 'role']
+        'email', 'membership', 'role'],
+      limit: 1
     })
       .then((user) => {
         if (!user) {
@@ -122,12 +123,8 @@ const UsersController = {
               res.status(200).json({
                 success: true,
                 msg: 'You are signed in',
+                payload,
                 token
-              });
-            } else {
-              res.status(500).json({
-                success: false,
-                msg: 'Something went wrong try again'
               });
             }
           } else {
@@ -138,8 +135,9 @@ const UsersController = {
           }
         }
       })
-      .catch(err => res.status(500).json({
-        err
+      .catch(() => res.status(500).json({
+        success: false,
+        msg: 'Something went wrong try again'
       }));
   }
 };

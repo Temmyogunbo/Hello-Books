@@ -221,7 +221,8 @@ body {
 .button-color {
   background: blue; }
 
-.add-book-modal {
+.add-book-modal,
+.edit-book-modal {
   color: black; }
 
 /* Body Styling old styles*/

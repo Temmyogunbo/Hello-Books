@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import {
-  GET_CATEGORY,
-  GET_CATEGORY_ERRORS
+  CREATE_BOOK_CATEGORY,
+  CREATE_BOOK_CATEGORY_ERROR,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -12,14 +12,14 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case GET_CATEGORY:
+    case CREATE_BOOK_CATEGORY:
       return {
         ...state,
         category: action.category,
         thereIsCategory: !isEmpty(action.category),
         error: {}
       };
-    case GET_CATEGORY_ERRORS:
+    case CREATE_BOOK_CATEGORY_ERROR:
       return {
         ...state,
         error: action.error

@@ -15,9 +15,19 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     category: {
       type: DataTypes.STRING,

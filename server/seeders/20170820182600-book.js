@@ -3,6 +3,7 @@ module.exports = {
     return queryInterface.bulkInsert('Books', [{
       title: 'Half of a yellow sun',
       category: 'History',
+      description: 'Story of the Igbos in Eastern part of Nigeria, struggling to be recognized',
       author: 'Chimanda Adichie',
       quantity: 30,
       imageUrl: 'localhost:4000',
@@ -11,8 +12,9 @@ module.exports = {
     },
     {
       title: 'The Pentagon',
-      category: 'History',
+      category: 'Mathematics',
       author: 'Edward Luttwark',
+      description: 'A book written by a millitar historian',
       quantity: 30,
       imageUrl: 'localhost:3000',
       createdAt: new Date(),
@@ -20,8 +22,9 @@ module.exports = {
     },
     {
       title: 'Alice in Wonderland',
-      category: 'Adventure',
+      category: 'Programming',
       author: 'Bruno Mars',
+      description: 'A fictitious story of a man named Alice trying to make the most decision of is life.',
       quantity: 30,
       imageUrl: 'localhost:5000',
       createdAt: new Date(),

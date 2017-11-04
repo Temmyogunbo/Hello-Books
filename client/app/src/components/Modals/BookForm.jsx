@@ -1,40 +1,71 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import uploadFile from '../../../utils/uploadFile';
-
+import cloudinary from 'cloudinary';
 import addBookValidation from '../../../../../server/helper/addBookValidation';
+
+cloudinary.config({
+  cloud_name: process.env.APP_CLOUD_NAME,
+  api_key: process.env.APP_API_KEY,
+  api_secret: process.env.APP_API_SECRET
+});
 
 class BookForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       category: '',
+      description: '',
       title: '',
       author: '',
       quantity: '',
       imageUrl: '',
       isLoading: false,
+      isButtonLoading: true,
       errors: {}
     }
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onClick = this.uploadToCloudinary.bind(this);
+    this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
 
   }
   uploadToCloudinary(event) {
-    //this.setState({ [event.target.name]: event.target.value });
-    const file = document.querySelector('input[type="file"]').files[0];
-    uploadFile(file)
+    event.preventDefault();
+    this.setState({
+      isLoading: true
+    })
+    const { files } = $(event.target)[0];
+    if (/^image/.test(files[0].type)) {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onloadend = (result) =>
+        cloudinary.v2.uploader.upload(result.target.result,
+          (error, response) => {
+            if (error) {
+              this.setState({
+                imageUrl: response.secure_url,
+                isButtonLoading: false,
+                isLoading: false
+              })
+              console.log(error);
+            }
+            this.setState({
+              imageUrl: response.secure_url,
+              isButtonLoading: false,
+              isLoading: false
+            })
+            console.log('yeeeeee', response);
+            console.log(this.state)
+          });
+    }
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
   /**
-**@description Checks that form is valid
-* @return {Boolean} boolen
-*/
+  **@description Checks that form is valid
+  * @return {Boolean} boolen
+  */
   validateForm() {
     const { errors, isValid } = addBookValidation(this.state);
     if (!isValid) {
@@ -52,13 +83,13 @@ class BookForm extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     if (this.validateForm()) {
-      this.setState({ errors: {}, isLoading: true });
-      //this.props.addBook(this.state);
+      this.setState({ errors: {}, isButtonLoading: true });
+      this.props.addBook(this.state);
     }
   }
   render() {
-  
-    const { errors, isLoading } = this.state;
+
+    const { errors, isButtonLoading } = this.state;
     const categoryItems = this.props.categories.map(category => (
       <option
         key={category.id}
@@ -131,28 +162,48 @@ class BookForm extends React.Component {
               </div>
             </div>
             <div>
-              <div className="file-field input-field">
-                <div className="btn">
-                  <span>Add Book Cover and Submit</span>
-                  <input
-                    type="file"
-                    name="imageUrl"
-                    onChange={this.uploadToCloudinary}
-                  />
-                </div>
-                <div className="file-path-wrapper">
-                  <input
-                    className="file-path validate"
-                    type="text"
-                  />
-                </div>
+              <div className="input-field">
+                <input
+                  type="text"
+                  name="description"
+                  className="validate"
+                  value={this.state.description}
+                  onChange={this.handleChange}
+                />
+                <span className="error-block">
+                  {errors.description}
+                </span>
+                <label>Description</label>
               </div>
             </div>
-            <button
-              type="submit"
-              disabled={isLoading}>
-              ADD BOOK
+            {!this.state.isButtonLoading &&
+              <img src={this.state.imageUrl} style={{width: 100 +'px', height: 100 + 'px'}} />}
+            <div className="row">
+              <div className="col sm-4">
+                <button
+                  className="btn red-bg"
+                  type="submit"
+                  disabled={isButtonLoading}>
+                  ADD BOOK
             </button>
+              </div>
+              <div className="col sm-4">
+                <input
+                  id="filedisplay"
+                  style={{ display: "none" }}
+                  type="file"
+                  onChange={this.uploadToCloudinary}
+                />
+                <button type="button"
+                  onClick={() => document.getElementById('filedisplay').click()}
+                  className="btn">
+                  <i className="material-icons">image</i>
+                </button>
+                {this.state.isLoading &&
+                  <i className="isLoading fa fa-spin fa-spinner" aria-hidden="true"></i>
+                }
+              </div>
+            </div>
           </form>
           <button
             className="modal-close">

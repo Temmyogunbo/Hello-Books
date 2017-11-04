@@ -6,6 +6,7 @@ import DashboardHead from './DashboardHeader';
 import BookCategories from './BookCategories';
 import AdminBooks from './AdminBooks';
 import addBookAction from '../../actions/addBookAction';
+import {createBookCategoryAction} from '../../actions/categoryAction';
 import {
   getAllBooksAction,
   deleteBookAction,
@@ -40,7 +41,7 @@ class AdminDashboardPage extends React.Component {
     }
   }
   render() {
-    const { addBook, getAllBoroks, bookMessage, deleteMessage, deleteBook } = this.props;
+    const { addBook, getAllBooks, bookMessage, deleteMessage, deleteBook, createBookCategory } = this.props;
     return (
       <div className="dashboard-color">
         <DashboardHead
@@ -52,6 +53,7 @@ class AdminDashboardPage extends React.Component {
             className="admin-books"
             books={this.state.books}
             addBook={addBook}
+            createBookCategory={createBookCategory}
             deleteMessage={deleteMessage}
             deleteBook={deleteBook}
             categories={this.state.categories}
@@ -73,7 +75,8 @@ const mapStateToProps = (state) => {
     user: state.userReducer.user,
     books: state.bookReducer.books.books,
     deleteMessage: state.deleteBookReducer,
-    category: state.categoryReducer.category
+    category: state.getBookCategoryReducer.category,
+    createBookCategory: state.createBookCategoryReducer.category
   };
 };
 export default
@@ -82,5 +85,6 @@ export default
       getAllBooks: getAllBooksAction,
       addBook: addBookAction,
       deleteBook: deleteBookAction,
-      getCategory: getCategoryAction
+      getCategory: getCategoryAction,
+      createBookCategory: createBookCategoryAction
     })(withRouter(AdminDashboardPage));

@@ -38,7 +38,7 @@ describe('Users', () => {
       });
   });
   describe('/POST users', () => {
-    it('it should not post a user without a full name', (done) => {
+    it('it should not create a user without a full name', (done) => {
       const user = {
         fullName: '',
         userName: 'jerk',
@@ -55,7 +55,7 @@ describe('Users', () => {
           done();
         });
     });
-    it('it should not post a user without a userName', (done) => {
+    it('it should not create a user without a userName', (done) => {
       const user = {
         fullName: 'james',
         userName: '',
@@ -66,13 +66,13 @@ describe('Users', () => {
         .post('/api/v1/users/signup')
         .send(user)
         .end((err, res) => {
-      res.should.have.status(400);
+          res.should.have.status(400);
           res.body.error.param.should.eql('userName');
           res.body.error.msg.should.eql('Username is required');  
           done();
         });
     });
-    it('it should not post a user without an email address', (done) => {
+    it('it should not create a user without an email address', (done) => {
       const user = {
         fullName: 'james',
         userName: 'jerk',
@@ -89,7 +89,24 @@ describe('Users', () => {
           done();
         });
     });
-    it('it should not post a user without a password', (done) => {
+    it('it should not create a user with a wrong email format', (done) => {
+      const user = {
+        fullName: 'Mark',
+        userName: 'jerk',
+        email: 'jerkyahoo.com',
+        password: 'jameskhan',
+      };
+      chai.request(app)
+        .post('/api/v1/users/signup')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.error.param.should.eql('email');
+          res.body.error.msg.should.eql('Please put a valid email');
+          done();
+        });
+    });
+    it('it should not create a user without a password', (done) => {
       const user = {
         fullName: 'james',
         userName: 'jerk',
@@ -106,12 +123,20 @@ describe('Users', () => {
           done();
         });
     });
-    it('Should post a user if the required fields are required', (done) => {
+    it('it should not create a user with password less than 5 characters', (done) => {
+      const user = {
+        fullName: 'james',
+        userName: 'jerk',
+        email: 'jerk@yahoo.com',
+        password: 'emm',
+      };
       chai.request(app)
         .post('/api/v1/users/signup')
-        .send(samples.sampleUser1)
+        .send(user)
         .end((err, res) => {
-          res.should.have.status(201);
+          res.should.have.status(400);
+          res.body.error.param.should.eql('password');
+          res.body.error.msg.should.eql('Password must be a mininum of 5 characters');
           done();
         });
     });
@@ -121,6 +146,28 @@ describe('Users', () => {
         .send(samples.sampleUser3)
         .end((err, res) => {
           res.should.have.status(201);
+          res.body.should.have.property('token');
+          done();
+        });
+    });
+    it('Should return users payload incuding token, boolean, and a success message', (done) => {
+      const user = {
+        fullName: 'simi',
+        userName: 'simisola',
+        email: 'simi@yahoo.com',
+        password: 'emmanuel',
+      };
+      chai.request(app)
+        .post('/api/v1/users/signup')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.msg.should.eql('Registration successful');
+          res.body.payload.email.should.eql('simi@yahoo.com');
+          res.body.payload.userName.should.eql('simisola');
+          res.body.payload.membership.should.eql('gold');
+          res.body.payload.role.should.eql('users');
+          res.body.success.should.eql(true);
           res.body.should.have.property('token');
           done();
         });
@@ -163,14 +210,33 @@ describe('Users', () => {
     it('Should fail if the user enters an incorrect password upon signin', (done) => {
       const mockUser = {
         userName: 'enodi',
-        password: 'useri21'
+        password: 'wrong passsword'
       };
       chai.request(app)
         .post('/api/v1/users/signin')
         .send(mockUser)
         .end((err, res) => {
           res.should.have.status(401);
-          res.body.msg.should.eql('Authentication failed. Wrong password.');
+          res.body.msg.should.eql('You are not registered');
+          done();
+        });
+    });
+    it('Should return users payload incuding token and a success message', (done) => {
+      const mockUser = {
+        userName: 'temmy',
+        password: 'emmanuel'
+      };
+      chai.request(app)
+        .post('/api/v1/users/signin')
+        .send(mockUser)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.msg.should.eql('You are signed in');
+          res.body.payload.email.should.eql('temmyogunbo@gmail.com');
+          res.body.payload.userName.should.eql('temmy');
+          res.body.payload.membership.should.eql('silver');
+          res.body.success.should.eql(true);
+          res.body.should.have.property('token');
           done();
         });
     });

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
-import BookForm from './BookForm';
-import EditBookForm from './EditBookForm';
+import BookForm from '../Modals/BookForm';
+import EditBookForm from '../Modals/EditBookForm';
+import CategoryForm from '../Modals/CategoryForm';
 
 
 class AdminBooks extends React.Component {
@@ -22,6 +23,9 @@ class AdminBooks extends React.Component {
       $('#edit-book-form-modal').modal({
         dismissible: false
       });
+    });
+    $('#book-category-form-modal').modal({
+      dismissible: false
     });
   }
 
@@ -73,6 +77,7 @@ handleSubmit(event) {
 }
 
   render() {
+    console.log('uuu', this.props)
     let bookItems;
     if (this.state.books) {
       bookItems = this.state.books.map((book, index) => (
@@ -105,11 +110,22 @@ handleSubmit(event) {
           book={this.state.book}
           categories={this.props.categories}
           addBook={this.props.addBook} />
-          <EditBookForm
+        <EditBookForm
           book={this.state.book}
           categories={this.props.categories}
           addBook={this.props.addBook} />
+        <CategoryForm
+          createBookCategory={this.props.createBookCategory}
+        />
         <div className="btn-edit-add">
+          <div>
+            <a
+              className="waves-effect waves-light btn modal-trigger"
+              href="#book-category-form-modal"
+            >
+              CREATE A CATEGORY
+            </a>
+          </div>
           <div>
             <a
               className="waves-effect waves-light btn modal-trigger"
@@ -128,6 +144,7 @@ handleSubmit(event) {
                 <th>Author</th>
                 <th>Title</th>
                 <th>Quantity</th>
+                <th>Description</th>
                 <th></th>
                 <th></th>
               </tr>

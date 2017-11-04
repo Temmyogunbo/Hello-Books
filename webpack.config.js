@@ -3,6 +3,7 @@ const path = require('path');
 const env = require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotEnvWebpack = require('dotenv-webpack');
 
 const CLIENTPORT = process.env.CLIENTPORT;
 
@@ -76,13 +77,15 @@ const config = {
   },
   plugins: [
     new ExtractTextPlugin('./style.css'),
-    new webpack.HotModuleReplacementPlugin({
-      multistep: true
+    new webpack.HotModuleReplacementPlugin(),
+    new dotEnvWebpack({
+      path: './.env',
+      safe: false,
     }),
     new webpack.DefinePlugin({
       proces: {
         env: {
-          SECRET_KEY: JSON.stringify(process.env.SECRET_KEY),
+          SECRET_KEY: JSON.stringify(process.env.SECRET_KEY)
         }
       }
     }),

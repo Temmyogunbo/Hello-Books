@@ -6,7 +6,8 @@ import historyReducer from './historyReducer';
 import returnBookReducer from './returnBookReducer';
 import addBookReducer from './addBookReducer';
 import deleteBookReducer from './deleteBookReducer';
-import categoryReducer from './categoryReducer';
+import getBookCategoryReducer from './getBookCategoryReducer';
+import createBookCategoryReducer from './createBookCategoryReducer';
 
 export default combineReducers({
   userReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   returnBookReducer,
   addBookReducer,
   deleteBookReducer,
-  categoryReducer
+  getBookCategoryReducer,
+  createBookCategoryReducer
 });

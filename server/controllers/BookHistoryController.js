@@ -6,10 +6,9 @@ const BookHistoryController = {
     const userId = parseInt(req.params[0], 10);
     const { bookId, membership } = req.body;
     return db.Book.findById(bookId).then((book) => {
-      console.log(book)
       if (!book) {
         return res.status(404).json({
-          message: 'No such book in the library'
+          msg: 'No such book in the library'
         });
       }
       if (parseInt(book.dataValues.quantity, 10) < 1) {
@@ -45,14 +44,16 @@ const BookHistoryController = {
                 const presentYear = new Date().getFullYear();
                 if (borrowDay !== presentDay || borrowMonth !== presentMonth
                   || borrowYear !== presentYear) {
-                  BookFunc.returnMessage(res, 400,
-                    'You have to return the previous book');
+                  return res.status(400).json({
+                    msg: 'You have to return the previous book.'
+                  });
                 }
               }
               for (let i = numberofBooksBorrowed; i--;) {
                 if (parseInt(bookId, 10) === parseInt(result[i].dataValues.BookId, 10)) {
-                  return BookFunc.returnMessage(res, 400,
-                    'You cannot borrow the same book again');
+                  return res.status(400).json({
+                    msg: 'You cannot borrow the same book again.'
+                  });
                 }
               }
               // user is borrowing different book and has not exceeded his limit
@@ -64,20 +65,26 @@ const BookHistoryController = {
                   dueDate: new Date(new Date().getTime() +
                     (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000))
                 })
-                .then(() => BookFunc.returnMessage(res, 200,
-                  'You successfully borrow a book'))
-                .catch(() => BookFunc.returnMessage(res, 400,
-                  'Cannot create a record'));
+                .then(() => res.status(201).json({
+                  msg: 'You successfully borrow a book.'
+                }))
+                .catch(() => res.status(400).json({
+                  msg: 'Cannot create a record.'
+                }));
             } else {
-              return BookFunc.returnMessage(res, 403,
-                'You cannot borrow more than your membership level');
+              return res.status(403).json({
+                msg: 'You cannot borrow more than your membership level.'
+              });
             }
           })
-          .catch(() => BookFunc.returnMessage(res, 400,
-            'Something went wrong'));
+          .catch(() => res.status(500).json({
+            msg: 'Something went wrong.'
+          }));
       }
     })
-      .catch(() => BookFunc.returnMessage(res, 500, 'Something went wrong'));
+      .catch(() => res.status(500).json({
+        msg: 'Something went wrong.'
+      }));
   },
   yetToReturn(req, res) {
     return db.History.findAll({
@@ -87,13 +94,17 @@ const BookHistoryController = {
       }
     }).then((history) => {
       if (history.length === 0) {
-        return BookFunc.returnMessage(res, 200, 'No books to be returned');
+        return res.status(200).json({
+          msg: 'No books to be returned.'
+        });
       }
-      return BookFunc.returnMessage(res, 200,
-        `You have ${history.length} book(s) to be returned`);
+      return res.status(200).json({
+        msg: `You have ${history.length} book(s) to be returned`
+      });
     })
-      .catch(() => BookFunc.returnMessage(res, 400,
-        'Cannot perform this operation'));
+      .catch(() => res.status(400).json({
+        msg: 'This operation cannot be performed.'
+      }));
   },
   returnBook(req, res) {
     const bookId = parseInt(req.body.bookId, 10);
@@ -113,7 +124,7 @@ const BookHistoryController = {
       .then((history) => {
         if (history === null) {
           return res.status(404).json({
-            message: 'No record found'
+            msg: 'No record found'
           });
         }
         db.Book.update({
@@ -136,18 +147,21 @@ const BookHistoryController = {
                 UserId: userId
               }
             })
-              .then(() => res.status(200).json({
-                message: 'You returned a book'
+              .then(bookReturned => res.status(200).json({
+                bookReturned,
+                msg: 'You returned a book.'
               }))
               .catch(() => res.status(404).json({
-                message: 'Your record cannot be updated'
+                msg: 'Your record cannot be updated'
               }));
           })
           .catch(() => res.status(404).json({
-            message: 'Your record cannot be updated. Try later.'
+            msg: 'Your record cannot be updated. Try later.'
           }));
       })
-      .catch(err => res.status(400).send(err));
+      .catch(() => res.status(400).json({
+        msg: 'Something went wrong.'
+      }));
   },
   findUserHistory(req, res) {
     const userId = parseInt(req.params[0], 10);
@@ -163,7 +177,11 @@ const BookHistoryController = {
       })
       .then((result) => {
         res.status(200).json(result.rows);
-      });
+      })
+      .catch(() =>
+        res.status(400).json({
+          msg: 'Your have no record.'
+        }));
   }
 };
 export default BookHistoryController;
