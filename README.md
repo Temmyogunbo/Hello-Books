@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 Before this application can work, you need the following:
--NodeJS -A platform to run javascript, not in the browser
+- NodeJS -A platform to run javascript, not in the browser
 - Postgres A relational database that will persist data
 
 Example
