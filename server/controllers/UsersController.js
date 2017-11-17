@@ -45,19 +45,23 @@ const UsersController = {
           id,
           role
         } = user;
-        const payload = {
+        const token = verify.getToken({
+          email,
+          fullName,
+          userName,
+          membership,
+          id,
+          role
+        });
+        res.status(201).json({
+          success: true,
+          msg: 'Registration successful',
           email,
           fullName,
           userName,
           membership,
           id,
           role,
-        };
-        const token = verify.getToken(payload);
-        res.status(201).json({
-          success: true,
-          msg: 'Registration successful',
-          payload,
           token
         });
       })
@@ -92,7 +96,7 @@ const UsersController = {
       },
       attributes: ['userName',
         'password',
-        'email', 'membership', 'role'],
+        'email', 'membership', 'role', 'id', 'fullName'],
       limit: 1
     })
       .then((user) => {
@@ -103,27 +107,31 @@ const UsersController = {
         } else if (user) {
           const {
             email,
-            fullName,
             userName,
+            fullName,
             id,
             role,
             membership,
           } = user;
           if (bcrypt.compareSync(req.body.password, user.password)) {
-            const payload = {
+            const token = verify.getToken({
               email,
-              fullName,
               userName,
+              fullName,
               id,
               role,
               membership,
-            };
-            const token = verify.getToken(payload);
+            });
             if (token) {
               res.status(200).json({
                 success: true,
                 msg: 'You are signed in',
-                payload,
+                email,
+                userName,
+                fullName,
+                id,
+                role,
+                membership,
                 token
               });
             }

@@ -1,7 +1,32 @@
 import axios from 'axios';
+import toastr from 'toastr';
 import jwtDecode from 'jwt-decode';
 import Authorization from '../../utils/authorization';
-import { SET_AUTH_USERS, SET_AUTH_USERS_ERROR } from '../constants/actionTypes';
+import {
+  SET_AUTH_USERS,
+  SET_AUTH_USERS_ERROR,
+  GET_USER_HISTORY,
+  GET_USER_HISTORY_ERROR
+} from '../constants/actionTypes';
+
+/**
+ *
+ * @return {object} All history
+ * @param {detailedHistory} detailedHistory - dispatched history object
+ */
+const getHistory = detailedHistory => ({
+  type: GET_USER_HISTORY,
+  detailedHistory
+});
+/**
+ *
+ * @return {object} error
+ * @param {error} error - dispatched error object
+ */
+const getHistoryError = error => ({
+  type: GET_USER_HISTORY_ERROR,
+  error
+});
 /**
  * @return {object} - an object of created user
  * sends created user response as a payload to the reducer
@@ -21,6 +46,19 @@ const setAuthUserError = error => ({
   error
 });
 /**
+* @return {object} - returns an object of user's history
+* @param {object} userData - contains user id
+*/
+export const getHistoryAction = userData => dispatch =>
+  axios.get(`/api/v1/users/${userData.userId}/history`)
+    .then((response) => {
+      dispatch(getHistory(response.data));
+    })
+    .catch((error) => {
+      dispatch(getHistoryError(error.response.data));
+      return error;
+    });
+/**
  * @return {object} - created user from the server side
  * sends an object of the created user and returns an auth token for the user
  * @param {object} userData - userdetails to be registered
@@ -32,10 +70,11 @@ export const signupAction = userData => dispatch =>
       localStorage.setItem('jwtToken', token);
       Authorization.setAuthToken(token);
       dispatch(setAuthUser(jwtDecode(token)));
+      toastr.success('You successfully signed up');
     })
     .catch((error) => {
       dispatch(setAuthUserError(error.response.data));
-      return error;
+      toastr.error(error.response.data.msg);
     });
 
 
@@ -58,9 +97,10 @@ export const signinAction = user => dispatch => (
     localStorage.setItem('jwtToken', token);
     Authorization.setAuthToken(token);
     dispatch(setAuthUser(jwtDecode(token)));
-  }).catch(({ response }) => {
-    dispatch(setAuthUserError(response.data));
-    return response;
+    toastr.success('You are Logged in successfully');
+  }).catch((error) => {
+    dispatch(setAuthUserError(error.response.data));
+    toastr.error(error.response.data.msg);
   });
 /**
  *  @return {object} - array of users
@@ -74,6 +114,7 @@ export const signOutAction = () => (dispatch) => {
 };
 
 export default {
+  getHistoryAction,
   signupAction,
   signinAction,
   signOutAction

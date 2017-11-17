@@ -16,71 +16,68 @@ const BookHistoryController = {
           message: 'No more books in the library'
         });
       }
-      if (membership === 'gold' || membership === 'silver'
-        || membership === 'platinum') {
-        const numberofBooksAllowedWithDays =
+      const numberofBooksAllowedWithDays =
           BookFunc.checkMembership(membership);
-        db.History.findAll({
-          where: {
-            UserId: userId,
-            returned: false
+      db.History.findAll({
+        where: {
+          UserId: userId,
+          returned: false
+        }
+      })
+        .then((result) => {
+          const numberofBooksBorrowed = result.length;
+          if ((numberofBooksBorrowed > 0 &&
+              numberofBooksBorrowed < numberofBooksAllowedWithDays[0]) ||
+              numberofBooksBorrowed === 0) {
+            // check if user borrow in the present day
+            if (numberofBooksBorrowed > 0) {
+              const borrowDay = result[numberofBooksBorrowed - 1]
+                .dataValues.borrowedDate.getDate();
+              const borrowMonth = result[numberofBooksBorrowed - 1]
+                .dataValues.borrowedDate.getMonth() + 1;
+              const borrowYear = result[numberofBooksBorrowed - 1]
+                .dataValues.borrowedDate.getFullYear();
+              const presentDay = new Date().getDate();
+              const presentMonth = new Date().getMonth() + 1;
+              const presentYear = new Date().getFullYear();
+              if (borrowDay !== presentDay || borrowMonth !== presentMonth ||
+                  borrowYear !== presentYear) {
+                return res.status(400).json({
+                  msg: 'You have to return the previous book.'
+                });
+              }
+            }
+            for (let i = numberofBooksBorrowed; i--;) {
+              if (parseInt(bookId, 10) === parseInt(result[i].dataValues.BookId, 10)) {
+                return res.status(400).json({
+                  msg: 'You cannot borrow the same book again.'
+                });
+              }
+            }
+            // user is borrowing different book and has not exceeded his limit
+            db.History
+              .create({
+                UserId: userId,
+                BookId: bookId,
+                borrowedDate: new Date(),
+                dueDate: new Date(new Date().getTime() +
+                    (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000))
+              })
+              .then(() => res.status(201).json({
+                msg: 'You successfully borrow a book.'
+              }))
+              .catch(() => res.status(400).json({
+                msg: 'Cannot create a record.'
+              }));
+          } else {
+            return res.status(403).json({
+              msg: 'You cannot borrow more than your membership level.'
+            });
           }
         })
-          .then((result) => {
-            const numberofBooksBorrowed = result.length;
-            if ((numberofBooksBorrowed > 0 &&
-              numberofBooksBorrowed < numberofBooksAllowedWithDays[0])
-              || numberofBooksBorrowed === 0) {
-              // check if user borrow in the present day
-              if (numberofBooksBorrowed > 0) {
-                const borrowDay = result[numberofBooksBorrowed - 1]
-                  .dataValues.borrowedDate.getDate();
-                const borrowMonth = result[numberofBooksBorrowed - 1]
-                  .dataValues.borrowedDate.getMonth() + 1;
-                const borrowYear = result[numberofBooksBorrowed - 1]
-                  .dataValues.borrowedDate.getFullYear();
-                const presentDay = new Date().getDate();
-                const presentMonth = new Date().getMonth() + 1;
-                const presentYear = new Date().getFullYear();
-                if (borrowDay !== presentDay || borrowMonth !== presentMonth
-                  || borrowYear !== presentYear) {
-                  return res.status(400).json({
-                    msg: 'You have to return the previous book.'
-                  });
-                }
-              }
-              for (let i = numberofBooksBorrowed; i--;) {
-                if (parseInt(bookId, 10) === parseInt(result[i].dataValues.BookId, 10)) {
-                  return res.status(400).json({
-                    msg: 'You cannot borrow the same book again.'
-                  });
-                }
-              }
-              // user is borrowing different book and has not exceeded his limit
-              db.History
-                .create({
-                  UserId: userId,
-                  BookId: bookId,
-                  borrowedDate: new Date(),
-                  dueDate: new Date(new Date().getTime() +
-                    (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000))
-                })
-                .then(() => res.status(201).json({
-                  msg: 'You successfully borrow a book.'
-                }))
-                .catch(() => res.status(400).json({
-                  msg: 'Cannot create a record.'
-                }));
-            } else {
-              return res.status(403).json({
-                msg: 'You cannot borrow more than your membership level.'
-              });
-            }
-          })
-          .catch(() => res.status(500).json({
-            msg: 'Something went wrong.'
-          }));
-      }
+        .catch(() => res.status(500).json({
+          msg: 'Something went wrong.'
+        }));
     })
       .catch(() => res.status(500).json({
         msg: 'Something went wrong.'

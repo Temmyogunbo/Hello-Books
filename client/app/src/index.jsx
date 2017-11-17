@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import jwtDecode from 'jwt-decode';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
 import Authorization from '../utils/authorization';
@@ -24,10 +25,11 @@ if (localStorage.jwtToken) {
   Authorization.setAuthToken(localStorage.jwtToken);
   store.dispatch(setAuthUser(jwtDecode(localStorage.jwtToken)));
 }
+const history = createHistory();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
       <App />
     </Router>
   </Provider>,

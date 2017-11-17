@@ -7,6 +7,7 @@ module.exports = {
       author: 'Chimanda Adichie',
       quantity: 30,
       imageUrl: 'localhost:4000',
+      imagePublicId: 'trial',
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -17,6 +18,7 @@ module.exports = {
       description: 'A book written by a millitar historian',
       quantity: 30,
       imageUrl: 'localhost:3000',
+      imagePublicId: 'trial',
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -27,6 +29,7 @@ module.exports = {
       description: 'A fictitious story of a man named Alice trying to make the most decision of is life.',
       quantity: 30,
       imageUrl: 'localhost:5000',
+      imagePublicId: 'trial',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});

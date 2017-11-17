@@ -6,7 +6,8 @@ import isEmpty from 'lodash/isEmpty';
  * @param  {object} formData
  * @return {object} object- contains errors and boolean
  */
-export default function addBookValidation(formData) {
+export default function bookValidation(formData) {
+  console.log("here is ", formData.quantity)
   const errors = {};
   const numberReg = new RegExp('^[0-9]+$');
   if (Validator.isEmpty(formData.title)) {
@@ -15,7 +16,7 @@ export default function addBookValidation(formData) {
   if (Validator.isEmpty(formData.category)) {
     errors.category = 'Category is required';
   }
-  if (Validator.isEmpty(formData.quantity)) {
+  if (Validator.isEmpty(formData.quantity.toString() || formData.quantity)) {
     errors.quantity = 'Quantity is required';
   }
   if (!numberReg.test(formData.quantity)) {
@@ -23,6 +24,9 @@ export default function addBookValidation(formData) {
   }
   if (Validator.isEmpty(formData.author)) {
     errors.author = 'Author is required';
+  }
+  if (formData.description.length < 10) {
+    errors.description = 'Minimum of 10 characters is required';
   }
   return {
     errors,

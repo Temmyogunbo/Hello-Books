@@ -1,5 +1,3 @@
-import sendMail from '../helper/sendMail';
-
 export default (sequelize, DataTypes) => {
   const Book = sequelize.model('Book');
   const History = sequelize.define('History', {
@@ -46,8 +44,6 @@ export default (sequelize, DataTypes) => {
         where: {
           id: borrowedBook.dataValues.BookId
         }
-      }).then(() => {
-        sendMail('Ogunbotemilola@yahoo.com', 'Book Borrowed');
       });
     });
   });
@@ -61,9 +57,6 @@ export default (sequelize, DataTypes) => {
         where: {
           id: borrowedBook.dataValues.BookId
         }
-      }).then(() => {
-        console.log(sendMail)
-        sendMail('Ogunbotemilola@yahoo.com', 'Book Borrowed');
       });
     });
   });

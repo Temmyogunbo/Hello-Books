@@ -1,22 +1,16 @@
 import { combineReducers } from 'redux';
 import userReducer from './userReducer';
+import userHistoryReducer from './userHistoryReducer';
 import bookReducer from './bookReducer';
-import borrowBookReducer from './borrowBookReducer';
-import historyReducer from './historyReducer';
-import returnBookReducer from './returnBookReducer';
-import addBookReducer from './addBookReducer';
-import deleteBookReducer from './deleteBookReducer';
-import getBookCategoryReducer from './getBookCategoryReducer';
-import createBookCategoryReducer from './createBookCategoryReducer';
+import errorReducer from './errorReducer';
+import flashMessageReducer from './flashMessageReducer';
+import bookCategoryReducer from './bookCategoryReducer';
 
 export default combineReducers({
   userReducer,
+  userHistoryReducer,
   bookReducer,
-  borrowBookReducer,
-  historyReducer,
-  returnBookReducer,
-  addBookReducer,
-  deleteBookReducer,
-  getBookCategoryReducer,
-  createBookCategoryReducer
+  bookCategoryReducer,
+  errorReducer,
+  flashMessageReducer
 });

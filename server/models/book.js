@@ -16,13 +16,20 @@ export default (sequelize, DataTypes) => {
       }
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notEmpty: true
       }
     },
     imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
+    imagePublicId: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

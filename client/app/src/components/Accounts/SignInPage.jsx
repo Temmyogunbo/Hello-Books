@@ -1,14 +1,30 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
-import Navigation from './Navigation';
 import { signinAction } from '../../actions/userActions';
-import signInValidation from '../../../../../server/helper/signinValidation';
+import signInValidation from '../../../utils/signInValidation';
+import { addFlashMessage } from '../../actions/flashMessageAction';
 
 
+const propTypes = {
+  history: PropTypes.object.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  signin: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
+};
+/**
+ *
+ *
+ * @class SignInPage
+ * @extends {React.Component}
+ */
 class SignInPage extends React.Component {
+  /**
+   * Creates an instance of SignInPage.
+   * @param {any} props
+   * @memberof SignInPage
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -21,13 +37,19 @@ class SignInPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  /**
+   *
+   * @returns {void}
+   * @param {any} event
+   * @memberof SignInPage
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
   /**
   **@description Checks that form is valid
   * @return {Boolean} boolen
-  */ 
+  */
   validateForm() {
     const { errors, isValid } = signInValidation(this.state);
     if (!isValid) {
@@ -45,30 +67,27 @@ class SignInPage extends React.Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.signin(this.state).then((error) => {
-        if (!error) {
-          if (this.props.user.role === 'admin') {
-            this.props.history.replace('/admindashboard');
-            toastr.success('You are Logged in successfully');
-            return;
-          }
+      this.props.signin(this.state)
+        .then(() => {
+          this.setState({ errors: {}, isLoading: false });
           this.props.history.replace('/dashboard');
-          toastr.success('You are Logged in successfully');
-        } else {
-          this.setState({ errors: this.props.error, isLoading: false });
-          toastr.error(this.props.error.msg);
-        }
-      });
+        });
     }
   }
+  /**
+   *
+   *
+   * @returns {object} jsx
+   * @memberof SignInPage
+   */
   render() {
     const { errors, isLoading } = this.state;
     return (
-      <div className="image">
-        <Navigation about="About us" contact="Contact us" sign="Sign up" whereTo="/signup" />
-        <div className="row div-container-form">
-          <form className="col.s12" onSubmit={this.onSubmit}>
-            <h3 className="log-in-title">Log in:</h3>
+      <div>
+        <div className="image"/>
+        <div className="row">
+          <form className="col s6 push-s3 div-container-form" onSubmit={this.onSubmit}>
+            <h3 className="sign-title">Log in:</h3>
             <div className="row">
               <div className="input-field col.s5">
                 <label htmlFor="first_name">
@@ -102,34 +121,23 @@ class SignInPage extends React.Component {
               disabled={isLoading}>
               Log in
             </button><br /><br />
-            <a href="">Did you forget your password?</a>
+            <Link to="#">Did you forget your password?</Link>
           </form>
         </div>
       </div>
     );
   }
 }
-SignInPage.propTypes = {
-  history: PropTypes.object.isRequired,
-  signin: PropTypes.func.isRequired,
-  error: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
-};
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.userReducer.user,
-    error: state.userReducer.error
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  signin: signinCredentials => dispatch(
-    signinAction(signinCredentials)
-  )
+const mapStateToProps = (state) => ({
+  user: state.userReducer.user
 });
 
-export default connect(mapStateToProps,
-  mapDispatchToProps)(
-  withRouter(SignInPage)
-);
+SignInPage.propTypes = propTypes;
+export default connect(
+  mapStateToProps,
+  {
+    signin: signinAction,
+    addFlashMessage
+  }
+)(withRouter(SignInPage));

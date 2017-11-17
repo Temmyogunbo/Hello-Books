@@ -1,20 +1,27 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
-import Navigation from './Navigation';
+import GoogleLogin from 'react-google-login';
 import { signupAction } from '../../actions/userActions';
-import signUpValidation from '../../../../../server/helper/signupValidation';
+import signUpValidation from '../../../utils/signUpValidation';
 
+const propTypes = {
+  history: PropTypes.object.isRequired,
+  signup: PropTypes.func.isRequired
+};
 /**
  *
- *
+ *@returns {object} jsx
  * @class SignupPage
  * @extends {React.Component}
  */
-
 class SignUpPage extends React.Component {
+  /**
+   * Creates an instance of SignUpPage.
+   * @param {any} props
+   * @memberof SignUpPage
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -28,21 +35,41 @@ class SignUpPage extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onGoogleCallback = this.onGoogleCallback.bind(this);
   }
-  /*
-   * This function receives error messages as props from the
-   * store if they are any
-   * @param {object} nextProps - error object from store
-   * @return {void} null
-   * @memberof SignupPage
-  */
+  /**
+   * @returns {void}
+   *
+   * @param {any} response
+   * @memberof SignUpPage
+   */
+  onGoogleCallback(response) {
+    console.log('response got here', response);
+    this.setState({
+      fullName: response.profileObj.name,
+      userName: response.profileObj.givenName,
+      password: response.profileObj.googleId,
+      email: response.profileObj.email,
+      confirmPassword: response.profileObj.googleId
+    });
+    document.getElementById("for-google-signup").click();
+  }
+  /**
+   *
+   * @returns {void}
+   * @param {any} event
+   * @memberof SignUpPage
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
   /**
-	 * @description Checks that form is valid
-	 * @return {Boolean}
-	 */
+   *
+   *
+   * @returns {Boolean} isValid
+   * @memberof SignUpPage
+   *
+   */
   validateForm() {
     const { errors, isValid } = signUpValidation(this.state);
     if (!isValid) {
@@ -61,30 +88,27 @@ class SignUpPage extends React.Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.signup(this.state).then((error) => {
-        if (error) {
-          this.setState({ errors: this.props.error.msg, isLoading: false });
-          toastr.error(this.props.error.msg);
-        } else {
-          this.setState({ errors: {}, isLoading: true });
-          this.props.history.replace('/dashboard');
-          toastr.success('You have successfully signed up');
-        }
+      this.props.signup(this.state).then(() => {
+        this.setState({ errors: {}, isLoading: true });
+        this.props.history.replace('/dashboard');
       });
     }
   }
   /**
-	 * @description Renders content to the screen
-	 * @return {void}
-	 */
+* @description Renders content to the screen
+ * @return {void}
+ */
   render() {
     const { errors, isLoading } = this.state;
     return (
-      <div className="image">
-        <Navigation about='About us' contact='Contact us' sign='Log in' whereTo="/signin" />
-        <div className="row div-container-signup-form">
-          <form className="col.s12" onSubmit={this.onSubmit}>
-            <h4 className="sign-up-title">Sign up to HelloBooks:</h4>
+      <div>
+        <div className="image"/>
+        <div className="row">
+          <form
+            className="col s6 push-s3 div-container-form"
+            onSubmit={this.onSubmit}
+          >
+            <h4 className="sign-title">Sign up to HelloBooks:</h4>
             <div className="row">
               <div className="input-field col.s5">
                 <label htmlFor="first_name">Full Name</label>
@@ -145,33 +169,50 @@ class SignUpPage extends React.Component {
                 <label htmlFor="password">Confirm password</label>
               </div>
             </div>
-            <button
-              className="login-button" type="submit"
-              disabled={isLoading}>
+            <div className="row">
+              <button
+                id="for-google-signup"
+                className="col s3 login-button" type="submit"
+                disabled={isLoading}>
               Sign up
-            </button>
+              </button>
+              <GoogleLogin
+                className="col s6 push-s3"
+                clientId="36899049581-4qhfcq6i9qjvauc42ba6hjf33nk22c3k.apps.googleusercontent.com"
+                onSuccess={this.onGoogleCallback}
+
+              >
+                <div className="row">
+                  <p className="col s9"> Sign up with</p>
+                  <img
+                    className="col s3 pull-s3"
+                    width="30"
+                    height="30"
+                    role="google fonts"
+                    src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
+                  />
+                </div>
+              </GoogleLogin>
+            </div>
             <br />
-            <br />
+
           </form>
+
         </div>
+
       </div>
     );
   }
 }
-SignUpPage.propTypes = {
-  history: PropTypes.object.isRequired,
-  signup: PropTypes.func.isRequired,
-  error: PropTypes.object.isRequired
-};
-const mapStateToProps = (state) => {
-  return {
-    user: state.userReducer.user,
-    error: state.userReducer.error
-  };
-};
+SignUpPage.propTypes = propTypes;
+const mapStateToProps = (state) => ({
+  user: state.userReducer.user
+});
 const mapDispatchToProps = dispatch => ({
   signup: signupCredentials => dispatch(signupAction(signupCredentials)),
 });
 
-export default connect(mapStateToProps,
-  mapDispatchToProps)(withRouter(SignUpPage));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SignUpPage));

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../config/app';
-import samples from '../mockData';
+import mockData from '../mockData';
 
 require('dotenv').config();
 
@@ -13,7 +13,7 @@ describe('Users', () => {
   before((done) => {
     chai.request(app)
       .post('/api/v1/users/signin')
-      .send(samples.admin)
+      .send(mockData.admin)
       .end((err, res) => {
         adminToken = res.body.token;
         done();
@@ -22,7 +22,7 @@ describe('Users', () => {
   before((done) => {
     chai.request(app)
       .post('/api/v1/users/signin')
-      .send(samples.user)
+      .send(mockData.user)
       .end((err, res) => {
         userToken = res.body.token;
         done();
@@ -31,7 +31,7 @@ describe('Users', () => {
   before((done) => {
     chai.request(app)
       .post('/api/v1/users/signin')
-      .send(samples.user2)
+      .send(mockData.user2)
       .end((err, res) => {
         sampleUserToken = res.body.token;
         done();
@@ -143,7 +143,7 @@ describe('Users', () => {
     it('Should generate a token when the user is created', (done) => {
       chai.request(app)
         .post('/api/v1/users/signup')
-        .send(samples.sampleUser3)
+        .send(mockData.sampleUser3)
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.have.property('token');
@@ -163,10 +163,10 @@ describe('Users', () => {
         .end((err, res) => {
           res.should.have.status(201);
           res.body.msg.should.eql('Registration successful');
-          res.body.payload.email.should.eql('simi@yahoo.com');
-          res.body.payload.userName.should.eql('simisola');
-          res.body.payload.membership.should.eql('gold');
-          res.body.payload.role.should.eql('users');
+          res.body.email.should.eql('simi@yahoo.com');
+          res.body.userName.should.eql('simisola');
+          res.body.membership.should.eql('gold');
+          res.body.role.should.eql('users');
           res.body.success.should.eql(true);
           res.body.should.have.property('token');
           done();
@@ -175,7 +175,7 @@ describe('Users', () => {
     it('Should generate a token when the user is successfully authenticated', (done) => {
       chai.request(app)
         .post('/api/v1/users/signin')
-        .send(samples.user)
+        .send(mockData.user)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('token');
@@ -185,7 +185,7 @@ describe('Users', () => {
     it('Should fail if the user enters incorrect crendentials upon signin', (done) => {
       chai.request(app)
         .post('/api/v1/users/signin')
-        .send(samples.user2)
+        .send(mockData.user2)
         .end((err, res) => {
           res.should.have.status(401);
           res.body.should.have.property('msg').eql('You are not registered');
@@ -232,9 +232,9 @@ describe('Users', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.msg.should.eql('You are signed in');
-          res.body.payload.email.should.eql('temmyogunbo@gmail.com');
-          res.body.payload.userName.should.eql('temmy');
-          res.body.payload.membership.should.eql('silver');
+          res.body.email.should.eql('temmyogunbo@gmail.com');
+          res.body.userName.should.eql('temmy');
+          res.body.membership.should.eql('silver');
           res.body.success.should.eql(true);
           res.body.should.have.property('token');
           done();

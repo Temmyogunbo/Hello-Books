@@ -1,27 +1,75 @@
 import axios from 'axios';
+import toastr from 'toastr';
 import {
+  GET_A_BOOK,
+  GET_A_BOOK_ERROR,
+  EDIT_BOOK,
+  EDIT_BOOK_ERROR,
+  ADD_BOOK,
+  ADD_BOOK_ERROR,
   GET_ALL_BOOKS,
   GET_ALL_BOOKS_ERROR,
   BORROW_A_BOOK,
   BORROW_A_BOOK_ERROR,
-  GET_USER_HISTORY,
-  GET_USER_HISTORY_ERROR,
   RETURN_A_BOOK,
   RETURN_A_BOOK_ERROR,
   DELETE_BOOK,
   DELETE_BOOK_ERROR,
-  GET_CATEGORY,
-  GET_CATEGORY_ERROR
 } from '../constants/actionTypes';
 
+const getBook = book => ({
+  type: GET_A_BOOK,
+  book
+});
+const getBookError = error => ({
+  type: GET_A_BOOK_ERROR,
+  error
+});
 /**
  *
- * @param {deleteMessage} deleteMessage - dispatched deleteMessage 
- * @return {object} deleteMessage
+ * @param {object} book
+ * @return {book} book - dispatched book object
  */
-const deleteBook = deleteMessage => ({
+const editBook = book => ({
+  type: EDIT_BOOK,
+  book
+});
+/**
+ *
+ * @return {object} error
+ * @param {error} error - dispatched error object
+ */
+const editBookError = error => ({
+  type: EDIT_BOOK_ERROR,
+  error
+});
+/**
+ *
+ * @param {object} book
+ * @return {book} book - dispatched book object
+ */
+const addBook = book => ({
+  type: ADD_BOOK,
+  book
+});
+/**
+ *
+ * @return {object} error
+ * @param {error} error - dispatched error object
+ */
+const addBookError = error => ({
+  type: ADD_BOOK_ERROR,
+  error
+});
+/**
+ *
+ * @param {bookId} id  
+ * @return {object} description delete book object
+ * 
+ */
+const deleteBook = id => ({
   type: DELETE_BOOK,
-  deleteMessage
+  id
 });
 /**
  *
@@ -53,11 +101,11 @@ const getAllBooksError = error => ({
 /**
  *
  * @return {object} All books
- * @param {error} book - dispatched book object
+ * @param {error} id - dispatched book id
  */
-const borrowBook = book => ({
+const borrowBook = id => ({
   type: BORROW_A_BOOK,
-  book
+  id
 });
 /**
  *
@@ -70,30 +118,12 @@ const borrowBookError = error => ({
 });
 /**
  *
- * @return {object} All history
- * @param {detailedHistory} detailedHistory - dispatched history object
- */
-const getHistory = detailedHistory => ({
-  type: GET_USER_HISTORY,
-  detailedHistory
-});
-/**
- *
- * @return {object} error
- * @param {error} error - dispatched error object
- */
-const getHistoryError = error => ({
-  type: GET_USER_HISTORY_ERROR,
-  error
-});
-/**
- *
  * @return {returnMessage} returnMessage - dispatched returned message
- * @param {object} returnMessage book details
+ * @param {object} BookReturned book details
  */
-const returnBook = returnMessage => ({
+const returnBook = BookReturned => ({
   type: RETURN_A_BOOK,
-  returnMessage
+  BookReturned
 });
 
 /**
@@ -106,37 +136,30 @@ const returnBookEror = error => ({
   error
 });
 /**
- *
- * @param {object} category
- * @return {object} category - dispatched category object
- */
-const getCategory = category => ({
-  type: GET_CATEGORY,
-  category
-});
-/**
- *
- * @param {object} error
- * @return {object} error - dispatched error object
- */
-const getCategoryError = error => ({
-  type: GET_CATEGORY_ERROR,
-  error
-});
+* @return {object} - returns an object of book
+* @param {object} bookData - contains book message in the library
+*/
+export const addBookAction = bookData => dispatch =>
+  axios.post('api/v1/books', bookData)
+    .then((response) => {
+      dispatch(addBook(response.data.book));
+      toastr.success('Book(s) successfully added to the library.');
+    })
+    .catch((error) => {
+      dispatch(addBookError(error.response.data.msg));
+      toastr.error(error.response.data.msg);
+    });
 
 /**
  * @return {object} - returns an object of books
  */
 export const getAllBooksAction = () => dispatch =>
   axios.get('/api/v1/books').then((response) => {
-    const books = response.data;
-    dispatch(getAllBooks({ books }));
+    dispatch(getAllBooks(response.data));
   })
     .catch((error) => {
-      console.log(error);
-
-      // dispatch(getAllBooksError(error.response.data));
-      // return error;
+      dispatch(getAllBooksError(error.response.data.msg));
+      toastr.error(error.response.data.msg);
     });
 /**
 * @param {bookData} bookData
@@ -146,73 +169,81 @@ export const borrowBookAction = bookData => dispatch =>
   axios.post(`/api/v1/users/${bookData.userId}/books`,
     { membership: bookData.membership, bookId: `${bookData.bookId}` })
     .then((response) => {
-      dispatch(borrowBook(response.data));
+      dispatch(borrowBook(bookData.bookId));
+      toastr.success('You successfully borrowed a book');
     })
     .catch((error) => {
-      const errorMessage = error.response.data;
-      dispatch(borrowBookError(errorMessage));
+      dispatch(borrowBookError(error.response.data));
+      toastr.error(error.response.data.msg);
     }
     );
-/**
-* @return {object} - returns an object of user's history
-* @param {object} userData - contains user id
-*/
-export const getHistoryAction = userData => dispatch =>
-  axios.get(`/api/v1/users/${userData.userId}/history`)
-    .then((response) => {
-      const userHistory = response.data;
-      dispatch(getHistory({ userHistory }));
-    })
-    .catch((error) => {
-      dispatch(getHistoryError(error.response.data));
-      return error;
-    });
 
 /**
  * @return {object} - returns an object of return book
  * @param {object} returnData - contains details of user history
  */
-export const returnBookAction = (returnData) => dispatch =>
-    axios.put(`api/v1/users/${returnData.userId}/books`,
-      { bookId: returnData.BookId })
-      .then((response) => {
-        dispatch(returnBook(response.data));
-      })
-      .catch((error) => {
-        dispatch(returnBookEror(error.response.data));
-        return error;
-      });
+export const returnBookAction = returnData => dispatch =>
+  axios.put(`api/v1/users/${returnData.userId}/books`,
+    { bookId: returnData.BookId })
+    .then((response) => {
+      const newHistoryObject = { ...returnData.historyObj, returned: true };
+      dispatch(returnBook(newHistoryObject));
+      toastr.success(response.data.msg);
+    })
+    .catch((error) => {
+      dispatch(returnBookEror(error.response.data));
+      toastr.error(error.response.data.msg);
+    });
 /**
  *  @return {object} - returns an object of book
  * @param {object} bookData - contains id of book to be deleted
 */
-export const deleteBookAction = (bookData) => dispatch =>
-    axios.delete(`api/v1/books/${bookData}`)
-      .then((response) => {
-        dispatch(deleteBook(response.data));
-      })
-      .catch((error) => {
-        dispatch(deleteBookError(error.response.data));
-        return error;
-      });
+export const deleteBookAction = bookData => dispatch =>
+  axios.delete(`api/v1/books/${bookData.id}`)
+    .then((response) => {
+      dispatch(deleteBook(bookData.id));
+      toastr.success('Book deleted');
+    })
+    .catch((error) => {
+      dispatch(deleteBookError(error.response.data));
+      toastr.error(error.response.data.msg);
+    });
 
 /**
- *  @return {object} - returns an object of category
+* @return {object} - returns an empty object of book
+* @param {object} bookData - contains book message in the library
 */
-export const getCategoryAction = () => dispatch =>
-    axios.get('api/v1/category')
-      .then((response) => {
-        dispatch(getCategory(response.data));
-      })
-      .catch((error) => {
-        console.log('error', error)
-        //dispatch(getCategoryError(error.response.data));
-        return error;
-      });
+export const editBookAction = bookData => (dispatch) => {
+  axios.put(`api/v1/books/${bookData.bookId}`, bookData)
+    .then((response) => {
+      dispatch(editBook(bookData));
+      toastr.success('Book updated successfully');
+    })
+    .catch((error) => {
+      dispatch(editBookError(error.response.data));
+      toastr.error(error.response.data.msg);
+    });
+};
+/**
+ * @return {object} - dispatch an object of book
+ * @param {object} bookId - contains id of book to be gotten
+*/
+export const getBookAction = (bookId) => (dispatch) =>
+  axios.get(`/api/v1/books/${bookId}`)
+    .then((response) => {
+      console.log('your response', response.data);
+      dispatch(getBook(response.data));
+    })
+    .catch((error) => {
+      dispatch(getBookError(error.response.data));
+      toastr.error(error.response.data.msg);
+    });
 export default {
+  getBookAction,
+  editBookAction,
+  addBookAction,
   getAllBooksAction,
   borrowBookAction,
-  getHistoryAction,
   returnBookAction,
   deleteBookAction
 };

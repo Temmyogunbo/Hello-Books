@@ -1,31 +1,30 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
-import WelcomeMessagePage from './users/WelcomeMessagePage';
-import SignInPage from './users/SignInPage';
-import SignUpPage from './users/SignUpPage';
-import DashboardPage from './users/DashboardPage';
-import AdminDashboardPage from './users/AdminDashboardPage';
-import UserDetailsPage from './users/UserDetailsPage';
+import { Route, Switch } from 'react-router-dom';
+import SignInPage from '../components/Accounts/SignInPage';
+import SignUpPage from '../components/Accounts/SignUpPage';
+import SplashScreen from './SplashScreen';
 import CheckSignedInContainer from '../../utils/CheckSignedInContainer';
-import HistoryPage from './users/HistoryPage';
+import BookPage from '../components/Books/BookPage';
+import DashboardPage from '../components/users/DashboardPage';
+import HistoryPage from '../components/users/HistoryPage';
 import '../sass/style.scss';
 import '../../../../node_modules/toastr/toastr.scss';
-
-const history = createHistory();
+import NavigationBar from './NavigationBar';
+import PageNotFound from './PageNotFound';
 
 const App = () => (
-  <Router history={history}>
+  <div>
+    <NavigationBar />
     <Switch>
-      <Route exact path="/" component={WelcomeMessagePage} />
-      <Route exact path="/signin" component={SignInPage} />
-      <Route exact path="/signup" component={SignUpPage} />
-      <Route path="/dashboard" component={CheckSignedInContainer(DashboardPage)} />
-      <Route path="/admindashboard" component={CheckSignedInContainer(AdminDashboardPage)} />
-      <Route path="/user" component={CheckSignedInContainer(UserDetailsPage)} />
-      <Route path="/history" component={CheckSignedInContainer(HistoryPage)} />
+      <Route path="/signin" component={SignInPage} />
+      <Route exact path="/" component={SplashScreen} />
+      <Route path="/signup" component={SignUpPage} />
+      <Route exact path="/dashboard" component={CheckSignedInContainer(DashboardPage)} />
+      <Route exact path="/history" component={CheckSignedInContainer(HistoryPage)} />
+      <Route path="/dashboard/book/:bookId" component={BookPage} />
+      <Route component={PageNotFound} />
     </Switch>
-  </Router>
+  </div>
 );
 
 export default App;

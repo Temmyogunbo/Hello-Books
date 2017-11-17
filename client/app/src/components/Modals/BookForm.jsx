@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cloudinary from 'cloudinary';
-import addBookValidation from '../../../../../server/helper/addBookValidation';
+import $ from "jquery";
+import bookValidation from '../../../utils/bookValidation';
 
 cloudinary.config({
   cloud_name: process.env.APP_CLOUD_NAME,
@@ -9,10 +10,32 @@ cloudinary.config({
   api_secret: process.env.APP_API_SECRET
 });
 
+const propTypes = {
+  book: PropTypes.object.isRequired,
+  editBook: PropTypes.func.isRequired,
+  addBook: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired
+};
+/**
+ * 
+ * 
+ * @class BookForm
+ * @extends {React.Component}
+ */
 class BookForm extends React.Component {
+  /**
+   * Creates an instance of BookForm.
+   * @param {any} props 
+   * @memberof BookForm
+   */
   constructor(props) {
     super(props);
     this.state = {
+      imagePublicId: '',
+      bookId: '',
+      bookHead: 'ADD BOOK BY CATEGORY',
+      buttonText: 'ADD BOOK',
+      isEdit: false,
       category: '',
       description: '',
       title: '',
@@ -22,22 +45,52 @@ class BookForm extends React.Component {
       isLoading: false,
       isButtonLoading: true,
       errors: {}
-    }
+    };
+    this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
-
   }
+  /**
+ * @returns {void}
+ * 
+ * @param {any} nextProps 
+ * @memberof BookForm
+ */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.book.id) {
+      this.setState({
+        description: nextProps.book.description,
+        bookId: nextProps.book.id,
+        category: nextProps.book.category,
+        title: nextProps.book.title,
+        quantity: nextProps.book.quantity,
+        author: nextProps.book.author,
+        imageUrl: nextProps.book.imageUrl,
+        bookHead: "EDIT BOOK BY CATEGORY",
+        buttonText: 'EDIT BOOK',
+        isEdit: true,
+        isButtonLoading: false
+      });
+    }
+  }
+  /**
+ * @returns {void} 
+ * @description- it uploads images to cloudinary
+ * 
+ * @param {any} event 
+ * @memberof BookForm
+ */
   uploadToCloudinary(event) {
     event.preventDefault();
     this.setState({
       isLoading: true
-    })
+    });
     const { files } = $(event.target)[0];
     if (/^image/.test(files[0].type)) {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
-      reader.onloadend = (result) =>
+      reader.onloadend = (result) => {
         cloudinary.v2.uploader.upload(result.target.result,
           (error, response) => {
             if (error) {
@@ -45,29 +98,56 @@ class BookForm extends React.Component {
                 imageUrl: response.secure_url,
                 isButtonLoading: false,
                 isLoading: false
-              })
+              });
               console.log(error);
             }
             this.setState({
+              imagePublicId: response.public_id,
               imageUrl: response.secure_url,
               isButtonLoading: false,
               isLoading: false
-            })
-            console.log('yeeeeee', response);
-            console.log(this.state)
+            });
           });
+      };
     }
   }
-
+  /**
+   * @returns {void} 
+   * @description- it sets an instance of
+   * BookForm back to its initial state
+   * 
+   * @memberof BookForm
+   */
+  handleClose() {
+    this.setState({
+      bookId: '',
+      category: '',
+      description: '',
+      title: '',
+      author: '',
+      quantity: '',
+      bookHead: 'ADD BOOK BY CATEGORY',
+      buttonText: 'ADD BOOK',
+      isEdit: false,
+      isButtonLoading: true
+    });
+  }
+  /**
+   * @returns {void} description- it updates an instance
+   * of BookForm go its current state
+   * 
+   * @param {any} event 
+   * @memberof BookForm
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
   /**
   **@description Checks that form is valid
-  * @return {Boolean} boolen
+  * @return {Boolean} boolean
   */
   validateForm() {
-    const { errors, isValid } = addBookValidation(this.state);
+    const { errors, isValid } = bookValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
@@ -84,11 +164,50 @@ class BookForm extends React.Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.setState({ errors: {}, isButtonLoading: true });
-      this.props.addBook(this.state);
+      const {
+        category,
+        quantity,
+        description,
+        imageUrl,
+        title,
+        author,
+        bookId,
+        imagePublicId
+      } = this.state;
+      if (this.state.isEdit) {
+        this.props.editBook({
+          category,
+          quantity,
+          description,
+          imageUrl,
+          title,
+          author,
+          bookId,
+          imagePublicId
+        });
+        this.handleClose();
+        return $('#book-form-modal').modal('close');
+      }
+      this.props.addBook({
+        category,
+        quantity,
+        description,
+        imageUrl,
+        title,
+        author,
+        imagePublicId
+      });
+      this.handleClose();
+      return $('#book-form-modal').modal('close');
     }
   }
+  /**
+   * 
+   * 
+   * @returns {object} jsx
+   * @memberof BookForm
+   */
   render() {
-
     const { errors, isButtonLoading } = this.state;
     const categoryItems = this.props.categories.map(category => (
       <option
@@ -99,8 +218,8 @@ class BookForm extends React.Component {
     ));
     return (
       <div id="book-form-modal" className="add-book-modal modal">
-        <div className="modal-content">
-          <div>ADD BOOK BY CATEGORY</div>
+        <div className="row modal-content">
+          <div>{this.state.bookHead}</div>
           <form onSubmit={this.onSubmit}>
             <div>
               <label>Category</label>
@@ -177,17 +296,20 @@ class BookForm extends React.Component {
               </div>
             </div>
             {!this.state.isButtonLoading &&
-              <img src={this.state.imageUrl} style={{width: 100 +'px', height: 100 + 'px'}} />}
+              <img
+                src={this.state.imageUrl}
+                style={{ width: `${100}px`, height: `${100}px` }} />}
             <div className="row">
               <div className="col sm-4">
                 <button
-                  className="btn red-bg"
+                  className="btn red-bg bc btn"
                   type="submit"
-                  disabled={isButtonLoading}>
-                  ADD BOOK
-            </button>
+                  disabled={isButtonLoading}
+                >
+                  {this.state.buttonText}
+                </button>
               </div>
-              <div className="col sm-4">
+              <div className="col">
                 <input
                   id="filedisplay"
                   style={{ display: "none" }}
@@ -196,29 +318,27 @@ class BookForm extends React.Component {
                 />
                 <button type="button"
                   onClick={() => document.getElementById('filedisplay').click()}
-                  className="btn">
+                  className="btn bc">
                   <i className="material-icons">image</i>
                 </button>
                 {this.state.isLoading &&
-                  <i className="isLoading fa fa-spin fa-spinner" aria-hidden="true"></i>
+                  <i
+                    className="isLoading fa fa-spin fa-spinner"
+                    aria-hidden="true"
+                  />
                 }
               </div>
             </div>
           </form>
           <button
-            className="modal-close">
+            onClick= {this.handleClose}
+            className="waves-effect waves-light btn bc modal-close">
             close
-            </button>
+          </button>
         </div>
       </div>
-    )
+    );
   }
 }
-BookForm.PropTypes = {
-  categories: PropTypes.array.isRequired,
-  category: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired
-};
+BookForm.propTypes = propTypes;
 export default BookForm;

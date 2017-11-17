@@ -22,13 +22,20 @@ module.exports = {
         }
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
       imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      imagePublicId: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {

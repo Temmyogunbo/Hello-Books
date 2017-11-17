@@ -40,8 +40,8 @@ describe('GET /api/v1/books', () => {
         res.body[0].id.should.be.a('number');
         res.body[0].author.should.be.a('string');
         res.body[0].title.should.eql('Half of a yellow sun');
-        res.body[1].title.should.eql('The Pentagon');
-        res.body[2].title.should.eql('Alice in Wonderland');
+        res.body[1].title.should.eql('Alice in Wonderland');
+        res.body[2].title.should.eql('The Pentagon');
         done();
       });
   });
@@ -49,7 +49,6 @@ describe('GET /api/v1/books', () => {
     chai.request(app)
       .get('/api/v1/books?category=History')
       .end((err, res) => {
-        console.log('-------', res.body.booksByCategory)
         res.should.have.status(200);
         res.should.be.a('object');
         res.body.booksByCategory.should.have.length(1);
@@ -99,6 +98,7 @@ describe('/POST book', () => {
       category: 'History',
       description: 'Enemy within and enemy  without',
       imageUrl: 'local',
+      imagePublicId: 'andela',
       quantity: 19
     };
     chai.request(app)
@@ -131,6 +131,7 @@ describe('/POST book', () => {
       author: 'Edward Luttwark',
       category: 'history',
       imageUrl: 'http',
+      imagePublicId: '12344ufufhfjf',
       description: 'Enemy of the state'
     };
     chai.request(app)
@@ -152,6 +153,7 @@ describe('/POST book', () => {
       author: 'Edward Luttwark',
       category: 'history',
       imageUrl: 'http',
+      imagePublicId: '1717373738383kfkf',
       description: 'Enemy of the state',
       quantity: 11
     };
@@ -175,6 +177,7 @@ describe('/POST book', () => {
         category: 'History',
         description: 'I love war',
         imageUrl: 'theone',
+        imagePublicId: '93i398jriu88484hfu',
         quantity: 'string'
       };
       chai.request(app)
@@ -287,8 +290,8 @@ describe('/post category', () => {
       .set('X-ACCESS-TOKEN', adminToken)
       .send(category)
       .end((err, res) => {
-        res.body.result.should.have.property('id');
-        res.body.result.category.should.eql('Romance');
+        res.body.category.should.have.property('id');
+        res.body.category.category.should.eql('Romance');
         res.should.have.status(201);
         res.body.should.be.a('object');
         done();

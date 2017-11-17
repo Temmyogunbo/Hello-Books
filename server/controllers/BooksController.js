@@ -28,10 +28,12 @@ const BooksController = {
       author,
       quantity,
       imageUrl,
-      description
+      description,
+      imagePublicId
     } = req.body;
     req.check('category', 'category is required').notEmpty();
     req.check('imageUrl', 'imageUrl is required').notEmpty();
+    req.check('imagePublicId', 'cloudinary public Id is required').notEmpty();
     req.check('description', 'Description is required').notEmpty();
     req.check('title', 'title is required').notEmpty();
     req.check('author', 'author is required').notEmpty();
@@ -47,7 +49,8 @@ const BooksController = {
       author,
       quantity,
       imageUrl,
-      description
+      description,
+      imagePublicId
     })
       .then(book => res.status(201).json({
         book
@@ -72,8 +75,8 @@ const BooksController = {
     return db.Categories.create({
       category: req.body.category
     })
-      .then(result => res.status(201).json({
-        result
+      .then(category => res.status(201).json({
+        category
       }))
       .catch(() => res.status(400).json({
         errors: [{ msg: 'Cannot create category' }]

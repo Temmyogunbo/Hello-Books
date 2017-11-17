@@ -9,7 +9,7 @@ import isEmpty from 'lodash/isEmpty';
 export default function categoryValidation(formData) {
   const errors = {};
   if (Validator.isEmpty(formData.category)) {
-    errors.title = 'Category is Required';
+    errors.category = 'Category is Required';
   }
   return {
     errors,
