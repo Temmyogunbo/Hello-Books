@@ -23,8 +23,7 @@ export default (ComposedComponent) => {
     componentDidMount() {
       document.getElementsByTagName('body')[0].classList.remove('image');
       if (!this.props.user.isAuthenticated) {
-        toastr.error('You need to sign in');
-        this.props.history.replace('/signin');
+        return this.props.history.replace('/signin');
       }
     }
     /**

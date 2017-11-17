@@ -90,7 +90,7 @@ class SignUpPage extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.signup(this.state).then(() => {
         this.setState({ errors: {}, isLoading: true });
-        this.props.history.replace('/dashboard');
+        this.props.history.replace('/collections');
       });
     }
   }
@@ -183,9 +183,9 @@ class SignUpPage extends React.Component {
 
               >
                 <div className="row">
-                  <p className="col s9"> Sign up with</p>
+                  <div className="col s6 "> Sign up with</div>
                   <img
-                    className="col s3 pull-s3"
+                    className="col s3 push-s3"
                     width="30"
                     height="30"
                     role="google fonts"

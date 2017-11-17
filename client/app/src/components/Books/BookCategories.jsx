@@ -11,7 +11,7 @@ const propTypes = {
   getBookCategory: PropTypes.func.isRequired,
 };
 /**
- * 
+ *
  * @returns {object} jsx
  * @class BookPage
  * @extends {React.Component}
@@ -19,7 +19,7 @@ const propTypes = {
 class BookCategories extends React.Component {
   /**
    * Creates an instance of BookCategories.
-   * @param {any} props 
+   * @param {any} props
    * @memberof BookCategories
    */
   constructor(props) {
@@ -30,7 +30,7 @@ class BookCategories extends React.Component {
   }
   /**
    * @returns {void}
-   * 
+   *
    * @memberof BookCategories
    */
   componentDidMount() {
@@ -38,8 +38,8 @@ class BookCategories extends React.Component {
   }
   /**
    * @returns {void}
-   * 
-   * @param {any} nextProps 
+   *
+   * @param {any} nextProps
    * @memberof BookCategories
    */
   componentWillReceiveProps(nextProps) {
@@ -48,8 +48,8 @@ class BookCategories extends React.Component {
     }
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {object} jsx
    * @memberof BookCategories
    */

@@ -9,8 +9,7 @@ const findBooksByCategory = (req, res) =>
   })
     .then((booksByCategory) => {
       if (booksByCategory.length) {
-        return res.status(200).json({ booksByCategory
-        });
+        return res.status(200).json({ booksByCategory });
       }
       return res.status(404).json({
         errors: [{ msg: 'No such book(s) by category' }]
@@ -115,9 +114,7 @@ const BooksController = {
     if (req.query.category) {
       return findBooksByCategory(req, res);
     }
-    return db.Book.findAll({
-  
-      limit: 10 })
+    return db.Book.findAll({ limit: 10 })
       .then((books) => {
         if (books.length === 0) {
           return res.status(404).json({
@@ -149,19 +146,21 @@ const BooksController = {
     if (errors) {
       return res.status(400).json({ errors });
     }
-    return db.Book.update({
-      category,
-      title,
-      author,
-      quantity,
-      imageUrl,
-      description
-    },
-    {
-      where: {
-        id: bookId
+    return db.Book.update(
+      {
+        category,
+        title,
+        author,
+        quantity,
+        imageUrl,
+        description
+      },
+      {
+        where: {
+          id: bookId
+        }
       }
-    })
+    )
       .then((book) => {
         if (book[0]) {
           return res.status(204).json({});
@@ -169,8 +168,7 @@ const BooksController = {
         return res.status(404).json({
           msg: 'No such book in the library.'
         });
-      }
-      )
+      })
       .catch((err) => {
         if (err.name === 'SequelizeForeignKeyConstraintError') {
           return res.status(400).json({

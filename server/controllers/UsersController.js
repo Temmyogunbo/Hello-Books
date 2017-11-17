@@ -17,25 +17,29 @@ const UsersController = {
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
     req.check('password', 'Password is required').notEmpty();
-    req.check('password',
-      'Password must be a mininum of 5 characters').isLength({ min: 5 });
+    req.check(
+      'password',
+      'Password must be a mininum of 5 characters'
+    ).isLength({ min: 5 });
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({ error: errors[0] });
     }
     return db.User
-      .create({
-        fullName,
-        userName,
-        email,
-        password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-        membership: 'gold',
-        role: 'users'
-      },
-      {
-        fields: ['fullName', 'userName', 'password',
-          'email', 'membership', 'role']
-      })
+      .create(
+        {
+          fullName,
+          userName,
+          email,
+          password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
+          membership: 'gold',
+          role: 'users'
+        },
+        {
+          fields: ['fullName', 'userName', 'password',
+            'email', 'membership', 'role']
+        }
+      )
       .then((user) => {
         const {
           email,
@@ -136,7 +140,7 @@ const UsersController = {
               });
             }
           } else {
-            res.status(401).json({
+            return res.status(401).json({
               success: false,
               msg: 'Wrong username/password.'
             });

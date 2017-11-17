@@ -16,7 +16,7 @@ const propTypes = {
   books: PropTypes.array.isRequired
 };
 /**
- * 
+ *
  * @returns {object} jsx
  * @class BookPage
  * @extends {React.Component}
@@ -24,7 +24,7 @@ const propTypes = {
 class AdminBooks extends React.Component {
   /**
    * Creates an instance of AdminBooks.
-   * @param {any} props 
+   * @param {any} props
    * @memberof AdminBooks
    */
   constructor(props) {
@@ -37,7 +37,7 @@ class AdminBooks extends React.Component {
   }
   /**
    * @returns {void}
-   * 
+   *
    * @memberof AdminBooks
    */
   componentDidMount() {
@@ -53,8 +53,8 @@ class AdminBooks extends React.Component {
   }
   /**
    * @returns {void}
-   * 
-   * @param {any} nextProps 
+   *
+   * @param {any} nextProps
    * @memberof AdminBooks
    */
   componentWillReceiveProps(nextProps) {
@@ -64,8 +64,8 @@ class AdminBooks extends React.Component {
   }
   /**
    * @returns {void}
-   * 
-   * @param {any} event 
+   *
+   * @param {any} event
    * @memberof AdminBooks
    */
   onClickEditBook(event) {
@@ -80,8 +80,8 @@ class AdminBooks extends React.Component {
   }
   /**
    * @returns {void}
-   * 
-   * @param {any} book 
+   *
+   * @param {any} book
    * @memberof AdminBooks
    */
   handleDelete(book) {
@@ -111,8 +111,8 @@ class AdminBooks extends React.Component {
     }
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {object} jsx
    * @memberof AdminBooks
    */
@@ -142,7 +142,11 @@ class AdminBooks extends React.Component {
 
           </td>
           <td>
-            <i className="fa fa-trash-o" aria-hidden="true" onClick={() => { this.handleDelete.bind(this)(book); }} />
+            <i
+              className="fa fa-trash-o"
+              aria-hidden="true"
+              onClick={() => { this.handleDelete.bind(this)(book); }}
+            />
           </td>
         </tr>
       ));

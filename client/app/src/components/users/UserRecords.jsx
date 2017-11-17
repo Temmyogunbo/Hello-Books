@@ -1,7 +1,7 @@
 import React from 'react';
-import isEmpty from 'lodash';
 
 const UserRecords = (props) => {
+  console.log('user history', (props.userHistory).length > 0);
   let historyItem = props.userHistory.map((historyObj, index) => (
     <tr key={index}>
       <td>{index + 1}</td>
@@ -23,23 +23,25 @@ const UserRecords = (props) => {
     </tr>
   ));
   return (
-    <div>
-      <h4 className="bc">Your activity below</h4>
-      {isEmpty(props.userHistory) ? <table className="users-profile">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Due Date</th>
-            <th>Borrowed Date</th>
-            <th>Return</th>
-          </tr>
-        </thead>
-        <tbody>
-          {historyItem}
-        </tbody>
-      </table> : <h3>You have no record</h3>}
+    <div>{
+      (props.userHistory).length > 0 ?
+        <div>
+          <h4 className="bc">Your activity below</h4>
+          <table className="users-profile">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Due Date</th>
+                <th>Borrowed Date</th>
+                <th>Return</th>
+              </tr>
+            </thead>
+            <tbody>
+              {historyItem}
+            </tbody>
+          </table></div> : <h5>{'You have no record'}</h5> }
     </div>
   );
 };

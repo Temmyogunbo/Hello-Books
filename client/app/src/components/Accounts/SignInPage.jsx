@@ -70,7 +70,7 @@ class SignInPage extends React.Component {
       this.props.signin(this.state)
         .then(() => {
           this.setState({ errors: {}, isLoading: false });
-          this.props.history.replace('/dashboard');
+          this.props.history.replace('/collections');
         });
     }
   }

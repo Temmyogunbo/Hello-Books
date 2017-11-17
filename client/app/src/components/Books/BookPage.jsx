@@ -2,21 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
-import NavigationBar from '../NavigationBar';
 import {
   getBookAction,
   borrowBookAction
 } from '../../actions/bookAction';
 
-// const propTypes = {
-//   books: PropTypes.object.isRequired,
-//   author: PropTypes.object.isRequired,
-//   user: PropTypes.object.isRequired,
-//   borrowBookReducer: PropTypes.object.isRequired
-// };
+const propTypes = {
+  books: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  getBook: PropTypes.func.isRequired,
+  borrowBook: PropTypes.func.isRequired
+};
 
 /**
- * 
+ *
  * @returns {object} jsx
  * @class BookPage
  * @extends {React.Component}
@@ -24,7 +24,7 @@ import {
 class BookPage extends React.Component {
   /**
    * Creates an instance of BookPage.
-   * @param {any} props 
+   * @param {any} props
    * @memberof BookPage
    */
   constructor(props) {
@@ -35,7 +35,7 @@ class BookPage extends React.Component {
     this.handleBorrowBook = this.handleBorrowBook.bind(this);
   }
   /**
-   * 
+   *
    * @returns {void}
    * @memberof BookPage
    */
@@ -43,9 +43,9 @@ class BookPage extends React.Component {
     this.props.getBook(this.props.match.params.bookId);
   }
   /**
-   * @returns {void} description - 
-   * 
-   * @param {any} nextProps 
+   * @returns {void} description -
+   *
+   * @param {any} nextProps
    * @memberof BookPage
    */
   componentWillReceiveProps(nextProps) {
@@ -54,7 +54,7 @@ class BookPage extends React.Component {
     }
   }
   /**
-   * 
+   *
    * @returns{void}
    * @memberof BookPage
    */
@@ -77,8 +77,8 @@ class BookPage extends React.Component {
       .catch(swal.noop);
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {object} jsx
    * @memberof BookPage
    */
@@ -121,7 +121,7 @@ const mapStateToProps = (state, props) => ({
   books: state.bookReducer.find(book => parseInt(book.id, 10) ===
     parseInt(props.match.params.bookId, 10))
 });
-//BookPage.propTypes = propTypes;
+BookPage.propTypes = propTypes;
 export default connect(mapStateToProps, {
   getBook: getBookAction,
   borrowBook: borrowBookAction

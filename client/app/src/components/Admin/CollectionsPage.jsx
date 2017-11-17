@@ -15,18 +15,18 @@ import {
   createBookCategoryAction,
   getBookCategoryAction
 } from '../../actions/categoryAction';
-import '../../../utils/removeBgImage';
+
 /**
- * 
+ *
  * @returns {object} jsx
- * @class BookPage
+ * @class CollectionPage
  * @extends {React.Component}
  */
-class DashboardPage extends React.Component {
+class CollectionPage extends React.Component {
   /**
-   * Creates an instance of DashboardPage.
-   * @param {any} props 
-   * @memberof DashboardPage
+   * Creates an instance of CollectionPage.
+   * @param {any} props
+   * @memberof CollectionPage
    */
   constructor(props) {
     super(props);
@@ -38,8 +38,8 @@ class DashboardPage extends React.Component {
   }
   /**
    * @returns {void}
-   * 
-   * @memberof DashboardPage
+   *
+   * @memberof CollectionPage
    */
   componentWillMount() {
     if (this.props.user.role !== 'admin') {
@@ -50,8 +50,8 @@ class DashboardPage extends React.Component {
   }
   /**
    * @returns {void} jsx
-   * 
-   * @memberof DashboardPage
+   *
+   * @memberof CollectionPage
    */
   componentDidMount() {
     document.getElementsByTagName('nav')[0]
@@ -60,9 +60,9 @@ class DashboardPage extends React.Component {
   }
   /**
  * @returns {void}
- * 
- * @param {any} nextProps 
- * @memberof AdminDashboardPage
+ *
+ * @param {any} nextProps
+ * @memberof CollectionPage
  */
   componentWillReceiveProps(nextProps) {
     if (nextProps.bookCategory !== this.props.bookCategory) {
@@ -73,10 +73,10 @@ class DashboardPage extends React.Component {
     }
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {object} jsx
-   * @memberof DashboardPage
+   * @memberof CollectionPage
    */
   render() {
     const {
@@ -119,7 +119,7 @@ class DashboardPage extends React.Component {
     );
   }
 }
-DashboardPage.PropTypes = {
+CollectionPage.PropTypes = {
   user: PropTypes.object.isRequired,
   books: PropTypes.object.isRequired,
   getAllBooks: PropTypes.func.isRequired
@@ -133,7 +133,8 @@ const mapStateToProps = (state) => ({
 
 
 export default
-connect(mapStateToProps,
+connect(
+  mapStateToProps,
   {
     editBook: editBookAction,
     getAllBooks: getAllBooksAction,
@@ -142,5 +143,6 @@ connect(mapStateToProps,
     deleteBook: deleteBookAction,
     getBookCategory: getBookCategoryAction,
     createBookCategory: createBookCategoryAction
-  })(DashboardPage);
+  }
+)(CollectionPage);
 

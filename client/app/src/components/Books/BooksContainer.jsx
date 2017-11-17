@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 
 
 const BooksContainer = (props) => {
-  const { user, rentBookReducer, borrowBook, getAllBooks } = props;
+  const {
+    user, rentBookReducer, borrowBook, getAllBooks
+  } = props;
   let bookItems;
   if (props.books) {
     bookItems = props.books.map(book => (
       <div className="col s4 l3" key={book.id}>
-        <Link to={`/dashboard/book/${book.id}`}>
-          <div key={book.id}> 
+        <Link to={`/collections/books/${book.id}`}>
+          <div key={book.id}>
             <div className="book-size card">
               <div className="card-image">
                 <img
@@ -29,7 +31,8 @@ const BooksContainer = (props) => {
   }
   return (
     <div className="row">
-      {isEmpty(bookItems) ? bookItems : <h3>There are now no books in the library.</h3>}
+      {isEmpty(bookItems) ?
+        bookItems : <h3>There are now no books in the library.</h3>}
     </div>
   );
 };

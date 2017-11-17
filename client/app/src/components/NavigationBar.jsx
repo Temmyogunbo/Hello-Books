@@ -94,8 +94,8 @@ class NavigationBar extends React.Component {
           className="right hide-on-med-and-down custom-nav-list"
         >
           <li>
-            <Link to="/dashboard">
-              {"Book Collection"}
+            <Link to="/collections">
+              {"Collections"}
             </Link>
           </li>
           <li>
@@ -114,7 +114,7 @@ class NavigationBar extends React.Component {
           className="side-nav"
         >
           <li>
-            <Link to="/dashboard">
+            <Link to="/collections">
               {"Book Collection"}
             </Link>
           </li>
