@@ -1,4 +1,5 @@
 export default (sequelize, DataTypes) => {
+  const Book = sequelize.model('Book');
   const History = sequelize.define('History', {
     UserId: {
       type: DataTypes.INTEGER,
@@ -31,30 +32,52 @@ export default (sequelize, DataTypes) => {
     returned: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // will add userId to history, will delete and update dependencies
-        // if book is deleted and updated respectively
-        History.belongsTo(models.User, {
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-        // Will add bookId to History
-        History.belongsTo(models.Book, {
-
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-      }
     }
   });
+  History.beforeUpdate((borrowedBook) => {
+    Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
+      Book.update({
+        quantity: parseInt(book.quantity, 10) + 1
+      },
+      {
+        fields: ['quantity'],
+        where: {
+          id: borrowedBook.dataValues.BookId
+        }
+      });
+    });
+  });
+  History.afterCreate((borrowedBook) => {
+    Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
+      Book.update({
+        quantity: parseInt(book.quantity, 10) - 1
+      },
+      {
+        fields: ['quantity'],
+        where: {
+          id: borrowedBook.dataValues.BookId
+        }
+      });
+    });
+  });
+  History.associate = (models) => {
+    // Will add bookId to History
+    History.belongsTo(models.Book, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      foreignKey: {
+        allowNull: false
+      }
+    });
+    // will add userId to history, will delete and update dependencies
+    // if book is deleted and updated respectively
+    History.belongsTo(models.User, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
   return History;
 };

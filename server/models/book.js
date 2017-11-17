@@ -4,7 +4,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: true,
+        min: 2
       }
     },
     title: {
@@ -14,9 +15,30 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
+    imagePublicId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
     category: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         notEmpty: true
       }
@@ -28,23 +50,21 @@ export default (sequelize, DataTypes) => {
         notEmpty: true,
         isInt: true,
         isPositive(value) {
-          if (parseInt(value) < 0) {
+          if (parseInt(value, 10) < 0) {
             throw new Error('Only positive value is allow');
           }
         }
       }
     }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // will add bookId to History2, will delete and update dependencies
-        // if book is deleted and updated respectively
-        Book.hasMany(models.History, {
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE'
-        });
-      }
-    }
   });
+  Book.associate = (models) => {
+    Book.belongsTo(models.Categories, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      foreignKey: 'category',
+      targetKey: 'category'
+    });
+  };
   return Book;
 };
+

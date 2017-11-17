@@ -1,14 +1,14 @@
 const bcrypt = require('bcrypt');
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: (queryInterface) => {
     return queryInterface.bulkInsert('Users', [{
       fullName: 'Emmanuel Ogunbo',
       userName: 'admin',
       membership: 'gold',
       email: 'Ogunbotemilola@yahoo.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10), null),
-      roleId: 1,
+      role: 'admin',
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
@@ -17,23 +17,32 @@ module.exports = {
       membership: 'silver',
       email: 'temmyogunbo@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
-      roleId: 0,
+      role: 'users',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      fullName: 'Enodi Audu',
+      userName: 'kill',
+      membership: 'platinum',
+      email: 'enodiaudu@gmail.com',
+      password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
+      role: 'users',
       createdAt: new Date(),
       updatedAt: new Date(),
     },
     {
-      firstName: 'Joshua Ogunbo',
+      fullName: 'Joshua Ogunbo',
       userName: 'joshcena',
       membership: 'silver',
       email: 'ogunbojoshua@gmail.com',
       password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(10)),
-      roleId: 0,
+      role: 'admin',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: (queryInterface) => {
     return queryInterface.bulkDelete('Users', null, {});
   }
 };

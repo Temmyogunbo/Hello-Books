@@ -36,22 +36,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: ['platinum', 'gold', 'silver']
     },
-    roleId: {
-      type: DataTypes.INTEGER,
+    role: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 'users'
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // will add userId to History, delete and update dependencies 
-        // if user is deleted and updated respectively
-        User.hasMany(models.History, {
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE'
-        });
-      }
-    }
   });
   return User;
 };

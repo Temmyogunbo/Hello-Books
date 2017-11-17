@@ -1,16 +1,11 @@
 *{
 	margin: 0;
-	font-family: 'Berkshire Swash', cursive;
-  color: white;
+}
+nav {
+    background: rgba(0, 0, 0, 0.7);
 }
 body {
-  background: url("http://cdn.wallpapersafari.com/99/90/zj8TKM.jpg");
-}
-.custom-nav-wrapper {
-  background: transparent;
-  float:right;
-  padding-right: 5%;
-  margin-top: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .welcome-message {
   margin-top: 20px;
@@ -19,11 +14,16 @@ body {
 
 .welcome-message-container {
   font-size: 30px;
-  padding-top:20%;
+  padding-top: 10%;
   text-align: center;
+  color: white;
 }
 .welcome-message-container h2{
   font-weight: bold;
+}
+
+.footer {
+    background: transparent;
 }
 
 /* General Styling*/
@@ -31,63 +31,22 @@ body {
 	color: red;
 }
 .custom-logo-wrap{
-    float: left;
-    margin-left: 15%;
+    margin-left: 2%;
     font-weight: bold;
 }
 
-.custom-nav-list {
-    margin-left: 50px;
-    font-size: 200%;
+.div-container-form {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    margin-top: 10%;
+    border-radius: 5px;
+    padding: 5px 30px; 
+    color: white;
 }
-
-.custom-nav-list li a{
-    font-size: 60% !important;
+.sign-title{
+    color: white;
 }
-.welcome-container-button {
-  padding: 5px;
-  border-radius: 2px;
-  background-color: #FF9800;
-  border: 1px solid #FF9800;
-  font-size: 17px;
-  font-weight: normal;
-  display: inline-block;
-}
-.welcome-container-button:focus {
-  background-color: #FF9800;
-}
-.welcome-container-button:first-child {
-  float: left;
-  min-width: 100px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  background-color: rgba(255, 152, 0, 0.6);
-  color: white !important;
-}
-.welcome-container-button:last-child, .welcome-container-button:last-child:focus {
-  float: left;
-  margin-left: 5%;
-  overflow: hidden;
-  line-height: 10px;
-  min-width: 200px;
-  background: rgba(13, 14, 9, 0.6);
-  border-color: #0D0E09;
-}
-.welcome-container-div-button {
-  width: 30%;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 20px;
-  overflow: hidden;
-}
-.welcome-container-button img {
-  float: left;
-}
-.welcome-container-button p {
-  float: left;
-  margin-top: 5%;
-  margin-right: 2%;
-  margin-left: 10%;
+.book-form {
+    background-color: rgba(0, 0, 0, 0.5) !important;
 }
 .div-container-form form {
   position: absolute;
@@ -106,20 +65,20 @@ body {
   font-weight: bold;
 }
 
-.input-field input[type='text'] {
-  color: white !important;
-}
 .login-button, .login-button:focus {
-  width: 30%;
+  width: fit-content;
   margin: 0 auto;
   text-align: center;
   padding: 10px;
   overflow: hidden;
-  background: rgba(255, 152, 0, 0.7);
+  background: #FF9800;
   border: 1px solid rgba(255, 152, 0, 0.9);
   border-radius: 4px;
 }
-
+.div-container-signup-form {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    height: 100vh;
+}
 .div-container-signup-form form {
   position: absolute;
   margin-top: 10%;
@@ -135,16 +94,6 @@ body {
   color: white !important;
 }
 
-.log-in-title {
-    padding-top: 180px;
-    margin-left: 400px;
-}
-
-.sign-up-title {
-    padding-top: 150px;
-    margin-left: 350px;
-}
-
 .error-block {
     color: red;
 }
@@ -154,28 +103,97 @@ body {
     float: left;
 }
 
-.category {
-    color: red;
-    margin: auto;
-}
-
-.books-compartment {
+.books-container {
+    margin-top: 90px; 
     width: 70%;
-    padding-top: 100px;
     float: right;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+.card-color {
+    color: black
 }
 
-.book-size {
-    width: 30%;
-    display: inline-block;
-    margin-right: 20px;
-    max-height: 500px !important;
-    padding: 0;
+.book-categories {
+    font-size: 18px;
 }
+
+.btn-edit-add {
+    float: right;
+    margin-top: 40px;
+}
+.book-size {
+height: 250px;
+}
+.text-size {
+    font-size: 100% !important;
+}
+
 .description {
     color: red;
 }
-/* Body Styling */
+
+.image {
+    background: url("http://cdn.wallpapersafari.com/99/90/zj8TKM.jpg") no-repeat center center fixed; 
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.button-color {
+    background: blue;
+}
+.add-book-modal, .edit-book-modal{
+    color: black;
+}
+
+.isLoading {
+    margin-left: 15px;
+    font-size: 20px;
+}
+
+.custom-nav-wrapper {
+    background: #ff9800;
+}
+.mr-2{
+    margin-right: 1.5em;
+}
+.categories-color {
+    color: black
+}
+.mt-2{
+    margin-top: 2em;
+}
+.ml-5{
+    margin-left: 5em;
+}
+.fs-2{
+    font-size: 20px;
+    font-weight: 1px;
+}
+.fs-1{
+    font-size: 15x;
+    font-weight: 1px;
+}
+.bc{
+    background: rgba(46, 24, 8, 0.85);
+    padding: 2px;
+}
+.google-button {
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #FF9800;
+  border: 1px solid #FF9800;
+  font-size: 17px;
+  font-weight: normal;
+  color: white !important;
+  display: inline-block;
+    cursor: pointer !important;    border: none;
+    position: absolute;
+}
+/* Body Styling old styles*/
 
 #body-content{
     width: 100%;

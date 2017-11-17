@@ -1,21 +1,42 @@
 import express from 'express';
-import webpack from 'webpack';
 import path from 'path';
-import webpackMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
-import config from '../../webpack.config';
+import dotenv from 'dotenv';
+import swaggerJSDoc from 'swagger-jsdoc';
 import route from '../routes';
 
 // creating express application
-// const publicPath = express.static(path.join(__dirname, '../../client/app/public'));
 const app = express();
-const env = process.env.NODE_ENV || 'development';
-const compiler = webpack(config);
+const swaggerDefinition = {
+  info: {
+    title: 'Emmanuel HelloBooks API',
+    version: '1.0.0',
+    description: 'Demonstrating what HelloBooks API does',
+  },
+  host: 'localhost:8000',
+  basePath: '/',
+};
+
+// options for the swagger docs
+const options = {
+  // import swaggerDefinitions
+  swaggerDefinition: swaggerDefinition,
+  // path to the API docs
+  apis: ['../routes/*.js'],
+};
+
+// initialize swagger-jsdoc
+const swaggerSpec = swaggerJSDoc(options);
+
+// serve swagger
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+dotenv.config();
 app.use(logger('dev'));
-// app.use('/', publicPath);
 
 // format request data
 app.use(bodyParser.json());
@@ -23,33 +44,38 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 app.use(express.static(`${__dirname}/../../client/app/public`));
-if (env === 'development') {
-  app.use(webpackMiddleware(compiler));
-  app.use(webpackHotMiddleware(compiler));
-}
 // Require our routes into the application.
 (route)(app);
 
 app.use('*', (request, response) => {
-  response.sendFile(path.join(__dirname, '/../../client/app/public/js/index.html'));
+  response.sendFile(path.join(
+    __dirname,
+    '/../../client/app/public/index.html'
+  ));
 });
 
 // error handler
 // development error handler
 if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => {
-    return res.status(err.status || 500).json({
-      message: err.message,
+  app.use((err, req, res, next) => res.status(err.status || 500).json({
+    msg: err.msg,
+    error: err
+  }));
+}
+
+// error handler test environment
+if (app.get('env') === 'test') {
+  app.use((err, req, res, next) =>
+    res.status(err.status || 500).json({
+      msg: err.msg,
       error: err
-    });
-  });
+    }));
 }
 // production error handler
-app.use((err, req, res, next) => {
-  return res.status(err.status || 500).json({
-    message: err.message,
+app.use((err, req, res, next) =>
+  res.status(err.status || 500).json({
+    msg: err.msg,
     error: err
-  });
-});
+  }));
 
 export default app;

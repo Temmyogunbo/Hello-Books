@@ -1,10 +1,9 @@
 import isEmpty from 'lodash/isEmpty';
-import { SET_AUTH_USERS, SET_AUTH_USERS_ERROR } from '../constants/actionTypes';
+import { SET_AUTH_USERS } from '../constants/actionTypes';
 
 const initialState = {
   isAuthenticated: false,
-  user: {},
-  error: {}
+  user: {}
 };
 
 /**
@@ -16,20 +15,15 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_AUTH_USERS:
-      return {
-        ...state,
-        user: action.user,
-        isAuthenticated: !isEmpty(action.user),
-        error: {}
-      };
-    case SET_AUTH_USERS_ERROR:
-      return {
-        ...state,
-        error: action.error
-      };
-    default:
-      return state;
+  case SET_AUTH_USERS:
+    return {
+      ...state,
+      user: action.user,
+      isAuthenticated: !isEmpty(action.user),
+      error: {}
+    };
+  default:
+    return state;
   }
 };
 

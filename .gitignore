@@ -6,3 +6,4 @@ client/app/public/bundle.js/
 .nyc_output/
 coverage/
 reports/
+package-lock.json
