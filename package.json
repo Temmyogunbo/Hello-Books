@@ -3,6 +3,7 @@
   "version": "6.11.2",
   "private": true,
   "scripts": {
+    "coveralls": "NODE_ENV=test nyc npm test && nyc report --reporter=lcov --reporter=text --reporter=lcovonly || coveralls",
     "start": "babel-node -- server/bin/www.js",
     "dev": "npm run build:dev",
     "build:dev": "nodemon --watch server --exec babel-node -- ./server/bin/www.js test:watch",
