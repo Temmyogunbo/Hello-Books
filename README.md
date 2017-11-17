@@ -50,14 +50,13 @@ This application uses JSON web token to sign and verify users.The expiration tim
 ## RESPONSE STATUSES
 These are the common status codes used in the app.
 
-1. `400 Bad Request` - Used when there is a validation error.
-2. `500 Internal Server Error` - A generic error message, given when no more specific message is suitable.
-3. `404 Not Found` - Used when the application returns an empty result.
-4. `200 OK` - When the request is succesful.
-5. `401 Unauthorized` - Used when authentication failed.
-6. `403 Forbidden` - Used when a user is accessing a restricted end point.
-7. `201 Created` - Used when a new record is inserted into the database.
-1. `404 Not Found` - Used when a resource cannot be found or empty
+1. `200 OK` - When the request is succesful.
+2. `201 Created` - Used when a new record is inserted into the database.
+3. `400 Bad Request` - Used when there is a validation error.
+4. `401 Unauthorized` - Used when authentication failed.
+5. `404 Not Found` - Used when the application returns an empty result.
+6. `500 Internal Server Error` - A generic error message, given when no more specific message is suitable.
+7. `403 Forbidden` - Used when a user is accessing a restricted end point.
 
 ## Deployment
 This application is deployed on heroku server
