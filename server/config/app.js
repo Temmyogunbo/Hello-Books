@@ -22,7 +22,7 @@ const swaggerDefinition = {
 // options for the swagger docs
 const options = {
   // import swaggerDefinitions
-  swaggerDefinition: swaggerDefinition,
+  swaggerDefinition,
   // path to the API docs
   apis: ['../routes/*.js'],
 };
@@ -65,14 +65,14 @@ if (app.get('env') === 'development') {
 
 // error handler test environment
 if (app.get('env') === 'test') {
-  app.use((err, req, res, next) =>
+  app.use((err, req, res) =>
     res.status(err.status || 500).json({
       msg: err.msg,
       error: err
     }));
 }
 // production error handler
-app.use((err, req, res, next) =>
+app.use((err, req, res) =>
   res.status(err.status || 500).json({
     msg: err.msg,
     error: err

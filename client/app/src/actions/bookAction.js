@@ -190,7 +190,7 @@ export const borrowBookAction = bookData => dispatch =>
     `/api/v1/users/${bookData.userId}/books`,
     { membership: bookData.membership, bookId: `${bookData.bookId}` }
   )
-    .then((response) => {
+    .then(() => {
       dispatch(borrowBook(bookData.bookId));
       toastr.success('You successfully borrowed a book');
     })
@@ -223,7 +223,7 @@ export const returnBookAction = returnData => dispatch =>
 */
 export const deleteBookAction = bookData => dispatch =>
   axios.delete(`api/v1/books/${bookData.id}`)
-    .then((response) => {
+    .then(() => {
       dispatch(deleteBook(bookData.id));
       toastr.success('Book deleted');
     })
@@ -238,7 +238,7 @@ export const deleteBookAction = bookData => dispatch =>
 */
 export const editBookAction = bookData => (dispatch) => {
   axios.put(`api/v1/books/${bookData.bookId}`, bookData)
-    .then((response) => {
+    .then(() => {
       dispatch(editBook(bookData));
       toastr.success('Book updated successfully');
     })
@@ -251,10 +251,9 @@ export const editBookAction = bookData => (dispatch) => {
  * @return {object} - dispatch an object of book
  * @param {object} bookId - contains id of book to be gotten
 */
-export const getBookAction = (bookId) => (dispatch) =>
+export const getBookAction = bookId => (dispatch) =>
   axios.get(`/api/v1/books/${bookId}`)
     .then((response) => {
-      console.log('your response was her', response.data);
       dispatch(getBook(response.data));
     })
     .catch((error) => {
@@ -266,9 +265,10 @@ export const getBookAction = (bookId) => (dispatch) =>
  * @param  {object} categoryData - contains category
  */
 export const getAllBooksByCategoryAction = (categoryData) => dispatch =>
-  axios.get(`/api/v1/books?category=${categoryData.category}`).then((response) => {
-    dispatch(getAllBooksByCategory(response.data));
-  })
+  axios.get(`/api/v1/books?category=${categoryData.category}`)
+    .then((response) => {
+      dispatch(getAllBooksByCategory(response.data));
+    })
     .catch((error) => {
       dispatch(getAllBooksByCategoryError(error.response.data.msg));
       toastr.error(error.response.data.errors[0].msg);
