@@ -22,6 +22,9 @@ module.exports = merge(common, {
     contentBase: path.join(__dirname, './client/app/public'),
     watchContentBase: true
   },
+  node: {
+    fs: 'empty'
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new dotEnvWebpack({

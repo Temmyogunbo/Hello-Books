@@ -7,9 +7,9 @@ const findBooksByCategory = (req, res) =>
     },
     limit: 10
   })
-    .then((booksByCategory) => {
-      if (booksByCategory.length) {
-        return res.status(200).json({ booksByCategory });
+    .then((books) => {
+      if (books.length) {
+        return res.status(200).json(books);
       }
       return res.status(404).json({
         errors: [{ msg: 'No such book(s) by category' }]

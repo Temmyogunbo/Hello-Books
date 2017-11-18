@@ -1,6 +1,8 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import {
+  GET_ALL_BOOKS_BY_CATEGORY,
+  GET_ALL_BOOKS_BY_CATEGORY_ERROR,
   GET_A_BOOK,
   GET_A_BOOK_ERROR,
   EDIT_BOOK,
@@ -88,6 +90,24 @@ const deleteBookError = error => ({
 const getAllBooks = books => ({
   type: GET_ALL_BOOKS,
   books
+});
+/**
+ *
+ * @return {object} books - Return an array of books by category
+ * @param {error} books - dispatched book object
+ */
+const getAllBooksByCategory = books => ({
+  type: GET_ALL_BOOKS_BY_CATEGORY,
+  books
+});
+/**
+ *
+ * @return {object} error
+ * @param {error} error - dispatched error object
+ */
+const getAllBooksByCategoryError = error => ({
+  type: GET_ALL_BOOKS_BY_CATEGORY_ERROR,
+  error
 });
 /**
  *
@@ -240,6 +260,18 @@ export const getBookAction = (bookId) => (dispatch) =>
     .catch((error) => {
       dispatch(getBookError(error.response.data));
       toastr.error(error.response.data.msg);
+    });
+/**
+ * @return {object} - returns an array of books by category
+ * @param  {object} categoryData - contains category
+ */
+export const getAllBooksByCategoryAction = (categoryData) => dispatch =>
+  axios.get(`/api/v1/books?category=${categoryData.category}`).then((response) => {
+    dispatch(getAllBooksByCategory(response.data));
+  })
+    .catch((error) => {
+      dispatch(getAllBooksByCategoryError(error.response.data.msg));
+      toastr.error(error.response.data.errors[0].msg);
     });
 export default {
   getBookAction,

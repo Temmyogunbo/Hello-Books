@@ -1,10 +1,13 @@
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
-const dotEnvWebpack = require('dotenv-webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotEnvWebpack = require('dotenv-webpack');
+const dotEnv = require('dotenv').config();
 
-module.exports = {
+const CLIENTPORT = 5000 || process.env;
+
+const config = {
   entry: [
     './client/app/src/index.jsx'
   ],
@@ -12,11 +15,25 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(`${__dirname}/client/app/public`),
-    publicPath: 'https://emmanuelhellobooks.herokuapp.com/',
-
+    publicPath: `http://localhost:${CLIENTPORT}/`
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    compress: true,
+    port: CLIENTPORT,
+    publicPath: `http://localhost:${CLIENTPORT}/`,
+    // access dev server from an arbitrary url. handy in html5 router
+    historyApiFallback: true,
+    hot: true,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    },
+    overlay: true,
+    contentBase: path.join(__dirname, './client/app/public'),
+    watchContentBase: true
   },
   module: {
 
@@ -63,8 +80,8 @@ module.exports = {
     jquery: 'jQuery'
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
-    new UglifyJSPlugin(),
+    new ExtractTextPlugin('./style.css'),
+    new webpack.HotModuleReplacementPlugin(),
     new dotEnvWebpack({
       path: './.env',
       safe: false,
@@ -72,14 +89,13 @@ module.exports = {
     new webpack.DefinePlugin({
       proces: {
         env: {
-          NODE_ENV: JSON.stringify('production'),
-          SECRET_KEY: JSON.stringify(process.env.SECRET_KEY),
-          APP_CLOUD_NAME: JSON.stringify(process.env.APP_CLOUD_NAME),
-          APP_API_KEY: JSON.stringify(process.env.APP_API_KEY),
-          APP_API_SECRET: JSON.stringify(process.env.APP_API_SECRET),
-          GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID)
+          SECRET_KEY: JSON.stringify(process.env.SECRET_KEY)
         }
       }
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(`${__dirname}/client/app/index.html`)
     })
   ]
 };
+module.exports = config;
