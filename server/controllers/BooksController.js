@@ -7,9 +7,9 @@ const findBooksByCategory = (req, res) =>
     },
     limit: 10
   })
-    .then((booksByCategory) => {
-      if (booksByCategory.length) {
-        return res.status(200).json({ booksByCategory });
+    .then((books) => {
+      if (books.length) {
+        return res.status(200).json(books);
       }
       return res.status(404).json({
         errors: [{ msg: 'No such book(s) by category' }]
@@ -91,7 +91,9 @@ const BooksController = {
         }
         return res.status(200).json(category);
       })
-      .catch(err => res.status(404).json({ err }));
+      .catch(() => res.status(500).json({
+        errors: [{ msg: 'Something went wrong' }]
+      }));
   },
   findBook(req, res) {
     const bookId = parseInt(req.params[0], 10);
@@ -123,7 +125,9 @@ const BooksController = {
         }
         return res.status(200).json(books);
       })
-      .catch(err => res.status(500).json({ err }));
+      .catch(() => res.status(500).json({
+        errors: [{ msg: 'Something went wrong' }]
+      }));
   },
   updateBook(req, res) {
     const {

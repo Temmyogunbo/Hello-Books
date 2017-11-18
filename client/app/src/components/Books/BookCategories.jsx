@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getBookCategoryAction
-} from '../../actions/categoryAction';
+import { getBookCategoryAction } from '../../actions/categoryAction';
+import { getAllBooksByCategoryAction } from '../../actions/bookAction';
 
 const propTypes = {
   category: PropTypes.array.isRequired,
@@ -27,6 +26,7 @@ class BookCategories extends React.Component {
     this.state = {
       categories: []
     };
+    this.handleCategory = this.handleCategory.bind(this);
   }
   /**
    * @returns {void}
@@ -48,6 +48,14 @@ class BookCategories extends React.Component {
     }
   }
   /**
+   * @returns {void}
+   *@param {any} category
+   * @memberof BookCategories
+   */
+  handleCategory(category) {
+    this.props.getAllBooksByCategory(category);
+  }
+  /**
    *
    *
    * @returns {object} jsx
@@ -58,9 +66,9 @@ class BookCategories extends React.Component {
     if (this.state.categories) {
       categoryItems = this.state.categories.map(category => (
         <li key={category.id}>
-          <Link to="#" className="categories-color">
+          <div onClick={() => this.handleCategory(category)}>
             {category.category}
-          </Link>
+          </div>
         </li>
       ));
     }
@@ -78,5 +86,6 @@ const mapStateToProps = (state) => ({
 });
 BookCategories.propTypes = propTypes;
 export default connect(mapStateToProps, {
-  getBookCategory: getBookCategoryAction
+  getBookCategory: getBookCategoryAction,
+  getAllBooksByCategory: getAllBooksByCategoryAction
 })(BookCategories);

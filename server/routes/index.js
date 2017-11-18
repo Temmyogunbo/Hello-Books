@@ -4,7 +4,6 @@ import BookHistoryController from '../controllers/BookHistoryController';
 import verify from '../authentication/verify';
 
 export default (app) => {
-  
   app.post(/^\/api\/v1\/users\/signin$/, UsersController.signUserIn);
 
   app.post(/^\/api\/v1\/users\/signup$/, UsersController.createUser);

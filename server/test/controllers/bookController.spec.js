@@ -51,15 +51,15 @@ describe('GET /api/v1/books', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.should.be.a('object');
-        res.body.booksByCategory.should.have.length(1);
-        res.body.booksByCategory.should.be.a('array');
-        res.body.booksByCategory[0].should.have.property('id');
-        res.body.booksByCategory[0].should.have.property('author');
-        res.body.booksByCategory[0].id.should.be.a('number');
-        res.body.booksByCategory[0].author.should.be.a('string');
-        res.body.booksByCategory[0].title.should.eql('Half of a yellow sun');
-        res.body.booksByCategory[0].category.should.eql('History');
-        res.body.booksByCategory[0].quantity.should.eql(30);
+        res.body.should.have.length(1);
+        res.body.should.be.a('array');
+        res.body[0].should.have.property('id');
+        res.body[0].should.have.property('author');
+        res.body[0].id.should.be.a('number');
+        res.body[0].author.should.be.a('string');
+        res.body[0].title.should.eql('Half of a yellow sun');
+        res.body[0].category.should.eql('History');
+        res.body[0].quantity.should.eql(30);
         done();
       });
   });

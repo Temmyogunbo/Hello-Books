@@ -36,28 +36,32 @@ export default (sequelize, DataTypes) => {
   });
   History.beforeUpdate((borrowedBook) => {
     Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
-      Book.update({
-        quantity: parseInt(book.quantity, 10) + 1
-      },
-      {
-        fields: ['quantity'],
-        where: {
-          id: borrowedBook.dataValues.BookId
+      Book.update(
+        {
+          quantity: parseInt(book.quantity, 10) + 1
+        },
+        {
+          fields: ['quantity'],
+          where: {
+            id: borrowedBook.dataValues.BookId
+          }
         }
-      });
+      );
     });
   });
   History.afterCreate((borrowedBook) => {
     Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
-      Book.update({
-        quantity: parseInt(book.quantity, 10) - 1
-      },
-      {
-        fields: ['quantity'],
-        where: {
-          id: borrowedBook.dataValues.BookId
+      Book.update(
+        {
+          quantity: parseInt(book.quantity, 10) - 1
+        },
+        {
+          fields: ['quantity'],
+          where: {
+            id: borrowedBook.dataValues.BookId
+          }
         }
-      });
+      );
     });
   });
   History.associate = (models) => {

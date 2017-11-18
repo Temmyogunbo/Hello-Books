@@ -1,4 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
 import {
   DELETE_BOOK_ERROR,
   EDIT_BOOK_ERROR,

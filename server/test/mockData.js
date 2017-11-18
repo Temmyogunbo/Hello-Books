@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+
 const admin = {
   userName: 'admin',
   password: 'emmanuel'

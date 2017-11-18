@@ -4,7 +4,6 @@ import swal from "sweetalert2";
 import PropTypes from 'prop-types';
 import Profile from './Profile';
 import UserRecords from './UserRecords';
-import NavigationBar from '../NavigationBar';
 import {
   returnBookAction
 } from '../../actions/bookAction';

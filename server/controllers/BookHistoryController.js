@@ -48,7 +48,8 @@ const BookHistoryController = {
               }
             }
             for (let i = numberofBooksBorrowed; i--;) {
-              if (parseInt(bookId, 10) === parseInt(result[i].dataValues.BookId, 10)) {
+              if (parseInt(bookId, 10) ===
+                parseInt(result[i].dataValues.BookId, 10)) {
                 return res.status(400).json({
                   msg: 'You cannot borrow the same book again.'
                 });
@@ -124,26 +125,30 @@ const BookHistoryController = {
             msg: 'No record found'
           });
         }
-        db.Book.update({
-          quantity: parseInt(history.Book.quantity, 10) + 1
-        },
-        {
-          fields: ['quantity'],
-          where: {
-            id: bookId
+        db.Book.update(
+          {
+            quantity: parseInt(history.Book.quantity, 10) + 1
+          },
+          {
+            fields: ['quantity'],
+            where: {
+              id: bookId
+            }
           }
-        })
+        )
           .then(() => {
-            db.History.update({
-              returned: true
-            },
-            {
-              fields: ['returned'],
-              where: {
-                BookId: bookId,
-                UserId: userId
+            db.History.update(
+              {
+                returned: true
+              },
+              {
+                fields: ['returned'],
+                where: {
+                  BookId: bookId,
+                  UserId: userId
+                }
               }
-            })
+            )
               .then(bookReturned => res.status(200).json({
                 bookReturned,
                 msg: 'You returned a book.'
