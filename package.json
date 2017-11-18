@@ -14,6 +14,9 @@
     "build": "webpack --config webpack.prod.js -p --progress --colors",
     "heroku-postbuild": "npm run build"
   },
+  "engines": {
+    "node": "6.11.1"
+  },
   "nyc": {
     "require": [
       "babel-register"
