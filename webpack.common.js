@@ -3,7 +3,7 @@ const dotEnv = require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const { CLIENTPORT } = process.env;
+const CLIENTPORT = 5000 || process.env;
 const config = {
   entry: [
     './client/app/src/index.jsx'
