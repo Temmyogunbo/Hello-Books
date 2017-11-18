@@ -7,7 +7,6 @@ import isEmpty from 'lodash/isEmpty';
  * @return {object} object- contains errors and boolean
  */
 export default function bookValidation(formData) {
-  console.log("here is ", formData.quantity)
   const errors = {};
   const numberReg = new RegExp('^[0-9]+$');
   if (Validator.isEmpty(formData.title)) {

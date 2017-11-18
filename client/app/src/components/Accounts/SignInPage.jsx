@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { signinAction } from '../../actions/userActions';
 import signInValidation from '../../../utils/signInValidation';
-import { addFlashMessage } from '../../actions/flashMessageAction';
-
 
 const propTypes = {
   history: PropTypes.object.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
   signin: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
@@ -137,7 +134,6 @@ SignInPage.propTypes = propTypes;
 export default connect(
   mapStateToProps,
   {
-    signin: signinAction,
-    addFlashMessage
+    signin: signinAction
   }
 )(withRouter(SignInPage));

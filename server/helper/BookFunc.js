@@ -1,14 +1,14 @@
 /**
- * 
- * 
+ *
+ *
  * @class BookFunc
  */
 class BookFunc {
   /**
-   * 
-   * 
+   *
+   *
    * @static
-   * @param {any} membershipType 
+   * @param {any} membershipType
    * @returns  {object} number of allowed withy days
    * @memberof BookFunc
    */
