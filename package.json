@@ -3,7 +3,6 @@
   "version": "6.11.2",
   "private": true,
   "scripts": {
-    "coveralls": "NODE_ENV=test nyc npm test && nyc report --reporter=lcov --reporter=text --reporter=lcovonly || coveralls",
     "start": "babel-node -- server/bin/www.js",
     "dev": "npm run build:dev",
     "build:dev": "nodemon --watch server --exec babel-node -- ./server/bin/www.js test:watch",
@@ -12,7 +11,8 @@
     "test:watch": "npm run test -- --watch",
     "cleardb": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
     "client:dev": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js -p --progress --colors",
+    "heroku-postbuild": "npm run build"
   },
   "nyc": {
     "require": [
