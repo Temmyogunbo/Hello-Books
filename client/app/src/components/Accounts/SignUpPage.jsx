@@ -44,7 +44,6 @@ class SignUpPage extends React.Component {
    * @memberof SignUpPage
    */
   onGoogleCallback(response) {
-    console.log('response got here', response);
     this.setState({
       fullName: response.profileObj.name,
       userName: response.profileObj.givenName,

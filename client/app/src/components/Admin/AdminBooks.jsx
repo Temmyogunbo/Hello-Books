@@ -34,6 +34,7 @@ class AdminBooks extends React.Component {
       books: []
     };
     this.onClickEditBook = this.onClickEditBook.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   /**
    * @returns {void}
@@ -145,7 +146,7 @@ class AdminBooks extends React.Component {
             <i
               className="fa fa-trash-o"
               aria-hidden="true"
-              onClick={() => { this.handleDelete.bind(this)(book); }}
+              onClick={() => this.handleDelete(book)}
             />
           </td>
         </tr>

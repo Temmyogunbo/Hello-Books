@@ -1,9 +1,12 @@
+const webpack = require('webpack');
 const path = require('path');
-const dotEnv = require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotEnvWebpack = require('dotenv-webpack');
+const dotEnv = require('dotenv').config();
 
 const CLIENTPORT = 5000 || process.env;
+
 const config = {
   entry: [
     './client/app/src/index.jsx'
@@ -12,11 +15,25 @@ const config = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(`${__dirname}/client/app/public`),
-    publicPath: 'https://emmanuelhellobooks.herokuapp.com/',
-
+    publicPath: `http://localhost:${CLIENTPORT}/`
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    compress: true,
+    port: CLIENTPORT,
+    publicPath: `http://localhost:${CLIENTPORT}/`,
+    // access dev server from an arbitrary url. handy in html5 router
+    historyApiFallback: true,
+    hot: true,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    },
+    overlay: true,
+    contentBase: path.join(__dirname, './client/app/public'),
+    watchContentBase: true
   },
   module: {
 
@@ -64,6 +81,18 @@ const config = {
   },
   plugins: [
     new ExtractTextPlugin('./style.css'),
+    new webpack.HotModuleReplacementPlugin(),
+    new dotEnvWebpack({
+      path: './.env',
+      safe: false,
+    }),
+    new webpack.DefinePlugin({
+      proces: {
+        env: {
+          SECRET_KEY: JSON.stringify(process.env.SECRET_KEY)
+        }
+      }
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(`${__dirname}/client/app/index.html`)
     })
