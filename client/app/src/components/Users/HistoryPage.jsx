@@ -15,7 +15,7 @@ const propTypes = {
   getHistory: PropTypes.func.isRequired
 };
 /**
- * 
+ *
  * @returns {object} jsx
  * @class BookPage
  * @extends {React.Component}
@@ -23,7 +23,7 @@ const propTypes = {
 class HistoryPage extends React.Component {
   /**
    * Creates an instance of HistoryPage.
-   * @param {any} props 
+   * @param {any} props
    * @memberof HistoryPage
    */
   constructor(props) {
@@ -34,7 +34,7 @@ class HistoryPage extends React.Component {
   }
   /**
    * @returns {void}
-   * 
+   *
    * @memberof HistoryPage
    */
   componentWillMount() {
@@ -45,17 +45,17 @@ class HistoryPage extends React.Component {
     }
   }
   /**
-   * @returns {void} 
-   * 
+   * @returns {void}
+   *
    * @memberof HistoryPage
    */
   componentDidMount() {
     this.props.getHistory({ userId: this.props.user.id });
   }
   /**
-   * 
-   * 
-   * @param {any} data 
+   *
+   *
+   * @param {any} data
    * @returns {void}
    * @memberof HistoryPage
    */
@@ -75,13 +75,12 @@ class HistoryPage extends React.Component {
       .catch(swal.noop);
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {object} jsx
    * @memberof HistoryPage
    */
   render() {
-    console.log(this.state);
     const {
       userHistoryReducer,
       returnBook,
@@ -108,15 +107,13 @@ class HistoryPage extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  console.log(state.userHistoryReducer);
-  return {
-    user: state.userReducer.user,
-    userHistoryReducer: state.userHistoryReducer
-  };
-};
+const mapStateToProps = (state) => ({
+  user: state.userReducer.user,
+  userHistoryReducer: state.userHistoryReducer
+});
 HistoryPage.propTypes = propTypes;
 export default
 connect(mapStateToProps, {
   getHistory: getHistoryAction,
-  returnBook: returnBookAction })(HistoryPage);
+  returnBook: returnBookAction
+})(HistoryPage);
