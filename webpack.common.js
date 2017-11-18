@@ -12,7 +12,7 @@ const config = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(`${__dirname}/client/app/public`),
-    publicPath: `http://localhost:${CLIENTPORT}/`,
+    publicPath: 'https://emmanuelhellobooks.herokuapp.com/',
 
   },
   resolve: {
