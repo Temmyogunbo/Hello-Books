@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 import categoryValidation from '../../../utils/categoryValidation';
 
+const propTypes = {
+  createBookCategory: PropTypes.func.isRequired
+};
 /**
  * Class representing a CategoryForm component.
  * @extends React
@@ -25,7 +28,7 @@ class CategoryForm extends React.Component {
   /**
    * @returns {void}
    * @description update the category field
-   * @param {any} event 
+   * @param {any} event
    * @memberof CategoryForm
    */
   handleChange(event) {
@@ -58,8 +61,8 @@ class CategoryForm extends React.Component {
     }
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {object} jsx
    * @memberof CategoryForm
    */
@@ -86,7 +89,7 @@ class CategoryForm extends React.Component {
               </div>
             </div>
             <button
-              className="btn bc waves-effect waves-light btn s4"
+              className="brown darken-4 btn s4"
               type="submit"
               disabled={isLoading}
             >
@@ -94,7 +97,7 @@ class CategoryForm extends React.Component {
             </button>
           </form>
           <button
-            className="bc modal-close btn col s4 push-s6">
+            className="brown darken-4 modal-close btn col s4 push-s6">
             close
           </button>
         </div>
@@ -102,4 +105,6 @@ class CategoryForm extends React.Component {
     );
   }
 }
+CategoryForm.propTypes = propTypes;
+
 export default CategoryForm;

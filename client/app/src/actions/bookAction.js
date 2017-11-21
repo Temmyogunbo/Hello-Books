@@ -1,10 +1,6 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import {
-  GET_ALL_BOOKS_BY_CATEGORY,
-  GET_ALL_BOOKS_BY_CATEGORY_ERROR,
-  GET_A_BOOK,
-  GET_A_BOOK_ERROR,
   EDIT_BOOK,
   EDIT_BOOK_ERROR,
   ADD_BOOK,
@@ -19,14 +15,6 @@ import {
   DELETE_BOOK_ERROR,
 } from '../constants/actionTypes';
 
-const getBook = book => ({
-  type: GET_A_BOOK,
-  book
-});
-const getBookError = error => ({
-  type: GET_A_BOOK_ERROR,
-  error
-});
 /**
  *
  * @param {object} book
@@ -93,24 +81,6 @@ const getAllBooks = books => ({
 });
 /**
  *
- * @return {object} books - Return an array of books by category
- * @param {error} books - dispatched book object
- */
-const getAllBooksByCategory = books => ({
-  type: GET_ALL_BOOKS_BY_CATEGORY,
-  books
-});
-/**
- *
- * @return {object} error
- * @param {error} error - dispatched error object
- */
-const getAllBooksByCategoryError = error => ({
-  type: GET_ALL_BOOKS_BY_CATEGORY_ERROR,
-  error
-});
-/**
- *
  * @return {object} error
  * @param {error} error - dispatched error object
  */
@@ -171,16 +141,25 @@ export const addBookAction = bookData => dispatch =>
     });
 
 /**
+ * @param {object} bookData
  * @return {object} - returns an object of books
  */
-export const getAllBooksAction = () => dispatch =>
-  axios.get('/api/v1/books').then((response) => {
+export const getAllBooksAction = bookData => dispatch => {
+  let bookRoute = `/api/v1/books`;
+  if (bookData.bookCategory) {
+    bookRoute = `/api/v1/books?category=${bookData.bookCategory.category}`;
+  }
+  if (bookData.bookId) {
+    bookRoute = `/api/v1/books/${bookData.bookId}`;
+  }
+  return axios.get(bookRoute).then((response) => {
     dispatch(getAllBooks(response.data));
   })
     .catch((error) => {
-      dispatch(getAllBooksError(error.response.data.msg));
-      toastr.error(error.response.data.msg);
+      dispatch(getAllBooksError(error.response.data.errors[0].msg));
+      toastr.error(error.response.data.errors[0].msg);
     });
+};
 /**
 * @param {bookData} bookData
 * @return {object} response
@@ -247,34 +226,7 @@ export const editBookAction = bookData => (dispatch) => {
       toastr.error(error.response.data.msg);
     });
 };
-/**
- * @return {object} - dispatch an object of book
- * @param {object} bookId - contains id of book to be gotten
-*/
-export const getBookAction = bookId => (dispatch) =>
-  axios.get(`/api/v1/books/${bookId}`)
-    .then((response) => {
-      dispatch(getBook(response.data));
-    })
-    .catch((error) => {
-      dispatch(getBookError(error.response.data));
-      toastr.error(error.response.data.msg);
-    });
-/**
- * @return {object} - returns an array of books by category
- * @param  {object} categoryData - contains category
- */
-export const getAllBooksByCategoryAction = (categoryData) => dispatch =>
-  axios.get(`/api/v1/books?category=${categoryData.category}`)
-    .then((response) => {
-      dispatch(getAllBooksByCategory(response.data));
-    })
-    .catch((error) => {
-      dispatch(getAllBooksByCategoryError(error.response.data.msg));
-      toastr.error(error.response.data.errors[0].msg);
-    });
 export default {
-  getBookAction,
   editBookAction,
   addBookAction,
   getAllBooksAction,

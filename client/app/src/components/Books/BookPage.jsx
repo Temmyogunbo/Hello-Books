@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import {
-  getBookAction,
+  getAllBooksAction,
   borrowBookAction
 } from '../../actions/bookAction';
 
@@ -12,7 +12,8 @@ const propTypes = {
   history: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   getBook: PropTypes.func.isRequired,
-  borrowBook: PropTypes.func.isRequired
+  borrowBook: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 /**
@@ -40,7 +41,7 @@ class BookPage extends React.Component {
    * @memberof BookPage
    */
   componentDidMount() {
-    this.props.getBook(this.props.match.params.bookId);
+    this.props.getBook({ bookId: this.props.match.params.bookId });
   }
   /**
    * @returns {void} description -
@@ -87,29 +88,26 @@ class BookPage extends React.Component {
       <div>
         <div className="container mt-2">
           <div className="row">
-            <div className="col s5">
-              <div>
-                <span className="fs-2">{'Book Author'}</span>
-                <span className="ml-5 fs-1">{this.state.book.author}</span>
-              </div>
+            <div className="col s6">
               <img
                 src={this.state.book.imageUrl} style={{ height: "300px", width: "300px" }} />
-              <div>
-                <button
-                  className=" bc waves-effect waves-light btn brown darken-4"
-                  onClick={this.handleBorrowBook}>Borrow Book</button>
-              </div>
+
+              <button
+                className=" bc waves-effect waves-light btn brown darken-4"
+                onClick={this.handleBorrowBook}>Borrow Book</button>
             </div>
-            <div className="col s7">
-              <div>
-                <span className="fs-2">{'Book Title'}</span>
-                <span>{this.state.book.title}</span>
+            <div className="col s6">
+              <div className="fs-2">
+                {this.state.book.title}
                 <div>
-                  <div className="fs-2">{'Book Description'}</div>
-                  {this.state.book.description}
+                  by {this.state.book.author}
                 </div>
               </div>
+              <div className="mt-2">
+                {this.state.book.description}
+              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -123,6 +121,6 @@ const mapStateToProps = (state, props) => ({
 });
 BookPage.propTypes = propTypes;
 export default connect(mapStateToProps, {
-  getBook: getBookAction,
+  getBook: getAllBooksAction,
   borrowBook: borrowBookAction
 })(BookPage);

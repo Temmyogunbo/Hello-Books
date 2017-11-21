@@ -1,14 +1,16 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import { signinAction } from '../../actions/userActions';
 import signInValidation from '../../../utils/signInValidation';
 
 const propTypes = {
   history: PropTypes.object.isRequired,
   signin: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
+  success: PropTypes.object.isRequired
 };
 /**
  *
@@ -34,6 +36,21 @@ class SignInPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  /**
+   * @param {any} nextProps
+   * @memberof SignInPage
+   * @returns {undefined}
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuthenticated) {
+      this.props.history.replace('/collections');
+    }
+    if (!isEmpty(nextProps.success)) {
+      this.setState({ isLoading: false });
+    }
+  }
+
   /**
    *
    * @returns {void}
@@ -64,13 +81,10 @@ class SignInPage extends React.Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.signin(this.state)
-        .then(() => {
-          this.setState({ errors: {}, isLoading: false });
-          this.props.history.replace('/collections');
-        });
+      this.props.signin(this.state);
     }
   }
+
   /**
    *
    *
@@ -83,7 +97,10 @@ class SignInPage extends React.Component {
       <div>
         <div className="image"/>
         <div className="row">
-          <form className="col s6 push-s3 div-container-form" onSubmit={this.onSubmit}>
+          <form
+            className="col s6 push-s3 div-container-form"
+            onSubmit={this.onSubmit}
+          >
             <h3 className="sign-title">Log in:</h3>
             <div className="row">
               <div className="input-field col.s5">
@@ -117,8 +134,7 @@ class SignInPage extends React.Component {
               data-action="log-in-form"
               disabled={isLoading}>
               Log in
-            </button><br /><br />
-            <Link to="#">Did you forget your password?</Link>
+            </button>
           </form>
         </div>
       </div>
@@ -127,7 +143,8 @@ class SignInPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.userReducer.user
+  isAuthenticated: state.userReducer.isAuthenticated,
+  success: state.errorReducer.error
 });
 
 SignInPage.propTypes = propTypes;

@@ -84,26 +84,6 @@ const BookHistoryController = {
         msg: 'Something went wrong.'
       }));
   },
-  yetToReturn(req, res) {
-    return db.History.findAll({
-      where: {
-        UserId: [req.params.userId],
-        returned: false
-      }
-    }).then((history) => {
-      if (history.length === 0) {
-        return res.status(200).json({
-          msg: 'No books to be returned.'
-        });
-      }
-      return res.status(200).json({
-        msg: `You have ${history.length} book(s) to be returned`
-      });
-    })
-      .catch(() => res.status(400).json({
-        msg: 'This operation cannot be performed.'
-      }));
-  },
   returnBook(req, res) {
     const bookId = parseInt(req.body.bookId, 10);
     const userId = parseInt(req.params[0], 10);
@@ -167,11 +147,13 @@ const BookHistoryController = {
   },
   findUserHistory(req, res) {
     const userId = parseInt(req.params[0], 10);
+    let whereStatement = { UserId: userId };
+    if (req.query.returned) {
+      whereStatement.returned = false;
+    }
     return db.History
       .findAndCountAll({
-        where: {
-          UserId: userId
-        },
+        where: whereStatement,
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
           { model: db.Book, attributes: ['author', 'title'] }

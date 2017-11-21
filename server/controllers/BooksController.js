@@ -1,23 +1,5 @@
 import db from '../models';
 
-const findBooksByCategory = (req, res) =>
-  db.Book.findAll({
-    where: {
-      category: req.query.category
-    },
-    limit: 10
-  })
-    .then((books) => {
-      if (books.length) {
-        return res.status(200).json(books);
-      }
-      return res.status(404).json({
-        errors: [{ msg: 'No such book(s) by category' }]
-      });
-    })
-    .catch(() => res.status(500).json({
-      errors: [{ msg: 'Operation cannot be performed' }]
-    }));
 
 const BooksController = {
   createBook(req, res) {
@@ -95,28 +77,19 @@ const BooksController = {
         errors: [{ msg: 'Something went wrong' }]
       }));
   },
-  findBook(req, res) {
-    const bookId = parseInt(req.params[0], 10);
-    if (bookId) {
-      return db.Book.findById(bookId)
-        .then((book) => {
-          if (!book) {
-            return res.status(404).json({
-              msg: 'Book not found.'
-            });
-          }
-          return res.status(200).json(book);
-        })
-        .catch(() => res.status(500).json({
-          msg: 'An error occurred.'
-        }));
-    }
-  },
   findBooks(req, res) {
+    const whereStatement = {};
     if (req.query.category) {
-      return findBooksByCategory(req, res);
+      whereStatement.category = req.query.category;
     }
-    return db.Book.findAll({ limit: 10 })
+    if (req.params[0]) {
+      whereStatement.id = parseInt(req.params[0], 10);
+    }
+    return db.Book.findAll({
+      where: whereStatement,
+
+      limit: 10
+    })
       .then((books) => {
         if (books.length === 0) {
           return res.status(404).json({
@@ -126,7 +99,7 @@ const BooksController = {
         return res.status(200).json(books);
       })
       .catch(() => res.status(500).json({
-        errors: [{ msg: 'Something went wrong' }]
+        errors: [{ msg: 'No books in the library' }]
       }));
   },
   updateBook(req, res) {
