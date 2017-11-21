@@ -17,15 +17,15 @@ const propTypes = {
   categories: PropTypes.array.isRequired
 };
 /**
- * 
- * 
+ *
+ *
  * @class BookForm
  * @extends {React.Component}
  */
 class BookForm extends React.Component {
   /**
    * Creates an instance of BookForm.
-   * @param {any} props 
+   * @param {any} props
    * @memberof BookForm
    */
   constructor(props) {
@@ -53,8 +53,8 @@ class BookForm extends React.Component {
   }
   /**
  * @returns {void}
- * 
- * @param {any} nextProps 
+ *
+ * @param {any} nextProps
  * @memberof BookForm
  */
   componentWillReceiveProps(nextProps) {
@@ -75,10 +75,10 @@ class BookForm extends React.Component {
     }
   }
   /**
- * @returns {void} 
+ * @returns {void}
  * @description- it uploads images to cloudinary
- * 
- * @param {any} event 
+ *
+ * @param {any} event
  * @memberof BookForm
  */
   uploadToCloudinary(event) {
@@ -91,7 +91,8 @@ class BookForm extends React.Component {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onloadend = (result) => {
-        cloudinary.v2.uploader.upload(result.target.result,
+        cloudinary.v2.uploader.upload(
+          result.target.result,
           (error, response) => {
             if (error) {
               this.setState({
@@ -107,15 +108,16 @@ class BookForm extends React.Component {
               isButtonLoading: false,
               isLoading: false
             });
-          });
+          }
+        );
       };
     }
   }
   /**
-   * @returns {void} 
+   * @returns {void}
    * @description- it sets an instance of
    * BookForm back to its initial state
-   * 
+   *
    * @memberof BookForm
    */
   handleClose() {
@@ -135,8 +137,8 @@ class BookForm extends React.Component {
   /**
    * @returns {void} description- it updates an instance
    * of BookForm go its current state
-   * 
-   * @param {any} event 
+   *
+   * @param {any} event
    * @memberof BookForm
    */
   handleChange(event) {
@@ -202,8 +204,8 @@ class BookForm extends React.Component {
     }
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {object} jsx
    * @memberof BookForm
    */
@@ -318,7 +320,7 @@ class BookForm extends React.Component {
                 />
                 <button type="button"
                   onClick={() => document.getElementById('filedisplay').click()}
-                  className="btn bc">
+                  className="btn brown darken-4">
                   <i className="material-icons">image</i>
                 </button>
                 {this.state.isLoading &&
@@ -332,7 +334,7 @@ class BookForm extends React.Component {
           </form>
           <button
             onClick= {this.handleClose}
-            className="waves-effect waves-light btn bc modal-close">
+            className="btn brown darken-4 modal-close">
             close
           </button>
         </div>

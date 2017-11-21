@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import toastr from 'toastr';
 
 export default (ComposedComponent) => {
   const propTypes = {
@@ -9,27 +8,35 @@ export default (ComposedComponent) => {
     history: PropTypes.object.isRequired
   };
   /**
-   * 
-   * 
+   *
+   *
    * @class CheckSignedInContainer
    * @extends {React.Component}
    */
   class CheckSignedInContainer extends React.Component {
     /**
      * @returns {void}
-     * 
+     *
      * @memberof CheckSignedInContainer
      */
-    componentDidMount() {
-      document.getElementsByTagName('body')[0].classList.remove('image');
+    componentWillMount() {
       if (!this.props.user.isAuthenticated) {
-        return this.props.history.replace('/signin');
+        window.location = '/signin';
       }
     }
     /**
      * @returns {void}
-     * 
-     * @param {any} nextProps 
+     *
+     * @memberof CheckSignedInContainer
+     */
+    componentDidMount() {
+      document.getElementsByTagName('body')[0].classList.remove('image');
+      this.var = '';
+    }
+    /**
+     * @returns {void}
+     *
+     * @param {any} nextProps
      * @memberof CheckSignedInContainer
      */
     componentWillUpdate(nextProps) {
@@ -38,24 +45,26 @@ export default (ComposedComponent) => {
       }
     }
     /**
-     * 
-     * 
+     *
+     *
      * @returns {object} jsx
      * @memberof CheckSignedInContainer
      */
     render() {
-      const { match, dispatch, location, staticContext, rest } = this.props;
+      // const {
+      //   dispatch, location, staticContext, rest
+      // } = this.props;
       return (
-        <ComposedComponent {...rest} />
+        <ComposedComponent {...this.props} />
       );
     }
   }
   CheckSignedInContainer.propTypes = propTypes;
   /**
-   * 
-   * 
-   * @param {any} state 
-   * @returns {object} user  
+   *
+   *
+   * @param {any} state
+   * @returns {object} user
    */
   const mapStateToProps = (state) => ({
     user: state.userReducer

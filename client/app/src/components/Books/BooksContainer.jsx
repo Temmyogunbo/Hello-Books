@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 
 
 const BooksContainer = (props) => {
-  const {
-    user, rentBookReducer, borrowBook, getAllBooks
-  } = props;
   let bookItems;
   if (props.books) {
     bookItems = props.books.map(book => (

@@ -35,7 +35,6 @@ class NavigationBar extends React.Component {
    * @memberof Navigation
    */
   componentDidMount() {
-    this.var = "";
     $(document).ready(() => {
       $(".button-collapse").sideNav({
         closeOnClick: true

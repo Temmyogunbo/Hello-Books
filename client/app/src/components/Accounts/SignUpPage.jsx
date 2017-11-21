@@ -3,12 +3,16 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
+import isEmpty from 'lodash/isEmpty';
+
 import { signupAction } from '../../actions/userActions';
 import signUpValidation from '../../../utils/signUpValidation';
 
 const propTypes = {
   history: PropTypes.object.isRequired,
-  signup: PropTypes.func.isRequired
+  signup: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  success: PropTypes.object.isRequired
 };
 /**
  *
@@ -36,6 +40,27 @@ class SignUpPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onGoogleCallback = this.onGoogleCallback.bind(this);
+  }
+  /**
+ * @param {any} nextProps
+ * @memberof SignUpPage
+ * @returns {undefined}
+ */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuthenticated) {
+      this.props.history.replace('/collections');
+    }
+    if (!isEmpty(nextProps.success)) {
+      this.setState({
+        fullName: '',
+        userName: '',
+        password: '',
+        email: '',
+        confirmPassword: '',
+        isLoading: false,
+        errors: {}
+      });
+    }
   }
   /**
    * @returns {void}
@@ -87,10 +112,7 @@ class SignUpPage extends React.Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.signup(this.state).then(() => {
-        this.setState({ errors: {}, isLoading: true });
-        this.props.history.replace('/collections');
-      });
+      this.props.signup(this.state);
     }
   }
   /**
@@ -171,27 +193,27 @@ class SignUpPage extends React.Component {
             <div className="row">
               <button
                 id="for-google-signup"
-                className="col s3 login-button" type="submit"
+                className="col s12 m3 signup-button" type="submit"
                 disabled={isLoading}>
               Sign up
               </button>
-              <GoogleLogin
-                className="col s6 push-s3"
-                clientId="36899049581-4qhfcq6i9qjvauc42ba6hjf33nk22c3k.apps.googleusercontent.com"
-                onSuccess={this.onGoogleCallback}
-
-              >
-                <div className="row">
-                  <div className="col s6 "> Sign up with</div>
+              <div className="col s12 m9">
+                <GoogleLogin
+                  className="right google-button"
+                  clientId=
+                    "36899049581-4qhfcq6i9qjvauc42ba6hjf33nk22c3k.apps.googleusercontent.com"
+                  onSuccess={this.onGoogleCallback}
+                >
+                  <div className="left">Sign up with</div>
                   <img
-                    className="col s3 push-s3"
+                    className="right google-icon"
                     width="30"
                     height="30"
                     role="google fonts"
                     src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
                   />
-                </div>
-              </GoogleLogin>
+                </GoogleLogin>
+              </div>
             </div>
             <br />
 
@@ -205,7 +227,8 @@ class SignUpPage extends React.Component {
 }
 SignUpPage.propTypes = propTypes;
 const mapStateToProps = (state) => ({
-  user: state.userReducer.user
+  isAuthenticated: state.userReducer.isAuthenticated,
+  success: state.errorReducer.error
 });
 const mapDispatchToProps = dispatch => ({
   signup: signupCredentials => dispatch(signupAction(signupCredentials)),

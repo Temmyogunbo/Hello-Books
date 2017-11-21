@@ -2,17 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import swal from "sweetalert2";
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 import Profile from './Profile';
 import UserRecords from './UserRecords';
+import PasswordForm from '../Modals/PasswordForm';
 import {
   returnBookAction
 } from '../../actions/bookAction';
 import {
   getHistoryAction,
+  ChangePasswordAction
 } from '../../actions/userActions';
 
 const propTypes = {
-  getHistory: PropTypes.func.isRequired
+  getHistory: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired
 };
 /**
  *
@@ -51,6 +55,11 @@ class HistoryPage extends React.Component {
    */
   componentDidMount() {
     this.props.getHistory({ userId: this.props.user.id });
+    $(document).ready(() => {
+      $('#change-password').modal({
+        dismissible: false
+      });
+    });
   }
   /**
    *
@@ -86,14 +95,20 @@ class HistoryPage extends React.Component {
       returnBook,
       history,
       getHistory,
+      changePassword,
       user
     } = this.props;
     return (
       <div>
+        <PasswordForm
+          changePassword={changePassword}
+          userName={user.userName}
+        />
         <div className="container">
           <div className="row">
             <Profile user={user}/>
           </div>
+          <br />
           {this.state.isAdmin ? '' :
             <UserRecords
               userHistory={userHistoryReducer}
@@ -115,5 +130,6 @@ HistoryPage.propTypes = propTypes;
 export default
 connect(mapStateToProps, {
   getHistory: getHistoryAction,
-  returnBook: returnBookAction
+  returnBook: returnBookAction,
+  changePassword: ChangePasswordAction
 })(HistoryPage);
