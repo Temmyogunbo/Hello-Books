@@ -139,7 +139,7 @@ class ChangePasswordForm extends React.Component {
               <div className="input-field">
                 <input
                   type="text"
-                  name="confirmNewPassword"
+                  naheroku rume="confirmNewPassword"
                   className="validate"
                   value={this.state.confirmNewPassword}
                   onChange={this.handleChange}
