@@ -167,6 +167,6 @@ class ChangePasswordForm extends React.Component {
     );
   }
 }
-PasswordForm.propTypes = propTypes;
+ChangePasswordForm.propTypes = propTypes;
 
 export default ChangePasswordForm;
