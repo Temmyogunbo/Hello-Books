@@ -171,24 +171,66 @@ height: 250px;
     font-weight: 1px;
 }
 .fs-1{
-    font-size: 15x;
-    font-weight: 1px;
+    font-size: 15x !important;
+    font-weight: 1px !important;
 }
 .bc{
     background: rgba(46, 24, 8, 0.85);
     padding: 2px;
 }
-.google-button {
-  padding: 5px;
+.bc-2 {
+     background: lightgray;
+    padding: 2px;
+}
+.google-button, .google-button:focus { 
   border-radius: 2px;
   background-color: #FF9800;
-  border: 1px solid #FF9800;
   font-size: 17px;
   font-weight: normal;
   color: white !important;
   display: inline-block;
-    cursor: pointer !important;    border: none;
-    position: absolute;
+  cursor: pointer !important;
+  border: none;
+}
+.google-icon {
+    margin-left: 10px;
+}
+.signup-button, .signup-button:focus {
+      border-radius: 2px;
+  background-color: #FF9800;
+  width: 100PX;
+  height: 32px;
+  font-weight: normal;
+  color: white !important;
+  display: inline-block;
+  cursor: pointer !important;
+  border: none;
+}
+.history-tab {
+    list-style-type: none;
+    float: left;
+    width: 50%;
+    background-color: #dddd;
+    width: 100%;
+    padding: 10px;
+}
+.history-tab li {
+ display: inline-block;
+ float: left;
+ width: 30%;
+    border-right: 1px solid #666;
+}
+.history-tab li button {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+    color: #000;
+}
+.history-tab li button:hover {
+    background-color: transparent;
+}
+.history-tab li:last-child {
+    border-right: 0;
 }
 /* Body Styling old styles*/
 

@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getBookCategoryAction } from '../../actions/categoryAction';
-import { getAllBooksByCategoryAction } from '../../actions/bookAction';
+import { getAllBooksAction } from '../../actions/bookAction';
 
 const propTypes = {
   category: PropTypes.array.isRequired,
   getBookCategory: PropTypes.func.isRequired,
+  getAllBooksByCategory: PropTypes.func.isRequired
 };
 /**
  *
@@ -26,7 +26,6 @@ class BookCategories extends React.Component {
     this.state = {
       categories: []
     };
-    this.handleCategory = this.handleCategory.bind(this);
   }
   /**
    * @returns {void}
@@ -47,14 +46,7 @@ class BookCategories extends React.Component {
       this.setState({ categories: nextProps.category });
     }
   }
-  /**
-   * @returns {void}
-   *@param {any} category
-   * @memberof BookCategories
-   */
-  handleCategory(category) {
-    this.props.getAllBooksByCategory(category);
-  }
+
   /**
    *
    *
@@ -66,7 +58,9 @@ class BookCategories extends React.Component {
     if (this.state.categories) {
       categoryItems = this.state.categories.map(category => (
         <li key={category.id}>
-          <div onClick={() => this.handleCategory(category)}>
+          <div
+            onClick={() => this.props.getAllBooksByCategory({ bookCategory: category })}
+          >
             {category.category}
           </div>
         </li>
@@ -75,6 +69,13 @@ class BookCategories extends React.Component {
     return (
       <ul className="book-categories col s3">
         <h5>CATEGORY </h5>
+        <li>
+          <div
+            onClick={() => this.props.getAllBooksByCategory({ bookCategory: '' })}
+          >
+            All
+          </div>
+        </li>
         {categoryItems}
       </ul>
 
@@ -87,5 +88,5 @@ const mapStateToProps = (state) => ({
 BookCategories.propTypes = propTypes;
 export default connect(mapStateToProps, {
   getBookCategory: getBookCategoryAction,
-  getAllBooksByCategory: getAllBooksByCategoryAction
+  getAllBooksByCategory: getAllBooksAction
 })(BookCategories);

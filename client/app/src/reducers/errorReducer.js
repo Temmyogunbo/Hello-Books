@@ -5,7 +5,6 @@ import {
   GET_A_BOOK_ERROR,
   ADD_BOOK_ERROR,
   CREATE_BOOK_CATEGORY_ERROR,
-  GET_BOOK_CATEGORY_ERROR,
   RETURN_A_BOOK_ERROR,
   BORROW_A_BOOK_ERROR,
   GET_USER_HISTORY_ERROR,
@@ -14,16 +13,11 @@ import {
 } from '../constants/actionTypes';
 
 const initialState = {
-  error: []
+  error: {}
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
   case CREATE_BOOK_CATEGORY_ERROR:
-    return {
-      ...state,
-      error: action.error
-    };
-  case GET_BOOK_CATEGORY_ERROR:
     return {
       ...state,
       error: action.error

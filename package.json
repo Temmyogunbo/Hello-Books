@@ -10,9 +10,9 @@
     "test": "cross-env NODE_ENV=test nyc mocha --timeout 10000 ./server/test/**/*.js",
     "test:watch": "npm run test -- --watch",
     "cleardb": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
-    "client:dev": "webpack-dev-server --config webpack.config.js",
+    "client:dev": "webpack --config webpack.config.js",
     "build:prod": "webpack --config webpack.prod.js -p",
-    "heroku-postbuild": "npm run build:prod" 
+    "heroku-postbuild": "npm run build:prod"
   },
   "engines": {
     "node": "6.11.1"
@@ -85,14 +85,16 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-link": "^2.0.2",
+    "react-tabs": "^2.1.1",
     "react-test-renderer": "^15.6.1",
+    "react-timeago": "^3.4.3",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "resolve-url-loader": "^2.1.0",
     "sass-loader": "^6.0.6",
     "sendgrid": "^5.2.3",
-    "sequelize": "^4.4.2",
+    "sequelize": "^4.13.5",
     "sequelize-cli": "^2.7.0",
     "serve-favicon": "^2.4.3",
     "shortid": "^2.2.8",

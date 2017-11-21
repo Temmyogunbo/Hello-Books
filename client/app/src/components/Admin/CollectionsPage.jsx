@@ -54,9 +54,7 @@ class CollectionPage extends React.Component {
    * @memberof CollectionPage
    */
   componentDidMount() {
-    document.getElementsByTagName('nav')[0]
-      .className += ' custom-nav-wrapper';
-    this.props.getAllBooks();
+    this.props.getAllBooks({ bookCategory: '' });
   }
   /**
  * @returns {void}
@@ -127,6 +125,7 @@ CollectionPage.PropTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.userReducer.user,
+  isAuthenticated: state.userReducer.isAuthenticated,
   books: state.bookReducer,
   bookCategory: state.bookCategoryReducer
 });

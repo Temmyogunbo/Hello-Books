@@ -1,4 +1,3 @@
-// import isEmpty from 'lodash/isEmpty';
 import {
   GET_USER_HISTORY,
   RETURN_A_BOOK
@@ -13,8 +12,7 @@ export default (state = initialState, action = {}) => {
   case RETURN_A_BOOK:
     return state.map(historyObject => (
       historyObject.BookId === action.BookReturned.BookId ?
-        action.BookReturned : historyObject)
-    );
+        action.BookReturned : historyObject));
   default:
     return state;
   }

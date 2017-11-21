@@ -13,7 +13,7 @@ import NavigationBar from './NavigationBar';
 import PageNotFound from './PageNotFound';
 
 const App = () => (
-  <div>
+  <div style={{ height: "100vh" }}>
     <NavigationBar />
     <Switch>
       <Route path="/signin" component={SignInPage} />
@@ -21,7 +21,7 @@ const App = () => (
       <Route path="/signup" component={SignUpPage} />
       <Route exact path="/collections" component={CheckSignedInContainer(CollectionsPage)} />
       <Route exact path="/history" component={CheckSignedInContainer(HistoryPage)} />
-      <Route path="/collections/books/:bookId" component={BookPage} />
+      <Route path="/collections/books/:bookId" component={CheckSignedInContainer(BookPage)} />
       <Route component={PageNotFound} />
     </Switch>
   </div>
