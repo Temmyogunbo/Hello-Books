@@ -131,6 +131,7 @@ class BookForm extends React.Component {
       bookHead: 'ADD BOOK BY CATEGORY',
       buttonText: 'ADD BOOK',
       isEdit: false,
+      isLoading: false,
       isButtonLoading: true
     });
   }

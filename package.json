@@ -10,7 +10,7 @@
     "test": "cross-env NODE_ENV=test nyc mocha --timeout 10000 ./server/test/**/*.js",
     "test:watch": "npm run test -- --watch",
     "cleardb": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
-    "client:dev": "webpack --config webpack.config.js",
+    "client:dev": "webpack-dev-server --config webpack.config.js",
     "build:prod": "webpack --config webpack.prod.js -p",
     "heroku-postbuild": "npm run build:prod"
   },

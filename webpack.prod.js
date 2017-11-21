@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
-const dotEnvWebpack = require('dotenv-webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -68,15 +67,11 @@ module.exports = {
     new ExtractTextPlugin('./style.css'),
     new webpack.optimize.UglifyJsPlugin(),
     new UglifyJSPlugin(),
-    new dotEnvWebpack({
-      path: './.env',
-      safe: false,
-    }),
     new HtmlWebpackPlugin({
       template: path.resolve(`${__dirname}/client/app/index.html`)
     }),
     new webpack.DefinePlugin({
-      proces: {
+      process: {
         env: {
           NODE_ENV: JSON.stringify('production'),
           SECRET_KEY: JSON.stringify(process.env.SECRET_KEY),
