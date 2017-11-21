@@ -151,6 +151,51 @@ const UsersController = {
         success: false,
         msg: 'Something went wrong try again'
       }));
+  },
+  changePassword(req, res) {
+    const {
+      newPassword,
+      oldPassword,
+      userName
+    } = req.body;
+    req.check('oldPassword', 'This field is required').notEmpty();
+    req.check('newPassword', 'This field is required').notEmpty();
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({ error: errors[0] });
+    }
+    return db.User.findOne({
+      where: {
+        userName: userName
+      },
+      attributes: ['password'],
+      limit: 1
+    })
+      .then((user) => {
+        if (user) {
+          if (bcrypt.compareSync(oldPassword, user.password)) {
+            return db.User.update(
+              {
+                password: bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10))
+              },
+              {
+                where: {
+                  userName: userName
+                }
+              }
+            )
+              .then((newUpdate) => res.status(202).json(newUpdate))
+              .catch(() => res.status(500)
+                .json({ msg: 'Cannot change password.Try again.' }));
+          } else {
+            return res.status(404).json({
+              msg: 'Your old password is wrong.'
+            });
+          }
+        }
+      })
+      .catch(() => res.status(500)
+        .json({ msg: 'Cannot change password.Try again.' }));
   }
 };
 

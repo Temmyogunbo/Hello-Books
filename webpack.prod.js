@@ -3,6 +3,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const dotEnvWebpack = require('dotenv-webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -23,7 +24,7 @@ module.exports = {
     rules: [
       {
         test: /\.js|.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -37,7 +38,8 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader', 'resolve-url-loader',
             'sass-loader?sourceMap'],
-        }),
+        })
+        ,
       },
       {
         test: /\.css$/,
@@ -63,11 +65,15 @@ module.exports = {
     jquery: 'jQuery'
   },
   plugins: [
+    new ExtractTextPlugin('./style.css'),
     new webpack.optimize.UglifyJsPlugin(),
     new UglifyJSPlugin(),
     new dotEnvWebpack({
       path: './.env',
       safe: false,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(`${__dirname}/client/app/index.html`)
     }),
     new webpack.DefinePlugin({
       proces: {

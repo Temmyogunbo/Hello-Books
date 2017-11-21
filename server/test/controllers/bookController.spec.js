@@ -69,22 +69,12 @@ describe('GET /api/v1/books', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.should.be.a('object');
-        res.body.author.should.eql('Chimanda Adichie');
-        res.body.title.should.eql('Half of a yellow sun');
-        res.body.category.should.eql('History');
-        res.body.imageUrl.should.eql('localhost:4000');
-        res.body.quantity.should.eql(30);
-        res.body.id.should.eql(1);
-        done();
-      });
-  });
-  it('should send a 404 status if no book found', (done) => {
-    chai.request(app)
-      .get('/api/v1/books/10')
-      .end((err, res) => {
-        res.should.have.status(404);
-        res.should.be.a('object');
-        res.body.msg.should.eql('Book not found.');
+        res.body[0].author.should.eql('Chimanda Adichie');
+        res.body[0].title.should.eql('Half of a yellow sun');
+        res.body[0].category.should.eql('History');
+        res.body[0].imageUrl.should.eql('localhost:4000');
+        res.body[0].quantity.should.eql(30);
+        res.body[0].id.should.eql(1);
         done();
       });
   });
@@ -169,7 +159,8 @@ describe('/POST book', () => {
         done();
       });
   });
-  it('it should not create a book when quantity field is not an integer',
+  it(
+'it should not create a book when quantity field is not an integer',
     (done) => {
       const book = {
         title: 'Art of war',
@@ -193,7 +184,8 @@ describe('/POST book', () => {
           res.body.should.be.a('object');
           done();
         });
-    });
+    }
+);
 });
 // Test PUT route
 describe('/PUT book', () => {

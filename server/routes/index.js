@@ -7,46 +7,48 @@ export default (app) => {
   app.post(/^\/api\/v1\/users\/signin$/, UsersController.signUserIn);
 
   app.post(/^\/api\/v1\/users\/signup$/, UsersController.createUser);
-
+  app.put(
+    /^\/api\/v1\/users\/change-password$/, verify.isLoggedIn,
+    UsersController.changePassword
+  );
+  app.get(
+    '/api/v1/category', verify.isLoggedIn,
+    BooksController.findCategory
+  );
+  app.get(
+    /^\/api\/v1\/books\/(\d+)$/,
+    verify.isLoggedIn, BooksController.findBooks
+  );
+  app.get(/^\/api\/v1\/books$/, verify.isLoggedIn, BooksController.findBooks);
   app.post(
-    '/api/v1/books', verify.checkIfAdmin,
+    '/api/v1/books', verify.isLoggedIn, verify.checkIfAdmin,
     BooksController.createBook
   );
 
   app.post(
-    '/api/v1/category', verify.checkIfAdmin,
+    '/api/v1/category', verify.isLoggedIn, verify.checkIfAdmin,
     BooksController.createCategory
   );
-  app.get(
-    '/api/v1/category',
-    BooksController.findCategory
-  );
-  app.get(/^\/api\/v1\/books\/(\d+)$/, BooksController.findBook);
-
-  app.get(/^\/api\/v1\/books$/, BooksController.findBooks);
   app.put(
-    /^\/api\/v1\/books\/(\d+)$/, verify.checkIfAdmin,
+    /^\/api\/v1\/books\/(\d+)$/, verify.isLoggedIn, verify.checkIfAdmin,
     BooksController.updateBook
   );
   app.delete(
-    /^\/api\/v1\/books\/(\d+)$/, verify.checkIfAdmin,
+    /^\/api\/v1\/books\/(\d+)$/, verify.isLoggedIn, verify.checkIfAdmin,
     BooksController.deleteBook
   );
 
   app.post(
-    /^\/api\/v1\/users\/(\d+)\/books$/,
+    /^\/api\/v1\/users\/(\d+)\/books$/, verify.isLoggedIn,
     BookHistoryController.borrowBook
   );
-  app.get(
-    /^\/api\/v1\/users\/(\d+)\/books$/,
-    BookHistoryController.yetToReturn
-  );
+
   app.put(
-    /^\/api\/v1\/users\/(\d+)\/books$/,
+    /^\/api\/v1\/users\/(\d+)\/books$/, verify.isLoggedIn,
     BookHistoryController.returnBook
   );
   app.get(
-    /^\/api\/v1\/users\/(\d+)\/history$/,
+    /^\/api\/v1\/users\/(\d+)\/history$/, verify.isLoggedIn,
     BookHistoryController.findUserHistory
   );
 };
