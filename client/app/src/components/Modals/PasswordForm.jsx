@@ -30,6 +30,21 @@ class ChangePasswordForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+  /**
+   * @returns {void}
+   *
+   * @memberof ChangePasswordForm
+   */
+  handleClose() {
+    this.setState({
+      oldPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+      isButtonLoading: '',
+      errors: {}
+    });
   }
   /**
    *
@@ -86,13 +101,7 @@ class ChangePasswordForm extends React.Component {
         newPassword,
         userName
       });
-      this.setState({
-        oldPassword: '',
-        newPassword: '',
-        confirmNewPassword: '',
-        isButtonLoading: '',
-        errors: {}
-      });
+      this.handleClose();
       return $('#change-password').modal('close');
     }
   }
@@ -112,7 +121,7 @@ class ChangePasswordForm extends React.Component {
             <div>
               <div className="input-field">
                 <input
-                  type="text"
+                  type="password"
                   name="oldPassword"
                   className="validate"
                   value={this.state.oldPassword}
@@ -125,7 +134,7 @@ class ChangePasswordForm extends React.Component {
               </div>
               <div className="input-field">
                 <input
-                  type="text"
+                  type="password"
                   name="newPassword"
                   className="validate"
                   value={this.state.newPassword}
@@ -138,7 +147,7 @@ class ChangePasswordForm extends React.Component {
               </div>
               <div className="input-field">
                 <input
-                  type="text"
+                  type="password"
                   name="confirmNewPassword"
                   className="validate"
                   value={this.state.confirmNewPassword}
@@ -159,7 +168,9 @@ class ChangePasswordForm extends React.Component {
             </button>
           </form>
           <button
-            className="modal-close btn brown darken-4 col s4 push-s6">
+            className="modal-close btn brown darken-4 col s4 push-s6"
+            onClick={this.handleClose}
+          >
                     close
           </button>
         </div>

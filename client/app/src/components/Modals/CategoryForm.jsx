@@ -24,6 +24,19 @@ class CategoryForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+  /**
+   * @return {void}
+   *
+   * @memberof CategoryForm
+   */
+  handleClose() {
+    this.setState({
+      errors: {},
+      isLoading: false,
+      category: ''
+    });
   }
   /**
    * @returns {void}
@@ -55,8 +68,8 @@ class CategoryForm extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     if (this.validateForm()) {
-      this.setState({ errors: {}, isLoading: true });
       this.props.createBookCategory(this.state);
+      this.handleClose();
       return $('#book-category-form-modal').modal('close');
     }
   }
@@ -97,7 +110,9 @@ class CategoryForm extends React.Component {
             </button>
           </form>
           <button
-            className="brown darken-4 modal-close btn col s4 push-s6">
+            className="brown darken-4 modal-close btn col s4 push-s6"
+            onClick={this.handleClose}
+          >
             close
           </button>
         </div>
