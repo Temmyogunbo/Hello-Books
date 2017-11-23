@@ -32,6 +32,7 @@ class BookForm extends React.Component {
     super(props);
     this.state = {
       imagePublicId: '',
+      imagePublicIdForEdit: '',
       bookId: '',
       bookHead: 'ADD BOOK BY CATEGORY',
       buttonText: 'ADD BOOK',
@@ -58,7 +59,8 @@ class BookForm extends React.Component {
  * @memberof BookForm
  */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.book.id) {
+    console.log('props is here', nextProps);
+    if (nextProps.book && nextProps.book.id) {
       this.setState({
         description: nextProps.book.description,
         bookId: nextProps.book.id,
@@ -67,6 +69,7 @@ class BookForm extends React.Component {
         quantity: nextProps.book.quantity,
         author: nextProps.book.author,
         imageUrl: nextProps.book.imageUrl,
+        imagePublicIdForEdit: nextProps.book.imagePublicId,
         bookHead: "EDIT BOOK BY CATEGORY",
         buttonText: 'EDIT BOOK',
         isEdit: true,
@@ -189,6 +192,7 @@ class BookForm extends React.Component {
           imagePublicId
         });
         this.handleClose();
+       //cloudinary.uploader.destroy(this.state.imagePublicIdForEdit, (result) => { console.log('book deleted', result); });
         return $('#book-form-modal').modal('close');
       }
       this.props.addBook({

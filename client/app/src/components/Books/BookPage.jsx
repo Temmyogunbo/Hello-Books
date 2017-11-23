@@ -89,12 +89,15 @@ class BookPage extends React.Component {
         <div className="container mt-2">
           <div className="row">
             <div className="col s6">
-              <img
-                src={this.state.book.imageUrl} style={{ height: "300px", width: "300px" }} />
-
-              <button
-                className=" bc waves-effect waves-light btn brown darken-4"
-                onClick={this.handleBorrowBook}>Borrow Book</button>
+              <div>
+                <img
+                  src={this.state.book.imageUrl} style={{ height: "300px", width: "300px" }} />
+              </div>
+              <div>
+                <button
+                  className=" bc waves-effect waves-light btn brown darken-4"
+                  onClick={this.handleBorrowBook}>Borrow Book</button>
+              </div>
             </div>
             <div className="col s6">
               <div className="fs-2">

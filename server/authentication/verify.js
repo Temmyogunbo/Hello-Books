@@ -35,5 +35,39 @@ export default {
         errors: [{ msg: 'You are not logged in.' }]
       });
     }
+  },
+  validateBookRequest(request, response, next) {
+    request.check('category', 'category is required').notEmpty();
+    request.check('imageUrl', 'imageUrl is required').notEmpty();
+    request.check(
+      'imagePublicId',
+      'cloudinary public Id is required'
+    ).notEmpty();
+    request.check('description', 'Description is required').notEmpty();
+    request.check('title', 'title is required').notEmpty();
+    request.check('author', 'author is required').notEmpty();
+    request.check('quantity', 'quantity is required').notEmpty();
+    request.check('quantity', 'quantity must be an integer').isInt();
+    const errors = request.validationErrors();
+    if (errors) {
+      return response.status(400).json({ errors });
+    }
+    next();
+  },
+  validateUserRequest(request, response, next) {
+    request.check('fullName', 'Fullname is required').notEmpty();
+    request.check('userName', 'Username is required').notEmpty();
+    request.check('email', 'Email is required').notEmpty();
+    request.check('email', 'Please put a valid email').isEmail();
+    request.check('password', 'Password is required').notEmpty();
+    request.check(
+      'password',
+      'Password must be a mininum of 5 characters'
+    ).isLength({ min: 5 });
+    const errors = request.validationErrors();
+    if (errors) {
+      return response.status(400).json({ error: errors[0] });
+    }
+    next();
   }
 };

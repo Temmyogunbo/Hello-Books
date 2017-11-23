@@ -1,11 +1,17 @@
 import db from '../models';
 import BookFunc from '../helper/BookFunc';
 
+
 const BookHistoryController = {
   borrowBook(req, res) {
     const userId = parseInt(req.params[0], 10);
     const { bookId, membership } = req.body;
     return db.Book.findById(bookId).then((book) => {
+      if (!membership) {
+        return res.status(400).json({
+          msg: 'You must declare your membership type.'
+        });
+      }
       if (!book) {
         return res.status(404).json({
           msg: 'No such book in the library'
@@ -42,7 +48,7 @@ const BookHistoryController = {
               const presentYear = new Date().getFullYear();
               if (borrowDay !== presentDay || borrowMonth !== presentMonth ||
                   borrowYear !== presentYear) {
-                return res.status(400).json({
+                return res.status(403).json({
                   msg: 'You have to return the previous book.'
                 });
               }
@@ -50,7 +56,7 @@ const BookHistoryController = {
             for (let i = numberofBooksBorrowed; i--;) {
               if (parseInt(bookId, 10) ===
                 parseInt(result[i].dataValues.BookId, 10)) {
-                return res.status(400).json({
+                return res.status(403).json({
                   msg: 'You cannot borrow the same book again.'
                 });
               }
@@ -67,7 +73,7 @@ const BookHistoryController = {
               .then(() => res.status(201).json({
                 msg: 'You successfully borrow a book.'
               }))
-              .catch(() => res.status(400).json({
+              .catch(() => res.status(500).json({
                 msg: 'Cannot create a record.'
               }));
           } else {
@@ -141,7 +147,7 @@ const BookHistoryController = {
             msg: 'Your record cannot be updated. Try later.'
           }));
       })
-      .catch(() => res.status(400).json({
+      .catch(() => res.status(500).json({
         msg: 'Something went wrong.'
       }));
   },
@@ -163,9 +169,9 @@ const BookHistoryController = {
         res.status(200).json(result.rows);
       })
       .catch(() =>
-        res.status(400).json({
-          msg: 'Your have no record.'
+        res.status(500).json({
+          msg: 'Cannot perform operation.'
         }));
-  }
+  },
 };
 export default BookHistoryController;

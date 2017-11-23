@@ -18,10 +18,7 @@ class BookFunc {
       silver: [6, 8],
       gold: [4, 6]
     };
-    if (membershipType) {
-      return numberOfBooksAllowedWithDays[membershipType];
-    }
-    return null;
+    return numberOfBooksAllowedWithDays[membershipType];
   }
 }
 export default BookFunc;

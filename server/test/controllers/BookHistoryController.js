@@ -60,7 +60,7 @@ describe('POST /api/v1/users/2/books', () => {
       .set('X-ACCESS-TOKEN', userToken)
       .send({ membership: 'platinum', bookId: 1 })
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(403);
         res.should.be.a('object');
         res.body.should.have.property('msg').eql('You cannot borrow the same book again.');
         done();
@@ -68,7 +68,7 @@ describe('POST /api/v1/users/2/books', () => {
   });
 });
 
-// Test PUT route for return book 
+// Test PUT route for return book
 describe('PUT /api/v1/users/2/books', () => {
   it('should return book', (done) => {
     chai.request(app)
@@ -88,7 +88,7 @@ describe('PUT /api/v1/users/2/books', () => {
       .set('X-ACCESS-TOKEN', userToken)
       .send({ membership: 'platinum', bookId: 'mmm' })
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(500);
         res.should.be.a('object');
         res.body.should.have.property('msg').eql('Something went wrong.');
         done();
@@ -96,7 +96,7 @@ describe('PUT /api/v1/users/2/books', () => {
   });
 });
 
-// Test GET route for user history 
+// Test GET route for user history
 describe('GET /api/v1/users/2/history', () => {
   it('should return user history', (done) => {
     chai.request(app)

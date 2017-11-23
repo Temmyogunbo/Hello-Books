@@ -12,19 +12,7 @@ const UsersController = {
       email,
       password,
     } = req.body;
-    req.check('fullName', 'Fullname is required').notEmpty();
-    req.check('userName', 'Username is required').notEmpty();
-    req.check('email', 'Email is required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-    req.check('password', 'Password is required').notEmpty();
-    req.check(
-      'password',
-      'Password must be a mininum of 5 characters'
-    ).isLength({ min: 5 });
-    const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({ error: errors[0] });
-    }
+
     return db.User
       .create(
         {
@@ -81,7 +69,7 @@ const UsersController = {
             });
           }
         } else {
-          res.status(401).json({
+          res.status(500).json({
             msg: 'Something went wrong'
           });
         }
@@ -184,12 +172,12 @@ const UsersController = {
                 }
               }
             )
-              .then((newUpdate) => res.status(202).json(newUpdate))
-              .catch(() => res.status(500)
-                .json({ msg: 'Cannot change password.Try again.' }));
+              .then((newUpdate) => res.status(204).json(newUpdate))
+              .catch(() => res.status(403)
+                .json({ msg: 'User doesn\'t exist.' }));
           } else {
-            return res.status(404).json({
-              msg: 'Your old password is wrong.'
+            return res.status(403).json({
+              msg: 'Your password is wrong.'
             });
           }
         }

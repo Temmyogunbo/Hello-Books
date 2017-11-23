@@ -12,18 +12,6 @@ const BooksController = {
       description,
       imagePublicId
     } = req.body;
-    req.check('category', 'category is required').notEmpty();
-    req.check('imageUrl', 'imageUrl is required').notEmpty();
-    req.check('imagePublicId', 'cloudinary public Id is required').notEmpty();
-    req.check('description', 'Description is required').notEmpty();
-    req.check('title', 'title is required').notEmpty();
-    req.check('author', 'author is required').notEmpty();
-    req.check('quantity', 'quantity is required').notEmpty();
-    req.check('quantity', 'quantity must be an integer').isInt();
-    const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({ errors });
-    }
     return db.Book.create({
       title,
       category,
@@ -59,7 +47,7 @@ const BooksController = {
       .then(category => res.status(201).json({
         category
       }))
-      .catch(() => res.status(400).json({
+      .catch(() => res.status(500).json({
         errors: [{ msg: 'Cannot create category' }]
       }));
   },
@@ -112,17 +100,6 @@ const BooksController = {
       description
     } = req.body;
     const bookId = parseInt(req.params[0], 10);
-    req.check('category', 'category is required').notEmpty();
-    req.check('imageUrl', 'imageUrl is required').notEmpty();
-    req.check('description', 'imageUrl is required').notEmpty();
-    req.check('title', 'title is required').notEmpty();
-    req.check('author', 'author is required').notEmpty();
-    req.check('quantity', 'quantity is required').notEmpty();
-    req.check('quantity', 'quantity must be an integer').isInt();
-    const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({ errors });
-    }
     return db.Book.update(
       {
         category,
@@ -148,7 +125,7 @@ const BooksController = {
       })
       .catch((err) => {
         if (err.name === 'SequelizeForeignKeyConstraintError') {
-          return res.status(400).json({
+          return res.status(404).json({
             msg: 'Category does not exist. Be sure to check categories table.'
           });
         }
@@ -172,8 +149,8 @@ const BooksController = {
           }
         })
           .then(() => res.status(204).json({}))
-          .catch(() => res.status(400).json({
-            errors: [{ msg: 'Oops!Something went wrong. Check your details' }]
+          .catch(() => res.status(500).json({
+            errors: [{ msg: 'Oops!Something went wrong.' }]
           }));
       });
   },

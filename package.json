@@ -68,6 +68,7 @@
     "jsonwebtoken": "^7.4.2",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4",
+    "moment": "^2.19.2",
     "morgan": "^1.8.2",
     "node-sass": "^4.0.0",
     "path": "^0.12.7",

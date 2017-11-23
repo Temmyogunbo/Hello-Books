@@ -163,7 +163,7 @@ describe('/POST book', () => {
       });
   });
   it(
-'it should not create a book when quantity field is not an integer',
+    'it should not create a book when quantity field is not an integer',
     (done) => {
       const book = {
         title: 'Art of war',
@@ -188,7 +188,7 @@ describe('/POST book', () => {
           done();
         });
     }
-);
+  );
 });
 // Test PUT route
 describe('/PUT book', () => {
@@ -199,6 +199,7 @@ describe('/PUT book', () => {
       category: 'History',
       description: 'Enemy within and enemy  without',
       imageUrl: 'local',
+      imagePublicId: '1717373738383kfkf',
       quantity: 19
     };
     chai.request(app)
@@ -303,7 +304,7 @@ describe('/post category', () => {
       .end((err, res) => {
         res.body.errors[0].should
           .have.property('msg').eql('Cannot create category');
-        res.should.have.status(400);
+        res.should.have.status(500);
         res.body.should.be.a('object');
         done();
       });
@@ -319,7 +320,7 @@ describe('/post category', () => {
       .end((err, res) => {
         res.body.errors[0].should
           .have.property('msg').eql('Cannot create category');
-        res.should.have.status(400);
+        res.should.have.status(500);
         res.body.should.be.a('object');
         done();
       });
