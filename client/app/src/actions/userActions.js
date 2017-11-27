@@ -121,6 +121,7 @@ export const signinAction = user => dispatch => (
   .then((response) => {
     const { token } = response.data;
     localStorage.setItem('jwtToken', token);
+    localStorage.setItem('role', response.data.role);
     Authorization.setAuthToken(token);
     dispatch(setAuthUser(jwtDecode(token)));
     toastr.success('You are Logged in successfully');

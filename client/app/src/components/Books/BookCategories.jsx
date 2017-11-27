@@ -1,4 +1,5 @@
 import React from 'react';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getBookCategoryAction } from '../../actions/categoryAction';
@@ -67,17 +68,19 @@ class BookCategories extends React.Component {
       ));
     }
     return (
-      <ul className="book-categories col s3">
+
+      isEmpty(categoryItems) ? <div /> : <ul className="book-categories col s3">
         <h5>CATEGORY </h5>
         <li>
           <div
             onClick={() => this.props.getAllBooksByCategory({ bookCategory: '' })}
           >
-            All
+              All
           </div>
         </li>
         {categoryItems}
       </ul>
+
 
     );
   }

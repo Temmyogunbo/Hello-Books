@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-
-
+import NotificationIcon from '../components/Admin/NotificationIcon';
 import { signOutAction } from '../actions/userActions';
 
 const propTypes = {
@@ -92,16 +91,21 @@ class NavigationBar extends React.Component {
           id="nav-mobile"
           className="right hide-on-med-and-down custom-nav-list"
         >
+          {this.props.isAdmin === 'admin' ? <li>
+            <NotificationIcon />
+          </li> : ''}
           <li>
             <Link to="/collections">
-              {"Collections"}
+              Collections
             </Link>
           </li>
-          <li>
-            <Link to="/history">
-              {"History"}
-            </Link>
-          </li>
+          {this.props.isAdmin === 'admin' ? '' :
+            <li>
+              <Link to="/history">
+                History
+              </Link>
+            </li>}
+
           <li>
             <Link to="/" onClick={this.signOutAction.bind(this)} >
             Sign out
@@ -112,16 +116,22 @@ class NavigationBar extends React.Component {
           id="mobile-demo"
           className="side-nav"
         >
+          {this.props.isAdmin === 'admin' ? <li>
+            <NotificationIcon />
+          </li> : ''}
+
           <li>
             <Link to="/collections">
-              {"Book Collection"}
+              Collection
             </Link>
           </li>
-          <li>
-            <Link to="/history">
-              {"History"}
-            </Link>
-          </li>
+          {this.props.isAdmin === 'admin' ? '' :
+            <li>
+              <Link to="/history">
+                History
+              </Link>
+            </li>}
+
           <li>
             <Link to="/" onClick={this.signOutAction.bind(this)}>
             Sign out
@@ -152,6 +162,7 @@ class NavigationBar extends React.Component {
 }
 NavigationBar.propTypes = propTypes;
 const mapStateToProps = (state) => ({
-  user: state.userReducer
+  user: state.userReducer,
+  isAdmin: state.userReducer.user.role
 });
 export default connect(mapStateToProps, { signOutAction })(NavigationBar);

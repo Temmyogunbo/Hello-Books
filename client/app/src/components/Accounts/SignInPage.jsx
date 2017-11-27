@@ -36,6 +36,16 @@ class SignInPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  /**
+   * @returns {void}
+   *
+   * @memberof SignInPage
+   */
+  componentWillMount() {
+    if (this.props.isAuthenticated) {
+      window.location = '/collections';
+    }
+  }
 
   /**
    * @param {any} nextProps

@@ -7,7 +7,7 @@ const BooksContainer = (props) => {
   let bookItems;
   if (props.books) {
     bookItems = props.books.map(book => (
-      <div className="col s4 l3" key={book.id}>
+      <ul className="col s4 l3" key={book.id}>
         <Link to={`/collections/books/${book.id}`}>
           <div key={book.id}>
             <div className="book-size card">
@@ -23,7 +23,7 @@ const BooksContainer = (props) => {
             </div>
           </div>
         </Link>
-      </div>
+      </ul>
     ));
   }
   return (

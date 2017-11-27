@@ -7,6 +7,7 @@ import CheckSignedInContainer from '../../utils/CheckSignedInContainer';
 import BookPage from '../components/Books/BookPage';
 import CollectionsPage from '../components/Admin/CollectionsPage';
 import HistoryPage from '../components/Users/HistoryPage';
+import Notifications from '../../src/components/Admin/Notifications';
 import '../sass/style.scss';
 import '../../../../node_modules/toastr/toastr.scss';
 import NavigationBar from './NavigationBar';
@@ -22,6 +23,7 @@ const App = () => (
       <Route exact path="/collections" component={CheckSignedInContainer(CollectionsPage)} />
       <Route exact path="/history" component={CheckSignedInContainer(HistoryPage)} />
       <Route path="/collections/books/:bookId" component={CheckSignedInContainer(BookPage)} />
+      <Route path="/notifications" component={CheckSignedInContainer(Notifications)} />
       <Route component={PageNotFound} />
     </Switch>
   </div>

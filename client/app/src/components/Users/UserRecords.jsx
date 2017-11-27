@@ -1,5 +1,6 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
+//import Notifications from './Notifications';
 
 const UserRecords = (props) => {
   const {

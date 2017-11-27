@@ -68,8 +68,4 @@ export default (app) => {
     verify.isLoggedIn,
     BookHistoryController.findUserHistory
   );
-  app.get(
-    /^\/api\/v1\/users\/email-notifications$/,
-    BookHistoryController.emailNotifications
-  );
 };

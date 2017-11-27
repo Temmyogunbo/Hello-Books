@@ -1,6 +1,11 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import {
+  getAllNotificationsAction,
+} from './notificationsAction';
+
+//import notifications from './notifications';
+import {
   EDIT_BOOK,
   EDIT_BOOK_ERROR,
   ADD_BOOK,
@@ -14,7 +19,6 @@ import {
   DELETE_BOOK,
   DELETE_BOOK_ERROR,
 } from '../constants/actionTypes';
-
 /**
  *
  * @param {object} book
@@ -172,6 +176,13 @@ export const borrowBookAction = bookData => dispatch =>
     .then(() => {
       dispatch(borrowBook(bookData.bookId));
       toastr.success('You successfully borrowed a book');
+      console.log('damn it')
+      getAllNotificationsAction({
+        userId: `${bookData.userId}`,
+        bookId: `${bookData.bookId}`,
+        notificationType: 'BOOK_BORROWED'
+      }, dispatch);
+      console.log('you man')
     })
     .catch((error) => {
       dispatch(borrowBookError(error.response.data));
@@ -191,6 +202,13 @@ export const returnBookAction = returnData => dispatch =>
       const newHistoryObject = { ...returnData.historyObj, returned: true };
       dispatch(returnBook(newHistoryObject));
       toastr.success(response.data.msg);
+      console.log('say god')
+      getAllNotificationsAction({
+        userId: `${returnData.userId}`,
+        bookId: `${returnData.BookId}`,
+        notificationType: 'BOOK_RETURNED'
+      }, dispatch);
+      console.log('woops')
     })
     .catch((error) => {
       dispatch(returnBookEror(error.response.data));

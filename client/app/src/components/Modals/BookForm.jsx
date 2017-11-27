@@ -192,7 +192,7 @@ class BookForm extends React.Component {
           imagePublicId
         });
         this.handleClose();
-       //cloudinary.uploader.destroy(this.state.imagePublicIdForEdit, (result) => { console.log('book deleted', result); });
+        //cloudinary.uploader.destroy(this.state.imagePublicIdForEdit, (result) => { console.log('book deleted', result); });
         return $('#book-form-modal').modal('close');
       }
       this.props.addBook({

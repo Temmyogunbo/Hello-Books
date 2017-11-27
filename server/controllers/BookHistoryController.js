@@ -163,7 +163,9 @@ const BookHistoryController = {
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
           { model: db.Book, attributes: ['author', 'title'] }
-        ]
+        ],
+        order: [['updatedAt', 'DESC']]
+
       })
       .then((result) => {
         res.status(200).json(result.rows);

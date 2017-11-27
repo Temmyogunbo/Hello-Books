@@ -109,14 +109,13 @@ class HistoryPage extends React.Component {
             <Profile user={user}/>
           </div>
           <br />
-          {this.state.isAdmin ? '' :
-            <UserRecords
-              userHistory={userHistoryReducer}
-              returnBook={returnBook}
-              getHistory={getHistory}
-              userId={this.props.user.id}
-              handleReturnBook={this.handleReturnBook}
-            />}
+          <UserRecords
+            userHistory={userHistoryReducer}
+            returnBook={returnBook}
+            getHistory={getHistory}
+            userId={this.props.user.id}
+            handleReturnBook={this.handleReturnBook}
+          />
         </div>
       </div>
     );
