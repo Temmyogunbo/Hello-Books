@@ -1,6 +1,11 @@
 import React from 'react';
-
-const Profile = (props) => {
+/**
+ *
+ *
+ * @param {any} props
+ * @returns {object} jsx
+ */
+function Profile(props) {
   const {
     fullName,
     userName,
@@ -10,7 +15,10 @@ const Profile = (props) => {
     <div className="col s9 mt-2">
       <div>
         <div>
-          <h5 className="bc s9" style={{ fontSize: "25px", color: "white" }}>My Profile</h5>
+          <h5
+            className="bc s9"
+            style={{ fontSize: "25px", color: "white" }}>My Profile
+          </h5>
         </div>
         <ul>
           <li>
@@ -29,7 +37,11 @@ const Profile = (props) => {
         <br />
         <div>
           <div className="bc-2 row">
-            <div className="col s9 fs-2" style={{ fontSize: "25px", color: "white" }}>Change Password</div>
+            <div
+              className="col s9 fs-2"
+              style={{ fontSize: "25px", color: "white" }}>
+              Change Password
+            </div>
             <a
               className="col s3 btn modal-trigger brown darken-4"
               href="#change-password"
@@ -52,5 +64,5 @@ const Profile = (props) => {
       </div>
     </div>
   );
-};
+}
 export default Profile;

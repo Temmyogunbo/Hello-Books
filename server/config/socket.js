@@ -1,4 +1,4 @@
-import Notifications from '../config/socket/Notifications/notifications';
+import Notifications from '../Notifications';
 
 export default (io) => {
   io.on('connect', (client) => {
@@ -10,8 +10,8 @@ export default (io) => {
     client.on('disconnect', () => {
       console.log('client disconnected');
     });
-    client.on('GET_ALL_NOTIFICATIONS', () => {
-      Notification.getAllNotifications();
+    client.on('GET_ALL_NOTIFICATIONS', (data) => {
+      Notification.getAllNotifications(data);
     });
     client.on('ADD_NEW_NOTIFICATION', (data) => {
       Notification.addNotification(data);

@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 import Profile from './Profile';
 import UserRecords from './UserRecords';
-import PasswordForm from '../Modals/PasswordForm';
+import PasswordForm from '../Forms/PasswordForm';
+import Pagination from '../Pagination';
 import {
   returnBookAction
 } from '../../actions/bookAction';
@@ -16,7 +17,8 @@ import {
 
 const propTypes = {
   getHistory: PropTypes.func.isRequired,
-  changePassword: PropTypes.func.isRequired
+  changePassword: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 /**
  *
@@ -33,8 +35,11 @@ class HistoryPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAdmin: false
+      isAdmin: false,
+      activePage: 1,
+      itemsCountPerPage: 5
     };
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
   /**
    * @returns {void}
@@ -54,12 +59,31 @@ class HistoryPage extends React.Component {
    * @memberof HistoryPage
    */
   componentDidMount() {
-    this.props.getHistory({ userId: this.props.user.id });
+    this.props.getHistory({
+      userId: this.props.user.id,
+      currentPage: this.state.activePage,
+      itemsCountPerPage: this.state.itemsCountPerPage
+    });
     $(document).ready(() => {
       $('#change-password').modal({
         dismissible: false
       });
     });
+  }
+  /**
+   * @returns {undefined}
+   *
+   * @param {any} pageNumber
+   * @memberof HistoryPage
+   */
+  handlePageChange(pageNumber) {
+    this.setState({
+      activePage: pageNumber,
+    }, () => this.props.getHistory({
+      userId: this.props.user.id,
+      currentPage: this.state.activePage,
+      itemsCountPerPage: this.state.itemsCountPerPage
+    }));
   }
   /**
    *
@@ -92,6 +116,7 @@ class HistoryPage extends React.Component {
   render() {
     const {
       userHistoryReducer,
+      paginate,
       returnBook,
       history,
       getHistory,
@@ -115,15 +140,25 @@ class HistoryPage extends React.Component {
             getHistory={getHistory}
             userId={this.props.user.id}
             handleReturnBook={this.handleReturnBook}
+            activePage={this.state.activePage}
+            itemsCountPerPage={this.state.itemsCountPerPage}
           />
         </div>
+        <Pagination
+          activePage={this.state.activePage}
+          itemsCountPerPage={this.state.itemsCountPerPage}
+          totalItemsCount={paginate}
+          pageRangeDisplayed={5}
+          handlePageChange={this.handlePageChange}
+        />
       </div>
     );
   }
 }
 const mapStateToProps = (state) => ({
   user: state.userReducer.user,
-  userHistoryReducer: state.userHistoryReducer
+  userHistoryReducer: state.userHistoryReducer.rows,
+  paginate: state.userHistoryReducer.count
 });
 HistoryPage.propTypes = propTypes;
 export default

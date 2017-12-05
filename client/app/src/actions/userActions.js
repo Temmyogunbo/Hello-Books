@@ -1,15 +1,12 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import jwtDecode from 'jwt-decode';
-import Authorization from '../../utils/authorization';
+import setAuthToken from '../../utils/authorization';
 import {
   CHANGE_USERS_PASSWORD,
-  CHANGE_USERS_PASSWORD_ERROR,
   LOG_OUT_USERS,
   SET_AUTH_USERS,
-  SET_AUTH_USERS_ERROR,
   GET_USER_HISTORY,
-  GET_USER_HISTORY_ERROR
 } from '../constants/actionTypes';
 
 /**
@@ -21,15 +18,7 @@ export const changeUserPassword = user => ({
   type: CHANGE_USERS_PASSWORD,
   user
 });
-/**
- * @return {object} - an object of created user
- * sends created user response as a payload to the reducer
- * @param {object} user - created user payload
- */
-export const changeUserPasswordError = user => ({
-  type: CHANGE_USERS_PASSWORD_ERROR,
-  user
-});
+
 /**
  *
  * @return {object} All history
@@ -37,17 +26,9 @@ export const changeUserPasswordError = user => ({
  */
 const getHistory = detailedHistory => ({
   type: GET_USER_HISTORY,
-  detailedHistory
+  ...detailedHistory
 });
-/**
- *
- * @return {object} error
- * @param {error} error - dispatched error object
- */
-const getHistoryError = error => ({
-  type: GET_USER_HISTORY_ERROR,
-  error
-});
+
 /**
  * @return {object} - an object of created user
  * sends created user response as a payload to the reducer
@@ -63,32 +44,23 @@ export const setAuthUser = user => ({
 export const logOutUser = () => ({
   type: LOG_OUT_USERS
 });
-/**
- *
- * @return {object} error
- * @param {error} error - dispatched error object
- */
-const setAuthUserError = error => ({
-  type: SET_AUTH_USERS_ERROR,
-  error
-});
+
 /**
 * @return {object} - returns an object of user's history
 * @param {object} userData - contains user id
 */
 export const getHistoryAction = userData => dispatch => {
-  let historyRoute = `/api/v1/users/${userData.userId}/history`;
+  let historyRoute = `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}`;
   if (userData.returned) {
     historyRoute =
-    `/api/v1/users/${userData.userId}/history?returned=${userData.returned}`;
+      `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}&returned=${userData.returned}`;
   }
   return axios.get(historyRoute)
     .then((response) => {
-      dispatch(getHistory(response.data));
+      dispatch(getHistory({ rows: response.data.rows, count: response.data.count }));
     })
     .catch((error) => {
-      dispatch(getHistoryError(error.response.data));
-      return error;
+      toastr.error(error.response.data.errors[0].msg);
     });
 };
 /**
@@ -99,36 +71,69 @@ export const getHistoryAction = userData => dispatch => {
 export const signupAction = userData => dispatch =>
   axios.post('/api/v1/users/signup', userData)
     .then((response) => {
-      const { token } = response.data;
+      const {
+        email,
+        userName,
+        id,
+        role,
+        membership,
+        fullName,
+        token,
+        msg
+      } = response.data;
       localStorage.setItem('jwtToken', token);
-      Authorization.setAuthToken(token);
-      dispatch(setAuthUser(jwtDecode(token)));
+      localStorage.setItem('role', response.data.role);
+      setAuthToken(token);
+      dispatch(setAuthUser({
+        email,
+        userName,
+        id,
+        role,
+        membership,
+        fullName,
+        token,
+        msg
+      }));
       toastr.success('You successfully signed up');
     })
     .catch((error) => {
-      dispatch(setAuthUserError(error.response.data));
       toastr.error(error.response.data.msg);
     });
-
 /**
  *  @return {object} - array of users
  * sends the users details to be verified before proceeding
  * @param {object} user - logged in user payload
  */
-export const signinAction = user => dispatch => (
+export const signinAction = user => dispatch =>
   axios.post('/api/v1/users/signin', user)
-)
-  .then((response) => {
-    const { token } = response.data;
-    localStorage.setItem('jwtToken', token);
-    localStorage.setItem('role', response.data.role);
-    Authorization.setAuthToken(token);
-    dispatch(setAuthUser(jwtDecode(token)));
-    toastr.success('You are Logged in successfully');
-  }).catch((error) => {
-    dispatch(setAuthUserError(error.response.data));
-    toastr.error(error.response.data.msg);
-  });
+    .then((response) => {
+      const {
+        email,
+        userName,
+        id,
+        role,
+        membership,
+        fullName,
+        token,
+        msg
+      } = response.data;
+
+      localStorage.setItem('jwtToken', token);
+      localStorage.setItem('role', response.data.role);
+      setAuthToken(token);
+      dispatch(setAuthUser({
+        email,
+        userName,
+        id,
+        role,
+        membership,
+        fullName,
+        msg
+      }));
+      toastr.success('You are Logged in successfully');
+    }).catch((error) => {
+      toastr.error(error.response.data.msg);
+    });
 /**
 *  @return {object} - empty object
 * @param {object} userData - logged in user payload
@@ -139,7 +144,6 @@ export const ChangePasswordAction = userData => dispatch =>
       dispatch(changeUserPassword(response.data));
       toastr.success('Password changed');
     }).catch((error) => {
-      dispatch(changeUserPasswordError(error.response.data));
       toastr.error(error.response.data.msg);
     });
 
@@ -150,7 +154,7 @@ export const ChangePasswordAction = userData => dispatch =>
  */
 export const signOutAction = () => (dispatch) => {
   localStorage.removeItem('jwtToken');
-  Authorization.setAuthToken(false);
+  setAuthToken(false);
   dispatch(logOutUser());
   localStorage.clear();
 };

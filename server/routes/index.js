@@ -4,7 +4,11 @@ import BookHistoryController from '../controllers/BookHistoryController';
 import verify from '../authentication/verify';
 
 export default (app) => {
-  app.post(/^\/api\/v1\/users\/signin$/, UsersController.signUserIn);
+  app.post(
+    /^\/api\/v1\/users\/signin$/,
+    verify.validateUserRequest,
+    UsersController.signUserIn
+  );
 
   app.post(
     /^\/api\/v1\/users\/signup$/,
@@ -12,11 +16,13 @@ export default (app) => {
     UsersController.createUser
   );
   app.put(
-    /^\/api\/v1\/users\/change-password$/, verify.isLoggedIn,
+    /^\/api\/v1\/users\/change-password$/,
+    verify.isLoggedIn,
+    verify.validateUserRequest,
     UsersController.changePassword
   );
   app.get(
-    '/api/v1/category', verify.isLoggedIn,
+    /^\/api\/v1\/category$/, verify.isLoggedIn,
     BooksController.findCategory
   );
   app.get(
@@ -29,15 +35,16 @@ export default (app) => {
     BooksController.findBooks
   );
   app.post(
-    '/api/v1/books', verify.isLoggedIn,
+    /^\/api\/v1\/books$/, verify.isLoggedIn,
     verify.checkIfAdmin,
     verify.validateBookRequest,
     BooksController.createBook
   );
 
   app.post(
-    '/api/v1/category', verify.isLoggedIn,
+    /^\/api\/v1\/category$/, verify.isLoggedIn,
     verify.checkIfAdmin,
+    verify.validateBookRequest,
     BooksController.createCategory
   );
   app.put(

@@ -50,7 +50,7 @@ module.exports = {
         loader: 'url-loader?limit=1000000&mimetype=application/font-woff',
       },
       {
-        test: /\.(svg|png|jpe?g)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(svg|png|jpeg|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
       },
       { test: /\.json$/, loader: 'json-loader' },

@@ -1,8 +1,21 @@
 import db from '../models';
 
-
-const BooksController = {
-  createBook(req, res) {
+/**
+ *
+ *
+ * @class BooksController
+ */
+class BooksController {
+  /**
+   *
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BooksController
+   */
+  static createBook(request, response) {
     const {
       title,
       category,
@@ -11,7 +24,7 @@ const BooksController = {
       imageUrl,
       description,
       imagePublicId
-    } = req.body;
+    } = request.body;
     return db.Book.create({
       title,
       category,
@@ -21,76 +34,113 @@ const BooksController = {
       description,
       imagePublicId
     })
-      .then(book => res.status(201).json({
+      .then(book => response.status(201).json({
         book
       }))
-      .catch((err) => {
-        if (err.name === 'SequelizeForeignKeyConstraintError') {
-          return res.status(400).json({
+      .catch((error) => {
+        switch (error.name) {
+        case 'SequelizeForeignKeyConstraintError':
+          return response.status(400).json({
             msg: 'Category does not exist. Be sure to check categories table.'
           });
+        case 'SequelizeUniqueConstraintError':
+          return response.status(403).json({
+            msg: 'Book already exist'
+          });
+        default:
+          return null;
         }
-        res.status(400).json({
-          errors: [{ msg: 'Cannot create book' }]
-        });
       });
-  },
-  createCategory(req, res) {
-    req.check('category', 'category is required').notEmpty();
-    const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({ errors });
-    }
+  }
+  /**
+ *
+ *
+ * @static
+ * @param {any} request
+ * @param {any} response
+ * @returns {undefined}
+ * @memberof BooksController
+ */
+  static createCategory(request, response) {
     return db.Categories.create({
-      category: req.body.category
+      category: request.body.category
     })
-      .then(category => res.status(201).json({
+      .then(category => response.status(201).json({
         category
       }))
-      .catch(() => res.status(500).json({
-        errors: [{ msg: 'Cannot create category' }]
+      .catch((error) => response.status(400).json({
+        errors: [{ msg: error.errors[0] }]
       }));
-  },
-  findCategory(req, res) {
-    return db.Categories.findAll({ limit: 10 })
-      .then((category) => {
-        if (category.length === 0) {
-          return res.status(404).json({
-            errors: [{ msg: 'No categories in the library' }]
-          });
-        }
-        return res.status(200).json(category);
-      })
-      .catch(() => res.status(500).json({
-        errors: [{ msg: 'Something went wrong' }]
-      }));
-  },
-  findBooks(req, res) {
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BooksController
+   */
+  static findCategory(request, response) {
+    return db.Categories.findAll({
+      limit: 10,
+      order: [['updatedAt', 'DESC']]
+    })
+      .then((category) => response.status(200).json(category));
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BooksController
+   */
+  static findBooks(request, response) {
+    const {
+      itemsCountPerPage,
+      page,
+      category
+    } = request.query;
+
+    const offset = itemsCountPerPage ? itemsCountPerPage * (page - 1) : 0;
+    const limit = itemsCountPerPage || 10;
     const whereStatement = {};
-    if (req.query.category) {
-      whereStatement.category = req.query.category;
+    if (category) {
+      whereStatement.category = category;
     }
-    if (req.params[0]) {
-      whereStatement.id = parseInt(req.params[0], 10);
+    if (request.params[0]) {
+      whereStatement.id = parseInt(request.params[0], 10);
     }
-    return db.Book.findAll({
+    return db.Book.findAndCountAll({
       where: whereStatement,
 
-      limit: 10
+      limit: limit,
+      offset: offset,
+      order: [['updatedAt', 'DESC']]
     })
       .then((books) => {
-        if (books.length === 0) {
-          return res.status(404).json({
+        if (books.count === 0) {
+          return response.status(404).json({
             errors: [{ msg: 'No books in the library' }]
           });
         }
-        return res.status(200).json(books);
-      })
-      .catch(() => res.status(500).json({
-        errors: [{ msg: 'No books in the library' }]
-      }));
-  },
-  updateBook(req, res) {
+        return response.status(200).json({
+          count: books.count, rows: books.rows
+        });
+      });
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BooksController
+   */
+  static updateBook(request, response) {
     const {
       title,
       category,
@@ -98,8 +148,8 @@ const BooksController = {
       quantity,
       imageUrl,
       description
-    } = req.body;
-    const bookId = parseInt(req.params[0], 10);
+    } = request.body;
+    const bookId = parseInt(request.params[0], 10);
     return db.Book.update(
       {
         category,
@@ -117,29 +167,36 @@ const BooksController = {
     )
       .then((book) => {
         if (book[0]) {
-          return res.status(204).json({});
+          return response.status(204).json({});
         }
-        return res.status(404).json({
+        return response.status(404).json({
           msg: 'No such book in the library.'
         });
       })
-      .catch((err) => {
-        if (err.name === 'SequelizeForeignKeyConstraintError') {
-          return res.status(404).json({
+      .catch((error) => {
+        if (error.name === 'SequelizeForeignKeyConstraintError') {
+          return response.status(404).json({
             msg: 'Category does not exist. Be sure to check categories table.'
           });
         }
-        return res.status(500).json({
-          errors: [{ msg: 'Unable to perform operation.' }]
-        });
       });
-  },
-  deleteBook(req, res) {
-    const bookId = parseInt(req.params[0], 10);
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BooksController
+   */
+  static deleteBook(request, response) {
+    const bookId = parseInt(request.params[0], 10);
+
     return db.Book.findById(bookId)
       .then((book) => {
         if (!book) {
-          return res.status(404).json({
+          return response.status(404).json({
             errors: [{ msg: 'Book cannot be found' }]
           });
         }
@@ -148,11 +205,8 @@ const BooksController = {
             id: bookId
           }
         })
-          .then(() => res.status(204).json({}))
-          .catch(() => res.status(500).json({
-            errors: [{ msg: 'Oops!Something went wrong.' }]
-          }));
+          .then(() => response.status(204).json({}));
       });
-  },
-};
+  }
+}
 export default BooksController;

@@ -6,24 +6,52 @@ import {
   BORROW_A_BOOK
 } from '../constants/actionTypes';
 
-const initialState = [];
+const initialState = { rows: [], count: 0 };
 let newState;
 
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action) => {
   switch (action.type) {
   case ADD_BOOK:
-    return [...state, action.book];
+    newState = state.rows.slice(1);
+    return {
+      rows: [
+        action.book,
+        ...newState
+      ],
+      count: state.count + 1
+    };
   case GET_ALL_BOOKS:
-    return action.books;
+    return { ...action };
   case EDIT_BOOK:
-    newState = state.filter(book => book.id !== action.book.bookId);
-    return [...newState, action.book];
+    newState = state.rows.filter(book => book.id !== action.book.id);
+    return {
+      rows: [
+        action.book,
+        ...newState],
+      count: state.count
+    };
   case BORROW_A_BOOK:
-    return state.map(book => (parseInt(book.id, 10) ===
-    parseInt(action.id, 10) ? parseInt(book.quantity, 10) - 1 : book));
+    return state.rows.map(book => {
+      if (book.id === action.id) {
+        book.quantity -= 1;
+      }
+      return {
+        rows: [
+          book,
+          ...state.rows
+        ],
+        count: state.count
+      };
+    });
   case DELETE_BOOK:
-    return state.filter(book => book.id !== action.id);
+    newState = state.rows.filter(book => book.id !== action.id);
+    return {
+      rows: [
+        ...newState],
+      count: state.count
+    };
   default:
     return state;
   }
 };
+

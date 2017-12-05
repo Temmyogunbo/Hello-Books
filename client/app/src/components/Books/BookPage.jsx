@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import {
@@ -92,7 +91,9 @@ class BookPage extends React.Component {
             <div className="col s6">
               <div>
                 <img
-                  src={this.state.book.imageUrl} style={{ height: "300px", width: "300px" }} />
+                  src={this.state.book.imageUrl}
+                  style={{ height: "300px", width: "300px" }}
+                />
               </div>
               <div>
                 <button
@@ -120,7 +121,7 @@ class BookPage extends React.Component {
 }
 const mapStateToProps = (state, props) => ({
   user: state.userReducer.user,
-  books: state.bookReducer.find(book => parseInt(book.id, 10) ===
+  books: state.bookReducer.rows.find(book => parseInt(book.id, 10) ===
     parseInt(props.match.params.bookId, 10))
 });
 BookPage.propTypes = propTypes;

@@ -1,15 +1,27 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
-//import Notifications from './Notifications';
+import PropTypes from 'prop-types';
 
-const UserRecords = (props) => {
-  const {
-    userHistory,
-    handleReturnBook,
-    getHistory,
-    returnBook,
-    userId
-  } = props;
+
+const propTypes = {
+  userHistory: PropTypes.array.isRequired
+};
+UserRecords.defaultProps = [];
+/**
+ *
+ *
+ * @param {any} props
+ * @returns {object} jsx
+ */
+function UserRecords({
+  userHistory,
+  handleReturnBook,
+  getHistory,
+  returnBook,
+  activePage,
+  itemsCountPerPage,
+  userId
+}) {
   let historyItem = userHistory.map((historyObj, index) => (
     <tr key={index}>
       <td>{index + 1}</td>
@@ -33,7 +45,9 @@ const UserRecords = (props) => {
   return (
     <div>
       <div className="bc-2 row">
-        <div className="col s6 fs-2" style={{ fontSize: "25px", color: "white" }}>
+        <div
+          className="col s6 fs-2" style={{ fontSize: "25px", color: "white" }}
+        >
           Your activity below
         </div>
 
@@ -42,6 +56,8 @@ const UserRecords = (props) => {
             style={{ fontSize: "15px" }}
             onClick={() => getHistory({
               userId: userId,
+              currentPage: activePage,
+              itemsCountPerPage: itemsCountPerPage,
               returned: 'false'
             })}>
               Borrowed Books
@@ -51,14 +67,19 @@ const UserRecords = (props) => {
           <button
             className="btn brown darken-4"
             style={{ fontSize: "15px" }}
-            onClick={() => getHistory({ userId: userId })}>
+            onClick={() => getHistory({
+              userId: userId,
+              currentPage: activePage,
+              itemsCountPerPage: itemsCountPerPage
+            })}
+          >
               All
           </button>
         </div>
 
       </div>
       {
-        (props.userHistory).length > 0 ?
+        (userHistory).length > 0 ?
           <div>
 
             <table className="users-profile">
@@ -78,5 +99,6 @@ const UserRecords = (props) => {
             </table></div> : <h5>{'You have no record'}</h5> }
     </div>
   );
-};
+}
+UserRecords.propTypes = propTypes;
 export default UserRecords;

@@ -7,7 +7,7 @@ import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
-import Authorization from '../utils/authorization';
+import setAuthToken from '../utils/authorization';
 import { setAuthUser } from './actions/userActions';
 import rootReducer from './reducers/rootReducer';
 import App from './components/App';
@@ -22,7 +22,7 @@ const store = createStore(
   )
 );
 if (localStorage.jwtToken) {
-  Authorization.setAuthToken(localStorage.jwtToken);
+  setAuthToken(localStorage.jwtToken);
   store.dispatch(setAuthUser(jwtDecode(localStorage.jwtToken)));
 }
 const history = createHistory();

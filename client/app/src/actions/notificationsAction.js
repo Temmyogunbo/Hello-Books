@@ -1,7 +1,6 @@
 import socket from '../socket';
 import {
   GET_ALL_NOTIFICATIONS,
-  GET_ALL_NOTIFICATIONS_ERROR
 } from '../constants/actionTypes';
 
 const getAllNotifications = (notifications, total) => ({
@@ -9,10 +8,7 @@ const getAllNotifications = (notifications, total) => ({
   notifications,
   total
 });
-const getAllNotificationsError = (error) => ({
-  type: GET_ALL_NOTIFICATIONS_ERROR,
-  error
-});
+
 
 export const getAllNotificationsAction = (data, dispatch) => {
   const promise = new Promise((resolve, reject) => {
@@ -24,40 +20,27 @@ export const getAllNotificationsAction = (data, dispatch) => {
         notificationType: data.notificationType
       }
     );
-    resolve(socket.emit('GET_ALL_NOTIFICATIONS'));
-    reject(socket.emit('NOTIFICATION_FAILED'));
+    resolve(socket.emit('GET_ALL_NOTIFICATIONS', { itemsCountPerPage: 5, currentPage: 1 }));
+    reject();
   });
   promise.then(() => {
     socket.on('GET_ALL_NOTIFICATIONS', (notifications) => {
-      console.log('norr', notifications);
       dispatch(getAllNotifications(notifications.rows, notifications.count));
     });
-  })
-    .catch(() => {
-      socket.on('NOTIFICATION_FAILED', (error) => {
-        console.log('norr', error);
-        dispatch(getAllNotificationsError(error));
-      });
-    });
+  });
 };
 
-export const getNotificationsAction = () => dispatch => {
-  socket.emit('GET_ALL_NOTIFICATIONS');
+export const getNotificationsAction = (data) => dispatch => {
+  socket.emit('GET_ALL_NOTIFICATIONS', data);
   socket.on('GET_ALL_NOTIFICATIONS', (notifications) => {
-    console.log('norr', notifications);
     dispatch(getAllNotifications(notifications.rows, notifications.count));
-  });
-  socket.on('NOTIFICATION_FAILED', (error) => {
-    console.log('norr', error);
-    dispatch(getAllNotificationsError(error));
   });
 };
 
 export const updateNotificationAction = (data) => dispatch => {
-  console.log('finally made it', data)
   socket.emit('UPDATE_NOTIFICATION', { id: data.id });
-  socket.on('UPDATED_NOTIFICATION', () => {
-    socket.emit('GET_ALL_NOTIFICATIONS');
+  socket.on('UPDATE_NOTIFICATION', () => {
+    socket.emit('GET_ALL_NOTIFICATIONS', { itemsCountPerPage: 5, currentPage: 1 });
   });
   socket.on('GET_ALL_NOTIFICATIONS', (notifications) => {
     dispatch(getAllNotifications(notifications.rows, notifications.count));

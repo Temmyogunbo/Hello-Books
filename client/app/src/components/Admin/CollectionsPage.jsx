@@ -15,6 +15,7 @@ import {
   createBookCategoryAction,
   getBookCategoryAction
 } from '../../actions/categoryAction';
+import Pagination from '../Pagination';
 
 /**
  *
@@ -33,8 +34,11 @@ class CollectionPage extends React.Component {
     this.state = {
       isAdmin: false,
       categories: [],
-      books: []
+      books: [],
+      activePage: 1,
+      itemsCountPerPage: 5
     };
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
   /**
    * @returns {void}
@@ -42,7 +46,7 @@ class CollectionPage extends React.Component {
    * @memberof CollectionPage
    */
   componentWillMount() {
-    if (this.props.user.role !== 'admin') {
+    if (this.props.user.role === 'admin') {
       this.setState({
         isAdmin: true
       });
@@ -54,7 +58,11 @@ class CollectionPage extends React.Component {
    * @memberof CollectionPage
    */
   componentDidMount() {
-    this.props.getAllBooks({ bookCategory: '' });
+    this.props.getAllBooks({
+      bookCategory: '',
+      currentPage: this.state.activePage,
+      itemsCountPerPage: this.state.itemsCountPerPage
+    });
   }
   /**
  * @returns {void}
@@ -69,6 +77,21 @@ class CollectionPage extends React.Component {
     if (nextProps.books !== this.props.books) {
       this.setState({ books: nextProps.books });
     }
+  }
+  /**
+   * @returns {undefined}
+   *
+   * @param {any} pageNumber
+   * @memberof CollectionPage
+   */
+  handlePageChange(pageNumber) {
+    this.setState({
+      activePage: pageNumber,
+    }, () => this.props.getAllBooks({
+      bookCategory: '',
+      currentPage: this.state.activePage,
+      itemsCountPerPage: this.state.itemsCountPerPage
+    }));
   }
   /**
    *
@@ -86,20 +109,18 @@ class CollectionPage extends React.Component {
       addBook,
       deleteBook,
       createBookCategory,
-      history
+      history,
+      paginate
     } = this.props;
     return (
       <div className="container mt-2">
         <div className="row">
-          <BookCategories />
+          <BookCategories
+            className="col s3 l3 m3"
+            currentPage={this.state.activePage}
+            itemsCountPerPage={this.state.itemsCountPerPage}
+          />
           {this.state.isAdmin ? <div className="col s9">
-            <BooksContainer
-              books={books}
-              user={user}
-              borrowBook={borrowBook}
-              getAllBooks={getAllBooks}
-            />
-          </div> : <div className="col s9">
             <AdminBooks
               books={this.state.books}
               userId={user.id}
@@ -111,8 +132,23 @@ class CollectionPage extends React.Component {
               getAllBooks={getAllBooks}
               history={history}
             />
-          </div>}
+          </div> :
+            <div className="col s9 l9 m9">
+              <BooksContainer
+                books={books}
+                user={user}
+                borrowBook={borrowBook}
+                getAllBooks={getAllBooks}
+              />
+            </div>}
         </div>
+        <Pagination
+          activePage={this.state.activePage}
+          itemsCountPerPage={this.state.itemsCountPerPage}
+          totalItemsCount={paginate}
+          pageRangeDisplayed={5}
+          handlePageChange={this.handlePageChange}
+        />
       </div>
     );
   }
@@ -126,7 +162,8 @@ CollectionPage.PropTypes = {
 const mapStateToProps = (state) => ({
   user: state.userReducer.user,
   isAuthenticated: state.userReducer.isAuthenticated,
-  books: state.bookReducer,
+  books: state.bookReducer.rows,
+  paginate: state.bookReducer.count,
   bookCategory: state.bookCategoryReducer
 });
 

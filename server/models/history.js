@@ -34,23 +34,7 @@ export default (sequelize, DataTypes) => {
       defaultValue: false
     }
   });
-  History.afterUpdate((historyUpdate) => {
-    Book.findById(parseInt(historyUpdate.dataValues.BookId, 10))
-      .then((book) => {
-        Book.update(
-          {
-            quantity: parseInt(book.quantity, 10) + 1
-          },
-          {
-            fields: ['quantity'],
-            where: {
-              id: historyUpdate.dataValues.BookId
-            }
-          }
-        );
-      });
-  });
-  History.afterCreate((historyCreate) => {
+  History.beforeCreate((historyCreate) => {
     Book.findById(parseInt(historyCreate.dataValues.BookId, 10))
       .then((book) => {
         Book.update(
@@ -61,6 +45,22 @@ export default (sequelize, DataTypes) => {
             fields: ['quantity'],
             where: {
               id: historyCreate.dataValues.BookId
+            }
+          }
+        );
+      });
+  });
+  History.beforeBulkUpdate((historyUpdate) => {
+    Book.findById(parseInt(historyUpdate.where.BookId, 10))
+      .then((book) => {
+        Book.update(
+          {
+            quantity: parseInt(book.quantity, 10) + 1
+          },
+          {
+            fields: ['quantity'],
+            where: {
+              id: book.dataValues.id,
             }
           }
         );
