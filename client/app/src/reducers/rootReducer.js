@@ -2,15 +2,15 @@ import { combineReducers } from 'redux';
 import userReducer from './userReducer';
 import userHistoryReducer from './userHistoryReducer';
 import bookReducer from './bookReducer';
-import errorReducer from './errorReducer';
 import bookCategoryReducer from './bookCategoryReducer';
+import notificationsReducer from './notificationsReducer';
 
 const appReducer = combineReducers({
   userReducer,
   userHistoryReducer,
   bookReducer,
   bookCategoryReducer,
-  errorReducer
+  notificationsReducer,
 });
 
 export default (state, action) => {

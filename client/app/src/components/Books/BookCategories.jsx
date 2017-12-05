@@ -1,4 +1,5 @@
 import React from 'react';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getBookCategoryAction } from '../../actions/categoryAction';
@@ -7,7 +8,9 @@ import { getAllBooksAction } from '../../actions/bookAction';
 const propTypes = {
   category: PropTypes.array.isRequired,
   getBookCategory: PropTypes.func.isRequired,
-  getAllBooksByCategory: PropTypes.func.isRequired
+  getAllBooksByCategory: PropTypes.func.isRequired,
+  itemsCountPerPage: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired
 };
 /**
  *
@@ -54,12 +57,20 @@ class BookCategories extends React.Component {
    * @memberof BookCategories
    */
   render() {
+    const {
+      itemsCountPerPage,
+      currentPage
+    } = this.props;
     let categoryItems;
     if (this.state.categories) {
       categoryItems = this.state.categories.map(category => (
         <li key={category.id}>
           <div
-            onClick={() => this.props.getAllBooksByCategory({ bookCategory: category })}
+            onClick={() => this.props.getAllBooksByCategory({
+              bookCategory: category,
+              currentPage: currentPage,
+              itemsCountPerPage: itemsCountPerPage
+            })}
           >
             {category.category}
           </div>
@@ -67,17 +78,23 @@ class BookCategories extends React.Component {
       ));
     }
     return (
-      <ul className="book-categories col s3">
+
+      isEmpty(categoryItems) ? <div /> : <ul className="book-categories col s3">
         <h5>CATEGORY </h5>
         <li>
           <div
-            onClick={() => this.props.getAllBooksByCategory({ bookCategory: '' })}
+            onClick={() => this.props.getAllBooksByCategory({
+              bookCategory: '',
+              currentPage: currentPage,
+              itemsCountPerPage: itemsCountPerPage
+            })}
           >
-            All
+              All
           </div>
         </li>
         {categoryItems}
       </ul>
+
 
     );
   }

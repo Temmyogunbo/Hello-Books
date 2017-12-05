@@ -4,37 +4,10 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 import dotenv from 'dotenv';
-import swaggerJSDoc from 'swagger-jsdoc';
 import route from '../routes';
 
 // creating express application
 const app = express();
-const swaggerDefinition = {
-  info: {
-    title: 'Emmanuel HelloBooks API',
-    version: '1.0.0',
-    description: 'Demonstrating what HelloBooks API does',
-  },
-  host: 'localhost:8000',
-  basePath: '/',
-};
-
-// options for the swagger docs
-const options = {
-  // import swaggerDefinitions
-  swaggerDefinition,
-  // path to the API docs
-  apis: ['../routes/*.js'],
-};
-
-// initialize swagger-jsdoc
-const swaggerSpec = swaggerJSDoc(options);
-
-// serve swagger
-app.get('/swagger.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(swaggerSpec);
-});
 dotenv.config();
 app.use(logger('dev'));
 

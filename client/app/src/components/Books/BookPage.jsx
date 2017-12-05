@@ -89,12 +89,17 @@ class BookPage extends React.Component {
         <div className="container mt-2">
           <div className="row">
             <div className="col s6">
-              <img
-                src={this.state.book.imageUrl} style={{ height: "300px", width: "300px" }} />
-
-              <button
-                className=" bc waves-effect waves-light btn brown darken-4"
-                onClick={this.handleBorrowBook}>Borrow Book</button>
+              <div>
+                <img
+                  src={this.state.book.imageUrl}
+                  style={{ height: "300px", width: "300px" }}
+                />
+              </div>
+              <div>
+                <button
+                  className=" bc waves-effect waves-light btn brown darken-4"
+                  onClick={this.handleBorrowBook}>Borrow Book</button>
+              </div>
             </div>
             <div className="col s6">
               <div className="fs-2">
@@ -116,7 +121,7 @@ class BookPage extends React.Component {
 }
 const mapStateToProps = (state, props) => ({
   user: state.userReducer.user,
-  books: state.bookReducer.find(book => parseInt(book.id, 10) ===
+  books: state.bookReducer.rows.find(book => parseInt(book.id, 10) ===
     parseInt(props.match.params.bookId, 10))
 });
 BookPage.propTypes = propTypes;

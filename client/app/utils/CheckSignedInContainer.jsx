@@ -51,9 +51,6 @@ export default (ComposedComponent) => {
      * @memberof CheckSignedInContainer
      */
     render() {
-      // const {
-      //   dispatch, location, staticContext, rest
-      // } = this.props;
       return (
         <ComposedComponent {...this.props} />
       );

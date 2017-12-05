@@ -1,23 +1,40 @@
 import db from '../models';
-import BookFunc from '../helper/BookFunc';
-
-const BookHistoryController = {
-  borrowBook(req, res) {
-    const userId = parseInt(req.params[0], 10);
-    const { bookId, membership } = req.body;
+import membershipLevel from '../helper/membershipLevel';
+/**
+ *
+ *
+ * @class BookHistoryController
+ */
+class BookHistoryController {
+  /**
+   *
+   *
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BookHistoryController
+   */
+  static borrowBook(request, response) {
+    const userId = parseInt(request.params[0], 10);
+    const { bookId, membership } = request.body;
     return db.Book.findById(bookId).then((book) => {
+      if (!membership) {
+        return response.status(400).json({
+          msg: 'You must declare your membership type.'
+        });
+      }
       if (!book) {
-        return res.status(404).json({
+        return response.status(404).json({
           msg: 'No such book in the library'
         });
       }
       if (parseInt(book.dataValues.quantity, 10) < 1) {
-        return res.status(404).json({
-          message: 'No more books in the library'
+        return response.status(404).json({
+          msg: 'No more books in the library'
         });
       }
       const numberofBooksAllowedWithDays =
-          BookFunc.checkMembership(membership);
+          membershipLevel.checkMembership(membership);
       db.History.findAll({
         where: {
           UserId: userId,
@@ -42,7 +59,7 @@ const BookHistoryController = {
               const presentYear = new Date().getFullYear();
               if (borrowDay !== presentDay || borrowMonth !== presentMonth ||
                   borrowYear !== presentYear) {
-                return res.status(400).json({
+                return response.status(403).json({
                   msg: 'You have to return the previous book.'
                 });
               }
@@ -50,7 +67,7 @@ const BookHistoryController = {
             for (let i = numberofBooksBorrowed; i--;) {
               if (parseInt(bookId, 10) ===
                 parseInt(result[i].dataValues.BookId, 10)) {
-                return res.status(400).json({
+                return response.status(403).json({
                   msg: 'You cannot borrow the same book again.'
                 });
               }
@@ -64,29 +81,35 @@ const BookHistoryController = {
                 dueDate: new Date(new Date().getTime() +
                     (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000))
               })
-              .then(() => res.status(201).json({
-                msg: 'You successfully borrow a book.'
-              }))
-              .catch(() => res.status(400).json({
-                msg: 'Cannot create a record.'
+              .then((record) => response.status(201).json({
+                record,
+                msg: 'You successfully borrowed a book.'
               }));
           } else {
-            return res.status(403).json({
+            return response.status(403).json({
               msg: 'You cannot borrow more than your membership level.'
             });
           }
-        })
-        .catch(() => res.status(500).json({
-          msg: 'Something went wrong.'
-        }));
+        });
     })
-      .catch(() => res.status(500).json({
-        msg: 'Something went wrong.'
-      }));
-  },
-  returnBook(req, res) {
-    const bookId = parseInt(req.body.bookId, 10);
-    const userId = parseInt(req.params[0], 10);
+      .catch(() => {
+        response.status(400).json({
+          msg: 'Invalid book id'
+        });
+      });
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BookHistoryController
+   */
+  static returnBook(request, response) {
+    const bookId = parseInt(request.body.bookId, 10);
+    const userId = parseInt(request.params[0], 10);
     return db.History
       .findOne({
         where: {
@@ -98,57 +121,51 @@ const BookHistoryController = {
         include: [
           { model: db.Book }
         ]
-      })
-      .then((history) => {
-        if (history === null) {
-          return res.status(404).json({
+      }).then((record) => {
+        if (record === null) {
+          return response.status(404).json({
             msg: 'No record found'
           });
         }
-        db.Book.update(
+        db.History.update(
           {
-            quantity: parseInt(history.Book.quantity, 10) + 1
+            returned: true
           },
           {
-            fields: ['quantity'],
+            fields: ['returned'],
             where: {
-              id: bookId
+              BookId: bookId,
+              UserId: userId
             }
           }
         )
-          .then(() => {
-            db.History.update(
-              {
-                returned: true
-              },
-              {
-                fields: ['returned'],
-                where: {
-                  BookId: bookId,
-                  UserId: userId
-                }
-              }
-            )
-              .then(bookReturned => res.status(200).json({
-                bookReturned,
-                msg: 'You returned a book.'
-              }))
-              .catch(() => res.status(404).json({
-                msg: 'Your record cannot be updated'
-              }));
-          })
-          .catch(() => res.status(404).json({
-            msg: 'Your record cannot be updated. Try later.'
+          .then(bookReturned => response.status(200).json({
+            bookReturned,
+            msg: 'You returned a book.'
           }));
-      })
-      .catch(() => res.status(400).json({
-        msg: 'Something went wrong.'
-      }));
-  },
-  findUserHistory(req, res) {
-    const userId = parseInt(req.params[0], 10);
+      });
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {undefined}
+   * @memberof BookHistoryController
+   */
+  static findUserHistory(request, response) {
+    const {
+      itemsCountPerPage,
+      page
+    } = request.query;
+    const userId = parseInt(request.params[0], 10);
     let whereStatement = { UserId: userId };
-    if (req.query.returned) {
+
+    const offset = itemsCountPerPage ? itemsCountPerPage * (page - 1) : 0;
+    const limit = itemsCountPerPage || 10;
+
+    if (request.query.returned) {
       whereStatement.returned = false;
     }
     return db.History
@@ -157,15 +174,20 @@ const BookHistoryController = {
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
           { model: db.Book, attributes: ['author', 'title'] }
-        ]
+        ],
+        order: [['updatedAt', 'DESC']],
+        limit: limit,
+        offset: offset
+
       })
-      .then((result) => {
-        res.status(200).json(result.rows);
-      })
-      .catch(() =>
-        res.status(400).json({
-          msg: 'Your have no record.'
-        }));
+      .then((record) => {
+        if (record.count === 0) {
+          return response.status(404).json({
+            msg: 'No record found'
+          });
+        }
+        response.status(200).json({ rows: record.rows, count: record.count });
+      });
   }
-};
+}
 export default BookHistoryController;

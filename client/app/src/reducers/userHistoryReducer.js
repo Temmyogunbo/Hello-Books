@@ -3,16 +3,19 @@ import {
   RETURN_A_BOOK
 } from '../constants/actionTypes';
 
-const initialState = [];
+const initialState = { rows: [], count: 0 };
+let newState;
 
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action) => {
   switch (action.type) {
   case GET_USER_HISTORY:
-    return action.detailedHistory;
+    return { ...action };
   case RETURN_A_BOOK:
-    return state.map(historyObject => (
-      historyObject.BookId === action.BookReturned.BookId ?
-        action.BookReturned : historyObject));
+    newState = state.rows.filter(historyObject => historyObject.BookId !== action.bookReturned.BookId);
+    return {
+      rows: [action.bookReturned, ...newState],
+      count: state.count
+    };
   default:
     return state;
   }

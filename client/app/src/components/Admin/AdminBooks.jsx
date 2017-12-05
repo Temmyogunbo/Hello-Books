@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import $ from 'jquery';
 import cloudinary from 'cloudinary';
-import BookForm from '../Modals/BookForm';
-import CategoryForm from '../Modals/CategoryForm';
+import BookForm from '../Forms/BookForm';
+import AdminBookItems from './AdminBookItems';
+import CategoryForm from '../Forms/CategoryForm';
 
 cloudinary.config({
   cloud_name: process.env.APP_CLOUD_NAME,
@@ -73,7 +74,7 @@ class AdminBooks extends React.Component {
     event.preventDefault();
     const bookId = event.target.parentNode.id;
     const book = this.props.books
-      .find(book => parseInt(book.id, 10) === parseInt(bookId, 10));
+      .find(editBook => parseInt(editBook.id, 10) === parseInt(bookId, 10));
     this.setState({
       book: book
     });
@@ -87,7 +88,7 @@ class AdminBooks extends React.Component {
    */
   handleDelete(book) {
     swal({
-      title: `Delete ${book.author} book?`,
+      title: `Delete ${book.author} book(s)?`,
       text: "You won't be able to revert this!",
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -126,32 +127,6 @@ class AdminBooks extends React.Component {
       addBook,
       history
     } = this.props;
-    let bookItems;
-    if (this.state.books) {
-      bookItems = this.state.books.map((book, index) => (
-        <tr key={book.id}>
-          <td>{index + 1}</td>
-          <td>{book.category}</td>
-          <td>{book.author}</td>
-          <td>{book.title}</td>
-          <td>{book.quantity}</td>
-          <td>{book.description}</td>
-          <td id={book.id}>
-            <i
-              className="material-icons"
-              onClick={this.onClickEditBook}>edit</i>
-
-          </td>
-          <td>
-            <i
-              className="fa fa-trash-o"
-              aria-hidden="true"
-              onClick={() => this.handleDelete(book)}
-            />
-          </td>
-        </tr>
-      ));
-    }
     return (
       <div>
         <BookForm
@@ -180,23 +155,11 @@ class AdminBooks extends React.Component {
           </a>
         </div>
         <div>
-          <table className="bordered centered admin-books">
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Category</th>
-                <th>Author</th>
-                <th>Title</th>
-                <th>Quantity</th>
-                <th>Description</th>
-                <th />
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {bookItems}
-            </tbody>
-          </table>
+          <AdminBookItems
+            books={this.props.books}
+            handleDelete={this.handleDelete}
+            onClickEditBook={this.onClickEditBook}
+          />
         </div>
       </div>
     );

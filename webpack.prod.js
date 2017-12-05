@@ -50,7 +50,7 @@ module.exports = {
         loader: 'url-loader?limit=1000000&mimetype=application/font-woff',
       },
       {
-        test: /\.(svg|png|jpe?g)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(svg|png|jpeg|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
       },
       { test: /\.json$/, loader: 'json-loader' },
@@ -71,16 +71,15 @@ module.exports = {
       template: path.resolve(`${__dirname}/client/app/index.html`)
     }),
     new webpack.DefinePlugin({
-      process: {
-        env: {
-          NODE_ENV: JSON.stringify('production'),
-          SECRET_KEY: JSON.stringify(process.env.SECRET_KEY),
-          APP_CLOUD_NAME: JSON.stringify(process.env.APP_CLOUD_NAME),
-          APP_API_KEY: JSON.stringify(process.env.APP_API_KEY),
-          APP_API_SECRET: JSON.stringify(process.env.APP_API_SECRET),
-          GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID)
-        }
+      "process.env": {
+        NODE_ENV: JSON.stringify('production'),
+        SECRET_KEY: JSON.stringify(process.env.SECRET_KEY),
+        APP_CLOUD_NAME: JSON.stringify(process.env.APP_CLOUD_NAME),
+        APP_API_KEY: JSON.stringify(process.env.APP_API_KEY),
+        APP_API_SECRET: JSON.stringify(process.env.APP_API_SECRET),
+        GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID)
       }
+
     })
   ]
 };

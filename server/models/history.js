@@ -34,35 +34,37 @@ export default (sequelize, DataTypes) => {
       defaultValue: false
     }
   });
-  History.beforeUpdate((borrowedBook) => {
-    Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
-      Book.update(
-        {
-          quantity: parseInt(book.quantity, 10) + 1
-        },
-        {
-          fields: ['quantity'],
-          where: {
-            id: borrowedBook.dataValues.BookId
+  History.beforeCreate((historyCreate) => {
+    Book.findById(parseInt(historyCreate.dataValues.BookId, 10))
+      .then((book) => {
+        Book.update(
+          {
+            quantity: parseInt(book.quantity, 10) - 1
+          },
+          {
+            fields: ['quantity'],
+            where: {
+              id: historyCreate.dataValues.BookId
+            }
           }
-        }
-      );
-    });
+        );
+      });
   });
-  History.afterCreate((borrowedBook) => {
-    Book.findById(parseInt(borrowedBook.dataValues.BookId, 10)).then((book) => {
-      Book.update(
-        {
-          quantity: parseInt(book.quantity, 10) - 1
-        },
-        {
-          fields: ['quantity'],
-          where: {
-            id: borrowedBook.dataValues.BookId
+  History.beforeBulkUpdate((historyUpdate) => {
+    Book.findById(parseInt(historyUpdate.where.BookId, 10))
+      .then((book) => {
+        Book.update(
+          {
+            quantity: parseInt(book.quantity, 10) + 1
+          },
+          {
+            fields: ['quantity'],
+            where: {
+              id: book.dataValues.id,
+            }
           }
-        }
-      );
-    });
+        );
+      });
   });
   History.associate = (models) => {
     // Will add bookId to History
