@@ -91,7 +91,6 @@ class NavigationBar extends React.Component {
   }
   /**
    *
-   *
    * @returns {object} jsx
    * @memberof Navigation
    */

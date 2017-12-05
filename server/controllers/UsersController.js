@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import db from '../models';
 import verify from '../authentication/verify';
 
+
 require('dotenv').config();
 /**
  *
