@@ -1,8 +1,7 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SignInForm from '../Forms/SignInForm';
+import { SignInForm } from '../Forms/SignInForm';
 import { signinAction } from '../../actions/userActions';
 
 const propTypes = {
@@ -16,7 +15,7 @@ const propTypes = {
  * @class SignInPage
  * @extends {React.Component}
  */
-class SignInPage extends React.Component {
+export class SignInPage extends React.Component {
   /**
    * @returns {void}
    *
@@ -74,4 +73,4 @@ export default connect(
   {
     signin: signinAction
   }
-)(withRouter(SignInPage));
+)(SignInPage);

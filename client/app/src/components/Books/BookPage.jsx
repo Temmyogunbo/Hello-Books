@@ -6,6 +6,7 @@ import {
   getAllBooksAction,
   borrowBookAction
 } from '../../actions/bookAction';
+import Button from '../Button';
 
 const propTypes = {
   books: PropTypes.object.isRequired,
@@ -96,9 +97,12 @@ class BookPage extends React.Component {
                 />
               </div>
               <div>
-                <button
-                  className=" bc waves-effect waves-light btn brown darken-4"
-                  onClick={this.handleBorrowBook}>Borrow Book</button>
+                <Button
+                  type={'submit'}
+                  className={"bc waves-effect waves-light btn brown darken-4"}
+                  onClick={this.handleBorrowBook}
+                  children={'Borrow Book'}
+                />
               </div>
             </div>
             <div className="col s6">

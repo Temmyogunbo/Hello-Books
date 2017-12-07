@@ -11,11 +11,14 @@ import NotificationList from './NotificationList';
 const propTypes = {
   role: PropTypes.string.isRequired,
   notifications: PropTypes.array.isRequired,
-  getNotifications: PropTypes.func.isRequired
+  getNotifications: PropTypes.func.isRequired,
+  updateNotification: PropTypes.func.isRequired,
+  total: PropTypes.number
 
 };
 const defaultProps = {
   notifications: [],
+  total: 0
 };
 /**
  *
@@ -82,13 +85,14 @@ class Notifications extends React.Component {
           updateNotification={updateNotification}
           handleFirstLetter={handleFirstLetter}
         />
-        <Pagination
+        {total ? <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.itemsCountPerPage}
           totalItemsCount={total}
           pageRangeDisplayed={5}
           handlePageChange={this.handlePageChange}
-        />
+        /> : null}
+
       </div>
     );
   }

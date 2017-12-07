@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import signInValidation from '../../../utils/signInValidation';
 import TextFieldGroup from './TextFieldGroup';
+import Button from '../Button/index';
 
 const propTypes = {
   signin: PropTypes.func.isRequired,
@@ -12,7 +13,7 @@ const propTypes = {
  * @class SignInForm
  * @extends {React.Component}
  */
-class SignInForm extends React.Component {
+export class SignInForm extends React.Component {
   /**
      * Creates an instance of SignInForm.
      * @param {any} props
@@ -103,12 +104,14 @@ class SignInForm extends React.Component {
             error={errors.password}
           />
         </div>
-        <button
-          className="login-button" type="submit"
-          data-action="log-in-form"
-          disabled={isLoading}>
-                  Log in
-        </button>
+        <Button
+          type={'submit'}
+          group="login-button"
+          dataAction="log-in-form"
+          disabled={isLoading}
+          className="login-button"
+          children={' Log in'}
+        />
       </form>
     );
   }

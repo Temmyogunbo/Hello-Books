@@ -34,7 +34,7 @@ function UserLinks({ isAdmin, signOutAction }) {
         </li>
 
         <li>
-          <Link to="/" onClick={signOutAction()} >
+          <Link to="/" onClick={() => signOutAction()} >
                         Sign out
           </Link>
         </li>
@@ -58,7 +58,7 @@ function UserLinks({ isAdmin, signOutAction }) {
         </li>
 
         <li>
-          <Link to="/" onClick={signOutAction()}>
+          <Link to="/" onClick={() => signOutAction()}>
                         Sign out
           </Link>
         </li>

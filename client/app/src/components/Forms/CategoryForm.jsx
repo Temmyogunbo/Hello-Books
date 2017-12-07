@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 import categoryValidation from '../../../utils/categoryValidation';
 import TextFieldGroup from './TextFieldGroup';
+import Button from "../Button";
 
 const propTypes = {
   createBookCategory: PropTypes.func.isRequired
@@ -97,20 +98,18 @@ class CategoryForm extends React.Component {
                 error={errors.category}
               />
             </div>
-            <button
-              className="brown darken-4 btn s4"
-              type="submit"
+            <Button
+              className={"brown darken-4 btn s4"}
+              type={"submit"}
               disabled={isLoading}
-            >
-                Create
-            </button>
+              children={'Create'}
+            />
           </form>
-          <button
+          <Button
             className="brown darken-4 modal-close btn col s4 push-s6"
             onClick={this.handleClose}
-          >
-            close
-          </button>
+            children={'close'}
+          />
         </div>
       </div>
     );
