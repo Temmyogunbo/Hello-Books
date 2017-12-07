@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 import jwtDecode from 'jwt-decode';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -26,6 +27,7 @@ if (localStorage.jwtToken) {
   store.dispatch(setAuthUser(jwtDecode(localStorage.jwtToken)));
 }
 const history = createHistory();
+window.$ = $;
 
 ReactDOM.render(
   <Provider store={store}>

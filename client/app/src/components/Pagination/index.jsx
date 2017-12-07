@@ -12,7 +12,8 @@ const propTypes = {
   handlePageChange: PropTypes.func.isRequired
 };
 const defaultProps = ({
-  activePage: 1
+  activePage: 1,
+  totalItemsCount: 1
 });
 
 /**

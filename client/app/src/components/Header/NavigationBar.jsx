@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import $ from 'jquery';
 import GuestLinks from './GuestLinks';
 import UserLinks from './UserLinks';
+import { getNotificationsAction } from '../../actions/notificationsAction';
 import { signOutAction } from '../../actions/userActions';
 
+//console.log('this is sign out', signOutAction);
 const propTypes = {
   user: PropTypes.object.isRequired,
   signOutAction: PropTypes.func.isRequired
@@ -17,7 +18,7 @@ const propTypes = {
  * @class Navigation
  * @extends {React.Component}
  */
-class NavigationBar extends React.Component {
+export class NavigationBar extends React.Component {
   /**
    * Creates an instance of Navigation.
    * @param {any} props
@@ -48,6 +49,7 @@ class NavigationBar extends React.Component {
    * @memberof Navigation
    */
   componentDidMount() {
+    const { $ } = window;
     this.var = '';
     $(document).ready(() => {
       $(".button-collapse").sideNav({
@@ -74,6 +76,7 @@ class NavigationBar extends React.Component {
    * @memberof Navigation
    */
   componentDidUpdate() {
+    const { $ } = window;
     this.var = '';
     $(".button-collapse").sideNav({
       closeOnClick: true
@@ -90,7 +93,6 @@ class NavigationBar extends React.Component {
     this.props.signOutAction();
   }
   /**
-   *
    *
    * @returns {object} jsx
    * @memberof Navigation
@@ -113,7 +115,7 @@ class NavigationBar extends React.Component {
             { isAuthenticated ?
               <UserLinks
                 isAdmin={this.state.isAdmin}
-                signOutAction={signOutAction}
+                signOutAction={this.props.signOutAction}
               /> : <GuestLinks /> }
           </div>
         </nav>
@@ -126,4 +128,7 @@ const mapStateToProps = (state) => ({
   user: state.userReducer,
   isAdmin: state.userReducer.user.role
 });
-export default connect(mapStateToProps, { signOutAction })(NavigationBar);
+export default connect(
+  mapStateToProps,
+  { signOutAction }
+)(NavigationBar);

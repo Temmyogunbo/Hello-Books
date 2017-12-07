@@ -3,6 +3,7 @@ import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
 import signUpValidation from '../../../utils/signUpValidation';
 import TextFieldGroup from './TextFieldGroup';
+import Button from '../Button/index';
 
 
 const propTypes = {
@@ -14,7 +15,7 @@ const propTypes = {
  * @class SignUpForm
  * @extends {React.Component}
  */
-class SignUpForm extends React.Component {
+export class SignUpForm extends React.Component {
   /**
    * Creates an instance of SignUpForm.
    * @param {any} props
@@ -124,7 +125,7 @@ class SignUpForm extends React.Component {
         <div className="row">
           <TextFieldGroup
             label={'Username'}
-            field={'fullName'}
+            field={'userName'}
             id={'first_name'}
             type={'text'}
             icon={''}
@@ -136,7 +137,7 @@ class SignUpForm extends React.Component {
         <div className="row">
           <TextFieldGroup
             label={'Email'}
-            field={'name'}
+            field={'email'}
             id={'email'}
             type={'email'}
             icon={''}
@@ -170,12 +171,13 @@ class SignUpForm extends React.Component {
           />
         </div>
         <div className="row">
-          <button
-            id="for-google-signup"
-            className="col s12 m3 signup-button" type="submit"
-            disabled={isLoading}>
-                         Sign up
-          </button>
+          <Button
+            id={"for-google-signup"}
+            className={"col s12 m3 signup-button"}
+            type={"submit"}
+            disabled={isLoading}
+            children={' Sign up'}
+          />
           <div className="col s12 m9">
             <GoogleLogin
               className="right google-button"

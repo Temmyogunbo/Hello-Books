@@ -5,6 +5,7 @@ import swal from "sweetalert2";
 import $ from "jquery";
 import bookValidation from '../../../utils/bookValidation';
 import TextFieldGroup from './TextFieldGroup';
+import Button from '../Button';
 
 cloudinary.config({
   cloud_name: process.env.APP_CLOUD_NAME,
@@ -293,13 +294,13 @@ class BookForm extends React.Component {
               />}
             <div className="row">
               <div className="col sm-4">
-                <button
-                  className="btn red-bg bc btn"
-                  type="submit"
+                <Button
+                  className={"btn red-bg bc btn"}
+                  type={"submit"}
                   disabled={isButtonLoading}
-                >
-                  {this.state.buttonText}
-                </button>
+                  children={this.state.buttonText}
+
+                />
               </div>
               <div className="col">
                 <input
@@ -308,11 +309,13 @@ class BookForm extends React.Component {
                   type="file"
                   onChange={this.uploadToCloudinary}
                 />
-                <button type="button"
+                <Button
+                  type={"button"}
                   onClick={() => document.getElementById('filedisplay').click()}
-                  className="btn brown darken-4">
-                  <i className="material-icons">image</i>
-                </button>
+                  className={"btn brown darken-4"}
+                  icon={'image'}
+
+                />
                 {this.state.isLoading &&
                   <i
                     className="isLoading fa fa-spin fa-spinner"
@@ -322,11 +325,11 @@ class BookForm extends React.Component {
               </div>
             </div>
           </form>
-          <button
-            onClick= {this.handleClose}
-            className="btn brown darken-4 modal-close">
-            close
-          </button>
+          <Button
+            onClick={this.handleClose}
+            className={"btn brown darken-4 modal-close"}
+            children={'close'}
+          />
         </div>
       </div>
     );

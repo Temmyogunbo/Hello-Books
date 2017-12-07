@@ -1,9 +1,7 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SignUpForm from '../Forms/SignUpForm';
-
 import { signupAction } from '../../actions/userActions';
 
 const propTypes = {
@@ -17,7 +15,7 @@ const propTypes = {
  * @class SignupPage
  * @extends {React.Component}
  */
-class SignUpPage extends React.Component {
+export class SignUpPage extends React.Component {
   /**
    * @returns {void}
    *
@@ -56,7 +54,6 @@ class SignUpPage extends React.Component {
             isAuthenticated={isAuthenticated}
             signup={signup}
           />
-
         </div>
 
       </div>
@@ -74,4 +71,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(SignUpPage));
+)(SignUpPage);

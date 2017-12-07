@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 import passwordValidation from '../../../utils/passwordValidation';
 import TextFieldGroup from './TextFieldGroup';
+import Button from '../Button';
 
 const propTypes = {
   changePassword: PropTypes.func.isRequired,
@@ -26,7 +27,7 @@ class ChangePasswordForm extends React.Component {
       oldPassword: '',
       newPassword: '',
       confirmNewPassword: '',
-      isButtonLoading: '',
+      isButtonLoading: false,
       errors: {}
     };
     this.handleChange = this.handleChange.bind(this);
@@ -43,7 +44,7 @@ class ChangePasswordForm extends React.Component {
       oldPassword: '',
       newPassword: '',
       confirmNewPassword: '',
-      isButtonLoading: '',
+      isButtonLoading: false,
       errors: {}
     });
   }
@@ -133,7 +134,7 @@ class ChangePasswordForm extends React.Component {
               <div className="row">
                 <TextFieldGroup
                   label={'New Password'}
-                  field={'password'}
+                  field={'newPassword'}
                   type={'password'}
                   value={this.state.newPassword}
                   handleChange={this.handleChange}
@@ -143,7 +144,7 @@ class ChangePasswordForm extends React.Component {
               <div className="row">
                 <TextFieldGroup
                   label={'Confirm New Password'}
-                  field={'confrimNewPassword'}
+                  field={'confirmNewPassword'}
                   type={'password'}
                   value={this.state.confirmNewPassword}
                   handleChange={this.handleChange}
@@ -151,20 +152,18 @@ class ChangePasswordForm extends React.Component {
                 />
               </div>
             </div>
-            <button
-              className="btn brown darken-4 s4"
-              type="submit"
+            <Button
+              className={"btn brown darken-4 s4"}
+              type={"submit"}
               disabled={isButtonLoading}
-            >
-                        save changes
-            </button>
+              children={'save changes'}
+            />
           </form>
-          <button
-            className="modal-close btn brown darken-4 col s4 push-s6"
+          <Button
+            className={"modal-close btn brown darken-4 col s4 push-s6"}
             onClick={this.handleClose}
-          >
-                    close
-          </button>
+            children={'close'}
+          />
         </div>
       </div>
     );
