@@ -70,7 +70,7 @@ const returnBook = bookReturned => ({
 * @param {object} bookData - contains book message in the library
 */
 export const addBookAction = bookData => dispatch =>
-  axios.post('api/v1/books', bookData)
+  axios.post('/api/v1/books', bookData)
     .then((response) => {
       dispatch(addBook(response.data.book));
       toastr.success('Book(s) successfully added to the library.');
@@ -126,7 +126,7 @@ export const borrowBookAction = bookData => dispatch =>
  */
 export const returnBookAction = returnData => dispatch =>
   axios.put(
-    `api/v1/users/${returnData.userId}/books`,
+    `/api/v1/users/${returnData.userId}/books`,
     { bookId: returnData.BookId }
   )
     .then((response) => {
@@ -147,7 +147,7 @@ export const returnBookAction = returnData => dispatch =>
  * @param {object} bookData - contains id of book to be deleted
 */
 export const deleteBookAction = bookData => dispatch =>
-  axios.delete(`api/v1/books/${bookData.id}`)
+  axios.delete(`/api/v1/books/${bookData.id}`)
     .then(() => {
       dispatch(deleteBook(bookData.id));
       toastr.success('Book deleted');
@@ -161,7 +161,7 @@ export const deleteBookAction = bookData => dispatch =>
 * @param {object} bookData - contains book message in the library
 */
 export const editBookAction = bookData => (dispatch) => {
-  axios.put(`api/v1/books/${bookData.id}`, bookData)
+  axios.put(`/api/v1/books/${bookData.id}`, bookData)
     .then(() => {
       dispatch(editBook(bookData));
       toastr.success('Book updated successfully');

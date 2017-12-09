@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import signInValidation from '../../../utils/signInValidation';
 import TextFieldGroup from './TextFieldGroup';
+import Button from '../Button/index';
 
 const propTypes = {
   signin: PropTypes.func.isRequired,
@@ -12,7 +13,7 @@ const propTypes = {
  * @class SignInForm
  * @extends {React.Component}
  */
-class SignInForm extends React.Component {
+export class SignInForm extends React.Component {
   /**
      * Creates an instance of SignInForm.
      * @param {any} props
@@ -79,36 +80,34 @@ class SignInForm extends React.Component {
         onSubmit={this.onSubmit}
       >
         <h3 className="sign-title">Log in:</h3>
-        <div className="row">
-          <TextFieldGroup
-            label={'Username'}
-            field={'userName'}
-            id={'first_name'}
-            type={'text'}
-            icon={'person'}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.userName}
-          />
-        </div>
-        <div className="row">
-          <TextFieldGroup
-            label={'Password'}
-            field={'password'}
-            id={'password'}
-            type={'password'}
-            icon={'lock'}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.password}
-          />
-        </div>
-        <button
-          className="login-button" type="submit"
-          data-action="log-in-form"
-          disabled={isLoading}>
-                  Log in
-        </button>
+        <TextFieldGroup
+          label={'Username'}
+          field={'userName'}
+          id={'first_name'}
+          type={'text'}
+          icon={'person'}
+          value={this.state.userName}
+          handleChange={this.handleChange}
+          error={errors.userName}
+        />
+        <TextFieldGroup
+          label={'Password'}
+          field={'password'}
+          id={'password'}
+          type={'password'}
+          icon={'lock'}
+          value={this.state.password}
+          handleChange={this.handleChange}
+          error={errors.password}
+        />
+        <Button
+          type={'submit'}
+          group="login-button"
+          dataAction="log-in-form"
+          disabled={isLoading}
+          className="login-button"
+          children={' Log in'}
+        />
       </form>
     );
   }

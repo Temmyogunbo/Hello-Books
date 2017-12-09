@@ -5,12 +5,11 @@ import swal from "sweetalert2";
 import $ from "jquery";
 import bookValidation from '../../../utils/bookValidation';
 import TextFieldGroup from './TextFieldGroup';
+import SelectInputField from './SelectInputField';
+import Button from '../Button';
+import settings from '../../../utils/cloudinarySettings';
 
-cloudinary.config({
-  cloud_name: process.env.APP_CLOUD_NAME,
-  api_key: process.env.APP_API_KEY,
-  api_secret: process.env.APP_API_SECRET
-});
+cloudinary.config(settings);
 
 const propTypes = {
   book: PropTypes.object.isRequired,
@@ -95,6 +94,12 @@ class BookForm extends React.Component {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onloadend = (result) => {
+        if (this.state.isEdit) {
+          cloudinary.uploader.destroy(
+            this.state.imagePublicId,
+            () => {}
+          );
+        }
         cloudinary.v2.uploader.upload(
           result.target.result,
           (error, response) => {
@@ -220,72 +225,51 @@ class BookForm extends React.Component {
    */
   render() {
     const { errors, isButtonLoading } = this.state;
-    const categoryItems = this.props.categories.map(category => (
-      <option
-        key={category.id}
-      >
-        {category.category}
-      </option>
-    ));
     return (
       <div id="book-form-modal" className="add-book-modal modal">
         <div className="row modal-content">
           <div>{this.state.bookHead}</div>
           <form onSubmit={this.onSubmit}>
-            <div className="row">
-              <label>Category</label>
-              <select
-                className="browser-default"
-                onChange={this.handleChange}
-                name="category"
-                value={this.state.category}>
-                <option>Select a category</option>
-                {categoryItems}
-              </select>
-              <span className="error-block">
-                {errors.category}
-              </span>
-            </div>
-            <div className="row">
-              <TextFieldGroup
-                label={'Title'}
-                field={'title'}
-                type={'text'}
-                value={this.state.title}
-                handleChange={this.handleChange}
-                error={errors.title}
-              />
-            </div>
-            <div className="row">
-              <TextFieldGroup
-                label={'Author'}
-                field={'author'}
-                type={'text'}
-                value={this.state.author}
-                handleChange={this.handleChange}
-                error={errors.author}
-              />
-            </div>
-            <div className="row">
-              <TextFieldGroup
-                label={'Quantity'}
-                field={'quantity'}
-                type={'text'}
-                value={this.state.quantity}
-                handleChange={this.handleChange}
-                error={errors.quantity}
-              />
-            </div>
-            <div className="row">
-              <TextFieldGroup
-                label={'Description'}
-                field={'description'}
-                type={'text'}
-                value={this.state.description}
-                handleChange={this.handleChange}
-                error={errors.description}
-              />
-            </div>
+            <SelectInputField
+              label={'category'}
+              field={'category'}
+              items={this.props.categories}
+              handleChange={this.handleChange}
+              value={this.state.category}
+              error={errors.category}
+            />
+            <TextFieldGroup
+              label={'Title'}
+              field={'title'}
+              type={'text'}
+              value={this.state.title}
+              handleChange={this.handleChange}
+              error={errors.title}
+            />
+            <TextFieldGroup
+              label={'Author'}
+              field={'author'}
+              type={'text'}
+              value={this.state.author}
+              handleChange={this.handleChange}
+              error={errors.author}
+            />
+            <TextFieldGroup
+              label={'Quantity'}
+              field={'quantity'}
+              type={'text'}
+              value={this.state.quantity}
+              handleChange={this.handleChange}
+              error={errors.quantity}
+            />
+            <TextFieldGroup
+              label={'Description'}
+              field={'description'}
+              type={'text'}
+              textArea={this.state.description}
+              handleChange={this.handleChange}
+              error={errors.description}
+            />
             {!this.state.isButtonLoading &&
               <img
                 src={this.state.imageUrl}
@@ -293,26 +277,28 @@ class BookForm extends React.Component {
               />}
             <div className="row">
               <div className="col sm-4">
-                <button
-                  className="btn red-bg bc btn"
-                  type="submit"
+                <Button
+                  className={"btn red-bg bc btn"}
+                  type={"submit"}
                   disabled={isButtonLoading}
-                >
-                  {this.state.buttonText}
-                </button>
+                  children={this.state.buttonText}
+
+                />
               </div>
-              <div className="col">
+              <div>
                 <input
                   id="filedisplay"
                   style={{ display: "none" }}
                   type="file"
                   onChange={this.uploadToCloudinary}
                 />
-                <button type="button"
+                <Button
+                  type={"button"}
                   onClick={() => document.getElementById('filedisplay').click()}
-                  className="btn brown darken-4">
-                  <i className="material-icons">image</i>
-                </button>
+                  className={"btn brown darken-4"}
+                  icon={'image'}
+
+                />
                 {this.state.isLoading &&
                   <i
                     className="isLoading fa fa-spin fa-spinner"
@@ -322,11 +308,11 @@ class BookForm extends React.Component {
               </div>
             </div>
           </form>
-          <button
-            onClick= {this.handleClose}
-            className="btn brown darken-4 modal-close">
-            close
-          </button>
+          <Button
+            onClick={this.handleClose}
+            className={"btn brown darken-4 modal-close"}
+            children={'close'}
+          />
         </div>
       </div>
     );

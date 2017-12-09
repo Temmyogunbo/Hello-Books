@@ -6,9 +6,11 @@ const propTypes = {
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   error: PropTypes.string,
+  icon: PropTypes.string,
+  textArea: PropTypes.string,
   id: PropTypes.string,
   type: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired
 };
 TextFieldGroup.defaultProps = {
   type: 'text',
@@ -38,22 +40,30 @@ function TextFieldGroup({
   error,
   type,
   icon,
+  textArea,
   handleChange
 }) {
   return (
     <div >
-      <div className="input-field col.s5">
+      <div className="row input-field col.s5">
         <label htmlFor={id}>
           <i className="material-icons">{icon}</i> {label}
-        </label>
-        <input
-          name={field}
-          id={id}
-          type={type}
-          className="validate"
-          value={value}
-          onChange={handleChange}
-        />
+        </label>{textArea ?
+          <textarea
+            className="materialize-textarea"
+            value={textArea}
+            onChange={handleChange}
+            name={field}
+          /> :
+          <input
+            name={field}
+            id={id}
+            type={type}
+            className="validate"
+            value={value}
+            onChange={handleChange}
+          />}
+
         <span className="error-block">
           {error}
         </span>

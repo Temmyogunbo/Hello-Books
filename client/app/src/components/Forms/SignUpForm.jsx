@@ -3,6 +3,7 @@ import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
 import signUpValidation from '../../../utils/signUpValidation';
 import TextFieldGroup from './TextFieldGroup';
+import Button from '../Button/index';
 
 
 const propTypes = {
@@ -14,7 +15,7 @@ const propTypes = {
  * @class SignUpForm
  * @extends {React.Component}
  */
-class SignUpForm extends React.Component {
+export class SignUpForm extends React.Component {
   /**
    * Creates an instance of SignUpForm.
    * @param {any} props
@@ -109,73 +110,64 @@ class SignUpForm extends React.Component {
         onSubmit={this.onSubmit}
       >
         <h4 className="sign-title">Sign up to HelloBooks:</h4>
+        <TextFieldGroup
+          label={'Full Name'}
+          field={'fullName'}
+          id={'first_name'}
+          type={'text'}
+          icon={''}
+          value={this.state.fullName}
+          handleChange={this.handleChange}
+          error={errors.fullName}
+        />
+        <TextFieldGroup
+          label={'Username'}
+          field={'userName'}
+          id={'first_name'}
+          type={'text'}
+          icon={''}
+          value={this.state.userName}
+          handleChange={this.handleChange}
+          error={errors.userName}
+        />
+        <TextFieldGroup
+          label={'Email'}
+          field={'email'}
+          id={'email'}
+          type={'email'}
+          icon={''}
+          value={this.state.email}
+          handleChange={this.handleChange}
+          error={errors.email}
+        />
+        <TextFieldGroup
+          label={'Password'}
+          field={'password'}
+          id={'password'}
+          type={'password'}
+          icon={''}
+          value={this.state.password}
+          handleChange={this.handleChange}
+          error={errors.password}
+        />
+        <TextFieldGroup
+          label={'Confirm Password'}
+          field={'confirmPassword'}
+          id={'confirm_password'}
+          type={'password'}
+          icon={''}
+          value={this.state.confirmPassword}
+          handleChange={this.handleChange}
+          error={errors.confirmPassword}
+        />
         <div className="row">
-          <TextFieldGroup
-            label={'Full Name'}
-            field={'fullName'}
-            id={'first_name'}
-            type={'text'}
-            icon={''}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.fullName}
+          <Button
+            id={"for-google-signup"}
+            className={"col s12 m3 signup-button"}
+            type={"submit"}
+            disabled={isLoading}
+            children={' Sign up'}
           />
-        </div>
-        <div className="row">
-          <TextFieldGroup
-            label={'Username'}
-            field={'fullName'}
-            id={'first_name'}
-            type={'text'}
-            icon={''}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.userName}
-          />
-        </div>
-        <div className="row">
-          <TextFieldGroup
-            label={'Email'}
-            field={'name'}
-            id={'email'}
-            type={'email'}
-            icon={''}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.email}
-          />
-        </div>
-        <div className="row">
-          <TextFieldGroup
-            label={'Password'}
-            field={'password'}
-            id={'password'}
-            type={'password'}
-            icon={''}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.password}
-          />
-        </div>
-        <div className="row">
-          <TextFieldGroup
-            label={'Confirm Password'}
-            field={'confirmPassword'}
-            id={'confirm_password'}
-            type={'password'}
-            icon={''}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.confirmPassword}
-          />
-        </div>
-        <div className="row">
-          <button
-            id="for-google-signup"
-            className="col s12 m3 signup-button" type="submit"
-            disabled={isLoading}>
-                         Sign up
-          </button>
           <div className="col s12 m9">
             <GoogleLogin
               className="right google-button"

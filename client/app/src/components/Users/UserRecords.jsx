@@ -1,6 +1,7 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
 import PropTypes from 'prop-types';
+import Button from '../Button';
 
 
 const propTypes = {
@@ -30,16 +31,17 @@ function UserRecords({
       <td><TimeAgo date={historyObj.dueDate} /></td>
       <td><TimeAgo date={historyObj.borrowedDate} /></td>
       <td >
-        <button
-          className="bc mr-2 waves-effect waves-light btn brown darken-4 s6"
+        <Button
+          className={"bc mr-2 waves-effect waves-light btn brown darken-4 s6"}
           onClick={() => handleReturnBook({
             historyObj,
             id: userId,
             CB: returnBook
           })
-          }>
-          {historyObj.returned ? "Returned" : "Borrowed"}
-        </button></td>
+          }
+          children={historyObj.returned ? "Returned" : "Borrowed"}
+
+        /></td>
     </tr>
   ));
   return (
@@ -52,29 +54,29 @@ function UserRecords({
         </div>
 
         <div className="col s4">
-          <button className="btn brown darken-4"
+          <Button
+            className={"btn brown darken-4"}
             style={{ fontSize: "15px" }}
             onClick={() => getHistory({
               userId: userId,
               currentPage: activePage,
               itemsCountPerPage: itemsCountPerPage,
               returned: 'false'
-            })}>
-              Borrowed Books
-          </button>
+            })}
+            children={'Borrowed Books'}
+          />
         </div>
         <div className="col s2 ">
-          <button
-            className="btn brown darken-4"
+          <Button
+            className={"btn brown darken-4"}
             style={{ fontSize: "15px" }}
             onClick={() => getHistory({
               userId: userId,
               currentPage: activePage,
               itemsCountPerPage: itemsCountPerPage
             })}
-          >
-              All
-          </button>
+            children={'All'}
+          />
         </div>
 
       </div>

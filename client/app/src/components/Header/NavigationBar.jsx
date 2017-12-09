@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import $ from 'jquery';
 import GuestLinks from './GuestLinks';
 import UserLinks from './UserLinks';
+import { getNotificationsAction } from '../../actions/notificationsAction';
 import { signOutAction } from '../../actions/userActions';
 
+//console.log('this is sign out', signOutAction);
 const propTypes = {
   user: PropTypes.object.isRequired,
   signOutAction: PropTypes.func.isRequired
@@ -17,7 +18,7 @@ const propTypes = {
  * @class Navigation
  * @extends {React.Component}
  */
-class NavigationBar extends React.Component {
+export class NavigationBar extends React.Component {
   /**
    * Creates an instance of Navigation.
    * @param {any} props
@@ -30,25 +31,17 @@ class NavigationBar extends React.Component {
     };
   }
   /**
-*@returns {undefined}
-*
-* @param {any} nextProps
-* @memberof NavigationBar
-*/
-  componentWillMount() {
-    if (this.props.isAdmin === 'admin') {
-      this.setState({
-        isAdmin: true
-      });
-    }
-  }
-  /**
    * @returns {void}
    *
    * @memberof Navigation
    */
   componentDidMount() {
-    this.var = '';
+    const { $ } = window;
+    if (this.props.role === 'admin') {
+      this.setState({
+        isAdmin: true
+      });
+    }
     $(document).ready(() => {
       $(".button-collapse").sideNav({
         closeOnClick: true
@@ -62,9 +55,13 @@ class NavigationBar extends React.Component {
    * @memberof NavigationBar
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isAdmin === 'admin') {
+    if (nextProps.role === 'admin') {
       this.setState({
         isAdmin: true
+      });
+    } else {
+      this.setState({
+        isAdmin: false
       });
     }
   }
@@ -74,6 +71,7 @@ class NavigationBar extends React.Component {
    * @memberof Navigation
    */
   componentDidUpdate() {
+    const { $ } = window;
     this.var = '';
     $(".button-collapse").sideNav({
       closeOnClick: true
@@ -112,7 +110,7 @@ class NavigationBar extends React.Component {
             { isAuthenticated ?
               <UserLinks
                 isAdmin={this.state.isAdmin}
-                signOutAction={signOutAction}
+                signOutAction={this.props.signOutAction}
               /> : <GuestLinks /> }
           </div>
         </nav>
@@ -123,6 +121,9 @@ class NavigationBar extends React.Component {
 NavigationBar.propTypes = propTypes;
 const mapStateToProps = (state) => ({
   user: state.userReducer,
-  isAdmin: state.userReducer.user.role
+  role: state.userReducer.user.role
 });
-export default connect(mapStateToProps, { signOutAction })(NavigationBar);
+export default connect(
+  mapStateToProps,
+  { signOutAction }
+)(NavigationBar);
