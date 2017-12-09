@@ -28,7 +28,7 @@ const getBookCategory = category => ({
  *  @return {object} - returns an object of category
 */
 export const getBookCategoryAction = () => dispatch =>
-  axios.get('api/v1/category')
+  axios.get('/api/v1/category')
     .then((response) => {
       dispatch(getBookCategory(response.data));
     })
@@ -42,7 +42,7 @@ export const getBookCategoryAction = () => dispatch =>
 * @param {object} categoryData - contains      categoryin the library
 */
 export const createBookCategoryAction =
-categoryData => dispatch => axios.post('api/v1/category', categoryData)
+categoryData => dispatch => axios.post('/api/v1/category', categoryData)
   .then((response) => {
     dispatch(createBookCategory(response.data.category));
     toastr.success('You added a category');

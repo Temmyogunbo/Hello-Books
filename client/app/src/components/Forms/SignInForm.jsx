@@ -80,30 +80,26 @@ export class SignInForm extends React.Component {
         onSubmit={this.onSubmit}
       >
         <h3 className="sign-title">Log in:</h3>
-        <div className="row">
-          <TextFieldGroup
-            label={'Username'}
-            field={'userName'}
-            id={'first_name'}
-            type={'text'}
-            icon={'person'}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.userName}
-          />
-        </div>
-        <div className="row">
-          <TextFieldGroup
-            label={'Password'}
-            field={'password'}
-            id={'password'}
-            type={'password'}
-            icon={'lock'}
-            value={this.state.name}
-            handleChange={this.handleChange}
-            error={errors.password}
-          />
-        </div>
+        <TextFieldGroup
+          label={'Username'}
+          field={'userName'}
+          id={'first_name'}
+          type={'text'}
+          icon={'person'}
+          value={this.state.userName}
+          handleChange={this.handleChange}
+          error={errors.userName}
+        />
+        <TextFieldGroup
+          label={'Password'}
+          field={'password'}
+          id={'password'}
+          type={'password'}
+          icon={'lock'}
+          value={this.state.password}
+          handleChange={this.handleChange}
+          error={errors.password}
+        />
         <Button
           type={'submit'}
           group="login-button"

@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import {
   getAllBooksAction,
   borrowBookAction
-} from '../../actions/bookAction';
-import Button from '../Button';
+} from '../../../actions/bookAction';
+import Button from '../../Button';
 
 const propTypes = {
   books: PropTypes.object.isRequired,
@@ -25,10 +25,10 @@ const propTypes = {
  */
 class BookPage extends React.Component {
   /**
-   * Creates an instance of BookPage.
-   * @param {any} props
-   * @memberof BookPage
-   */
+     * Creates an instance of BookPage.
+     * @param {any} props
+     * @memberof BookPage
+     */
   constructor(props) {
     super(props);
     this.state = {
@@ -37,29 +37,29 @@ class BookPage extends React.Component {
     this.handleBorrowBook = this.handleBorrowBook.bind(this);
   }
   /**
-   *
-   * @returns {void}
-   * @memberof BookPage
-   */
+     *
+     * @returns {void}
+     * @memberof BookPage
+     */
   componentDidMount() {
     this.props.getBook({ bookId: this.props.match.params.bookId });
   }
   /**
-   * @returns {void} description -
-   *
-   * @param {any} nextProps
-   * @memberof BookPage
-   */
+     * @returns {void} description -
+     *
+     * @param {any} nextProps
+     * @memberof BookPage
+     */
   componentWillReceiveProps(nextProps) {
     if (nextProps.books !== this.props.books) {
       this.setState({ book: nextProps.books });
     }
   }
   /**
-   *
-   * @returns{void}
-   * @memberof BookPage
-   */
+     *
+     * @returns{void}
+     * @memberof BookPage
+     */
   handleBorrowBook() {
     swal({
       title: 'Do you want to borrow this book?',
@@ -79,11 +79,11 @@ class BookPage extends React.Component {
       .catch(swal.noop);
   }
   /**
-   *
-   *
-   * @returns {object} jsx
-   * @memberof BookPage
-   */
+     *
+     *
+     * @returns {object} jsx
+     * @memberof BookPage
+     */
   render() {
     return (
       <div>
@@ -109,7 +109,7 @@ class BookPage extends React.Component {
               <div className="fs-2">
                 {this.state.book.title}
                 <div>
-                  by {this.state.book.author}
+                    by {this.state.book.author}
                 </div>
               </div>
               <div className="mt-2">
@@ -126,7 +126,7 @@ class BookPage extends React.Component {
 const mapStateToProps = (state, props) => ({
   user: state.userReducer.user,
   books: state.bookReducer.rows.find(book => parseInt(book.id, 10) ===
-    parseInt(props.match.params.bookId, 10))
+        parseInt(props.match.params.bookId, 10))
 });
 BookPage.propTypes = propTypes;
 export default connect(mapStateToProps, {

@@ -13,16 +13,16 @@ const propTypes = {
  * @param {any} props
  * @returns {object} jsx
  */
-function BooksContainer({ books }) {
+function CardList({ books }) {
   return (
-    <div>
+    <div className="col s9 l9 m9">
       {
         isEmpty(books) ?
           <ul >
 
             {books && books.map(book => (<li
               key={book.id}
-              className="col s3 l3 m3"
+              className="col s2 l3 m3"
             >
               <Link to={`/collections/books/${book.id}`}>
                 <div className="book-size card">
@@ -31,7 +31,7 @@ function BooksContainer({ books }) {
                     <img
                       role="book cover"
                       src={book.imageUrl}
-                      style={{ width: '100%', height: '150px' }}/>
+                      style={{ width: '100%', height: '150px' }} />
                   </div>
                   <div className="card-content card-color">
                     {book.title}
@@ -41,10 +41,10 @@ function BooksContainer({ books }) {
 
             </li>))}
           </ul> :
-          <h3>There are now no books in the library.</h3> }
+          <h3>There are now no books in the library.</h3>}
     </div>
   );
 }
-BooksContainer.propTypes = propTypes;
+CardList.propTypes = propTypes;
 
-export default BooksContainer;
+export default CardList;

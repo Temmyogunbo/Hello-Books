@@ -88,16 +88,14 @@ class CategoryForm extends React.Component {
         <div className="row modal-content">
           <div>CREATE A CATEGORY</div>
           <form onSubmit={this.onSubmit}>
-            <div>
-              <TextFieldGroup
-                label={'Category'}
-                field={'category'}
-                type={'text'}
-                value={this.state.category}
-                handleChange={this.handleChange}
-                error={errors.category}
-              />
-            </div>
+            <TextFieldGroup
+              label={'Category'}
+              field={'category'}
+              type={'text'}
+              value={this.state.category}
+              handleChange={this.handleChange}
+              error={errors.category}
+            />
             <Button
               className={"brown darken-4 btn s4"}
               type={"submit"}
