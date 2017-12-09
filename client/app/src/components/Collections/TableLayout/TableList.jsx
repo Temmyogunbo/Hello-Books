@@ -12,10 +12,10 @@ const propTypes = {
  * @param {any} props
  * @returns {object} jsx
  */
-function AdminBookItems({ books, onClickEditBook, handleDelete }) {
+function TableList({ books, onClickEditBook, handleDelete }) {
   return (
     <div>{
-      <table className="bordered left admin-books">
+      <table className="bordered left responsive-table">
         <thead>
           <tr>
             <th>S/N</th>
@@ -28,7 +28,7 @@ function AdminBookItems({ books, onClickEditBook, handleDelete }) {
             <th />
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {books.map((book, index) =>
             (<tr key={book.id}>
               <td>{index + 1}</td>
@@ -57,6 +57,6 @@ function AdminBookItems({ books, onClickEditBook, handleDelete }) {
     </div>
   );
 }
-AdminBookItems.propTypes = propTypes;
+TableList.propTypes = propTypes;
 
-export default AdminBookItems;
+export default TableList;

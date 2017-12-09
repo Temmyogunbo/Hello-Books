@@ -2,8 +2,8 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getBookCategoryAction } from '../../actions/categoryAction';
-import { getAllBooksAction } from '../../actions/bookAction';
+import { getBookCategoryAction } from '../../../actions/categoryAction';
+import { getAllBooksAction } from '../../../actions/bookAction';
 
 const propTypes = {
   category: PropTypes.array.isRequired,
@@ -20,10 +20,10 @@ const propTypes = {
  */
 class BookCategories extends React.Component {
   /**
-   * Creates an instance of BookCategories.
-   * @param {any} props
-   * @memberof BookCategories
-   */
+     * Creates an instance of BookCategories.
+     * @param {any} props
+     * @memberof BookCategories
+     */
   constructor(props) {
     super(props);
     this.state = {
@@ -31,19 +31,19 @@ class BookCategories extends React.Component {
     };
   }
   /**
-   * @returns {void}
-   *
-   * @memberof BookCategories
-   */
+     * @returns {void}
+     *
+     * @memberof BookCategories
+     */
   componentDidMount() {
     this.props.getBookCategory();
   }
   /**
-   * @returns {void}
-   *
-   * @param {any} nextProps
-   * @memberof BookCategories
-   */
+     * @returns {void}
+     *
+     * @param {any} nextProps
+     * @memberof BookCategories
+     */
   componentWillReceiveProps(nextProps) {
     if (nextProps.category !== this.props.category) {
       this.setState({ categories: nextProps.category });
@@ -51,11 +51,11 @@ class BookCategories extends React.Component {
   }
 
   /**
-   *
-   *
-   * @returns {object} jsx
-   * @memberof BookCategories
-   */
+     *
+     *
+     * @returns {object} jsx
+     * @memberof BookCategories
+     */
   render() {
     const {
       itemsCountPerPage,
@@ -78,22 +78,23 @@ class BookCategories extends React.Component {
       ));
     }
     return (
-
-      isEmpty(categoryItems) ? <div /> : <ul className="book-categories col s3">
-        <h5>CATEGORY </h5>
-        <li>
-          <div
-            onClick={() => this.props.getAllBooksByCategory({
-              bookCategory: '',
-              currentPage: currentPage,
-              itemsCountPerPage: itemsCountPerPage
-            })}
-          >
-              All
-          </div>
-        </li>
-        {categoryItems}
-      </ul>
+      <div className="col s3 l3 m3"
+      >
+        { isEmpty(categoryItems) ? <div /> : <ul className="book-categories col s3 m3 l3">
+          <h5>CATEGORY </h5>
+          <li>
+            <div
+              onClick={() => this.props.getAllBooksByCategory({
+                bookCategory: '',
+                currentPage: currentPage,
+                itemsCountPerPage: itemsCountPerPage
+              })}
+            >
+                        All
+            </div>
+          </li>
+          {categoryItems}
+        </ul>}</div>
 
 
     );

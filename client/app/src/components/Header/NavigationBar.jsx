@@ -31,26 +31,17 @@ export class NavigationBar extends React.Component {
     };
   }
   /**
-*@returns {undefined}
-*
-* @param {any} nextProps
-* @memberof NavigationBar
-*/
-  componentWillMount() {
-    if (this.props.isAdmin === 'admin') {
-      this.setState({
-        isAdmin: true
-      });
-    }
-  }
-  /**
    * @returns {void}
    *
    * @memberof Navigation
    */
   componentDidMount() {
     const { $ } = window;
-    this.var = '';
+    if (this.props.role === 'admin') {
+      this.setState({
+        isAdmin: true
+      });
+    }
     $(document).ready(() => {
       $(".button-collapse").sideNav({
         closeOnClick: true
@@ -64,9 +55,13 @@ export class NavigationBar extends React.Component {
    * @memberof NavigationBar
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isAdmin === 'admin') {
+    if (nextProps.role === 'admin') {
       this.setState({
         isAdmin: true
+      });
+    } else {
+      this.setState({
+        isAdmin: false
       });
     }
   }
@@ -126,7 +121,7 @@ export class NavigationBar extends React.Component {
 NavigationBar.propTypes = propTypes;
 const mapStateToProps = (state) => ({
   user: state.userReducer,
-  isAdmin: state.userReducer.user.role
+  role: state.userReducer.user.role
 });
 export default connect(
   mapStateToProps,

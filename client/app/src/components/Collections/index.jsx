@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AdminBooks from '../Admin/AdminBooks';
-import BookCategories from '../Books/BookCategories';
-import BooksContainer from '../Books/BooksContainer';
+import TableLayout from './TableLayout';
+import BookCategories from './BookCategories';
+import CardLayout from './CardLayout';
 import {
   getAllBooksAction,
   borrowBookAction,
@@ -15,8 +15,29 @@ import {
   createBookCategoryAction,
   getBookCategoryAction
 } from '../../actions/categoryAction';
+import { getNotificationsAction } from '../../actions/notificationsAction';
 import Pagination from '../Pagination';
 
+
+const propTypes = {
+  user: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  books: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
+  bookCategory: PropTypes.array.isRequired,
+  editBook: PropTypes.func.isRequired,
+  getAllBooks: PropTypes.func.isRequired,
+  borrowBook: PropTypes.func.isRequired,
+  addBook: PropTypes.func.isRequired,
+  deleteBook: PropTypes.func.isRequired,
+  getBookCategory: PropTypes.func.isRequired,
+  createBookCategory: PropTypes.func.isRequired,
+  getNotifications: PropTypes.func.isRequired
+};
+const defaultProps = {
+  total: 0,
+  books: []
+};
 /**
  *
  * @returns {object} jsx
@@ -25,10 +46,10 @@ import Pagination from '../Pagination';
  */
 class CollectionPage extends React.Component {
   /**
-   * Creates an instance of CollectionPage.
-   * @param {any} props
-   * @memberof CollectionPage
-   */
+     * Creates an instance of CollectionPage.
+     * @param {any} props
+     * @memberof CollectionPage
+     */
   constructor(props) {
     super(props);
     this.state = {
@@ -41,35 +62,32 @@ class CollectionPage extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
   /**
-   * @returns {void}
-   *
-   * @memberof CollectionPage
-   */
-  componentWillMount() {
+     * @returns {void} jsx
+     *
+     * @memberof CollectionPage
+     */
+  componentDidMount() {
     if (this.props.user.role === 'admin') {
       this.setState({
         isAdmin: true
       });
     }
-  }
-  /**
-   * @returns {void} jsx
-   *
-   * @memberof CollectionPage
-   */
-  componentDidMount() {
     this.props.getAllBooks({
       bookCategory: '',
       currentPage: this.state.activePage,
       itemsCountPerPage: this.state.itemsCountPerPage
     });
+    this.props.getNotifications({
+      currentPage: 1,
+      itemsCountPerPage: 5
+    });
   }
   /**
- * @returns {void}
- *
- * @param {any} nextProps
- * @memberof CollectionPage
- */
+   * @returns {void}
+   *
+   * @param {any} nextProps
+   * @memberof CollectionPage
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.bookCategory !== this.props.bookCategory) {
       this.setState({ categories: nextProps.bookCategory });
@@ -79,11 +97,11 @@ class CollectionPage extends React.Component {
     }
   }
   /**
-   * @returns {undefined}
-   *
-   * @param {any} pageNumber
-   * @memberof CollectionPage
-   */
+     * @returns {undefined}
+     *
+     * @param {any} pageNumber
+     * @memberof CollectionPage
+     */
   handlePageChange(pageNumber) {
     this.setState({
       activePage: pageNumber,
@@ -94,11 +112,11 @@ class CollectionPage extends React.Component {
     }));
   }
   /**
-   *
-   *
-   * @returns {object} jsx
-   * @memberof CollectionPage
-   */
+     *
+     *
+     * @returns {object} jsx
+     * @memberof CollectionPage
+     */
   render() {
     const {
       user,
@@ -110,18 +128,17 @@ class CollectionPage extends React.Component {
       deleteBook,
       createBookCategory,
       history,
-      paginate
+      total
     } = this.props;
     return (
       <div className="container mt-2">
         <div className="row">
           <BookCategories
-            className="col s3 l3 m3"
             currentPage={this.state.activePage}
             itemsCountPerPage={this.state.itemsCountPerPage}
           />
-          {this.state.isAdmin ? <div className="col s9">
-            <AdminBooks
+          {this.state.isAdmin ?
+            <TableLayout
               books={this.state.books}
               userId={user.id}
               addBook={addBook}
@@ -131,21 +148,18 @@ class CollectionPage extends React.Component {
               categories={this.state.categories}
               getAllBooks={getAllBooks}
               history={history}
-            />
-          </div> :
-            <div className="col s9 l9 m9">
-              <BooksContainer
-                books={books}
-                user={user}
-                borrowBook={borrowBook}
-                getAllBooks={getAllBooks}
-              />
-            </div>}
+            /> :
+            <CardLayout
+              books={books}
+              user={user}
+              borrowBook={borrowBook}
+              getAllBooks={getAllBooks}
+            />}
         </div>
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.itemsCountPerPage}
-          totalItemsCount={paginate}
+          totalItemsCount={total}
           pageRangeDisplayed={5}
           handlePageChange={this.handlePageChange}
         />
@@ -153,17 +167,15 @@ class CollectionPage extends React.Component {
     );
   }
 }
-CollectionPage.PropTypes = {
-  user: PropTypes.object.isRequired,
-  books: PropTypes.object.isRequired,
-  getAllBooks: PropTypes.func.isRequired
-};
+CollectionPage.propTypes = propTypes;
+CollectionPage.defaultProps = defaultProps;
+
 
 const mapStateToProps = (state) => ({
   user: state.userReducer.user,
   isAuthenticated: state.userReducer.isAuthenticated,
   books: state.bookReducer.rows,
-  paginate: state.bookReducer.count,
+  total: state.bookReducer.count,
   bookCategory: state.bookCategoryReducer
 });
 
@@ -178,7 +190,8 @@ connect(
     addBook: addBookAction,
     deleteBook: deleteBookAction,
     getBookCategory: getBookCategoryAction,
-    createBookCategory: createBookCategoryAction
+    createBookCategory: createBookCategoryAction,
+    getNotifications: getNotificationsAction
   }
 )(CollectionPage);
 

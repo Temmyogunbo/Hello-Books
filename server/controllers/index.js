@@ -5,5 +5,6 @@ import BookHistoryController from './BookHistoryController';
 export default {
   UsersController,
   BooksController,
-  BookHistoryController
+  BookHistoryController,
+
 };

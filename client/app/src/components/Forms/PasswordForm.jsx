@@ -120,38 +120,30 @@ class ChangePasswordForm extends React.Component {
         <div className="row modal-content">
           <div>CHANGE PASSWORD</div>
           <form onSubmit={this.onSubmit}>
-            <div>
-              <div className="row">
-                <TextFieldGroup
-                  label={'Old Password'}
-                  field={'oldPassword'}
-                  type={'password'}
-                  value={this.state.oldPassword}
-                  handleChange={this.handleChange}
-                  error={errors.description}
-                />
-              </div>
-              <div className="row">
-                <TextFieldGroup
-                  label={'New Password'}
-                  field={'newPassword'}
-                  type={'password'}
-                  value={this.state.newPassword}
-                  handleChange={this.handleChange}
-                  error={errors.newPassword}
-                />
-              </div>
-              <div className="row">
-                <TextFieldGroup
-                  label={'Confirm New Password'}
-                  field={'confirmNewPassword'}
-                  type={'password'}
-                  value={this.state.confirmNewPassword}
-                  handleChange={this.handleChange}
-                  error={errors.confirmNewPassword}
-                />
-              </div>
-            </div>
+            <TextFieldGroup
+              label={'Old Password'}
+              field={'oldPassword'}
+              type={'password'}
+              value={this.state.oldPassword}
+              handleChange={this.handleChange}
+              error={errors.description}
+            />
+            <TextFieldGroup
+              label={'New Password'}
+              field={'newPassword'}
+              type={'password'}
+              value={this.state.newPassword}
+              handleChange={this.handleChange}
+              error={errors.newPassword}
+            />
+            <TextFieldGroup
+              label={'Confirm New Password'}
+              field={'confirmNewPassword'}
+              type={'password'}
+              value={this.state.confirmNewPassword}
+              handleChange={this.handleChange}
+              error={errors.confirmNewPassword}
+            />
             <Button
               className={"btn brown darken-4 s4"}
               type={"submit"}

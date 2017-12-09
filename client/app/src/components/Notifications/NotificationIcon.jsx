@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getNotificationsAction } from '../../actions/notificationsAction';
 
 const propTypes = {
   total: PropTypes.number.isRequired,
@@ -17,17 +16,6 @@ const defaultProps = {
  * @extends {React.Component}
  */
 class NotificationIcon extends React.Component {
-  /**
-     * @returns {void}
-     *
-     * @memberof NotificationIcon
-     */
-  componentDidMount() {
-    this.props.getNotifications({
-      currentPage: 1,
-      itemsCountPerPage: 5
-    });
-  }
   /**
    *
    *
@@ -59,6 +47,4 @@ const mapStateToProps = (state) => ({
   role: state.userReducer.user.role,
   total: state.notificationsReducer.total
 });
-export default connect(mapStateToProps, {
-  getNotifications: getNotificationsAction
-})(NotificationIcon);
+export default connect(mapStateToProps, null)(NotificationIcon);

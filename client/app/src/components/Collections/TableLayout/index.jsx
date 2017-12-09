@@ -3,18 +3,22 @@ import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import $ from 'jquery';
 import cloudinary from 'cloudinary';
-import BookForm from '../Forms/BookForm';
-import AdminBookItems from './AdminBookItems';
-import CategoryForm from '../Forms/CategoryForm';
+import BookForm from '../../Forms/BookForm';
+import TableList from './TableList';
+import CategoryForm from '../../Forms/CategoryForm';
+import settings from '../../../../utils/cloudinarySettings';
 
-cloudinary.config({
-  cloud_name: process.env.APP_CLOUD_NAME,
-  api_key: process.env.APP_API_KEY,
-  api_secret: process.env.APP_API_SECRET
-});
+cloudinary.config(settings);
 
 const propTypes = {
-  books: PropTypes.array.isRequired
+  books: PropTypes.array.isRequired,
+  userId: PropTypes.number.isRequired,
+  categories: PropTypes.array.isRequired,
+  createBookCategory: PropTypes.func.isRequired,
+  editBook: PropTypes.func.isRequired,
+  addBook: PropTypes.func.isRequired,
+  deleteBook: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 /**
  *
@@ -22,26 +26,27 @@ const propTypes = {
  * @class BookPage
  * @extends {React.Component}
  */
-class AdminBooks extends React.Component {
+class AdminTable extends React.Component {
   /**
-   * Creates an instance of AdminBooks.
-   * @param {any} props
-   * @memberof AdminBooks
-   */
+     * Creates an instance of AdminBooks.
+     * @param {any} props
+     * @memberof AdminBooks
+     */
   constructor(props) {
     super(props);
     this.state = {
       book: {},
-      books: []
+      books: [],
+      numberOfTimesBookDeleted: 0
     };
     this.onClickEditBook = this.onClickEditBook.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
   /**
-   * @returns {void}
-   *
-   * @memberof AdminBooks
-   */
+     * @returns {void}
+     *
+     * @memberof AdminBooks
+     */
   componentDidMount() {
     this.var = '';
     $(document).ready(() => {
@@ -52,24 +57,27 @@ class AdminBooks extends React.Component {
     $('#book-category-form-modal').modal({
       dismissible: false
     });
+    this.setState({
+      numberOfTimesBookDeleted: 0
+    });
   }
   /**
-   * @returns {void}
-   *
-   * @param {any} nextProps
-   * @memberof AdminBooks
-   */
+     * @returns {void}
+     *
+     * @param {any} nextProps
+     * @memberof AdminBooks
+     */
   componentWillReceiveProps(nextProps) {
     if (nextProps.books !== this.props.books) {
       this.setState({ books: nextProps.books });
     }
   }
   /**
-   * @returns {void}
-   *
-   * @param {any} event
-   * @memberof AdminBooks
-   */
+     * @returns {void}
+     *
+     * @param {any} event
+     * @memberof AdminBooks
+     */
   onClickEditBook(event) {
     event.preventDefault();
     const bookId = event.target.parentNode.id;
@@ -81,11 +89,11 @@ class AdminBooks extends React.Component {
     return $('#book-form-modal').modal('open');
   }
   /**
-   * @returns {void}
-   *
-   * @param {any} book
-   * @memberof AdminBooks
-   */
+     * @returns {void}
+     *
+     * @param {any} book
+     * @memberof AdminBooks
+     */
   handleDelete(book) {
     swal({
       title: `Delete ${book.author} book(s)?`,
@@ -96,15 +104,29 @@ class AdminBooks extends React.Component {
       confirmButtonText: 'Yes, delete it!'
     }).then(() => {
       this.props.deleteBook(book);
-      cloudinary.uploader.destroy(book.imagePublicId, (result) => { console.log(result); });
+      cloudinary.uploader.destroy(
+        book.imagePublicId,
+        (result) => {}
+      );
+      this.setState({
+        numberOfTimesBookDeleted: this.state.numberOfTimesBookDeleted + 1
+      });
+
+      if (this.state.numberOfTimesBookDeleted === 5) {
+        this.props.getAllBooks({
+          bookCategory: '',
+          currentPage: 1,
+          itemsCountPerPage: 5
+        });
+      }
     }).catch(swal.noop);
   }
   /**
- *
- * @return {void} the add book action is dispatched
- * @param {void} event - on click event
- * @memberof add Book form
- */
+   *
+   * @return {void} the add book action is dispatched
+   * @param {void} event - on click event
+   * @memberof add Book form
+   */
   handleSubmit(event) {
     event.preventDefault();
     if (this.validateForm()) {
@@ -113,11 +135,11 @@ class AdminBooks extends React.Component {
     }
   }
   /**
-   *
-   *
-   * @returns {object} jsx
-   * @memberof AdminBooks
-   */
+     *
+     *
+     * @returns {object} jsx
+     * @memberof AdminBooks
+     */
   render() {
     const {
       userId,
@@ -128,7 +150,7 @@ class AdminBooks extends React.Component {
       history
     } = this.props;
     return (
-      <div>
+      <div className="col s9 m9 l9">
         <BookForm
           book={this.state.book}
           userId={userId}
@@ -140,31 +162,31 @@ class AdminBooks extends React.Component {
         <CategoryForm
           createBookCategory={createBookCategory}
         />
-        <div className="btn-edit-add">
+        <div className="right">
           <a
-            className="bc mr-2 waves-effect waves-light btn modal-trigger brown darken-4"
+            className=
+              "bc mr-2 btn modal-trigger brown darken-4"
             href="#book-category-form-modal"
           >
-              CREATE A CATEGORY
+                        CREATE A CATEGORY
           </a>
           <a
-            className="waves-effect waves-light btn modal-trigger brown darken-4"
+            className=
+              "btn modal-trigger brown darken-4"
             href="#book-form-modal"
           >
-              ADD BOOK
+                        ADD BOOK
           </a>
         </div>
-        <div>
-          <AdminBookItems
-            books={this.props.books}
-            handleDelete={this.handleDelete}
-            onClickEditBook={this.onClickEditBook}
-          />
-        </div>
+        <TableList
+          books={this.props.books}
+          handleDelete={this.handleDelete}
+          onClickEditBook={this.onClickEditBook}
+        />
       </div>
     );
   }
 }
-AdminBooks.propTypes = propTypes;
-export default AdminBooks;
+AdminTable.propTypes = propTypes;
+export default AdminTable;
 
