@@ -33,7 +33,6 @@ class BookForm extends React.Component {
     super(props);
     this.state = {
       imagePublicId: '',
-      imagePublicIdForEdit: '',
       id: '',
       bookHead: 'ADD BOOK BY CATEGORY',
       buttonText: 'ADD BOOK',
@@ -42,7 +41,7 @@ class BookForm extends React.Component {
       description: '',
       title: '',
       author: '',
-      quantity: '',
+      quantity: 0,
       imageUrl: '',
       isLoading: false,
       isButtonLoading: true,
@@ -140,7 +139,7 @@ class BookForm extends React.Component {
       description: '',
       title: '',
       author: '',
-      quantity: '',
+      quantity: 0,
       bookHead: 'ADD BOOK BY CATEGORY',
       buttonText: 'ADD BOOK',
       isEdit: false,

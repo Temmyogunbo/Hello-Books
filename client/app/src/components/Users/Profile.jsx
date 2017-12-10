@@ -9,7 +9,8 @@ function Profile(props) {
   const {
     fullName,
     userName,
-    email
+    email,
+    membership
   } = props.user;
   return (
     <div className="col s9 mt-2">
@@ -32,6 +33,10 @@ function Profile(props) {
           <li>
             <span className="fs-2 mt-2">Email</span>
             <span className="ml-5 mt-2 fs-1">{email}</span>
+          </li>
+          <li>
+            <span className="fs-2 mt-2">Membership</span>
+            <span className="ml-5 mt-2 fs-1">{membership}</span>
           </li>
         </ul>
         <br />

@@ -28,24 +28,24 @@ export default (app) => {
   app.get(
     /^\/api\/v1\/books\/(\d+)$/,
     verify.isLoggedIn,
-    BooksController.findBooks
+    BooksController.findBookOrBooks
   );
   app.get(
     /^\/api\/v1\/books$/, verify.isLoggedIn,
-    BooksController.findBooks
+    BooksController.findBookOrBooks
   );
   app.post(
     /^\/api\/v1\/books$/, verify.isLoggedIn,
     verify.checkIfAdmin,
     verify.validateBookRequest,
-    BooksController.createBook
+    BooksController.addBook
   );
 
   app.post(
     /^\/api\/v1\/category$/, verify.isLoggedIn,
     verify.checkIfAdmin,
     verify.validateBookRequest,
-    BooksController.createCategory
+    BooksController.addCategory
   );
   app.put(
     /^\/api\/v1\/books\/(\d+)$/, verify.isLoggedIn,

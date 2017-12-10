@@ -15,7 +15,7 @@ class BooksController {
    * @returns {undefined}
    * @memberof BooksController
    */
-  static createBook(request, response) {
+  static addBook(request, response) {
     const {
       title,
       category,
@@ -61,7 +61,7 @@ class BooksController {
  * @returns {undefined}
  * @memberof BooksController
  */
-  static createCategory(request, response) {
+  static addCategory(request, response) {
     return db.Categories.create({
       category: request.body.category
     })
@@ -97,7 +97,7 @@ class BooksController {
    * @returns {undefined}
    * @memberof BooksController
    */
-  static findBooks(request, response) {
+  static findBookOrBooks(request, response) {
     const {
       itemsCountPerPage,
       page,

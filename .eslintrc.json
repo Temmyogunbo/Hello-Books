@@ -4,17 +4,13 @@
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true,
-    "browser": true,
-    "jest": true
+    "mocha": true
   },
   "settings": {
     "import/resolver": {
       "node": {
         "extensions": [
-          ".js",
-          ".jsx"
-        ]
+          ".js"        ]
       }
     }
   },

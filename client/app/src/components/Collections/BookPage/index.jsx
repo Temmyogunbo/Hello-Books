@@ -74,7 +74,7 @@ class BookPage extends React.Component {
           userId: this.props.user.id,
           membership: this.props.user.membership
         });
-        this.props.history.goBack();
+       this.props.history.goBack();
       })
       .catch(swal.noop);
   }

@@ -1,5 +1,5 @@
 {
-  "name": "temmyogunbo",
+  "name": "hellobooks",
   "version": "6.11.2",
   "private": true,
   "scripts": {
@@ -7,19 +7,13 @@
     "dev": "npm run build:dev",
     "build:dev": "nodemon --watch server --exec babel-node -- ./server/bin/www.js test:watch",
     "pretest": "npm run cleardb && cross-env NODE_ENV=test sequelize db:migrate && cross-env NODE_ENV=test sequelize db:seed:all",
-    "client:test": "jest client/app/test/**/*.spec.js --coverage",
     "test": "cross-env NODE_ENV=test nyc mocha --timeout 10000 ./server/test/**/*.js",
     "test:watch": "npm run test -- --watch",
     "cleardb": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
-    "client:dev": "webpack-dev-server --config webpack.config.js",
-    "build:prod": "webpack --config webpack.prod.js -p",
-    "heroku-postbuild": "npm run build:prod"
+    "heroku-postbuild": "cd client && npm i &&  npm run build"
   },
   "engines": {
     "node": "6.11.1"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "./client/app/test/setup.js"
   },
   "nyc": {
     "require": [
