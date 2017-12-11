@@ -5,22 +5,24 @@ module.exports = {
   verbose: true,
   collectCoverage: true,
   testPathIgnorePatterns: [
-    './server/',
     './node_modules/',
-    'client/app/test/',
-    'client/app/public'
+    'app/__tests__/__mocks__',
+    'app/public',
+    'app/__tests__/setup.js',
+
   ],
-  setupTestFrameworkScriptFile: './client/app/test/setup.js',
+  setupTestFrameworkScriptFile: './app/__tests__/setup.js',
   collectCoverageFrom: [
-    'client/app/**/*.{js,jsx}',
-    '!client/app/index.js',
-    '!client/app/socket',
-    '!client/app/sass',
+    'app/**/*.{js,jsx}',
+    '!app/index.html',
+    '!app/socket',
+    '!app/sass',
   ],
+  coverageDirectory: './coverage', 
   moduleFileExtensions: ['js', 'jsx'],
-//   moduleNameMapper: {
-//     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$':
-//         '<rootDir>/client/__tests__/__mocks__/fileMock.js',
-//     '\\.(css|scss)$': '<rootDir>/client/app/test/__mocks__/styleMock.js'
-//   },
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$':
+        '<rootDir>/app/__tests__/__mocks__/fileMock.js',
+    '\\.(css|scss)$': '<rootDir>/app/__tests__/__mocks__/styleMock.js'
+  },
 };

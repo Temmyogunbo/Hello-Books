@@ -15,7 +15,7 @@ const propTypes = {
 function TableList({ books, onClickEditBook, handleDelete }) {
   return (
     <div>{
-      <table className="bordered left responsive-table">
+      <table className="bordered left responsive-table table">
         <thead>
           <tr>
             <th>S/N</th>
@@ -32,11 +32,11 @@ function TableList({ books, onClickEditBook, handleDelete }) {
           {books.map((book, index) =>
             (<tr key={book.id}>
               <td>{index + 1}</td>
-              <td>{book.category}</td>
-              <td>{book.author}</td>
-              <td>{book.title}</td>
+              <td style={{ width: "2000px" }}>{book.category}</td>
+              <td style={{ width: "2000px" }}>{book.author}</td>
+              <td style={{width: "2000px"}}>{book.title}</td>
               <td>{book.quantity}</td>
-              <td>{book.description}</td>
+              <td className="word" style={{ width: "5000px" }}>{book.description}</td>
               <td id={book.id}>
                 <i
                   className="material-icons"
