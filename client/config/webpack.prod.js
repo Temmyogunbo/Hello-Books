@@ -11,7 +11,7 @@ module.exports = {
   target: 'web',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(`./app/public`),
+    path: path.resolve('./app/public'),
     publicPath: 'https://emmanuelhellobooks.herokuapp.com/',
 
   },
@@ -69,7 +69,7 @@ module.exports = {
       parallel: 4
    }),
     new HtmlWebpackPlugin({
-      template: path.resolve(`./app/index.html`)
+      template: path.resolve('./app/index.html')
     }),
     new webpack.DefinePlugin({
       "process.env": {

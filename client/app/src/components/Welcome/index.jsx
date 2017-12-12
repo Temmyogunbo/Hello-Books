@@ -31,7 +31,7 @@ class SplashScreen extends React.Component {
         <div className="image" />
         <div className="row welcome-message-container">
           <div className="col s6 push-s3">
-            <h1>Welcome to HelloBooks</h1>
+            <div >Welcome to HelloBooks</div>
             <p className="welcome-message">
                 Your platform to up to date books.<br />
                 You can borrow, and read <br />

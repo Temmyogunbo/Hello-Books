@@ -79,7 +79,7 @@ export class SignInForm extends React.Component {
         className="col s6 push-s3 l4 push-l4 div-container-form"
         onSubmit={this.onSubmit}
       >
-        <h3 className="sign-title">Log in:</h3>
+        <h3 className="sign-title">Log in:</h3><br />
         <TextFieldGroup
           label={'Username'}
           field={'userName'}

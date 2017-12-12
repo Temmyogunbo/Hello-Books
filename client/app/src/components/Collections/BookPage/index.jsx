@@ -86,12 +86,12 @@ class BookPage extends React.Component {
      */
   render() {
     return (
-      <div>
-        <div className="container mt-2">
-          <div className="row">
+      <div className="container mt-2">
+        <div className="row hide-on-small-only">
             <div className="col s6">
               <div>
                 <img
+                  className="responsive-img"
                   src={this.state.book.imageUrl}
                   style={{ height: "300px", width: "300px" }}
                 />
@@ -104,6 +104,7 @@ class BookPage extends React.Component {
                   children={'Borrow Book'}
                 />
               </div>
+              
             </div>
             <div className="col s6">
               <div className="fs-2">
@@ -116,10 +117,42 @@ class BookPage extends React.Component {
                 {this.state.book.description}
               </div>
             </div>
+          </div>
+          
+        <div className="hide-on-med-and-up mt-2">
+            <div className="row">
+              <div className="col s6">
+                <div>
+                  <img
+                    className="responsive-img"
+                    src={this.state.book.imageUrl}
+                    style={{ height: "300px", width: "300px" }}
+                  />
+                </div>
+                <div>
+                  <Button
+                    type={'submit'}
+                    className={"bc waves-effect waves-light btn brown darken-4"}
+                    onClick={this.handleBorrowBook}
+                    children={'Borrow Book'}
+                  />
+                </div>
+              </div>
+              <div className="col s6">
+                <div className="fs-2">
+                  {this.state.book.title}
+                  <div>
+                    by {this.state.book.author}
+                  </div>
+                </div>
+                <div className="mt-2">
+                  {this.state.book.description}
+                </div>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
     );
   }
 }

@@ -15,25 +15,32 @@ const propTypes = {
  */
 function CardList({ books }) {
   return (
-    <div className="col s9 l9 m9">
+    <div className="col s8 l9 m9">
       {
         isEmpty(books) ?
           <ul >
 
             {books && books.map(book => (<li
               key={book.id}
-              className="col s2 l3 m3"
+              className="col s12 l3 m3"
             >
               <Link to={`/collections/books/${book.id}`}>
                 <div className="book-size card">
 
                   <div className="card-image">
                     <img
+                      className="responsive-img"
                       role="book cover"
                       src={book.imageUrl}
                       style={{ width: '100%', height: '150px' }} />
                   </div>
-                  <div className="card-content card-color">
+                  <div 
+                  className="card-content card-color"
+                    style={{
+                    width: "100%", 
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"}}
+                  >
                     {book.title}
                   </div>
                 </div>
