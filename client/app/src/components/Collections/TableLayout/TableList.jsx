@@ -36,6 +36,7 @@ function TableList({ books, onClickEditBook, handleDelete }) {
               <td style={{ width: "2000px" }}>{book.author}</td>
               <td style={{width: "2000px"}}>{book.title}</td>
               <td>{book.quantity}</td>
+              <td style={{ width: "5000px" }}>{book.description}</td>
               <td className="word" style={{ width: "5000px" }}>{book.description}</td>
               <td id={book.id}>
                 <i

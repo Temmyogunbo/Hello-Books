@@ -30,7 +30,7 @@ function Pagination({
   handlePageChange
 }) {
   return (
-    <div className="right">
+    <div className="pagination">
       <PaginationJs
         activePage={activePage}
         itemsCountPerPage={itemsCountPerPage}

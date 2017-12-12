@@ -19,6 +19,6 @@ case 'production':
   config = webpackProd;
   break;
 
-default: config = webpackDev;
+default: config = {};
 }
 module.exports = config;

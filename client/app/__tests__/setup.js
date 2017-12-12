@@ -1,6 +1,6 @@
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import LocalStorage from './mocks/localStorage';
+import LocalStorage from './__mocks__/localStorage';
 
 window.localStorage = LocalStorage;
 global.$=jest.fn(()=>({

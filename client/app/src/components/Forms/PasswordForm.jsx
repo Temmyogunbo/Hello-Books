@@ -116,7 +116,7 @@ class ChangePasswordForm extends React.Component {
   render() {
     const { errors, isButtonLoading } = this.state;
     return (
-      <div id="change-password" className="change-password-modal modal">
+      <div id="change-password" className="change-password-modal modal ">
         <div className="row modal-content">
           <div>CHANGE PASSWORD</div>
           <form onSubmit={this.onSubmit}>

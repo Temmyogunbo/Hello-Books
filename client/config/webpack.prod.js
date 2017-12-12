@@ -4,8 +4,6 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-dotEnv.config();
-
 module.exports = {
   entry: [
     './app/src/index.jsx'
@@ -13,7 +11,7 @@ module.exports = {
   target: 'web',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(`./app/public`),
+    path: path.resolve('./app/public'),
     publicPath: 'https://emmanuelhellobooks.herokuapp.com/',
 
   },
@@ -67,10 +65,11 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('./style.css'),
-    new webpack.optimize.UglifyJsPlugin(),
-    new UglifyJSPlugin(),
+    new UglifyJSPlugin({
+      parallel: 4
+   }),
     new HtmlWebpackPlugin({
-      template: path.resolve(`./app/index.html`)
+      template: path.resolve('./app/index.html')
     }),
     new webpack.DefinePlugin({
       "process.env": {

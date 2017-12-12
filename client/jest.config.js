@@ -15,8 +15,8 @@ module.exports = {
   collectCoverageFrom: [
     'app/**/*.{js,jsx}',
     '!app/index.html',
-    '!app/socket',
-    '!app/sass',
+    '!app/src/socket',
+    '!app/src/sass',
   ],
   coverageDirectory: './coverage', 
   moduleFileExtensions: ['js', 'jsx'],

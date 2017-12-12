@@ -78,9 +78,9 @@ class BookCategories extends React.Component {
       ));
     }
     return (
-      <div className="col s3 l3 m3"
+      <div className="col s12 l3 m3"
       >
-        { isEmpty(categoryItems) ? <div /> : <ul className="book-categories col s3 m3 l3">
+        { isEmpty(categoryItems) ? <div /> : <ul className="book-categories col s12 m3 l3">
           <h5>CATEGORY </h5>
           <li>
             <div

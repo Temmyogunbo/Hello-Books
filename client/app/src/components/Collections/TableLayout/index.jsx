@@ -162,7 +162,7 @@ class AdminTable extends React.Component {
         <CategoryForm
           createBookCategory={createBookCategory}
         />
-        <div className="right">
+        <div className="hide-on-small-only right">
           <a
             className=
               "bc mr-2 btn modal-trigger brown darken-4"
@@ -176,6 +176,22 @@ class AdminTable extends React.Component {
             href="#book-form-modal"
           >
                         ADD BOOK
+          </a>
+        </div>
+        <div className="hide-on-med-and-up right">
+          <a
+            className=
+            "bc btn modal-trigger brown darken-4"
+            href="#book-category-form-modal"
+          >
+            CREATE A CATEGORY
+          </a>
+          <a
+            className=
+            "btn modal-trigger brown darken-4 mt-2"
+            href="#book-form-modal"
+          >
+            ADD BOOK
           </a>
         </div>
         <TableList

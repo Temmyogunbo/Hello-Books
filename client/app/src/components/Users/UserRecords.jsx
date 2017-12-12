@@ -46,7 +46,7 @@ function UserRecords({
   ));
   return (
     <div>
-      <div className="bc-2 row">
+      <div className="hide-on-small-only bc-2 row">
         <div
           className="col s6 fs-2" style={{ fontSize: "25px", color: "white" }}
         >
@@ -70,6 +70,41 @@ function UserRecords({
           <Button
             className={"btn brown darken-4"}
             style={{ fontSize: "15px" }}
+            onClick={() => getHistory({
+              userId: userId,
+              currentPage: activePage,
+              itemsCountPerPage: itemsCountPerPage
+            })}
+            children={'All'}
+          />
+        </div>
+
+      </div>
+
+      <div className="hide-on-med-and-up bc-2 row">
+        <div
+          className="col s6 fs-1" style={{ fontSize: "15px", color: "white", width: "100%" }}
+        >
+          Your activity below
+        </div>
+
+        <div className="col s2">
+          <Button
+            className={"btn brown darken-4 mr-2"}
+            style={{ fontSize: "10px" }}
+            onClick={() => getHistory({
+              userId: userId,
+              currentPage: activePage,
+              itemsCountPerPage: itemsCountPerPage,
+              returned: 'false'
+            })}
+            children={'Borrowed Books'}
+          />
+        </div>
+        <div className="col s2 ">
+          <Button
+            className={"btn brown darken-4 ml-5"}
+            style={{ fontSize: "10px" }}
             onClick={() => getHistory({
               userId: userId,
               currentPage: activePage,

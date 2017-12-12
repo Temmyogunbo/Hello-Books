@@ -109,7 +109,8 @@ export class SignUpForm extends React.Component {
         className="col s6 l4  m4 push-m4 push-s3 push-l4 div-container-form"
         onSubmit={this.onSubmit}
       >
-        <h4 className="sign-title">Sign up to HelloBooks:</h4>
+        <h4 className="hide-on-med-and-down sign-title">Sign up to HelloBooks:</h4>
+        <h4 className="hide-on-large-only">Sign up:</h4>
         <TextFieldGroup
           label={'Full Name'}
           field={'fullName'}
@@ -168,7 +169,7 @@ export class SignUpForm extends React.Component {
             disabled={isLoading}
             children={' Sign up'}
           />
-          <div className="col s12 m9">
+          <div className="col s12 m12 ">
             <GoogleLogin
               className="right google-button"
               clientId={process.env.GOOGLE_CLIENT_ID}

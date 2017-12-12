@@ -28,20 +28,21 @@ describe('book reducer', () => {
           updatedAt: "2017-11-29T17:28:44.282Z"
         }
       }
-    )).toEqual([{
+    )).toEqual([
+      {
+        category: "Law",
+        createdAt: "2017-11-29T17:28:44.282Z",
+        id: 4,
+        updatedAt: "2017-11-29T17:28:44.282Z"
+      },{
       category: "Engineering",
       createdAt: "2017-11-29T17:28:44.282Z",
       id: 3,
       updatedAt: "2017-11-29T17:28:44.282Z"
-    },
-    {
-      category: "Law",
-      createdAt: "2017-11-29T17:28:44.282Z",
-      id: 4,
-      updatedAt: "2017-11-29T17:28:44.282Z"
-    }]);
+    }
+  ]);
   });
-  it('should retun book category', () => {
+  it('should get book category', () => {
     expect(bookCategoryReducer(
       initialState,
       {
