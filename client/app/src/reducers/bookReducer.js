@@ -31,7 +31,8 @@ export default (state = initialState, action) => {
           ...state.rows.slice((numberOfItemsInStore / 2) + 1)
         ],
         count: state.count + 1
-      } :
+      } 
+      :
       {
         rows: [
           action.book,
@@ -42,7 +43,8 @@ export default (state = initialState, action) => {
       };
 
   case GET_ALL_BOOKS:
-    return { ...action };
+    return action.books;
+
   case EDIT_BOOK:
     newState = state.rows.filter(book => book.id !== action.book.id);
     return {
@@ -52,18 +54,11 @@ export default (state = initialState, action) => {
       count: state.count
     };
   case BORROW_A_BOOK:
-    return state.rows.map(book => {
-      if (book.id === action.id) {
-        book.quantity -= 1;
-      }
-      return {
-        rows: [
-          book,
-          ...state.rows
-        ],
-        count: state.count
-      };
-    });
+  newState = state.rows.filter(book => book.id === action.id ? book.quantity -= 1 : book )
+   return {
+     rows: [ ...newState ],
+     count: state.count
+   }
   case DELETE_BOOK:
     newState = state.rows.filter(book => book.id !== action.id);
 

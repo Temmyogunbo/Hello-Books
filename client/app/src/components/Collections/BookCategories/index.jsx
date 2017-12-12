@@ -68,7 +68,7 @@ class BookCategories extends React.Component {
           <div
             onClick={() => this.props.getAllBooksByCategory({
               bookCategory: category,
-              currentPage: currentPage,
+              currentPage: 1,
               itemsCountPerPage: itemsCountPerPage
             })}
           >

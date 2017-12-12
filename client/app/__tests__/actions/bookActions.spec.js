@@ -43,12 +43,11 @@ describe('Given book actions', () => {
           books: book1
         }
       ];
-      const store = mockStore({ bookReducer: [] });
+      const store = mockStore({ rows: [], count: 0 });
       // act
       const action = bookActions.getAllBooks(book1);
 
       store.dispatch(action);
-      console.log('act', action)
 
       // assert
       const actual = store.getActions();

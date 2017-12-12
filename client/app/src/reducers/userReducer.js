@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
   case SET_AUTH_USERS:
     return {
-      ...state,
       user: action.user,
       isAuthenticated: !isEmpty(action.user),
     };

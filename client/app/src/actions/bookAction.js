@@ -18,7 +18,7 @@ import {
  * @param {object} book
  * @return {book} book - dispatched book object
  */
-const editBook = book => ({
+export const editBook = book => ({
   type: EDIT_BOOK,
   book
 });
@@ -27,7 +27,7 @@ const editBook = book => ({
  * @param {object} book
  * @return {book} book - dispatched book object
  */
-const addBook = book => ({
+export const addBook = book => ({
   type: ADD_BOOK,
   book
 });
@@ -42,9 +42,9 @@ const deleteBook = id => ({
   id
 });
 
-const getAllBooks = books => ({
+export const getAllBooks = books => ({
   type: GET_ALL_BOOKS,
-  ...books
+  books
 });
 
 /**
@@ -52,7 +52,7 @@ const getAllBooks = books => ({
  * @return {object} All books
  * @param {error} id - dispatched book id
  */
-const borrowBook = id => ({
+export const borrowBook = id => ({
   type: BORROW_A_BOOK,
   id
 });
@@ -61,7 +61,7 @@ const borrowBook = id => ({
  * @return {returnMessage} returnMessage - dispatched returned message
  * @param {object} bookReturned book details
  */
-const returnBook = bookReturned => ({
+export const returnBook = bookReturned => ({
   type: RETURN_A_BOOK,
   bookReturned
 });
@@ -92,7 +92,7 @@ export const getAllBooksAction = bookData => dispatch => {
     bookRoute = `/api/v1/books/${bookData.bookId}`;
   }
   return axios.get(bookRoute).then((response) => {
-    dispatch(getAllBooks({ rows: response.data.rows, count: response.data.count }));
+    dispatch(getAllBooks(response.data));
   })
     .catch((error) => {
       toastr.error(error.response.data.errors[0].msg);
@@ -130,8 +130,8 @@ export const returnBookAction = returnData => dispatch =>
     { bookId: returnData.BookId }
   )
     .then((response) => {
-      const newHistoryObject = { ...returnData.historyObj, returned: true };
-      dispatch(returnBook(newHistoryObject));
+      const { historyObj } = returnData
+      dispatch(returnBook(historyObj));
       toastr.success(response.data.msg);
       getAllNotificationsAction({
         userId: `${returnData.userId}`,

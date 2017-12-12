@@ -56,7 +56,7 @@ export const userNotAuthenticated = {
 };
 
 // For book operations
-export const book1 = [{
+export const book1 ={ rows: [{
   id: 6,
   author: "P.N Okeke",
   title: "Engineering Mathematics",
@@ -79,7 +79,8 @@ export const book1 = [{
   quantity: 43,
   createdAt: "2017-12-01T17:42:32.877Z",
   updatedAt: "2017-12-03T11:45:30.303Z"
-}];
+}],
+count: 2}
 
 export const book2 = {
   id: 7,

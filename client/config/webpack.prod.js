@@ -3,10 +3,6 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const dotEnvWebpack = require('dotenv-webpack');
-const dotEnv = require('dotenv');
-
-dotEnv.config();
 
 module.exports = {
   entry: [
@@ -69,14 +65,11 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('./style.css'),
-    new webpack.optimize.UglifyJsPlugin(),
-    new UglifyJSPlugin(),
+    new UglifyJSPlugin({
+      parallel: 4
+   }),
     new HtmlWebpackPlugin({
       template: path.resolve(`./app/index.html`)
-    }),
-    new dotEnvWebpack({
-      path: '../.env',
-      safe: false,
     }),
     new webpack.DefinePlugin({
       "process.env": {

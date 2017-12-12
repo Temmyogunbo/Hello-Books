@@ -24,9 +24,9 @@ export const changeUserPassword = user => ({
  * @return {object} All history
  * @param {detailedHistory} detailedHistory - dispatched history object
  */
-const getHistory = detailedHistory => ({
+export const getHistory = detailedHistory => ({
   type: GET_USER_HISTORY,
-  ...detailedHistory
+  detailedHistory
 });
 
 /**
@@ -57,7 +57,7 @@ export const getHistoryAction = userData => dispatch => {
   }
   return axios.get(historyRoute)
     .then((response) => {
-      dispatch(getHistory({ rows: response.data.rows, count: response.data.count }));
+      dispatch(getHistory(response.data));
     })
     .catch((error) => {
       toastr.error(error.response.data.errors[0].msg);
