@@ -5,24 +5,32 @@ import { Link } from 'react-router-dom';
 
 
 const propTypes = {
-  books: PropTypes.array.isRequired
+  books: PropTypes.array.isRequired,
+  role: PropTypes.string.isRequired,
+  handleDeleteBook: PropTypes.func.isRequired,
+  handleEditBook: PropTypes.func.isRequired
 };
 /**
- *
- *
- * @param {any} props
- * @returns {object} jsx
- */
-function CardList({ books }) {
+*
+*
+* @param {any} props
+* @returns {object} jsx
+*/
+function CardList({
+  books,
+  role,
+  handleDeleteBook,
+  handleEditBook
+}) {
   return (
-    <div className="col s8 l9 m9">
+    <div className="col s12 l8 m8">
       {
         isEmpty(books) ?
           <ul >
 
             {books && books.map(book => (<li
               key={book.id}
-              className="col s12 l3 m3"
+              className="col s12 l4 m4"
             >
               <Link to={`/collections/books/${book.id}`}>
                 <div className="book-size card">
@@ -34,17 +42,34 @@ function CardList({ books }) {
                       src={book.imageUrl}
                       style={{ width: '100%', height: '150px' }} />
                   </div>
-                  <div 
-                  className="card-content card-color"
+                  <div
+                    className="card-content card-color"
                     style={{
-                    width: "100%", 
-                    overflow: "hidden",
-                    textOverflow: "ellipsis"}}
+                      width: "100%",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis"
+                    }}
                   >
                     {book.title}
                   </div>
                 </div>
               </Link>
+              {role === 'admin' ? <div>
+                <i
+                  id={book.id}
+                  className="fa fa-trash-o mr-1"
+                  aria-hidden="true"
+                  onClick={handleDeleteBook}
+
+                />
+                <i
+                  id={book.id}
+                  className="material-icons mr-1"
+                  onClick={handleEditBook}
+                >edit
+                </i>
+                <span>Qty: {book.quantity}</span>
+              </div> : null}
 
             </li>))}
           </ul> :
@@ -55,3 +80,4 @@ function CardList({ books }) {
 CardList.propTypes = propTypes;
 
 export default CardList;
+

@@ -2,10 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import swal from "sweetalert2";
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 import Profile from './Profile';
 import UserRecords from './UserRecords';
-import PasswordForm from '../Forms/PasswordForm';
+import PasswordForm from '../forms/PasswordForm';
 import Pagination from '../Pagination';
 import {
   returnBookAction
@@ -18,7 +17,10 @@ import {
 const propTypes = {
   getHistory: PropTypes.func.isRequired,
   changePassword: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  total: PropTypes.number.isRequired,
+  userHistoryReducer: PropTypes.array.isRequired,
+  returnBook: PropTypes.func.isRequired
 };
 /**
  *
@@ -59,6 +61,7 @@ class HistoryPage extends React.Component {
    * @memberof HistoryPage
    */
   componentDidMount() {
+    const { $ } = window;
     this.props.getHistory({
       userId: this.props.user.id,
       currentPage: this.state.activePage,
@@ -116,9 +119,8 @@ class HistoryPage extends React.Component {
   render() {
     const {
       userHistoryReducer,
-      paginate,
+      total,
       returnBook,
-      history,
       getHistory,
       changePassword,
       user
@@ -147,7 +149,7 @@ class HistoryPage extends React.Component {
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.itemsCountPerPage}
-          totalItemsCount={paginate}
+          totalItemsCount={total}
           pageRangeDisplayed={5}
           handlePageChange={this.handlePageChange}
         />
@@ -158,7 +160,7 @@ class HistoryPage extends React.Component {
 const mapStateToProps = (state) => ({
   user: state.userReducer.user,
   userHistoryReducer: state.userHistoryReducer.rows,
-  paginate: state.userHistoryReducer.count
+  total: state.userHistoryReducer.count
 });
 HistoryPage.propTypes = propTypes;
 export default

@@ -5,11 +5,11 @@ import fetchMock from 'fetch-mock';
 import configureMockStore from 'redux-mock-store';
 import * as userActions from '../../src/actions/userActions';
 import * as types from '../../src/constants/actionTypes';
-import LocalStorage from '../mocks/localStorage';
+import LocalStorage from '../__mocks__/localStorage';
 import {
   token,
   user
-} from '../mocks/mockData';
+} from '../__mocks__/mockData';
 
 
 const middlewares = [thunk];

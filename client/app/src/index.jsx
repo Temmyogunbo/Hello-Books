@@ -13,7 +13,7 @@ import { setAuthUser } from './actions/userActions';
 import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import './sass/style.scss';
-import '../../../node_modules/toastr/toastr.scss';
+import '../../node_modules/toastr/toastr.scss';
 
 const store = createStore(
   rootReducer,

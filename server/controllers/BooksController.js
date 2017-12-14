@@ -68,7 +68,7 @@ class BooksController {
       .then(category => response.status(201).json({
         category
       }))
-      .catch((error) => response.status(400).json({
+      .catch(error => response.status(400).json({
         errors: [{ msg: error.errors[0] }]
       }));
   }
@@ -86,7 +86,7 @@ class BooksController {
       limit: 10,
       order: [['updatedAt', 'DESC']]
     })
-      .then((category) => response.status(200).json(category));
+      .then(category => response.status(200).json(category));
   }
   /**
    *
@@ -116,8 +116,8 @@ class BooksController {
     return db.Book.findAndCountAll({
       where: whereStatement,
 
-      limit: limit,
-      offset: offset,
+      limit,
+      offset,
       order: [['updatedAt', 'DESC']]
     })
       .then((books) => {

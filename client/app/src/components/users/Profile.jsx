@@ -1,17 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  user: PropTypes.object.isRequired
+};
+
 /**
  *
  *
  * @param {any} props
  * @returns {object} jsx
  */
-function Profile(props) {
+function Profile({ user }) {
   const {
     fullName,
     userName,
     email,
     membership
-  } = props.user;
+  } = user;
   return (
     <div className="col s9 mt-2">
       <div className="hide-on-small-only">
@@ -124,4 +130,5 @@ function Profile(props) {
     </div>
   );
 }
+Profile.propTypes = propTypes;
 export default Profile;
