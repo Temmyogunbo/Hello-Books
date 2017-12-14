@@ -78,25 +78,24 @@ class BookCategories extends React.Component {
       ));
     }
     return (
-      <div className="col s12 l3 m3"
+      <div className="col s4 l4 m4"
       >
-        { isEmpty(categoryItems) ? <div /> : <ul className="book-categories col s12 m3 l3">
-          <h5>CATEGORY </h5>
-          <li>
-            <div
-              onClick={() => this.props.getAllBooksByCategory({
-                bookCategory: '',
-                currentPage: currentPage,
-                itemsCountPerPage: itemsCountPerPage
-              })}
-            >
+        { isEmpty(categoryItems) ? <div /> :
+          <ul className="book-categories col s12 m3 l3">
+            <h5>CATEGORY </h5>
+            <li>
+              <div
+                onClick={() => this.props.getAllBooksByCategory({
+                  bookCategory: '',
+                  currentPage: currentPage,
+                  itemsCountPerPage: itemsCountPerPage
+                })}
+              >
                         All
-            </div>
-          </li>
-          {categoryItems}
-        </ul>}</div>
-
-
+              </div>
+            </li>
+            {categoryItems}
+          </ul>}</div>
     );
   }
 }

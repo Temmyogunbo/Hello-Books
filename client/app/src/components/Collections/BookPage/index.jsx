@@ -14,6 +14,7 @@ const propTypes = {
   user: PropTypes.object.isRequired,
   getBook: PropTypes.func.isRequired,
   borrowBook: PropTypes.func.isRequired,
+  role: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired
 };
 
@@ -74,7 +75,7 @@ class BookPage extends React.Component {
           userId: this.props.user.id,
           membership: this.props.user.membership
         });
-       this.props.history.goBack();
+        this.props.history.goBack();
       })
       .catch(swal.noop);
   }
@@ -88,6 +89,37 @@ class BookPage extends React.Component {
     return (
       <div className="container mt-2">
         <div className="row hide-on-small-only">
+          <div className="col s6">
+            <div>
+              <img
+                className="responsive-img"
+                src={this.state.book.imageUrl}
+                style={{ height: "300px", width: "300px" }}
+              />
+            </div>
+            {this.props.role === 'admin' ? null :
+              <Button
+                type={'submit'}
+                className={"bc waves-effect waves-light btn brown darken-4"}
+                onClick={this.handleBorrowBook}
+                children={'Borrow Book'}
+              />}
+
+          </div>
+          <div className="col s6">
+            <div className="fs-2">
+              {this.state.book.title}
+              <div>
+                    by {this.state.book.author}
+              </div>
+            </div>
+            <div className="mt-2">
+              {this.state.book.description}
+            </div>
+          </div>
+        </div>
+        <div className="hide-on-med-and-up mt-2">
+          <div className="row">
             <div className="col s6">
               <div>
                 <img
@@ -96,15 +128,14 @@ class BookPage extends React.Component {
                   style={{ height: "300px", width: "300px" }}
                 />
               </div>
-              <div>
+              {this.props.role === 'admin' ? null :
                 <Button
                   type={'submit'}
                   className={"bc waves-effect waves-light btn brown darken-4"}
                   onClick={this.handleBorrowBook}
                   children={'Borrow Book'}
-                />
-              </div>
-              
+                /> }
+
             </div>
             <div className="col s6">
               <div className="fs-2">
@@ -117,47 +148,16 @@ class BookPage extends React.Component {
                 {this.state.book.description}
               </div>
             </div>
-          </div>
-          
-        <div className="hide-on-med-and-up mt-2">
-            <div className="row">
-              <div className="col s6">
-                <div>
-                  <img
-                    className="responsive-img"
-                    src={this.state.book.imageUrl}
-                    style={{ height: "300px", width: "300px" }}
-                  />
-                </div>
-                <div>
-                  <Button
-                    type={'submit'}
-                    className={"bc waves-effect waves-light btn brown darken-4"}
-                    onClick={this.handleBorrowBook}
-                    children={'Borrow Book'}
-                  />
-                </div>
-              </div>
-              <div className="col s6">
-                <div className="fs-2">
-                  {this.state.book.title}
-                  <div>
-                    by {this.state.book.author}
-                  </div>
-                </div>
-                <div className="mt-2">
-                  {this.state.book.description}
-                </div>
-              </div>
 
-            </div>
           </div>
         </div>
+      </div>
     );
   }
 }
 const mapStateToProps = (state, props) => ({
   user: state.userReducer.user,
+  role: state.userReducer.user.role,
   books: state.bookReducer.rows.find(book => parseInt(book.id, 10) ===
         parseInt(props.match.params.bookId, 10))
 });

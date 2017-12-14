@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GuestLinks from './GuestLinks';
 import UserLinks from './UserLinks';
-import { getNotificationsAction } from '../../actions/notificationsAction';
 import { signOutAction } from '../../actions/userActions';
 
-//console.log('this is sign out', signOutAction);
 const propTypes = {
   user: PropTypes.object.isRequired,
-  signOutAction: PropTypes.func.isRequired
+  signOutAction: PropTypes.func.isRequired,
+  role: PropTypes.string
 };
 /**
  *
@@ -98,7 +97,8 @@ export class NavigationBar extends React.Component {
       <div>
         <nav className="custom-nav-wrapper">
           <div className="container nav-wrapper">
-            <Link to={isAuthenticated ? "#" : "/"} className="brand-logo custom-logo-wrap">
+            <Link to={isAuthenticated ? "#" : "/"}
+              className="brand-logo custom-logo-wrap">
               HelloBooks
             </Link>
             <Link to={isAuthenticated ? "#" : "/"}

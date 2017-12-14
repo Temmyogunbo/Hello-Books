@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TableLayout from './TableLayout';
+import swal from 'sweetalert2';
+import cloudinary from 'cloudinary';
 import BookCategories from './BookCategories';
 import CardLayout from './CardLayout';
+import BookForm from '../forms/BookForm';
+import settings from '../../../utils/cloudinarySettings';
+import CategoryForm from '../forms/CategoryForm';
 import {
   getAllBooksAction,
   borrowBookAction,
@@ -18,10 +22,9 @@ import {
 import { getNotificationsAction } from '../../actions/notificationsAction';
 import Pagination from '../Pagination';
 
+cloudinary.config(settings);
 
 const propTypes = {
-  user: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
   books: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
   bookCategory: PropTypes.array.isRequired,
@@ -32,11 +35,13 @@ const propTypes = {
   deleteBook: PropTypes.func.isRequired,
   getBookCategory: PropTypes.func.isRequired,
   createBookCategory: PropTypes.func.isRequired,
-  getNotifications: PropTypes.func.isRequired
+  getNotifications: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
+  role: PropTypes.string.isRequired
 };
 const defaultProps = {
-  total: 0,
-  books: []
+  total: 0
 };
 /**
  *
@@ -53,13 +58,14 @@ class CollectionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAdmin: false,
-      categories: [],
-      books: [],
       activePage: 1,
-      itemsCountPerPage: 5
+      itemsCountPerPage: 5,
+      book: {},
+      numberOfTimesBookDeleted: 0
     };
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleEditBook = this.handleEditBook.bind(this);
+    this.handleDeleteBook = this.handleDeleteBook.bind(this);
   }
   /**
      * @returns {void} jsx
@@ -67,11 +73,7 @@ class CollectionPage extends React.Component {
      * @memberof CollectionPage
      */
   componentDidMount() {
-    if (this.props.user.role === 'admin') {
-      this.setState({
-        isAdmin: true
-      });
-    }
+    const { $ } = window;
     this.props.getAllBooks({
       bookCategory: '',
       currentPage: this.state.activePage,
@@ -80,6 +82,17 @@ class CollectionPage extends React.Component {
     this.props.getNotifications({
       currentPage: 1,
       itemsCountPerPage: 5
+    });
+    $(document).ready(() => {
+      $('#book-form-modal').modal({
+        dismissible: false
+      });
+    });
+    $('#book-category-form-modal').modal({
+      dismissible: false
+    });
+    this.setState({
+      numberOfTimesBookDeleted: 0
     });
   }
   /**
@@ -112,6 +125,60 @@ class CollectionPage extends React.Component {
     }));
   }
   /**
+   *
+   *
+   * @param {any} event
+   * @returns {object} modal element
+   * @memberof CollectionPage
+   */
+  handleEditBook(event) {
+    const { $ } = window;
+    event.preventDefault();
+    const bookId = event.target.id;
+    const book = this.props.books
+      .find(editBook => parseInt(editBook.id, 10) === parseInt(bookId, 10));
+    this.setState({
+      book: book
+    });
+    return $('#book-form-modal').modal('open');
+  }
+  /**
+   * @returns {object} modal element
+   *
+   * @param {any} event
+   * @memberof CollectionPage
+   */
+  handleDeleteBook(event) {
+    event.preventDefault();
+    const bookId = event.target.id;
+    const book = this.props.books
+      .find(deleteBook => parseInt(deleteBook.id, 10) === parseInt(bookId, 10));
+    swal({
+      text: "Are you sure you want to delete this book",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(() => {
+      this.props.deleteBook(book);
+      cloudinary.uploader.destroy(
+        book.imagePublicId,
+        (result) => { }
+      );
+      this.setState({
+        numberOfTimesBookDeleted: this.state.numberOfTimesBookDeleted + 1
+      });
+
+      if (this.state.numberOfTimesBookDeleted === 5) {
+        this.props.getAllBooks({
+          bookCategory: '',
+          currentPage: 1,
+          itemsCountPerPage: 5
+        });
+      }
+    }).catch(swal.noop);
+  }
+  /**
      *
      *
      * @returns {object} jsx
@@ -119,42 +186,58 @@ class CollectionPage extends React.Component {
      */
   render() {
     const {
-      user,
       books,
-      borrowBook,
       getAllBooks,
       editBook,
       addBook,
-      deleteBook,
       createBookCategory,
       history,
-      total
+      total,
+      categories,
+      role
     } = this.props;
     return (
       <div className="container mt-2">
         <div className="row">
+          {role === 'admin' ?
+            <div>
+              <BookForm
+                book={this.state.book}
+                categories={categories}
+                editBook={editBook}
+                addBook={addBook}
+                history={history}
+              />
+              <CategoryForm
+                createBookCategory={createBookCategory}
+              />
+              <div className="right">
+                <a
+                  className=
+                    "bc mr-2 btn modal-trigger brown darken-4"
+                  href="#book-category-form-modal"
+                >
+                  ADD CATEGORY
+                </a>
+                <a
+                  className=
+                    "btn modal-trigger brown darken-4"
+                  href="#book-form-modal"
+                >
+                  ADD BOOK
+                </a>
+              </div> </div> : null}
           <BookCategories
             currentPage={this.state.activePage}
             itemsCountPerPage={this.state.itemsCountPerPage}
           />
-          {this.state.isAdmin ?
-            <TableLayout
-              books={this.state.books}
-              userId={user.id}
-              addBook={addBook}
-              editBook={editBook}
-              createBookCategory={createBookCategory}
-              deleteBook={deleteBook}
-              categories={this.state.categories}
-              getAllBooks={getAllBooks}
-              history={history}
-            /> :
-            <CardLayout
-              books={books}
-              user={user}
-              borrowBook={borrowBook}
-              getAllBooks={getAllBooks}
-            />}
+          <CardLayout
+            role={role}
+            books={books}
+            getAllBooks={getAllBooks}
+            handleDeleteBook={this.handleDeleteBook}
+            handleEditBook={this.handleEditBook}
+          />
         </div>
         <Pagination
           activePage={this.state.activePage}
@@ -172,11 +255,10 @@ CollectionPage.defaultProps = defaultProps;
 
 
 const mapStateToProps = (state) => ({
-  user: state.userReducer.user,
-  isAuthenticated: state.userReducer.isAuthenticated,
+  role: state.userReducer.user.role,
   books: state.bookReducer.rows,
   total: state.bookReducer.count,
-  bookCategory: state.bookCategoryReducer
+  categories: state.bookCategoryReducer
 });
 
 

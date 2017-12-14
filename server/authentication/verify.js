@@ -37,7 +37,8 @@ export default {
     }
   },
   validateBookRequest(request, response, next) {
-    if (request.url === '/api/v1/category') {
+    if (request.url === '/api/v1/category' &&
+      request.method === 'POST') {
       request.check('category', 'category is required').notEmpty();
       const errors = request.validationErrors();
       if (errors) {
@@ -64,7 +65,8 @@ export default {
     }
   },
   validateUserRequest(request, response, next) {
-    if (request.url === '/api/v1/users/signin') {
+    if (request.url === '/api/v1/users/signin' &&
+      request.method === 'POST') {
       request.check('password', 'Password is required').notEmpty();
       request.check(
         'password',
@@ -76,7 +78,8 @@ export default {
         return response.status(400).json({ error: errors[0] });
       }
       next();
-    } else if (request.url === '/api/v1/users/change-password') {
+    } else if (request.url === '/api/v1/users/change-password' &&
+    request.method === 'PUT') {
       request.check('oldPassword', 'This field is required').notEmpty();
       request.check('newPassword', 'This field is required').notEmpty();
       request.check(

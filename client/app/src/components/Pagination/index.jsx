@@ -13,7 +13,7 @@ const propTypes = {
 };
 const defaultProps = ({
   activePage: 1,
-  totalItemsCount: 1
+  totalItemsCount: 5
 });
 
 /**

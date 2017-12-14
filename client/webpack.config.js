@@ -7,7 +7,6 @@ dotEnv.config();
 
 const { NODE_ENV } = process.env;
 
-
 let config;
 
 switch (NODE_ENV) {

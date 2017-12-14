@@ -37,7 +37,7 @@ export const addBook = book => ({
  * @return {object} description delete book object
  *
  */
-const deleteBook = id => ({
+export const deleteBook = id => ({
   type: DELETE_BOOK,
   id
 });
@@ -84,9 +84,12 @@ export const addBookAction = bookData => dispatch =>
  * @return {object} - returns an object of books
  */
 export const getAllBooksAction = bookData => dispatch => {
-  let bookRoute = `/api/v1/books?page=${bookData.currentPage}&itemsCountPerPage=${bookData.itemsCountPerPage}`;
+  let bookRoute =
+   `/api/v1/books?page=${bookData.currentPage} \
+   &itemsCountPerPage=${bookData.itemsCountPerPage}`;
   if (bookData.bookCategory) {
-    bookRoute = `/api/v1/books?page=${bookData.currentPage}&itemsCountPerPage=${bookData.itemsCountPerPage}&category=${bookData.bookCategory.category}`;
+    bookRoute = `/api/v1/books?page=${bookData.currentPage}& \
+    itemsCountPerPage=${bookData.itemsCountPerPage}&category=${bookData.bookCategory.category}`;
   }
   if (bookData.bookId) {
     bookRoute = `/api/v1/books/${bookData.bookId}`;
@@ -130,7 +133,7 @@ export const returnBookAction = returnData => dispatch =>
     { bookId: returnData.BookId }
   )
     .then((response) => {
-      const { historyObj } = returnData
+      const { historyObj } = returnData;
       dispatch(returnBook(historyObj));
       toastr.success(response.data.msg);
       getAllNotificationsAction({
@@ -160,7 +163,7 @@ export const deleteBookAction = bookData => dispatch =>
 * @return {object} - returns an empty object of book
 * @param {object} bookData - contains book message in the library
 */
-export const editBookAction = bookData => (dispatch) => {
+export const editBookAction = bookData => (dispatch) =>
   axios.put(`/api/v1/books/${bookData.id}`, bookData)
     .then(() => {
       dispatch(editBook(bookData));
@@ -169,7 +172,6 @@ export const editBookAction = bookData => (dispatch) => {
     .catch((error) => {
       toastr.error(error.response.data.msg);
     });
-};
 export default {
   editBookAction,
   addBookAction,

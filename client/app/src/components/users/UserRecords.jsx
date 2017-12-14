@@ -5,9 +5,14 @@ import Button from '../Button';
 
 
 const propTypes = {
-  userHistory: PropTypes.array.isRequired
+  userHistory: PropTypes.array.isRequired,
+  handleReturnBook: PropTypes.func.isRequired,
+  getHistory: PropTypes.func.isRequired,
+  returnBook: PropTypes.func.isRequired,
+  activePage: PropTypes.number.isRequired,
+  itemsCountPerPage: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired
 };
-UserRecords.defaultProps = [];
 /**
  *
  *
@@ -83,7 +88,8 @@ function UserRecords({
 
       <div className="hide-on-med-and-up bc-2 row">
         <div
-          className="col s6 fs-1" style={{ fontSize: "15px", color: "white", width: "100%" }}
+          className="col s6 fs-1"
+          style={{ fontSize: "15px", color: "white", width: "100%" }}
         >
           Your activity below
         </div>

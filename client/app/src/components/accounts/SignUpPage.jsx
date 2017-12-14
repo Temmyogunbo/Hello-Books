@@ -1,76 +1,74 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SignInForm } from '../Forms/SignInForm';
-import { signinAction } from '../../actions/userActions';
+import SignUpForm from '../forms/SignUpForm';
+import { signupAction } from '../../actions/userActions';
 
 const propTypes = {
   history: PropTypes.object.isRequired,
-  signin: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
 };
 /**
  *
- *
- * @class SignInPage
+ *@returns {object} jsx
+ * @class SignupPage
  * @extends {React.Component}
  */
-export class SignInPage extends React.Component {
+export class SignUpPage extends React.Component {
   /**
    * @returns {void}
    *
-   * @memberof SignInPage
+   * @memberof SignUpPage
    */
   componentWillMount() {
     if (this.props.isAuthenticated) {
       window.location = '/collections';
     }
   }
-
   /**
-   * @param {any} nextProps
-   * @memberof SignInPage
    * @returns {undefined}
+   *
+   * @param {any} nextProps
+   * @memberof SignUpPage
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated) {
       this.props.history.replace('/collections');
     }
   }
-
   /**
-   *
-   *
-   * @returns {object} jsx
-   * @memberof SignInPage
-   */
+* @description Renders content to the screen
+ * @return {void}
+ */
   render() {
     const {
       isAuthenticated,
-      signin
+      signup
     } = this.props;
     return (
       <div>
         <div className="image"/>
         <div className="row">
-          <SignInForm
+          <SignUpForm
             isAuthenticated={isAuthenticated}
-            signin={signin}
+            signup={signup}
           />
         </div>
+
       </div>
     );
   }
 }
-
+SignUpPage.propTypes = propTypes;
 const mapStateToProps = (state) => ({
   isAuthenticated: state.userReducer.isAuthenticated
 });
+const mapDispatchToProps = dispatch => ({
+  signup: signupCredentials => dispatch(signupAction(signupCredentials)),
+});
 
-SignInPage.propTypes = propTypes;
 export default connect(
   mapStateToProps,
-  {
-    signin: signinAction
-  }
-)(SignInPage);
+  mapDispatchToProps
+)(SignUpPage);

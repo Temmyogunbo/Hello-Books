@@ -59,6 +59,7 @@ function TextFieldGroup({
             name={field}
             id={id}
             type={type}
+            style={{ padding: ".7rem 0 1.4rem 0" }}
             className="validate"
             value={value}
             onChange={handleChange}

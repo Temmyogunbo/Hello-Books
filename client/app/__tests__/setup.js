@@ -6,5 +6,5 @@ window.localStorage = LocalStorage;
 global.$=jest.fn(()=>({
     sideNav: jest.fn(),
     ready: jest.fn()
-}))
+}));
 configure({ adapter: new Adapter() });

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cloudinary from 'cloudinary';
 import swal from "sweetalert2";
-import $ from "jquery";
 import bookValidation from '../../../utils/bookValidation';
 import TextFieldGroup from './TextFieldGroup';
 import SelectInputField from './SelectInputField';
@@ -88,6 +87,7 @@ class BookForm extends React.Component {
     this.setState({
       isLoading: true
     });
+    const { $ } = window;
     const { files } = $(event.target)[0];
     if (/^image/.test(files[0].type)) {
       const reader = new FileReader();
@@ -133,6 +133,7 @@ class BookForm extends React.Component {
    * @memberof BookForm
    */
   handleClose() {
+    const { $ } = window;
     this.setState({
       id: '',
       category: '',
@@ -145,7 +146,7 @@ class BookForm extends React.Component {
       isEdit: false,
       isLoading: false,
       isButtonLoading: true
-    });
+    }, () => $('#book-form-modal').modal('close'));
   }
   /**
    * @returns {void} description- it updates an instance
@@ -199,21 +200,18 @@ class BookForm extends React.Component {
           author,
           id,
           imagePublicId
-        });
-        this.handleClose();
-        return $('#book-form-modal').modal('close');
+        }).then(() => this.handleClose());
+      } else {
+        this.props.addBook({
+          category,
+          quantity,
+          description,
+          imageUrl,
+          title,
+          author,
+          imagePublicId
+        }).then(() => this.handleClose());
       }
-      this.props.addBook({
-        category,
-        quantity,
-        description,
-        imageUrl,
-        title,
-        author,
-        imagePublicId
-      });
-      this.handleClose();
-      return $('#book-form-modal').modal('close');
     }
   }
   /**

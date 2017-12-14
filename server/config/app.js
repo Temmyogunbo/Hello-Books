@@ -16,14 +16,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
-app.use(express.static(`${__dirname}/../../client/app/public`));
+app.use(express.static(`${__dirname}/../../../client/app/public`));
 // Require our routes into the application.
 (route)(app);
 
 app.use('*', (request, response) => {
   response.sendFile(path.join(
     __dirname,
-    '/../../client/app/public/index.html'
+    '/../../../client/app/public/index.html'
   ));
 });
 

@@ -75,7 +75,6 @@ class Notifications extends React.Component {
     const {
       notifications,
       updateNotification,
-      handleFirstLetter,
       total
     } = this.props;
     return (
@@ -83,7 +82,6 @@ class Notifications extends React.Component {
         <NotificationList
           notifications={notifications}
           updateNotification={updateNotification}
-          handleFirstLetter={handleFirstLetter}
         />
         {total ? <Pagination
           activePage={this.state.activePage}
