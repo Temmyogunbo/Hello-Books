@@ -20,14 +20,14 @@ export const book2 = {
   updatedAt: "2017-12-03T11:45:30.303Z"
 };
 
-export const bookData = { 
+export const bookData = {
   currentPage: 1,
   itemsCountPerPage: 5,
 };
 export const bookData2 = {
   currentPage: 1,
   itemsCountPerPage: 5,
-  bookCategory: {category:'History'}
+  bookCategory: { category: 'History' }
 };
 export const bookData3 = {
   currentPage: 1,
@@ -45,7 +45,7 @@ export const user = {
   success: true,
   msg: 'You are signed in',
   token
-  
+
 };
 export const user2 = {
   email: "dino@gmail.com",
@@ -84,32 +84,33 @@ export const userNotAuthenticated = {
 };
 
 // For book operations
-export const book1 ={ rows: [{
-  id: 6,
-  author: "P.N Okeke",
-  title: "Engineering Mathematics",
-  description: "The moon falls if apples falls. Isaac said so",
-  imageUrl: "https://res.cloudinary.com/emmanuelandela/image/upload/v1512149777/y1psocziflotgjg2mtvf.jpg",
-  imagePublicId: "y1psocziflotgjg2mtvf",
-  category: "Engineering",
-  quantity: 35,
-  createdAt: "2017-12-01T17:37:20.678Z",
-  updatedAt: "2017-12-03T12:54:00.084Z"
-},
-{
-  id: 7,
-  author: "Ogunbo Emmanuel",
-  title: "How to get rich in 5 days",
-  description: "Don't doubt it. There has been lots of testimonies.",
-  imageUrl: "https://res.cloudinary.com/emmanuelandela/image/upload/v1512150149/gbqfcbvqpirssqonmafp.jpg",
-  imagePublicId: "gbqfcbvqpirssqonmafp",
-  category: "Finance",
-  quantity: 43,
-  createdAt: "2017-12-01T17:42:32.877Z",
-  updatedAt: "2017-12-03T11:45:30.303Z"
-}],
-count: 2}
-
+export const book1 = {
+  rows: [{
+    id: 6,
+    author: "P.N Okeke",
+    title: "Engineering Mathematics",
+    description: "The moon falls if apples falls. Isaac said so",
+    imageUrl: "https://res.cloudinary.com/emmanuelandela/image/upload/v1512149777/y1psocziflotgjg2mtvf.jpg",
+    imagePublicId: "y1psocziflotgjg2mtvf",
+    category: "Engineering",
+    quantity: 35,
+    createdAt: "2017-12-01T17:37:20.678Z",
+    updatedAt: "2017-12-03T12:54:00.084Z"
+  },
+  {
+    id: 7,
+    author: "Ogunbo Emmanuel",
+    title: "How to get rich in 5 days",
+    description: "Don't doubt it. There has been lots of testimonies.",
+    imageUrl: "https://res.cloudinary.com/emmanuelandela/image/upload/v1512150149/gbqfcbvqpirssqonmafp.jpg",
+    imagePublicId: "gbqfcbvqpirssqonmafp",
+    category: "Finance",
+    quantity: 43,
+    createdAt: "2017-12-01T17:42:32.877Z",
+    updatedAt: "2017-12-03T11:45:30.303Z"
+  }],
+  count: 2
+};
 
 
 export const book3 = {

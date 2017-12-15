@@ -65,9 +65,7 @@ class BooksController {
     return db.Categories.create({
       category: request.body.category
     })
-      .then(category => response.status(201).json({
-        category
-      }))
+      .then(category => response.status(201).json(category))
       .catch(error => response.status(400).json({
         errors: [{ msg: error.errors[0] }]
       }));
@@ -86,7 +84,9 @@ class BooksController {
       limit: 10,
       order: [['updatedAt', 'DESC']]
     })
-      .then(category => response.status(200).json(category));
+      .then(category => response.status(200).json(category))
+      .catch(error => response.status(400)
+        .json(error.errors.map(errorMessage => errorMessage.message)));
   }
   /**
    *
@@ -129,7 +129,9 @@ class BooksController {
         return response.status(200).json({
           count: books.count, rows: books.rows
         });
-      });
+      })
+      .catch(error => response.status(400)
+        .json(error.errors.map(errorMessage => errorMessage.message)));
   }
   /**
    *
@@ -205,8 +207,12 @@ class BooksController {
             id: bookId
           }
         })
-          .then(() => response.status(204).json({}));
-      });
+          .then(() => response.status(204).json({}))
+          .catch(error => response.status(400)
+            .json(error.errors.map(errorMessage => errorMessage.message)));
+      })
+      .catch(error => response.status(400)
+        .json(error.errors.map(errorMessage => errorMessage.message)));
   }
 }
 export default BooksController;

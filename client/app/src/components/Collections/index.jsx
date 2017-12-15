@@ -27,7 +27,6 @@ cloudinary.config(settings);
 const propTypes = {
   books: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
-  bookCategory: PropTypes.array.isRequired,
   editBook: PropTypes.func.isRequired,
   getAllBooks: PropTypes.func.isRequired,
   borrowBook: PropTypes.func.isRequired,

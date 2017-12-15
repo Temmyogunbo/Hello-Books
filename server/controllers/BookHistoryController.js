@@ -81,7 +81,7 @@ class BookHistoryController {
                 dueDate: new Date(new Date().getTime() +
                     (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000))
               })
-              .then((record) => response.status(201).json({
+              .then(record => response.status(201).json({
                 record,
                 msg: 'You successfully borrowed a book.'
               }));
@@ -160,7 +160,7 @@ class BookHistoryController {
       page
     } = request.query;
     const userId = parseInt(request.params[0], 10);
-    let whereStatement = { UserId: userId };
+    const whereStatement = { UserId: userId };
 
     const offset = itemsCountPerPage ? itemsCountPerPage * (page - 1) : 0;
     const limit = itemsCountPerPage || 10;
@@ -176,8 +176,8 @@ class BookHistoryController {
           { model: db.Book, attributes: ['author', 'title'] }
         ],
         order: [['updatedAt', 'DESC']],
-        limit: limit,
-        offset: offset
+        limit,
+        offset
 
       })
       .then((record) => {

@@ -29,9 +29,9 @@ class SplashScreen extends React.Component {
     return (
       <div>
         <div className="image" />
-        <div className="row welcome-message-container">
-          <div className="col s6 push-s3">
-            <div >Welcome to HelloBooks</div>
+        <div className="welcome-message-container">
+          <div className="welcome-message-text">
+            <h1 >Welcome to HelloBooks</h1>
             <p className="welcome-message">
                 Your platform to up to date books.<br />
                 You can borrow, and read <br />

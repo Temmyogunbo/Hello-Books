@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import GuestLinks from './GuestLinks';
 import UserLinks from './UserLinks';
 import { signOutAction } from '../../actions/userActions';

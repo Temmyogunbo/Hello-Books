@@ -163,7 +163,7 @@ class UsersController {
     } = request.body;
     return db.User.findOne({
       where: {
-        userName: userName
+        userName
       },
       attributes: ['password'],
       limit: 1
@@ -176,18 +176,17 @@ class UsersController {
             },
             {
               where: {
-                userName: userName
+                userName
               }
             }
           )
-            .then((newUpdate) => response.status(204).json(newUpdate))
+            .then(newUpdate => response.status(204).json(newUpdate))
             .catch(() => response.status(400)
               .json({ msg: 'Your password cannot be updated.' }));
-        } else {
-          return response.status(403).json({
-            msg: 'Your old password is incorrect.'
-          });
         }
+        return response.status(403).json({
+          msg: 'Your old password is incorrect.'
+        });
       })
       .catch(() => response.status(400)
         .json({ msg: 'You are not a valid user.' }));

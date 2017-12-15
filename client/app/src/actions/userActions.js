@@ -144,7 +144,7 @@ export const ChangePasswordAction = userData => dispatch =>
       dispatch(changeUserPassword(response.data));
       toastr.success('Password changed');
     }).catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
 /**
