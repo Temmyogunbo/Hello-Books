@@ -6,14 +6,17 @@ import NotificationIcon from '../Notifications/NotificationIcon';
 
 const propTypes = {
   isAdmin: PropTypes.bool.isRequired,
-  signOutAction: PropTypes.func.isRequired
+  signOutAction: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired
 };
-/**
+
+/**it returns unordered list element
  *
  * @param {any} props
+ *
  * @returns {object} jsx
  */
-function UserLinks({ isAdmin, signOutAction }) {
+function UserLinks({ isAdmin, signOutAction, total }) {
   return (
     <div>
       <ul
@@ -21,7 +24,7 @@ function UserLinks({ isAdmin, signOutAction }) {
         className="right hide-on-med-and-down custom-nav-list"
       >
         {isAdmin ? <li>
-          <NotificationIcon />
+          <NotificationIcon total={total}/>
         </li> : <li>
           <Link to="/history">
               History
@@ -44,7 +47,7 @@ function UserLinks({ isAdmin, signOutAction }) {
         className="side-nav"
       >
         {isAdmin ? <li>
-          <NotificationIcon />
+          <NotificationIcon total={total}/>
         </li> : <li>
           <Link to="/history">
               History

@@ -1,9 +1,12 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-/**
+/**It validates user data before sending to data
+ * 
  * @description Validates Sign In form
+ * 
  * @param  {object} formData
+ * 
  * @return {object} object- contains errors and boolean
  */
 export default function signInValidation(formData) {

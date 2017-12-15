@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
+
 import passwordValidation from '../../../utils/passwordValidation';
 import TextFieldGroup from './TextFieldGroup';
 import Button from '../Button';
@@ -9,10 +9,12 @@ const propTypes = {
   changePassword: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired
 };
-/**
+
+/**It contains state and behaviours for component
  *
  *
  * @class ChangePasswordForm
+ *
  * @extends {React.Component}
  */
 class ChangePasswordForm extends React.Component {
@@ -34,7 +36,8 @@ class ChangePasswordForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  /**
+
+  /**It sets the component state back to its intial
    * @returns {void}
    *
    * @memberof ChangePasswordForm
@@ -48,10 +51,11 @@ class ChangePasswordForm extends React.Component {
       errors: {}
     });
   }
-  /**
+  /**It validates formData
    *
    *
    * @returns {object} boolean and error object
+   *
    * @memberof ChangePasswordForm
    */
   validateForm() {
@@ -70,23 +74,27 @@ class ChangePasswordForm extends React.Component {
     }
     return isValid;
   }
-  /**
-   * @returns {void}
+  /**It updates the namne field
+   * @returns {undefined}
    *
    * @param {any} event
+   *
    * @memberof ChangePasswordForm
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /**
+  /**It handles submit
    *
    *
    * @param {any} event
-   * @returns {void}
+   * \
+   * @returns {undefined}
+   *
    * @memberof ChangePasswordForm
    */
   onSubmit(event) {
+    const { $ } = window;
     event.preventDefault();
     if (this.validateForm()) {
       const {
@@ -107,10 +115,11 @@ class ChangePasswordForm extends React.Component {
       return $('#change-password').modal('close');
     }
   }
-  /**
+  /**It returns a div element
    *
    *
    * @returns {object} jsx
+   * 
    * @memberof ChangePasswordForm
    */
   render() {

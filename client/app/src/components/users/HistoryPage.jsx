@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import swal from "sweetalert2";
 import PropTypes from 'prop-types';
+
 import Profile from './Profile';
 import UserRecords from './UserRecords';
 import PasswordForm from '../forms/PasswordForm';
@@ -22,16 +23,21 @@ const propTypes = {
   userHistoryReducer: PropTypes.array.isRequired,
   returnBook: PropTypes.func.isRequired
 };
-/**
+
+/**It contains state and behaviours for HistoryPage componenent
  *
  * @returns {object} jsx
- * @class BookPage
+ *
+ * @class HistoryPage
+ *
  * @extends {React.Component}
  */
 class HistoryPage extends React.Component {
   /**
    * Creates an instance of HistoryPage.
+   *
    * @param {any} props
+   *
    * @memberof HistoryPage
    */
   constructor(props) {
@@ -43,7 +49,8 @@ class HistoryPage extends React.Component {
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
-  /**
+  /**It checks if a user role is admin
+   *
    * @returns {void}
    *
    * @memberof HistoryPage
@@ -55,7 +62,8 @@ class HistoryPage extends React.Component {
       });
     }
   }
-  /**
+  /**It calls action to fetch user history and initializes modal component
+   *
    * @returns {void}
    *
    * @memberof HistoryPage
@@ -73,10 +81,12 @@ class HistoryPage extends React.Component {
       });
     });
   }
-  /**
+  /**It handles page on change and calls action to fetch history
+   *
    * @returns {undefined}
    *
    * @param {any} pageNumber
+   *
    * @memberof HistoryPage
    */
   handlePageChange(pageNumber) {
@@ -88,7 +98,7 @@ class HistoryPage extends React.Component {
       itemsCountPerPage: this.state.itemsCountPerPage
     }));
   }
-  /**
+  /**It handles return book
    *
    *
    * @param {any} data
@@ -110,7 +120,7 @@ class HistoryPage extends React.Component {
     swal('This book has been returned')
       .catch(swal.noop);
   }
-  /**
+  /**It returns a div element
    *
    *
    * @returns {object} jsx
@@ -157,6 +167,13 @@ class HistoryPage extends React.Component {
     );
   }
 }
+/**
+ * It slices the state and returns user, userHistoryReducer, total
+ *
+ * @param {object} state
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state) => ({
   user: state.userReducer.user,
   userHistoryReducer: state.userHistoryReducer.rows,

@@ -13,7 +13,7 @@ const propTypes = {
   itemsCountPerPage: PropTypes.number.isRequired,
   userId: PropTypes.number.isRequired
 };
-/**
+/**It returns div element containing user records
  *
  *
  * @param {any} props

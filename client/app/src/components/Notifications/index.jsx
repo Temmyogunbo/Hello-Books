@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import Pagination from '../Pagination';
 import {
   getNotificationsAction,
@@ -20,7 +21,7 @@ const defaultProps = {
   notifications: [],
   total: 0
 };
-/**
+/**It contains methods and state for the Notifications component
  *
  *
  * @class Notifications
@@ -40,7 +41,8 @@ class Notifications extends React.Component {
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
-  /**
+  /**It invokes an action that gets all notifications
+   *
    * @returns{undefined}
    *
    * @memberof Notifications
@@ -51,10 +53,12 @@ class Notifications extends React.Component {
       itemsCountPerPage: this.state.itemsCountPerPage
     });
   }
-  /**
+  /**It handles page change and invokes notifications
+   *
    * @returns {undefined}
    *
    * @param {any} pageNumber
+   *
    * @memberof Notifications
    */
   handlePageChange(pageNumber) {
@@ -65,10 +69,11 @@ class Notifications extends React.Component {
       itemsCountPerPage: this.state.itemsCountPerPage
     }));
   }
-  /**
+  /**It returns a div element containing notification list
      *
      *
      * @returns {object} jsx
+     *
      * @memberof Notifications
      */
   render() {
@@ -98,6 +103,13 @@ class Notifications extends React.Component {
 Notifications.propTypes = propTypes;
 Notifications.defaultProps = defaultProps;
 
+/**
+ * It slices the state and returns role, notifications, and total
+ *
+ * @param {object} state
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state) => ({
   role: state.userReducer.user.role,
   notifications: state.notificationsReducer.notifications,

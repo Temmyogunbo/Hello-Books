@@ -7,7 +7,7 @@ import Button from '../Button/index';
 const propTypes = {
   signin: PropTypes.func.isRequired,
 };
-/**
+/**It contains state and methods for SignInForm component
  *
  *
  * @class SignInForm
@@ -16,7 +16,9 @@ const propTypes = {
 export class SignInForm extends React.Component {
   /**
      * Creates an instance of SignInForm.
+     *
      * @param {any} props
+     *
      * @memberof SignInForm
      */
   constructor(props) {
@@ -31,16 +33,18 @@ export class SignInForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  /**
+  /**It updates the name field
+   *
    * @returns {void}
    *
    * @param {any} event
+   *
    * @memberof SignInForm
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /**
+  /**It validates form data
    *
    *
    * @returns {Boolean} isValid
@@ -53,10 +57,12 @@ export class SignInForm extends React.Component {
     }
     return isValid;
   }
-  /**
+  /**It handles form submission
+   *
    * @return {void} the login action is dispatched
    *
    * @param {any} event
+   *
    * @memberof SignInForm
    */
   onSubmit(event) {
@@ -65,10 +71,11 @@ export class SignInForm extends React.Component {
       this.props.signin(this.state);
     }
   }
-  /**
+  /**It returns form element
    *
    *
    * @returns {object} jsx
+   *
    * @memberof SignInForm
    */
   render() {

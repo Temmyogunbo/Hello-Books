@@ -6,6 +6,14 @@ import {
 const initialState = { rows: [], count: 0 };
 let newState;
 
+/**
+ * Handles user borrow history state
+ *
+ * @param {object} state
+ * @param {object} action
+ *
+ * @returns {object} new state
+*/
 export default (state = initialState, action) => {
   switch (action.type) {
   case GET_USER_HISTORY:

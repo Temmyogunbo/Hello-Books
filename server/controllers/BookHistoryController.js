@@ -1,23 +1,25 @@
-import db from '../models';
+import database from '../models';
 import membershipLevel from '../helper/membershipLevel';
+
 /**
- *
+ * A static class that manages user borrow history
  *
  * @class BookHistoryController
  */
 class BookHistoryController {
   /**
-   *
-   *
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BookHistoryController
-   */
+  * Borrow book
+  *
+  * @static
+  * @param {any} request
+  * @param {any} response
+  * @returns {object} returns object
+  * @memberof BookHistoryController
+  */
   static borrowBook(request, response) {
     const userId = parseInt(request.params[0], 10);
     const { bookId, membership } = request.body;
-    return db.Book.findById(bookId).then((book) => {
+    return database.Book.findById(bookId).then((book) => {
       if (!membership) {
         return response.status(400).json({
           msg: 'You must declare your membership type.'
@@ -35,7 +37,7 @@ class BookHistoryController {
       }
       const numberofBooksAllowedWithDays =
           membershipLevel.checkMembership(membership);
-      db.History.findAll({
+      database.History.findAll({
         where: {
           UserId: userId,
           returned: false
@@ -73,7 +75,7 @@ class BookHistoryController {
               }
             }
             // user is borrowing different book and has not exceeded his limit
-            db.History
+            database.History
               .create({
                 UserId: userId,
                 BookId: bookId,
@@ -99,18 +101,18 @@ class BookHistoryController {
       });
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BookHistoryController
-   */
+ *
+ * Return borrow book
+ * @static
+ * @param {any} request
+ * @param {any} response
+ * @returns {object} json object
+ * @memberof BookHistoryController
+ */
   static returnBook(request, response) {
     const bookId = parseInt(request.body.bookId, 10);
     const userId = parseInt(request.params[0], 10);
-    return db.History
+    return database.History
       .findOne({
         where: {
           UserId: userId,
@@ -119,7 +121,7 @@ class BookHistoryController {
         },
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: db.Book }
+          { model: database.Book }
         ]
       }).then((record) => {
         if (record === null) {
@@ -127,7 +129,7 @@ class BookHistoryController {
             msg: 'No record found'
           });
         }
-        db.History.update(
+        database.History.update(
           {
             returned: true
           },
@@ -146,14 +148,14 @@ class BookHistoryController {
       });
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BookHistoryController
-   */
+ *
+ * returns borrow history
+ * @static
+ * @param {any} request
+ * @param {any} response
+ * @returns {object} user object
+ * @memberof BookHistoryController
+ */
   static findUserHistory(request, response) {
     const {
       itemsCountPerPage,
@@ -168,12 +170,12 @@ class BookHistoryController {
     if (request.query.returned) {
       whereStatement.returned = false;
     }
-    return db.History
+    return database.History
       .findAndCountAll({
         where: whereStatement,
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: db.Book, attributes: ['author', 'title'] }
+          { model: database.Book, attributes: ['author', 'title'] }
         ],
         order: [['updatedAt', 'DESC']],
         limit,

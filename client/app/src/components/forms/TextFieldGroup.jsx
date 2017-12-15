@@ -18,7 +18,7 @@ TextFieldGroup.defaultProps = {
   field: '',
   icon: ''
 };
-/**
+/**It either returns input field or textarea
  *
  *
  * @param {type}  id

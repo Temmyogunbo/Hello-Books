@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-/**
+/**It returns list element
  *
  *
  * @returns {object} jsx

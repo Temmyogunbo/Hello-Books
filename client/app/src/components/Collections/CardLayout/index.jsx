@@ -10,7 +10,7 @@ const propTypes = {
   handleDeleteBook: PropTypes.func.isRequired,
   handleEditBook: PropTypes.func.isRequired
 };
-/**
+/**It returns a div element
 *
 *
 * @param {any} props

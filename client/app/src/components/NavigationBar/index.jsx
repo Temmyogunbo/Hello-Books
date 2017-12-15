@@ -10,9 +10,13 @@ import { signOutAction } from '../../actions/userActions';
 const propTypes = {
   user: PropTypes.object.isRequired,
   signOutAction: PropTypes.func.isRequired,
-  role: PropTypes.string
+  role: PropTypes.string,
+  total: PropTypes.number.isRequired
 };
-/**
+const defaultProps = {
+  total: 0,
+};
+/**It contains state and behaviours for NavigtionBar component
  *
  * @returns {object} jsx
  * @class Navigation
@@ -27,10 +31,12 @@ export class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAdmin: false
+      isAdmin: false,
+      total: 0
     };
   }
-  /**
+  /**It checks if a user is an admin before mounting
+   * and also initializes modal component
    * @returns {void}
    *
    * @memberof Navigation
@@ -48,13 +54,17 @@ export class NavigationBar extends React.Component {
       });
     });
   }
-  /**
+  /**It sets on receiving next props
    * @returns {undefined}
    *
    * @param {any} nextProps
+   *
    * @memberof NavigationBar
    */
   componentWillReceiveProps(nextProps) {
+    if (nextProps.total) {
+      this.setState({ total: nextProps.total });
+    }
     if (nextProps.role === 'admin') {
       this.setState({
         isAdmin: true
@@ -65,8 +75,9 @@ export class NavigationBar extends React.Component {
       });
     }
   }
-  /**
-   * @returns {void}
+  /**It initializes side nav on update
+   *
+   * @returns {undefined}
    *
    * @memberof Navigation
    */
@@ -77,17 +88,20 @@ export class NavigationBar extends React.Component {
       closeOnClick: true
     });
   }
-  /**
- * @returns {void}
+  /**It handle sign out and call the appropriate actio
+   *
+ * @returns {undefined}
  *
  * @param {any} event
+ *
  * @memberof DashboardHead
  */
   signOutAction(event) {
     event.preventDefault();
     this.props.signOutAction();
   }
-  /**
+
+  /**It returns nav element
    *
    * @returns {object} jsx
    * @memberof Navigation
@@ -112,6 +126,7 @@ export class NavigationBar extends React.Component {
               <UserLinks
                 isAdmin={this.state.isAdmin}
                 signOutAction={this.props.signOutAction}
+                total={this.state.total}
               /> : <GuestLinks /> }
           </div>
         </nav>
@@ -120,9 +135,19 @@ export class NavigationBar extends React.Component {
   }
 }
 NavigationBar.propTypes = propTypes;
+NavigationBar.defaultProps = defaultProps;
+
+/**
+ * It slices the state and returns user object and role string
+ *
+ * @param {object} state
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state) => ({
   user: state.userReducer,
-  role: state.userReducer.user.role
+  role: state.userReducer.user.role,
+  total: state.notificationsReducer.total
 });
 export default connect(
   mapStateToProps,

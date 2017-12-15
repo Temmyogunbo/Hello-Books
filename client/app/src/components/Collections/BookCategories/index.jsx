@@ -2,6 +2,7 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { getBookCategoryAction } from '../../../actions/categoryAction';
 import { getAllBooksAction } from '../../../actions/bookAction';
 
@@ -12,7 +13,7 @@ const propTypes = {
   itemsCountPerPage: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired
 };
-/**
+/**This class contains method for bookcategories
  *
  * @returns {object} jsx
  * @class BookPage
@@ -30,7 +31,7 @@ class BookCategories extends React.Component {
       categories: []
     };
   }
-  /**
+  /**It invokes an action that gets all books categories
      * @returns {void}
      *
      * @memberof BookCategories
@@ -38,7 +39,8 @@ class BookCategories extends React.Component {
   componentDidMount() {
     this.props.getBookCategory();
   }
-  /**
+  /**It changes the categories state of the
+   * component if there is a new props
      * @returns {void}
      *
      * @param {any} nextProps
@@ -50,7 +52,7 @@ class BookCategories extends React.Component {
     }
   }
 
-  /**
+  /**It returns a div elemnent
      *
      *
      * @returns {object} jsx
@@ -99,6 +101,13 @@ class BookCategories extends React.Component {
     );
   }
 }
+/**
+ * It slices the state and returns category array
+ *
+ * @param {object} state
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state) => ({
   category: state.bookCategoryReducer
 });
