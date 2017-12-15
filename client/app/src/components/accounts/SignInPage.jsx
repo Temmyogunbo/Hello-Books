@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { SignInForm } from '../forms/SignInForm';
 import { signinAction } from '../../actions/userActions';
 
@@ -9,29 +10,37 @@ const propTypes = {
   signin: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
 };
+
 /**
+ * Class component for signin page
  *
- *
+ * @export
  * @class SignInPage
  * @extends {React.Component}
  */
 export class SignInPage extends React.Component {
-  /**
-   * @returns {void}
-   *
-   * @memberof SignInPage
-   */
+/**
+ * It checks if a user is authenticated
+ * and redirects to the collections page
+ *
+ * @memberof SignInPage
+ * @returns {undefined}
+ */
   componentWillMount() {
     if (this.props.isAuthenticated) {
       window.location = '/collections';
     }
   }
-
   /**
-   * @param {any} nextProps
-   * @memberof SignInPage
-   * @returns {undefined}
-   */
+ * It checks if a user is authenticted
+ * if the props should change
+ *
+ * @param {any} nextProps
+ *
+ * @memberof SignInPage
+ *
+ * @returns {undefined}
+ */
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated) {
       this.props.history.replace('/collections');
@@ -39,11 +48,12 @@ export class SignInPage extends React.Component {
   }
 
   /**
-   *
-   *
-   * @returns {object} jsx
-   * @memberof SignInPage
-   */
+ * It returns a div element
+ * that will be attached to the DOM
+ *
+ * @returns {object} jsx
+ * @memberof SignInPage
+ */
   render() {
     const {
       isAuthenticated,
@@ -62,7 +72,13 @@ export class SignInPage extends React.Component {
     );
   }
 }
-
+/**
+ * It slices the state and returned isAuthenticated boolean
+ *
+ * @param {object} state
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state) => ({
   isAuthenticated: state.userReducer.isAuthenticated
 });

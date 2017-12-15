@@ -16,13 +16,28 @@ body {
 }
 
 .welcome-message-container {
-  font-size: 30px;
-  padding-top: 10%;
-  text-align: center;
-  color: white;
+  position: relative;
+  height: 85vh;
+  width: 100%;
 }
-.welcome-message-container h2{
-  font-weight: bold;
+.welcome-message-text{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 500px;
+    height: 200px;
+    background-color: rgba(0,0,0,0.4);
+    box-shadow: 1px 1px 1px #000;
+    color: #fff;
+    text-align: center;
+    max-width: 100%;
+}
+
+.welcome-message-text h1{
+    font-size: 2.5rem;
 }
 
 .footer {
@@ -148,6 +163,7 @@ height: 250px;
     position: absolute;
     height: 110vh;
     width: 100%;
+    background-size: 100% 100%;
 }
 
 .button-color {
@@ -243,19 +259,6 @@ height: 250px;
 }
 
 @media only screen and (max-width: 480px) {
-    .welcome-message-container {
-  font-size: 15px;
-  padding-top: 10%;
-  text-align: center;
-  color: white;
-}
-.welcome-message-container:nth-child(2) {
-  font-size: 15px;
-  font-weight: bold
-
-
-}
-
 .sign-title{
     color: white;
     font-size: 20px;

@@ -8,7 +8,7 @@ const propTypes = {
   notifications: PropTypes.array.isRequired,
   updateNotification: PropTypes.func.isRequired
 };
-/**
+/**It returns a div element containing notifications list
  *
  *
  * @param {any} props

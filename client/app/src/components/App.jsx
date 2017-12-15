@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import SignInPage from '../components/accounts/SignInPage';
 import SignUpPage from '../components/accounts/SignUpPage';
 import SplashScreen from './Welcome';
@@ -7,13 +8,14 @@ import CheckSignedInContainer from '../../utils/CheckSignedInContainer';
 import BookPage from '../components/Collections/BookPage';
 import CollectionsPage from '../components/Collections';
 import HistoryPage from '../components/users/HistoryPage';
-import Notifications from '../../src/components/Notifications/NotificationPage';
+import Notifications from '../../src/components/Notifications';
 import '../sass/style.scss';
 import '../../../node_modules/toastr/toastr.scss';
 import PageNotFound from './PageNotFound';
-import NavigationBar from './header/NavigationBar';
+import NavigationBar from './NavigationBar';
 import Footer from './Footer';
-/**
+
+/**It returns a div element containg app routes
  *
  *
  * @returns {object} jsx

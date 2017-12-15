@@ -13,27 +13,34 @@ import {
   RETURN_A_BOOK,
   DELETE_BOOK,
 } from '../constants/actionTypes';
+
 /**
- *
+ *Dispatched action to edit book
+
  * @param {object} book
- * @return {book} book - dispatched book object
+ *
+ * @return {book} object
  */
 export const editBook = book => ({
   type: EDIT_BOOK,
   book
 });
-/**
+
+/**Dispatched action to add book
  *
  * @param {object} book
+ *
  * @return {book} book - dispatched book object
  */
 export const addBook = book => ({
   type: ADD_BOOK,
   book
 });
-/**
+
+/**Dispatched action to delete book
  *
  * @param {bookId} id
+ *
  * @return {object} description delete book object
  *
  */
@@ -42,31 +49,44 @@ export const deleteBook = id => ({
   id
 });
 
+/**Dispatched action to get all books
+ *
+ * @param {books} books
+ *
+ * @return {object} object
+ *
+ */
 export const getAllBooks = books => ({
   type: GET_ALL_BOOKS,
   books
 });
 
-/**
+/**Dispatched borrow book action
  *
  * @return {object} All books
+ *
  * @param {error} id - dispatched book id
  */
 export const borrowBook = id => ({
   type: BORROW_A_BOOK,
   id
 });
-/**
+
+/**Dispatched return book action
  *
  * @return {returnMessage} returnMessage - dispatched returned message
+ *
  * @param {object} bookReturned book details
  */
 export const returnBook = bookReturned => ({
   type: RETURN_A_BOOK,
   bookReturned
 });
-/**
+
+/**It returns book object
+ *
 * @return {object} - returns an object of book
+
 * @param {object} bookData - contains book message in the library
 */
 export const addBookAction = bookData => dispatch =>
@@ -79,8 +99,10 @@ export const addBookAction = bookData => dispatch =>
       toastr.error(error.response.data.msg);
     });
 
-/**
+/**It returns all book object
+ *
  * @param {object} bookData
+ *
  * @return {object} - returns an object of books
  */
 export const getAllBooksAction = bookData => dispatch => {
@@ -89,7 +111,8 @@ export const getAllBooksAction = bookData => dispatch => {
    &itemsCountPerPage=${bookData.itemsCountPerPage}`;
   if (bookData.bookCategory) {
     bookRoute = `/api/v1/books?page=${bookData.currentPage}& \
-    itemsCountPerPage=${bookData.itemsCountPerPage}&category=${bookData.bookCategory.category}`;
+    itemsCountPerPage=${bookData.itemsCountPerPage}& \
+    category=${bookData.bookCategory.category}`;
   }
   if (bookData.bookId) {
     bookRoute = `/api/v1/books/${bookData.bookId}`;
@@ -101,8 +124,10 @@ export const getAllBooksAction = bookData => dispatch => {
       toastr.error(error.response.data.errors[0].msg);
     });
 };
-/**
+/**It returns borrow book object
+ *
 * @param {bookData} bookData
+
 * @return {object} response
 */
 export const borrowBookAction = bookData => dispatch =>
@@ -123,8 +148,10 @@ export const borrowBookAction = bookData => dispatch =>
       toastr.error(error.response.data.msg);
     });
 
-/**
+/**It returns book
+ *
  * @return {object} - returns an object of return book
+ *
  * @param {object} returnData - contains details of user history
  */
 export const returnBookAction = returnData => dispatch =>
@@ -145,8 +172,10 @@ export const returnBookAction = returnData => dispatch =>
     .catch((error) => {
       toastr.error(error.response.data.msg);
     });
-/**
+/**It returns delete book object
+ *
  *  @return {object} - returns an object of book
+ *
  * @param {object} bookData - contains id of book to be deleted
 */
 export const deleteBookAction = bookData => dispatch =>
@@ -159,8 +188,10 @@ export const deleteBookAction = bookData => dispatch =>
       toastr.error(error.response.data.msg);
     });
 
-/**
+/**It returns edit book object
+ *
 * @return {object} - returns an empty object of book
+
 * @param {object} bookData - contains book message in the library
 */
 export const editBookAction = bookData => (dispatch) =>

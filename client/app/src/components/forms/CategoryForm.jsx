@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
+
 import categoryValidation from '../../../utils/categoryValidation';
 import TextFieldGroup from './TextFieldGroup';
 import Button from "../Button";
@@ -28,7 +28,8 @@ class CategoryForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  /**
+
+  /**It handles some component component state
    * @return {void}
    *
    * @memberof CategoryForm
@@ -40,15 +41,19 @@ class CategoryForm extends React.Component {
       category: ''
     });
   }
-  /**
+
+  /**It updates the name field
+   *
    * @returns {void}
-   * @description update the category field
+   *
    * @param {any} event
+   *
    * @memberof CategoryForm
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
   /**
 **@description Checks that form is valid
 * @return {Boolean} boolean
@@ -61,13 +66,14 @@ class CategoryForm extends React.Component {
     return isValid;
   }
 
-  /**
+  /**It handles submit
  *
  * @return {void} the add  action is dispatched
  * @param {void} event - on click event
  * @memberof create Book category form
  */
   onSubmit(event) {
+    const { $ } = window;
     event.preventDefault();
     if (this.validateForm()) {
       this.props.createBookCategory(this.state);
@@ -75,7 +81,7 @@ class CategoryForm extends React.Component {
       return $('#book-category-form-modal').modal('close');
     }
   }
-  /**
+  /**It returns a div element
    *
    *
    * @returns {object} jsx

@@ -14,7 +14,7 @@ SelectFieldGroup.defaultProps = {
   field: '',
   items: []
 };
-/**
+/**It returns select component
  *
  *
  *  @param {type}  field

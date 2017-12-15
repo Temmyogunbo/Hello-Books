@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-/**
+/**It returnss a div element
  * @returns {object} jsx
  *
  */

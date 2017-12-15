@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import cloudinary from 'cloudinary';
+
 import BookCategories from './BookCategories';
 import CardLayout from './CardLayout';
 import BookForm from '../forms/BookForm';
@@ -27,7 +28,6 @@ cloudinary.config(settings);
 const propTypes = {
   books: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
-  bookCategory: PropTypes.array.isRequired,
   editBook: PropTypes.func.isRequired,
   getAllBooks: PropTypes.func.isRequired,
   borrowBook: PropTypes.func.isRequired,
@@ -43,9 +43,8 @@ const propTypes = {
 const defaultProps = {
   total: 0
 };
-/**
+/**It contans state and behaviours for Collection Page component
  *
- * @returns {object} jsx
  * @class CollectionPage
  * @extends {React.Component}
  */
@@ -67,7 +66,9 @@ class CollectionPage extends React.Component {
     this.handleEditBook = this.handleEditBook.bind(this);
     this.handleDeleteBook = this.handleDeleteBook.bind(this);
   }
-  /**
+  /**It invokes action to get all books, notifications,
+   * and also initializes modal element
+   * and resets numberOfTimesBookDeleted to zero
      * @returns {void} jsx
      *
      * @memberof CollectionPage
@@ -95,24 +96,23 @@ class CollectionPage extends React.Component {
       numberOfTimesBookDeleted: 0
     });
   }
-  /**
+  /**It sets categories and books state on next props if it changes
    * @returns {void}
    *
    * @param {any} nextProps
    * @memberof CollectionPage
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.bookCategory !== this.props.bookCategory) {
-      this.setState({ categories: nextProps.bookCategory });
-    }
     if (nextProps.books !== this.props.books) {
       this.setState({ books: nextProps.books });
     }
   }
-  /**
+  /**It handles page changes by
+   * setting a new state and invoking an action to get all books
      * @returns {undefined}
      *
      * @param {any} pageNumber
+     *
      * @memberof CollectionPage
      */
   handlePageChange(pageNumber) {
@@ -124,7 +124,8 @@ class CollectionPage extends React.Component {
       itemsCountPerPage: this.state.itemsCountPerPage
     }));
   }
-  /**
+  /**It looks for book to be edited in the props
+   *  and changes the book state of the component
    *
    *
    * @param {any} event
@@ -142,7 +143,9 @@ class CollectionPage extends React.Component {
     });
     return $('#book-form-modal').modal('open');
   }
-  /**
+  /**It deletes a book and set a new state
+   * for numberOfTimesBookDeleted and also invokes
+   * an action if it is upton to 5 times
    * @returns {object} modal element
    *
    * @param {any} event
@@ -178,7 +181,7 @@ class CollectionPage extends React.Component {
       }
     }).catch(swal.noop);
   }
-  /**
+  /**It returns a div element
      *
      *
      * @returns {object} jsx
@@ -253,7 +256,14 @@ class CollectionPage extends React.Component {
 CollectionPage.propTypes = propTypes;
 CollectionPage.defaultProps = defaultProps;
 
-
+/**
+ * It slices the state and returns role, books, and total
+ * as a properties injected into the component
+ *
+ * @param {object} state
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state) => ({
   role: state.userReducer.user.role,
   books: state.bookReducer.rows,

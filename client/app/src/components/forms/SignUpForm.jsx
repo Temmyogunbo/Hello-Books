@@ -9,7 +9,7 @@ import Button from '../Button/index';
 const propTypes = {
   signup: PropTypes.func.isRequired,
 };
-/**
+/**It contains state and behaviours for sign up form
  *
  *
  * @class SignUpForm
@@ -18,7 +18,9 @@ const propTypes = {
 export class SignUpForm extends React.Component {
   /**
    * Creates an instance of SignUpForm.
+   *
    * @param {any} props
+   *
    * @memberof SignUpForm
    */
   constructor(props) {
@@ -36,10 +38,11 @@ export class SignUpForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onGoogleCallback = this.onGoogleCallback.bind(this);
   }
-  /**
+  /**It validates formn data
    *
    *
    * @returns {Boolean} isValid
+   *
    * @memberof SignUpForm
    */
   validateForm() {
@@ -49,16 +52,19 @@ export class SignUpForm extends React.Component {
     }
     return isValid;
   }
-  /**
+  /**It updates name field
+   *
    * @returns {void}
    *
    * @param {any} event
+   *
    * @memberof SignUpForm
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /**
+  /**It handles google sign up
+   *
    * @returns {void}
    *
    * @param {any} response
@@ -74,10 +80,11 @@ export class SignUpForm extends React.Component {
     });
     document.getElementById("for-google-signup").click();
   }
-  /**
-   * @return {void} - dispatches the action
+  /**It handles form submission
+   * @return {undefined}
    *
    * @param {any} event
+   *
    * @memberof SignUpForm
    */
   onSubmit(event) {
@@ -95,10 +102,11 @@ export class SignUpForm extends React.Component {
       });
     }
   }
-  /**
+  /**It returns form element
    *
    *
    * @returns {object} jsx
+   *
    * @memberof SignUpForm
    */
   render() {
@@ -106,10 +114,12 @@ export class SignUpForm extends React.Component {
 
     return (
       <form
-        className="col s6 l4  m4 push-m4 push-s3 push-l4 div-container-form"
+        className="col s8 l4  m6 push-m4 push-l4 div-container-form"
         onSubmit={this.onSubmit}
       >
-        <h4 className="hide-on-med-and-down sign-title">Sign up to HelloBooks:</h4>
+        <h4 className="hide-on-med-and-down sign-title">
+          Sign up to HelloBooks:
+        </h4>
         <h4 className="hide-on-large-only">Sign up:</h4>
         <TextFieldGroup
           label={'Full Name'}
@@ -124,7 +134,7 @@ export class SignUpForm extends React.Component {
         <TextFieldGroup
           label={'Username'}
           field={'userName'}
-          id={'first_name'}
+          id={'user_name'}
           type={'text'}
           icon={''}
           value={this.state.userName}
@@ -169,7 +179,7 @@ export class SignUpForm extends React.Component {
             disabled={isLoading}
             children={' Sign up'}
           />
-          <div className="col s12 m12 ">
+          <div className="col s12 m12 l12">
             <GoogleLogin
               className="right google-button"
               clientId={process.env.GOOGLE_CLIENT_ID}

@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 app.use(express.static(`${__dirname}/../../../client/app/public`));
-// Require our routes into the application.
 (route)(app);
 
 app.use('*', (request, response) => {
@@ -30,7 +29,7 @@ app.use('*', (request, response) => {
 // error handler
 // development error handler
 if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => res.status(err.status || 500).json({
+  app.use((err, req, res) => res.status(err.status || 500).json({
     msg: err.msg,
     error: err
   }));

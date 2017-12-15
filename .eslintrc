@@ -31,18 +31,27 @@
           "handleReturnBook"
         ]
       }],
-    "valid-jsdoc": ["error", {
-      "requireReturn": true,
-      "requireReturnType": true,
-      "requireParamDescription": false,
-      "requireReturnDescription": true
-    }],
-    "require-jsdoc": ["error", {
-        "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": true,
-            "ClassDeclaration": true
-        }
-    }]
+"valid-jsdoc": [
+  "error",
+  {
+    "requireReturn": true,
+    "requireReturnType": true,
+    "requireParamDescription": false,
+    "requireReturnDescription": true,
+    "matchDescription": ".+"
+  }
+],
+"require-jsdoc": [
+  "error",
+  {
+    "require": {
+      "FunctionDeclaration": true,
+      "MethodDefinition": true,
+      "ClassDeclaration": true,
+      "ArrowFunctionExpression": true,
+      "FunctionExpression": true
+    }
+  }
+]
   }
 }

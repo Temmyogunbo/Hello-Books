@@ -20,7 +20,7 @@ Button.defaultProps = {
   id: '',
   icon: ''
 };
-/**
+/**It returns a button component
  *
  *
  * @param {type}  className

@@ -1,20 +1,20 @@
-import db from '../models';
+import database from '../models';
 
 /**
- *
+ * It contains utility method for books
  *
  * @class BooksController
  */
 class BooksController {
-  /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BooksController
-   */
+/**
+ *
+ * Add book
+ * @static
+ * @param {any} request
+ * @param {any} response
+ * @returns {object} book object
+ * @memberof BooksController
+ */
   static addBook(request, response) {
     const {
       title,
@@ -25,7 +25,7 @@ class BooksController {
       description,
       imagePublicId
     } = request.body;
-    return db.Book.create({
+    return database.Book.create({
       title,
       category,
       author,
@@ -52,49 +52,51 @@ class BooksController {
         }
       });
   }
+
   /**
- *
- *
- * @static
- * @param {any} request
- * @param {any} response
- * @returns {undefined}
- * @memberof BooksController
- */
+   * Adds category
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @returns {object} category object
+   * @memberof BooksController
+   */
   static addCategory(request, response) {
-    return db.Categories.create({
+    return database.Categories.create({
       category: request.body.category
     })
-      .then(category => response.status(201).json({
-        category
-      }))
+      .then(category => response.status(201).json(category))
       .catch(error => response.status(400).json({
         errors: [{ msg: error.errors[0] }]
       }));
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BooksController
-   */
+ * Find category
+ *
+ * @static
+ * @param {any} request
+ * @param {any} response
+ * @returns {object} category object
+ * @memberof BooksController
+ */
   static findCategory(request, response) {
-    return db.Categories.findAll({
+    return database.Categories.findAll({
       limit: 10,
       order: [['updatedAt', 'DESC']]
     })
-      .then(category => response.status(200).json(category));
+      .then(category => response.status(200).json(category))
+      .catch(error => response.status(400)
+        .json(error.errors.map(errorMessage => errorMessage.message)));
   }
+
   /**
-   *
+   * Get all books or a particular book
    *
    * @static
    * @param {any} request
    * @param {any} response
-   * @returns {undefined}
+   * @returns {object}  book(s) object
    * @memberof BooksController
    */
   static findBookOrBooks(request, response) {
@@ -113,7 +115,7 @@ class BooksController {
     if (request.params[0]) {
       whereStatement.id = parseInt(request.params[0], 10);
     }
-    return db.Book.findAndCountAll({
+    return database.Book.findAndCountAll({
       where: whereStatement,
 
       limit,
@@ -129,17 +131,19 @@ class BooksController {
         return response.status(200).json({
           count: books.count, rows: books.rows
         });
-      });
+      })
+      .catch(error => response.status(400)
+        .json(error.errors.map(errorMessage => errorMessage.message)));
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BooksController
-   */
+ * Edit an update a particular book
+ *
+ * @static
+ * @param {any} request
+ * @param {any} response
+ * @returns {object} returns object
+ * @memberof BooksController
+ */
   static updateBook(request, response) {
     const {
       title,
@@ -150,7 +154,7 @@ class BooksController {
       description
     } = request.body;
     const bookId = parseInt(request.params[0], 10);
-    return db.Book.update(
+    return database.Book.update(
       {
         category,
         title,
@@ -182,31 +186,35 @@ class BooksController {
       });
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BooksController
-   */
+ * Delete a book
+ *
+ * @static
+ * @param {any} request
+ * @param {any} response
+ * @returns {object} returns object
+ * @memberof BooksController
+ */
   static deleteBook(request, response) {
     const bookId = parseInt(request.params[0], 10);
 
-    return db.Book.findById(bookId)
+    return database.Book.findById(bookId)
       .then((book) => {
         if (!book) {
           return response.status(404).json({
             errors: [{ msg: 'Book cannot be found' }]
           });
         }
-        db.Book.destroy({
+        database.Book.destroy({
           where: {
             id: bookId
           }
         })
-          .then(() => response.status(204).json({}));
-      });
+          .then(() => response.status(204).json({}))
+          .catch(error => response.status(400)
+            .json(error.errors.map(errorMessage => errorMessage.message)));
+      })
+      .catch(error => response.status(400)
+        .json(error.errors.map(errorMessage => errorMessage.message)));
   }
 }
 export default BooksController;

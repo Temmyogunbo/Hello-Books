@@ -1,7 +1,9 @@
 import axios from 'axios';
-/**
- * @returns {undefined}
+
+
+/**It attaches token to header request
  *
+ *@returns {undefined}
  * @param {any} token
  */
 function setAuthToken(token) {
