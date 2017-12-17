@@ -7,5 +7,3 @@ module.exports = ((settings) => {
   settings.selenium.server_path += seleniumServerFileName;
   return settings;
 })(require('./nightwatch.json'));
-
-'';
