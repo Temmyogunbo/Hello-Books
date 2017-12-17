@@ -10,7 +10,7 @@ const propTypes = {
   handleDeleteBook: PropTypes.func.isRequired,
   handleEditBook: PropTypes.func.isRequired
 };
-/**
+/**It returns a div element
 *
 *
 * @param {any} props
@@ -32,45 +32,42 @@ function CardList({
               key={book.id}
               className="col s12 l4 m4"
             >
-              <Link to={`/collections/books/${book.id}`}>
-                <div className="book-size card">
+              <div className="card">
+                <Link to={`/collections/books/${book.id}`}>
+                  <div className="book-size">
 
-                  <div className="card-image">
-                    <img
-                      className="responsive-img"
-                      role="book cover"
-                      src={book.imageUrl}
-                      style={{ width: '100%', height: '150px' }} />
+                    <div className="card-image">
+                      <img
+                        className="responsive-img"
+                        role="book cover"
+                        src={book.imageUrl}
+                        style={{ width: '100%', height: '150px' }} />
+                    </div>
+                    <br />
+                    <div
+                      className="card-color"
+                    >
+                      {book.title}
+                    </div>
                   </div>
-                  <div
-                    className="card-content card-color"
-                    style={{
-                      width: "100%",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis"
-                    }}
-                  >
-                    {book.title}
-                  </div>
-                </div>
-              </Link>
-              {role === 'admin' ? <div>
-                <i
-                  id={book.id}
-                  className="fa fa-trash-o mr-1"
-                  aria-hidden="true"
-                  onClick={handleDeleteBook}
+                </Link>
+                {role === 'admin' ? <div>
+                  <i
+                    id={book.id}
+                    className="fa fa-trash-o mr-1"
+                    aria-hidden="true"
+                    onClick={handleDeleteBook}
 
-                />
-                <i
-                  id={book.id}
-                  className="material-icons mr-1"
-                  onClick={handleEditBook}
-                >edit
-                </i>
-                <span>Qty: {book.quantity}</span>
-              </div> : null}
-
+                  />
+                  <i
+                    id={book.id}
+                    className="material-icons mr-1"
+                    onClick={handleEditBook}
+                  >edit
+                  </i>
+                  <span>Qty: {book.quantity}</span>
+                </div> : null}
+              </div>
             </li>))}
           </ul> :
           <h3>There are now no books in the library.</h3>}

@@ -8,7 +8,7 @@ const propTypes = {
   notifications: PropTypes.array.isRequired,
   updateNotification: PropTypes.func.isRequired
 };
-/**
+/**It returns a div element containing notifications list
  *
  *
  * @param {any} props
@@ -38,7 +38,8 @@ function NotificationList({ notifications, updateNotification }) {
                   { notification.notificationType === 'BOOK_RETURNED' ?
                     'returned' : 'borrowed'}
                   {" "}
-                  { notification.Book.title}</div>
+                  { notification.Book.title}
+                </div>
                 <div className="col s2">
                   <TimeAgo date={notification.updatedAt} />
                 </div>

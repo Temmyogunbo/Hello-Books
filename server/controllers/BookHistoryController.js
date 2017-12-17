@@ -1,28 +1,35 @@
-import db from '../models';
+import moment from 'moment';
+
+import database from '../models';
 import membershipLevel from '../helper/membershipLevel';
+
 /**
- *
+ * A static class that manages user borrow history
  *
  * @class BookHistoryController
  */
 class BookHistoryController {
   /**
-   *
-   *
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BookHistoryController
-   */
+  * Borrow book
+  *
+  * @static
+
+  * @param {any} request
+  * @param {any} response
+
+  * @returns {object} returns object
+
+  * @memberof BookHistoryController
+  */
   static borrowBook(request, response) {
     const userId = parseInt(request.params[0], 10);
     const { bookId, membership } = request.body;
-    return db.Book.findById(bookId).then((book) => {
-      if (!membership) {
-        return response.status(400).json({
-          msg: 'You must declare your membership type.'
-        });
-      }
+    if (!membership) {
+      return response.status(400).json({
+        msg: 'You must declare your membership type.'
+      });
+    }
+    return database.Book.findById(bookId).then((book) => {
       if (!book) {
         return response.status(404).json({
           msg: 'No such book in the library'
@@ -35,7 +42,7 @@ class BookHistoryController {
       }
       const numberofBooksAllowedWithDays =
           membershipLevel.checkMembership(membership);
-      db.History.findAll({
+      database.History.findAll({
         where: {
           UserId: userId,
           returned: false
@@ -48,32 +55,27 @@ class BookHistoryController {
               numberofBooksBorrowed === 0) {
             // check if user borrow in the present day
             if (numberofBooksBorrowed > 0) {
-              const borrowDay = result[numberofBooksBorrowed - 1]
-                .dataValues.borrowedDate.getDate();
-              const borrowMonth = result[numberofBooksBorrowed - 1]
-                .dataValues.borrowedDate.getMonth() + 1;
-              const borrowYear = result[numberofBooksBorrowed - 1]
-                .dataValues.borrowedDate.getFullYear();
-              const presentDay = new Date().getDate();
-              const presentMonth = new Date().getMonth() + 1;
-              const presentYear = new Date().getFullYear();
-              if (borrowDay !== presentDay || borrowMonth !== presentMonth ||
-                  borrowYear !== presentYear) {
-                return response.status(403).json({
-                  msg: 'You have to return the previous book.'
-                });
+              let eachUserDetails;
+              for (eachUserDetails of result) {
+                const numberofDaysBookUsed = moment(new Date())
+                  .diff(moment(eachUserDetails.borrowedDate), 'days');
+                const numberofDaysAllowed = membershipLevel
+                  .checkMembership(membership)[1];
+                if (numberofDaysBookUsed > numberofDaysAllowed) {
+                  return response.status(403).json({
+                    msg: 'You have to return the previous book.'
+                  });
+                } else if (parseInt(bookId, 10) ===
+                parseInt(eachUserDetails.dataValues.BookId, 10)) {
+                  return response.status(403).json({
+                    msg: 'You cannot borrow the same book again.'
+                  });
+                }
               }
             }
-            for (let i = numberofBooksBorrowed; i--;) {
-              if (parseInt(bookId, 10) ===
-                parseInt(result[i].dataValues.BookId, 10)) {
-                return response.status(403).json({
-                  msg: 'You cannot borrow the same book again.'
-                });
-              }
-            }
+
             // user is borrowing different book and has not exceeded his limit
-            db.History
+            database.History
               .create({
                 UserId: userId,
                 BookId: bookId,
@@ -99,18 +101,22 @@ class BookHistoryController {
       });
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BookHistoryController
-   */
+ *
+ * Return borrow book
+ *
+ * @static
+ *
+ * @param {any} request
+ * @param {any} response
+ *
+ * @returns {object} json object
+ *
+ * @memberof BookHistoryController
+ */
   static returnBook(request, response) {
     const bookId = parseInt(request.body.bookId, 10);
     const userId = parseInt(request.params[0], 10);
-    return db.History
+    return database.History
       .findOne({
         where: {
           UserId: userId,
@@ -119,7 +125,7 @@ class BookHistoryController {
         },
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: db.Book }
+          { model: database.Book }
         ]
       }).then((record) => {
         if (record === null) {
@@ -127,7 +133,7 @@ class BookHistoryController {
             msg: 'No record found'
           });
         }
-        db.History.update(
+        database.History.update(
           {
             returned: true
           },
@@ -146,14 +152,18 @@ class BookHistoryController {
       });
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof BookHistoryController
-   */
+ *
+ * returns borrow history
+ *
+ * @static
+ *
+ * @param {any} request
+ * @param {any} response
+ *
+ * @returns {object} user object
+ *
+ * @memberof BookHistoryController
+ */
   static findUserHistory(request, response) {
     const {
       itemsCountPerPage,
@@ -168,12 +178,12 @@ class BookHistoryController {
     if (request.query.returned) {
       whereStatement.returned = false;
     }
-    return db.History
+    return database.History
       .findAndCountAll({
         where: whereStatement,
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: db.Book, attributes: ['author', 'title'] }
+          { model: database.Book, attributes: ['author', 'title'] }
         ],
         order: [['updatedAt', 'DESC']],
         limit,

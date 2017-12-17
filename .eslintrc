@@ -22,27 +22,39 @@
     "consistent-return": 0,
     "no-param-reassign": 0,
     "max-len": ["error", 80],
-    "comma-dangle": 0,
+    "no-restricted-syntax": [
+      "error",
+      "ForInStatement"
+    ],
+    "comma-dangle": 0,    
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "class-methods-use-this": ["error", {
         "exceptMethods": [
           "handleReturnBook"
         ]
       }],
-    "valid-jsdoc": ["error", {
-      "requireReturn": true,
-      "requireReturnType": true,
-      "requireParamDescription": false,
-      "requireReturnDescription": true
-    }],
-    "require-jsdoc": ["error", {
-        "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": true,
-            "ClassDeclaration": true
-        }
-    }]
+"valid-jsdoc": [
+  "error",
+  {
+    "requireReturn": true,
+    "requireReturnType": true,
+    "requireParamDescription": false,
+    "requireReturnDescription": true,
+    "matchDescription": ".+"
+  }
+],
+"require-jsdoc": [
+  "error",
+  {
+    "require": {
+      "FunctionDeclaration": true,
+      "MethodDefinition": true,
+      "ClassDeclaration": true,
+      "ArrowFunctionExpression": true,
+      "FunctionExpression": true
+    }
+  }
+]
   }
 }

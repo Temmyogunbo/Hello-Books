@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cloudinary from 'cloudinary';
 import swal from "sweetalert2";
+
 import bookValidation from '../../../utils/bookValidation';
 import TextFieldGroup from './TextFieldGroup';
 import SelectInputField from './SelectInputField';
@@ -16,7 +17,7 @@ const propTypes = {
   addBook: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired
 };
-/**
+/**It contains method and behaviours for BookForm component
  *
  *
  * @class BookForm
@@ -51,10 +52,15 @@ class BookForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
   }
-  /**
+  /**It sets new state for description, id,
+   * category, quantity, author, title, imageUrl,
+   * imagePublicId, bookHead, buttonText, isEdit, and isButtonLoading
+   * on receiving new properties
+   *
  * @returns {void}
  *
  * @param {any} nextProps
+ *
  * @memberof BookForm
  */
   componentWillReceiveProps(nextProps) {
@@ -75,8 +81,10 @@ class BookForm extends React.Component {
       });
     }
   }
-  /**
+  /**This functions reads image and uploads to cloudinary
+   *
  * @returns {void}
+ *
  * @description- it uploads images to cloudinary
  *
  * @param {any} event
@@ -125,9 +133,10 @@ class BookForm extends React.Component {
         .catch(swal.noop);
     }
   }
-  /**
-   * @returns {void}
-   * @description- it sets an instance of
+  /**It returns states back to its default
+   *
+   * @returns {undefined}
+   *
    * BookForm back to its initial state
    *
    * @memberof BookForm
@@ -148,7 +157,8 @@ class BookForm extends React.Component {
       isButtonLoading: true
     }, () => $('#book-form-modal').modal('close'));
   }
-  /**
+  /**It updates user input
+   *
    * @returns {void} description- it updates an instance
    * of BookForm go its current state
    *
@@ -170,10 +180,12 @@ class BookForm extends React.Component {
     return isValid;
   }
 
-  /**
+  /**It handles submit
  *
  * @return {void} the add book action is dispatched
+ *
  * @param {void} event - on click event
+ *
  * @memberof add Book form
  */
   onSubmit(event) {
@@ -214,7 +226,7 @@ class BookForm extends React.Component {
       }
     }
   }
-  /**
+  /**It returns a div element
    *
    *
    * @returns {object} jsx

@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SignUpPage } from '../../../src/components/Accounts/SignUpPage';
+import { SignUpPage } from '../../../src/components/accounts/SignUpPage';
 
 jest.mock('react-router-dom');
 
 jest.mock('history');
-
+console.log('hey man')
 describe('Given a Sign up Page', () => {
   describe('When I am not authenticated', () => {
     const props = {

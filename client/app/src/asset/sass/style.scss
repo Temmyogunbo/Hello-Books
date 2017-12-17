@@ -159,7 +159,7 @@ height: 250px;
 }
 
 .image {
-    background: url("./img/hellobooksimage.jpg") no-repeat center center fixed; 
+    background: url("../img/hellobooksimage.jpg") no-repeat center center fixed; 
     position: absolute;
     height: 110vh;
     width: 100%;
@@ -221,6 +221,7 @@ height: 250px;
 }
 .google-icon {
     margin-left: 10px;
+    
 }
 .signup-button, .signup-button:focus {
       border-radius: 2px;

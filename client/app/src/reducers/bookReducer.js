@@ -9,7 +9,14 @@ import {
 const initialState = { rows: [], count: 0 };
 let newState;
 let numberOfItemsInStore;
-
+/**
+ * Handles books state
+ *
+ * @param {object} state
+ * @param {object} action
+ *
+ * @returns {object} new state
+*/
 export default (state = initialState, action) => {
   switch (action.type) {
   case ADD_BOOK:
@@ -31,8 +38,7 @@ export default (state = initialState, action) => {
           ...state.rows.slice((numberOfItemsInStore / 2) + 1)
         ],
         count: state.count + 1
-      } 
-      :
+      } :
       {
         rows: [
           action.book,
@@ -54,11 +60,11 @@ export default (state = initialState, action) => {
       count: state.count
     };
   case BORROW_A_BOOK:
-  newState = state.rows.filter(book => book.id === action.id ? book.quantity -= 1 : book )
-   return {
-     rows: [ ...newState ],
-     count: state.count
-   }
+    newState = state.rows.filter(book => (book.id === action.id ? book.quantity -= 1 : book));
+    return {
+      rows: [...newState],
+      count: state.count
+    };
   case DELETE_BOOK:
     newState = state.rows.filter(book => book.id !== action.id);
 

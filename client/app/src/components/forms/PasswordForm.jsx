@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
+
 import passwordValidation from '../../../utils/passwordValidation';
 import TextFieldGroup from './TextFieldGroup';
 import Button from '../Button';
@@ -9,10 +9,12 @@ const propTypes = {
   changePassword: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired
 };
-/**
+
+/**It contains state and behaviours for component
  *
  *
  * @class ChangePasswordForm
+ *
  * @extends {React.Component}
  */
 class ChangePasswordForm extends React.Component {
@@ -34,7 +36,8 @@ class ChangePasswordForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  /**
+
+  /**It sets the component state back to its intial
    * @returns {void}
    *
    * @memberof ChangePasswordForm
@@ -48,10 +51,11 @@ class ChangePasswordForm extends React.Component {
       errors: {}
     });
   }
-  /**
+  /**It validates formData
    *
    *
    * @returns {object} boolean and error object
+   *
    * @memberof ChangePasswordForm
    */
   validateForm() {
@@ -70,23 +74,27 @@ class ChangePasswordForm extends React.Component {
     }
     return isValid;
   }
-  /**
-   * @returns {void}
+  /**It updates the namne field
+   * @returns {undefined}
    *
    * @param {any} event
+   *
    * @memberof ChangePasswordForm
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /**
+  /**It handles submit
    *
    *
    * @param {any} event
-   * @returns {void}
+   * \
+   * @returns {undefined}
+   *
    * @memberof ChangePasswordForm
    */
   onSubmit(event) {
+    const { $ } = window;
     event.preventDefault();
     if (this.validateForm()) {
       const {
@@ -107,10 +115,11 @@ class ChangePasswordForm extends React.Component {
       return $('#change-password').modal('close');
     }
   }
-  /**
+  /**It returns a div element
    *
    *
    * @returns {object} jsx
+   *
    * @memberof ChangePasswordForm
    */
   render() {
@@ -124,6 +133,7 @@ class ChangePasswordForm extends React.Component {
               label={'Old Password'}
               field={'oldPassword'}
               type={'password'}
+              id={'oldPassword'}
               value={this.state.oldPassword}
               handleChange={this.handleChange}
               error={errors.description}
@@ -132,6 +142,7 @@ class ChangePasswordForm extends React.Component {
               label={'New Password'}
               field={'newPassword'}
               type={'password'}
+              id={'newPassword'}
               value={this.state.newPassword}
               handleChange={this.handleChange}
               error={errors.newPassword}
@@ -140,19 +151,20 @@ class ChangePasswordForm extends React.Component {
               label={'Confirm New Password'}
               field={'confirmNewPassword'}
               type={'password'}
+              id={'confirmNewPassword'}
               value={this.state.confirmNewPassword}
               handleChange={this.handleChange}
               error={errors.confirmNewPassword}
             />
             <Button
-              className={"btn brown darken-4 s4"}
+              className={"btn brown darken-4 s12 "}
               type={"submit"}
               disabled={isButtonLoading}
               children={'save changes'}
             />
           </form>
           <Button
-            className={"modal-close btn brown darken-4 col s4 push-s6"}
+            className={"modal-close btn brown darken-4 col s9 m3 mt-2"}
             onClick={this.handleClose}
             children={'close'}
           />

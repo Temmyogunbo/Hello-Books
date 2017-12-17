@@ -5,7 +5,7 @@ const propTypes = {
   user: PropTypes.object.isRequired
 };
 
-/**
+/**It returns a div element containing user profile
  *
  *
  * @param {any} props

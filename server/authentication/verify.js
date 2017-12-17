@@ -1,14 +1,36 @@
 import jwt from 'jsonwebtoken';
 
 require('dotenv').config();
-
-export default {
-  getToken(user) {
+/**
+ *
+ *
+ * @class Verify
+ */
+class Verify {
+  /**
+   * It signs on user payload and returns a string
+   *
+   * @static
+   * @param {any} user
+   * @returns {string} signed token
+   * @memberof Verify
+   */
+  static getToken(user) {
     return jwt.sign(user, process.env.SECRET_KEY, {
       expiresIn: 3600 * 24
     });
-  },
-  checkIfAdmin(request, response, next) {
+  }
+  /**
+   *
+   * It checks if a user is an admin
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @param {any} next
+   * @returns {object} json object
+   * @memberof Verify
+   */
+  static checkIfAdmin(request, response, next) {
     if (request.decoded.role === 'admin') {
       next();
     } else {
@@ -16,8 +38,18 @@ export default {
         errors: [{ msg: 'You are not authorised' }]
       });
     }
-  },
-  isLoggedIn(request, response, next) {
+  }
+  /**
+   *
+   * It checks if a user is logged in
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @param {any} next
+   * @returns {object} json object
+   * @memberof Verify
+   */
+  static isLoggedIn(request, response, next) {
     const token = request.headers.authorization || request.body.token ||
       request.headers['x-access-token'];
     if (token) {
@@ -35,8 +67,18 @@ export default {
         errors: [{ msg: 'You are not logged in.' }]
       });
     }
-  },
-  validateBookRequest(request, response, next) {
+  }
+  /**
+   * It checks book data and validate
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @param {any} next
+   * @returns {undefined}
+   * @memberof Verify
+   */
+  static validateBookRequest(request, response, next) {
     if (request.url === '/api/v1/category' &&
       request.method === 'POST') {
       request.check('category', 'category is required').notEmpty();
@@ -63,8 +105,18 @@ export default {
       }
       next();
     }
-  },
-  validateUserRequest(request, response, next) {
+  }
+  /**
+   * It checks and validate user data
+   *
+   * @static
+   * @param {any} request
+   * @param {any} response
+   * @param {any} next
+   * @returns {undefined}
+   * @memberof Verify
+   */
+  static validateUserRequest(request, response, next) {
     if (request.url === '/api/v1/users/signin' &&
       request.method === 'POST') {
       request.check('password', 'Password is required').notEmpty();
@@ -108,6 +160,5 @@ export default {
       next();
     }
   }
-
-
-};
+}
+export default Verify;

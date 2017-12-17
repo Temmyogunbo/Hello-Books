@@ -16,7 +16,7 @@ const defaultProps = ({
   totalItemsCount: 5
 });
 
-/**
+/**It returns a div element of pagination
  *
  *
  * @param {any} props

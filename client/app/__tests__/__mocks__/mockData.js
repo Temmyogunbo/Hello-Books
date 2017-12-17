@@ -7,6 +7,25 @@ export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFp' +
 'iaWF0IjoxNTEyMDUzMzgxLCJleHAiOjE1MTIxMzk3ODF9.A4LGBsXyo' +
 'WG5pM5LbxCxcy3Fe6sDAxIIEK5VJBkXIfQ';
 
+// For categories operations
+export const category1 = {
+  category: {
+    id: 6,
+    title: 'Programming',
+    createdAt: '2017-10-14T17:58:13.884Z',
+    updatedAt: '2017-10-14T17:58:13.884Z'
+  }
+
+};
+export const category = {
+  id: 6,
+  title: 'Programming',
+  createdAt: '2017-10-14T17:58:13.884Z',
+  updatedAt: '2017-10-14T17:58:13.884Z'
+};
+export const categoryData = {
+  category: 'Programming'
+};
 export const book2 = {
   id: 7,
   author: "Ogunbo Emmanuel",
@@ -42,9 +61,7 @@ export const user = {
   id: 1,
   role: 'admin',
   membership: 'gold',
-  success: true,
   msg: 'You are signed in',
-  token
 
 };
 export const user2 = {
@@ -52,22 +69,59 @@ export const user2 = {
   fullName: "dino",
   userName: "dino",
   membership: "gold",
+  msg: 'Registration successful',
   id: 36,
   role: "users",
-  exp: 1512139781,
-  iat: 1512053381
+
 };
 export const signupData = {
-  email: 'dino@gmail.com',
-  fullName: 'dino',
-  userName: 'dino',
+  email: 'temmyogunbo@gmail.com',
+  userName: 'temmy',
+  fullName: 'Emmanuel',
   password: 'emmanuel'
 };
 export const signinData = {
   userName: 'temmy',
   password: 'emmanuel'
 };
-
+export const userPassword = {
+  oldPassword: 'emmanuel',
+  newPassword: 'emmanuel',
+  confirmNewPassword: 'emmanuel'
+};
+export const userHistory = {
+  rows: [
+    {
+      BookId: 76,
+      dueDate: "2017-12-19T22:53:36.404Z",
+      borrowedDate: "2017-12-13T22:53:36.404Z",
+      returned: false,
+      Book: {
+        author: "Segun ola",
+        title: "Full body transplant"
+      }
+    }
+  ],
+  count: 1
+};
+export const userData = {
+  userId: 1,
+  currentPage: 1,
+  itemsCountPerPage: 5,
+  returned: false
+};
+export const notifications = {
+  id: 220,
+  notificationType: "BOOK_RETURNED",
+  seen: "unread",
+  updatedAt: "2017-12-15T17:57:02.351Z",
+  Book: {
+    author: "Napoleon",
+    title: "Laws of power",
+    User: { userName: "ojeah" }
+  }
+};
+export const passwordResponse = {};
 
 export const userAuthenticated = {
   isAuthenticated: true,
@@ -186,14 +240,6 @@ export const borrows1 = [borrow1];
 export const borrows2 = [borrow1, borrow2];
 export const booksAfterReturning = [borrow2];
 
-
-// For categories operations
-export const category1 = {
-  id: 6,
-  title: 'Programming',
-  createdAt: '2017-10-14T17:58:13.884Z',
-  updatedAt: '2017-10-14T17:58:13.884Z'
-};
 
 export const category2 = {
   id: 8,

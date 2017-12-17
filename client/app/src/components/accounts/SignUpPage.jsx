@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import SignUpForm from '../forms/SignUpForm';
 import { signupAction } from '../../actions/userActions';
 
@@ -10,16 +11,18 @@ const propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
 };
 /**
+ * class component for signup page
  *
- *@returns {object} jsx
- * @class SignupPage
+ * @export
+ * @class SignUpPage
  * @extends {React.Component}
  */
 export class SignUpPage extends React.Component {
-  /**
-   * @returns {void}
+  /**It checks if the user is authenticated and redirects to collections page
+   *
    *
    * @memberof SignUpPage
+   * @returns {undefined}
    */
   componentWillMount() {
     if (this.props.isAuthenticated) {
@@ -27,6 +30,8 @@ export class SignUpPage extends React.Component {
     }
   }
   /**
+   * It checks if a user is still authenticated on
+   *  receiving nex tprops and redirects to the collectionbs page
    * @returns {undefined}
    *
    * @param {any} nextProps
@@ -37,9 +42,9 @@ export class SignUpPage extends React.Component {
       this.props.history.replace('/collections');
     }
   }
-  /**
-* @description Renders content to the screen
- * @return {void}
+  /**It returns a div element that will be attached to he DOM
+   *
+  * @return {object} jsx
  */
   render() {
     const {
@@ -61,9 +66,24 @@ export class SignUpPage extends React.Component {
   }
 }
 SignUpPage.propTypes = propTypes;
+/**
+ * It slices the state and returned isAuthenticated boolean
+ *
+ * @param {object} state
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state) => ({
   isAuthenticated: state.userReducer.isAuthenticated
 });
+
+/**
+ * Itdispatches sign up action to the store
+ *
+ * @param {object} dispatch
+ *
+ * @returns {object} new state
+*/
 const mapDispatchToProps = dispatch => ({
   signup: signupCredentials => dispatch(signupAction(signupCredentials)),
 });

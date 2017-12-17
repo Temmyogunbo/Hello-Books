@@ -18,7 +18,7 @@ module.exports = {
     '!app/src/socket',
     '!app/src/sass',
   ],
-  coverageDirectory: './coverage', 
+  coverageDirectory: './coverage',
   moduleFileExtensions: ['js', 'jsx'],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$':

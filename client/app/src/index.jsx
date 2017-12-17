@@ -8,11 +8,12 @@ import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
+
 import setAuthToken from '../utils/authorization';
 import { setAuthUser } from './actions/userActions';
 import rootReducer from './reducers/rootReducer';
 import App from './components/App';
-import './sass/style.scss';
+import '../src/asset/sass/style.scss';
 import '../../node_modules/toastr/toastr.scss';
 
 const store = createStore(

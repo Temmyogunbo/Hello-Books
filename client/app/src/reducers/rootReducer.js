@@ -12,7 +12,14 @@ const appReducer = combineReducers({
   bookCategoryReducer,
   notificationsReducer,
 });
-
+/**
+ * Handles all state
+ *
+ * @param {object} state
+ * @param {object} action
+ *
+ * @returns {object} new state
+*/
 export default (state, action) => {
   if (action.type === 'LOG_OUT_USERS') {
     state = undefined;

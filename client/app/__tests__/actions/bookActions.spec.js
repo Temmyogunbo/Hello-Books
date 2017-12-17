@@ -3,9 +3,23 @@ import expect from 'expect';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
-import * as bookActions from '../../src/actions/bookAction';
-import * as types from '../../src/constants/actionTypes';
-import LocalStorage from '../__mocks__/localStorage';
+
+import {
+  editBookAction,
+  addBookAction,
+  getAllBooksAction,
+  borrowBookAction,
+  returnBookAction,
+  deleteBookAction
+} from '../../src/actions/bookAction';
+import {
+  EDIT_BOOK,
+  ADD_BOOK,
+  GET_ALL_BOOKS,
+  BORROW_A_BOOK,
+  RETURN_A_BOOK,
+  DELETE_BOOK,
+} from '../../src/constants/actionTypes';
 import {
   book1,
   book2,
@@ -17,18 +31,13 @@ import {
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+/* eslint-disable max-nested-callbacks */
 describe('Given book actions', () => {
   describe('When I call the add book action', () => {
-    beforeEach(() => {
-      global.toastr = { toastr: () => { } };
-      global.history = { push: () => { } };
-      global.history = { replace: () => { } };
-      global.localStorage = new LocalStorage();
-    });
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());
 
-    it('Then it should return an add book object', (done) => {
+    it('Then it should dispatch an action to add book', (done) => {
       moxios
         .stubRequest(
           '/api/v1/books',
@@ -43,12 +52,12 @@ describe('Given book actions', () => {
 
       const expectedActions =
         [{
-          type: types.ADD_BOOK,
+          type: ADD_BOOK,
           book: book2
         }];
       const store = mockStore({ });
       // act
-      const action = bookActions.addBookAction(book2);
+      const action = addBookAction(book2);
 
       store.dispatch(action).then(() => {
         // assert
@@ -64,16 +73,10 @@ describe('Given book actions', () => {
 
 describe('Given book actions', () => {
   describe('When I call the  delete book action', () => {
-    beforeEach(() => {
-      global.toastr = { toastr: () => { } };
-      global.history = { push: () => { } };
-      global.history = { replace: () => { } };
-      global.localStorage = new LocalStorage();
-    });
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());
 
-    it('Then it should return an object containing book id', (done) => {
+    it('Then it should dispatch an action to delete book', (done) => {
       moxios
         .stubRequest(
           '/api/v1/books/6',
@@ -85,14 +88,14 @@ describe('Given book actions', () => {
 
       const expectedActions = [
         {
-          type: types.DELETE_BOOK,
+          type: DELETE_BOOK,
           id: 6
         }
       ];
       const store = mockStore({ });
       const bookData = { id: 6 };
       // act
-      const action = bookActions.deleteBookAction(bookData);
+      const action = deleteBookAction(bookData);
 
       store.dispatch(action).then(() => {
         // assert
@@ -109,16 +112,10 @@ describe('Given book actions', () => {
 
 describe('Given book actions', () => {
   describe('When I call the get all book action', () => {
-    beforeEach(() => {
-      global.toastr = { toastr: () => { } };
-      global.history = { push: () => { } };
-      global.history = { replace: () => { } };
-      global.localStorage = new LocalStorage();
-    });
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());
 
-    it('Then it should return an object containing all books', (done) => {
+    it('Then it should dispatch an action that get all books', (done) => {
       moxios
         .stubRequest(
           '/api/v1/books?page=1&itemsCountPerPage=5',
@@ -131,13 +128,13 @@ describe('Given book actions', () => {
 
       const expectedActions = [
         {
-          type: types.GET_ALL_BOOKS,
+          type: GET_ALL_BOOKS,
           books: book1
         }
       ];
       const store = mockStore({ });
       // act
-      const action = bookActions.getAllBooksAction(bookData);
+      const action = getAllBooksAction(bookData);
 
       store.dispatch(action).then(() => {
         // assert
@@ -148,81 +145,81 @@ describe('Given book actions', () => {
 
       done();
     });
-    it('Then it should return an object containing all books by category', (done) => {
-      moxios
-        .stubRequest(
-          `/api/v1/books?page=1&itemsCountPerPage=5`,
+    it(
+      'Then it should dispatch an action that gets all books by category',
+      (done) => {
+        moxios
+          .stubRequest(
+            `/api/v1/books?page=1&itemsCountPerPage=5`,
+            {
+              response: book1,
+              headers: { 'content-type': 'application/json' }
+            }
+          );
+
+
+        const expectedActions = [
           {
-            response: book1,
-            headers: { 'content-type': 'application/json' }
+            type: GET_ALL_BOOKS,
+            books: book1
           }
-        );
+        ];
+        const store = mockStore({});
+        // act
+        const action = getAllBooksAction(bookData2);
 
-
-      const expectedActions = [
-        {
-          type: types.GET_ALL_BOOKS,
-          books: book1
-        }
-      ];
-      const store = mockStore({});
-      // act
-      const action = bookActions.getAllBooksAction(bookData2);
-
-      store.dispatch(action).then(() => {
+        store.dispatch(action).then(() => {
         // assert
-        const actual = store.getActions();
+          const actual = store.getActions();
 
-        expect(actual).toEqual(expectedActions);
-      });
+          expect(actual).toEqual(expectedActions);
+        });
 
-      done();
-    });
-    it('Then it should return an object containing a particular book', (done) => {
-      moxios
-        .stubRequest(
-          `/api/v1/books?page=1&itemsCountPerPage=5`,
+        done();
+      }
+    );
+    it(
+      'Then it should dispatch an action that gets a particular book',
+      (done) => {
+        moxios
+          .stubRequest(
+            `/api/v1/books?page=1&itemsCountPerPage=5`,
+            {
+              response: book1,
+              headers: { 'content-type': 'application/json' }
+            }
+          );
+
+
+        const expectedActions = [
           {
-            response: book1,
-            headers: { 'content-type': 'application/json' }
+            type: GET_ALL_BOOKS,
+            books: book1
           }
-        );
+        ];
+        const store = mockStore({});
+        // act
+        const action = getAllBooksAction(bookData3);
 
-
-      const expectedActions = [
-        {
-          type: types.GET_ALL_BOOKS,
-          books: book1
-        }
-      ];
-      const store = mockStore({});
-      // act
-      const action = bookActions.getAllBooksAction(bookData3);
-
-      store.dispatch(action).then(() => {
+        store.dispatch(action).then(() => {
         // assert
-        const actual = store.getActions();
+          const actual = store.getActions();
 
-        expect(actual).toEqual(expectedActions);
-      });
+          expect(actual).toEqual(expectedActions);
+        });
 
-      done();
-    });
+        done();
+      }
+    );
   });
 });
 
 describe('Given book actions', () => {
   describe('When I call the  edit book action', () => {
-    beforeEach(() => {
-      global.toastr = { toastr: () => { } };
-      global.history = { push: () => { } };
-      global.history = { replace: () => { } };
-      global.localStorage = new LocalStorage();
-    });
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());
 
-    it('Then it should return an object containing book id', (done) => {
+    it('Then it should rdispatch an action that edits a book', (done) => {
       moxios
         .stubRequest(
           '/api/v1/books/7',
@@ -234,7 +231,7 @@ describe('Given book actions', () => {
 
       const expectedActions = [
         {
-          type: types.EDIT_BOOK,
+          type: EDIT_BOOK,
           book: book2
         }
       ];
@@ -244,7 +241,7 @@ describe('Given book actions', () => {
         id: 7
       };
       // act
-      const action = bookActions.editBookAction(book2);
+      const action = editBookAction(book2);
 
       store.dispatch(action).then(() => {
         // assert

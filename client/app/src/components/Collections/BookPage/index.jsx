@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import { connect } from 'react-redux';
+
 import {
   getAllBooksAction,
   borrowBookAction
@@ -18,7 +19,7 @@ const propTypes = {
   match: PropTypes.object.isRequired
 };
 
-/**
+/**It contains behaviours and state for book page component
  *
  * @returns {object} jsx
  * @class BookPage
@@ -37,7 +38,7 @@ class BookPage extends React.Component {
     };
     this.handleBorrowBook = this.handleBorrowBook.bind(this);
   }
-  /**
+  /**It invokes an action that gets a particular book
      *
      * @returns {void}
      * @memberof BookPage
@@ -45,8 +46,9 @@ class BookPage extends React.Component {
   componentDidMount() {
     this.props.getBook({ bookId: this.props.match.params.bookId });
   }
-  /**
-     * @returns {void} description -
+  /**It changes the book state if there is a new props
+   *
+     * @returns {undefined}
      *
      * @param {any} nextProps
      * @memberof BookPage
@@ -56,9 +58,9 @@ class BookPage extends React.Component {
       this.setState({ book: nextProps.books });
     }
   }
-  /**
+  /**It handles borrow book
      *
-     * @returns{void}
+     * @returns{undefined}
      * @memberof BookPage
      */
   handleBorrowBook() {
@@ -79,7 +81,7 @@ class BookPage extends React.Component {
       })
       .catch(swal.noop);
   }
-  /**
+  /**It returns a div element
      *
      *
      * @returns {object} jsx
@@ -155,6 +157,14 @@ class BookPage extends React.Component {
     );
   }
 }
+/**
+ * It slices the store and returns user, role, and books object
+ *
+ * @param {object} state
+ * @param{object} props
+ *
+ * @returns {object} new state
+*/
 const mapStateToProps = (state, props) => ({
   user: state.userReducer.user,
   role: state.userReducer.user.role,

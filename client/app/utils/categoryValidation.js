@@ -1,9 +1,10 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-/**
- * @description Validates Sign In form
+/**It validates category data
+ * 
  * @param  {object} formData
+ * 
  * @return {object} object- contains errors and boolean
  */
 export default function categoryValidation(formData) {

@@ -45,12 +45,9 @@ function UserLinks({ isAdmin, signOutAction, total }) {
       <ul
         id="mobile-demo"
         className="side-nav"
-
       >
         {isAdmin ? <li>
-          <NotificationIcon
-            total={total}
-          />
+          <NotificationIcon total={total}/>
         </li> : <li>
           <Link to="/history">
               History

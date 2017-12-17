@@ -1,6 +1,6 @@
 import React from 'react';
 
-/**
+/**It retuns a div element containing footer
  *
  *
  * @returns {object} jsx
