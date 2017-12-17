@@ -9,7 +9,6 @@ import BookPage from '../components/Collections/BookPage';
 import CollectionsPage from '../components/Collections';
 import HistoryPage from '../components/users/HistoryPage';
 import Notifications from '../../src/components/Notifications';
-import '../sass/style.scss';
 import '../../../node_modules/toastr/toastr.scss';
 import PageNotFound from './PageNotFound';
 import NavigationBar from './NavigationBar';

@@ -9,10 +9,14 @@ class BooksController {
 /**
  *
  * Add book
+ *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} book object
+ *
  * @memberof BooksController
  */
   static addBook(request, response) {
@@ -41,11 +45,11 @@ class BooksController {
         switch (error.name) {
         case 'SequelizeForeignKeyConstraintError':
           return response.status(400).json({
-            msg: 'Category does not exist. Be sure to check categories table.'
+            message: 'Category does not exist. Be sure to check categories table.'
           });
         case 'SequelizeUniqueConstraintError':
           return response.status(403).json({
-            msg: 'Book already exist'
+            message: 'Book already exist'
           });
         default:
           return null;
@@ -57,9 +61,12 @@ class BooksController {
    * Adds category
    *
    * @static
+   *
    * @param {any} request
    * @param {any} response
+   *
    * @returns {object} category object
+   *
    * @memberof BooksController
    */
   static addCategory(request, response) {
@@ -68,16 +75,19 @@ class BooksController {
     })
       .then(category => response.status(201).json(category))
       .catch(error => response.status(400).json({
-        errors: [{ msg: error.errors[0] }]
+        errors: [{ message: error.errors[0] }]
       }));
   }
   /**
  * Find category
  *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} category object
+ *
  * @memberof BooksController
  */
   static findCategory(request, response) {
@@ -125,7 +135,7 @@ class BooksController {
       .then((books) => {
         if (books.count === 0) {
           return response.status(404).json({
-            errors: [{ msg: 'No books in the library' }]
+            errors: [{ message: 'No books in the library' }]
           });
         }
         return response.status(200).json({
@@ -136,12 +146,15 @@ class BooksController {
         .json(error.errors.map(errorMessage => errorMessage.message)));
   }
   /**
- * Edit an update a particular book
+ * Edit and update a particular book
  *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} returns object
+ *
  * @memberof BooksController
  */
   static updateBook(request, response) {
@@ -174,13 +187,13 @@ class BooksController {
           return response.status(204).json({});
         }
         return response.status(404).json({
-          msg: 'No such book in the library.'
+          message: 'No such book in the library.'
         });
       })
       .catch((error) => {
         if (error.name === 'SequelizeForeignKeyConstraintError') {
           return response.status(404).json({
-            msg: 'Category does not exist. Be sure to check categories table.'
+            message: 'Category does not exist. Be sure to check categories table.'
           });
         }
       });
@@ -189,9 +202,12 @@ class BooksController {
  * Delete a book
  *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} returns object
+ *
  * @memberof BooksController
  */
   static deleteBook(request, response) {
@@ -201,7 +217,7 @@ class BooksController {
       .then((book) => {
         if (!book) {
           return response.status(404).json({
-            errors: [{ msg: 'Book cannot be found' }]
+            errors: [{ message: 'Book cannot be found' }]
           });
         }
         database.Book.destroy({

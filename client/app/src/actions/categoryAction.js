@@ -1,5 +1,6 @@
 import axios from 'axios';
 import toastr from 'toastr';
+
 import {
   CREATE_BOOK_CATEGORY,
   GET_BOOK_CATEGORY,
@@ -28,7 +29,7 @@ const getBookCategory = category => ({
 });
 
 
-/**It returns cstegory object
+/**It returns category object
  *
  *  @return {object} - returns an object of category
 */
@@ -55,5 +56,9 @@ categoryData => dispatch => axios.post('/api/v1/category', categoryData)
     toastr.success('You added a category');
   })
   .catch((error) => {
-    toastr.error(error.response.data.errors[0].msg.message);
+    toastr.error(error.response.data.errors[0].message.message);
   });
+export default {
+  createBookCategoryAction,
+  getBookCategoryAction
+};

@@ -51,74 +51,34 @@ function UserRecords({
   ));
   return (
     <div>
-      <div className="hide-on-small-only bc-2 row">
-        <div
-          className="col s6 fs-2" style={{ fontSize: "25px", color: "white" }}
+      <div className=" bc-2 row">
+        <h5
+          className="col s3 fs-2" style={{ color: "white" }}
         >
-          Your activity below
-        </div>
+          Activity
+        </h5>
 
-        <div className="col s4">
-          <Button
-            className={"btn brown darken-4"}
-            style={{ fontSize: "15px" }}
-            onClick={() => getHistory({
-              userId: userId,
-              currentPage: activePage,
-              itemsCountPerPage: itemsCountPerPage,
-              returned: 'false'
-            })}
-            children={'Borrowed Books'}
-          />
-        </div>
-        <div className="col s2 ">
-          <Button
-            className={"btn brown darken-4"}
-            style={{ fontSize: "15px" }}
-            onClick={() => getHistory({
-              userId: userId,
-              currentPage: activePage,
-              itemsCountPerPage: itemsCountPerPage
-            })}
-            children={'All'}
-          />
-        </div>
-
-      </div>
-
-      <div className="hide-on-med-and-up bc-2 row">
-        <div
-          className="col s6 fs-1"
-          style={{ fontSize: "15px", color: "white", width: "100%" }}
-        >
-          Your activity below
-        </div>
-
-        <div className="col s2">
-          <Button
-            className={"btn brown darken-4 mr-2"}
-            style={{ fontSize: "10px" }}
-            onClick={() => getHistory({
-              userId: userId,
-              currentPage: activePage,
-              itemsCountPerPage: itemsCountPerPage,
-              returned: 'false'
-            })}
-            children={'Borrowed Books'}
-          />
-        </div>
-        <div className="col s2 ">
-          <Button
-            className={"btn brown darken-4 ml-5"}
-            style={{ fontSize: "10px" }}
-            onClick={() => getHistory({
-              userId: userId,
-              currentPage: activePage,
-              itemsCountPerPage: itemsCountPerPage
-            })}
-            children={'All'}
-          />
-        </div>
+        <Button
+          className={"btn brown darken-4 s6 mr-2"}
+          style={{ fontSize: "12px" }}
+          onClick={() => getHistory({
+            userId: userId,
+            currentPage: activePage,
+            itemsCountPerPage: itemsCountPerPage,
+            returned: 'false'
+          })}
+          children={'Borrowed Books'}
+        />
+        <Button
+          className={"btn brown darken-4 s3"}
+          style={{ fontSize: "12px" }}
+          onClick={() => getHistory({
+            userId: userId,
+            currentPage: activePage,
+            itemsCountPerPage: itemsCountPerPage
+          })}
+          children={'All'}
+        />
 
       </div>
       {
@@ -133,7 +93,7 @@ function UserRecords({
                   <th>Author</th>
                   <th>Due Date</th>
                   <th>Borrowed Date</th>
-                  <th>Return</th>
+                  <th>status</th>
                 </tr>
               </thead>
               <tbody>

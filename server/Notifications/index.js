@@ -38,8 +38,9 @@ class Notifications {
  * @memberof Notifications
  */
   getAllNotifications(data) {
-    const offset = data.itemsCountPerPage * (data.currentPage - 1);
-    const limit = data.itemsCountPerPage;
+    const offset = data.itemsCountPerPage ?
+      data.itemsCountPerPage * (data.currentPage - 1) : 0;
+    const limit = data.itemsCountPerPage ? data.itemsCountPerPage : 5;
     const whereStatement = { seen: 'unread' };
     return database.Notification
       .findAndCountAll({

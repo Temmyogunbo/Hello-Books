@@ -1,5 +1,6 @@
 import axios from 'axios';
 import toastr from 'toastr';
+
 import setAuthToken from '../../utils/authorization';
 import {
   CHANGE_USERS_PASSWORD,
@@ -40,7 +41,7 @@ export const setAuthUser = user => ({
   type: SET_AUTH_USERS,
   user
 });
-/**Dispatches an action that logs out the app
+/**Dispatches an action that logs out a user
  *
  * @return {object} - an object containing action type only
  */
@@ -55,17 +56,20 @@ export const logOutUser = () => ({
 * @param {object} userData - contains user id
 */
 export const getHistoryAction = userData => dispatch => {
-  let historyRoute = `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}`;
+  let historyRoute = `/api/v1/users/${userData.userId}/history?page=` +
+  `${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}`;
   if (userData.returned) {
     historyRoute =
-      `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}&returned=${userData.returned}`;
+      `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&` +
+      `itemsCountPerPage=${userData.itemsCountPerPage}&` +
+      `returned=${userData.returned}`;
   }
   return axios.get(historyRoute)
     .then((response) => {
       dispatch(getHistory(response.data));
     })
     .catch((error) => {
-      toastr.error(error.response.data.errors[0].msg);
+      toastr.error(error.response.data.message);
     });
 };
 /**It returns user object with token
@@ -103,7 +107,7 @@ export const signupAction = userData => dispatch =>
       toastr.success('You successfully signed up');
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
 /**It returns user object with token
@@ -140,24 +144,24 @@ export const signinAction = user => dispatch =>
       }));
       toastr.success('You are Logged in successfully');
     }).catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
-/**it returns an update
+/**it returns an empty object
  *
 *  @return {object} - empty object
 
 * @param {object} userData - logged in user payload
 */
-export const ChangePasswordAction = userData => dispatch =>
+export const changePasswordAction = userData => dispatch =>
   axios.put('/api/v1/users/change-password', userData)
     .then((response) => {
-      dispatch(changeUserPassword(response.data));
+      dispatch(changeUserPassword({}));
       toastr.success('Password changed');
     }).catch((error) => {
       toastr.error(error.response.data.message);
     });
 
-/**It clears local storage
+/**It clears local storage and set token to false
  *
  * Destroy the user token and remove from localstorage
  *
@@ -174,5 +178,6 @@ export default {
   getHistoryAction,
   signupAction,
   signinAction,
-  signOutAction
+  signOutAction,
+  changePasswordAction
 };

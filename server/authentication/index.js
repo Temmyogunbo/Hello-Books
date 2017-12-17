@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 require('dotenv').config();
-/**
+/** It verifies data from the user
+ * and also verify token or issue token
  *
  *
  * @class Verify
@@ -11,8 +12,11 @@ class Verify {
    * It signs on user payload and returns a string
    *
    * @static
+   *
    * @param {any} user
+   *
    * @returns {string} signed token
+   *
    * @memberof Verify
    */
   static getToken(user) {
@@ -56,7 +60,7 @@ class Verify {
       jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
           return response.status(401).json({
-            errors: [{ msg: 'You are not authenticated' }]
+            errors: [{ message: 'You are not authenticated' }]
           });
         }
         request.decoded = decoded;
@@ -161,4 +165,5 @@ class Verify {
     }
   }
 }
+
 export default Verify;

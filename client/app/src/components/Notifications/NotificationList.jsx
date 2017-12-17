@@ -23,7 +23,7 @@ function NotificationList({ notifications, updateNotification }) {
           <br />
           <div>
             <a
-              className="btn right bc"
+              className="brown darken-4 btn right bc"
               onClick={() => updateNotification({})}>
         Mark all as read
             </a>
@@ -38,12 +38,13 @@ function NotificationList({ notifications, updateNotification }) {
                   { notification.notificationType === 'BOOK_RETURNED' ?
                     'returned' : 'borrowed'}
                   {" "}
-                  { notification.Book.title}</div>
+                  { notification.Book.title}
+                </div>
                 <div className="col s2">
                   <TimeAgo date={notification.updatedAt} />
                 </div>
                 <div
-                  className="col s2"
+                  className="col s2 clickable"
                   onClick={() => updateNotification({
                     id: notification.id
                   })}

@@ -110,7 +110,7 @@ class CategoryForm extends React.Component {
             />
           </form>
           <Button
-            className="brown darken-4 modal-close btn col s4 push-s6"
+            className="brown darken-4 modal-close btn col s4 m3 mt-2"
             onClick={this.handleClose}
             children={'close'}
           />

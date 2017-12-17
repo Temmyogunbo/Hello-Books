@@ -12,7 +12,7 @@ import {
 } from '../../actions/bookAction';
 import {
   getHistoryAction,
-  ChangePasswordAction
+  changePasswordAction
 } from '../../actions/userActions';
 
 const propTypes = {
@@ -136,33 +136,31 @@ class HistoryPage extends React.Component {
       user
     } = this.props;
     return (
-      <div>
+      <div className="container">
         <PasswordForm
           changePassword={changePassword}
           userName={user.userName}
         />
-        <div className="container">
-          <div className="row">
-            <Profile user={user}/>
-          </div>
-          <br />
-          <UserRecords
-            userHistory={userHistoryReducer}
-            returnBook={returnBook}
-            getHistory={getHistory}
-            userId={this.props.user.id}
-            handleReturnBook={this.handleReturnBook}
-            activePage={this.state.activePage}
-            itemsCountPerPage={this.state.itemsCountPerPage}
-          />
-        </div>
-        <Pagination
+        <Profile user={user}/>
+        <br />
+        <UserRecords
+          userHistory={userHistoryReducer}
+          returnBook={returnBook}
+          getHistory={getHistory}
+          userId={this.props.user.id}
+          handleReturnBook={this.handleReturnBook}
           activePage={this.state.activePage}
           itemsCountPerPage={this.state.itemsCountPerPage}
-          totalItemsCount={total}
-          pageRangeDisplayed={5}
-          handlePageChange={this.handlePageChange}
         />
+        {total ?
+          <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={this.state.itemsCountPerPage}
+            totalItemsCount={total}
+            pageRangeDisplayed={5}
+            handlePageChange={this.handlePageChange}
+          /> : null}
+
       </div>
     );
   }
@@ -184,5 +182,5 @@ export default
 connect(mapStateToProps, {
   getHistory: getHistoryAction,
   returnBook: returnBookAction,
-  changePassword: ChangePasswordAction
+  changePassword: changePasswordAction
 })(HistoryPage);

@@ -67,15 +67,16 @@ class BookCategories extends React.Component {
     if (this.state.categories) {
       categoryItems = this.state.categories.map(category => (
         <li key={category.id}>
-          <div
+          <h6
+            className="clickable"
             onClick={() => this.props.getAllBooksByCategory({
               bookCategory: category,
-              currentPage: 1,
+              currentPage: currentPage,
               itemsCountPerPage: itemsCountPerPage
             })}
           >
             {category.category}
-          </div>
+          </h6>
         </li>
       ));
     }
@@ -86,7 +87,8 @@ class BookCategories extends React.Component {
           <ul className="book-categories col s12 m3 l3">
             <h5>CATEGORY </h5>
             <li>
-              <div
+              <h5
+                className="clickable"
                 onClick={() => this.props.getAllBooksByCategory({
                   bookCategory: '',
                   currentPage: currentPage,
@@ -94,7 +96,7 @@ class BookCategories extends React.Component {
                 })}
               >
                         All
-              </div>
+              </h5>
             </li>
             {categoryItems}
           </ul>}</div>

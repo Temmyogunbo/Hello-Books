@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import database from '../models';
 import membershipLevel from '../helper/membershipLevel';
 
@@ -11,28 +13,31 @@ class BookHistoryController {
   * Borrow book
   *
   * @static
+
   * @param {any} request
   * @param {any} response
+
   * @returns {object} returns object
+
   * @memberof BookHistoryController
   */
   static borrowBook(request, response) {
     const userId = parseInt(request.params[0], 10);
     const { bookId, membership } = request.body;
+    if (!membership) {
+      return response.status(400).json({
+        message: 'You must declare your membership type.'
+      });
+    }
     return database.Book.findById(bookId).then((book) => {
-      if (!membership) {
-        return response.status(400).json({
-          msg: 'You must declare your membership type.'
-        });
-      }
       if (!book) {
         return response.status(404).json({
-          msg: 'No such book in the library'
+          message: 'No such book in the library'
         });
       }
       if (parseInt(book.dataValues.quantity, 10) < 1) {
         return response.status(404).json({
-          msg: 'No more books in the library'
+          message: 'No more books in the library'
         });
       }
       const numberofBooksAllowedWithDays =
@@ -50,30 +55,25 @@ class BookHistoryController {
               numberofBooksBorrowed === 0) {
             // check if user borrow in the present day
             if (numberofBooksBorrowed > 0) {
-              const borrowDay = result[numberofBooksBorrowed - 1]
-                .dataValues.borrowedDate.getDate();
-              const borrowMonth = result[numberofBooksBorrowed - 1]
-                .dataValues.borrowedDate.getMonth() + 1;
-              const borrowYear = result[numberofBooksBorrowed - 1]
-                .dataValues.borrowedDate.getFullYear();
-              const presentDay = new Date().getDate();
-              const presentMonth = new Date().getMonth() + 1;
-              const presentYear = new Date().getFullYear();
-              if (borrowDay !== presentDay || borrowMonth !== presentMonth ||
-                  borrowYear !== presentYear) {
-                return response.status(403).json({
-                  msg: 'You have to return the previous book.'
-                });
+              let eachUserDetails;
+              for (eachUserDetails of result) {
+                const numberofDaysBookUsed = moment(new Date())
+                  .diff(moment(eachUserDetails.borrowedDate), 'days');
+                const numberofDaysAllowed = membershipLevel
+                  .checkMembership(membership)[1];
+                if (numberofDaysBookUsed > numberofDaysAllowed) {
+                  return response.status(403).json({
+                    message: 'You have to return the previous book.'
+                  });
+                } else if (parseInt(bookId, 10) ===
+                parseInt(eachUserDetails.dataValues.BookId, 10)) {
+                  return response.status(403).json({
+                    message: 'You cannot borrow the same book again.'
+                  });
+                }
               }
             }
-            for (let i = numberofBooksBorrowed; i--;) {
-              if (parseInt(bookId, 10) ===
-                parseInt(result[i].dataValues.BookId, 10)) {
-                return response.status(403).json({
-                  msg: 'You cannot borrow the same book again.'
-                });
-              }
-            }
+
             // user is borrowing different book and has not exceeded his limit
             database.History
               .create({
@@ -85,28 +85,32 @@ class BookHistoryController {
               })
               .then(record => response.status(201).json({
                 record,
-                msg: 'You successfully borrowed a book.'
+                message: 'You successfully borrowed a book.'
               }));
           } else {
             return response.status(403).json({
-              msg: 'You cannot borrow more than your membership level.'
+              message: 'You cannot borrow more than your membership level.'
             });
           }
         });
     })
       .catch(() => {
         response.status(400).json({
-          msg: 'Invalid book id'
+          message: 'Invalid book id'
         });
       });
   }
   /**
  *
  * Return borrow book
+ *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} json object
+ *
  * @memberof BookHistoryController
  */
   static returnBook(request, response) {
@@ -126,7 +130,7 @@ class BookHistoryController {
       }).then((record) => {
         if (record === null) {
           return response.status(404).json({
-            msg: 'No record found'
+            message: 'No record found'
           });
         }
         database.History.update(
@@ -143,17 +147,21 @@ class BookHistoryController {
         )
           .then(bookReturned => response.status(200).json({
             bookReturned,
-            msg: 'You returned a book.'
+            message: 'You returned a book.'
           }));
       });
   }
   /**
  *
  * returns borrow history
+ *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} user object
+ *
  * @memberof BookHistoryController
  */
   static findUserHistory(request, response) {
@@ -185,7 +193,7 @@ class BookHistoryController {
       .then((record) => {
         if (record.count === 0) {
           return response.status(404).json({
-            msg: 'No record found'
+            message: 'No record found'
           });
         }
         response.status(200).json({ rows: record.rows, count: record.count });

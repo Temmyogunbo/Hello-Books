@@ -1,11 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SignUpPage } from '../../../src/components/Accounts/SignUpPage';
+import { SignUpPage } from '../../../src/components/accounts/SignUpPage';
 
 jest.mock('react-router-dom');
 
 jest.mock('history');
-
 describe('Given a Sign up Page', () => {
   describe('When I am not authenticated', () => {
     const props = {
@@ -24,7 +23,10 @@ describe('Given a Sign up Page', () => {
       expect(shallowWrapper.find('div').at(1).hasClass('image')).toBe(true);
     });
     it('Then it should call the componentWillReceiveProps method', () => {
-      const componentWillReceivePropsSpy = jest.spyOn(shallowWrapper.instance(), 'componentWillReceiveProps');
+      const componentWillReceivePropsSpy = jest.spyOn(
+        shallowWrapper.instance(),
+        'componentWillReceiveProps'
+      );
       const nextProps = {
         isAuthenticated: false
       };

@@ -5,7 +5,7 @@ import membershipLevel from '../helper/membershipLevel';
 
 /**
  * sends email to user
- * 
+ *
  * @returns {object} returns object
  */
 const emailNotifications = () => database.History
@@ -21,11 +21,11 @@ const emailNotifications = () => database.History
   })
   .then((userDetails) => {
     userDetails.map((eachUserDetails) => {
-      const numberofDaysUsed = moment(eachUserDetails.dueDate)
+      const numberofDaysBookUsed = moment(new Date())
         .diff(moment(eachUserDetails.borrowedDate), 'days');
       const numberofDaysAllowed = membershipLevel
         .checkMembership(eachUserDetails.User.membership)[1];
-      if (numberofDaysUsed > numberofDaysAllowed) {
+      if (numberofDaysBookUsed > numberofDaysAllowed) {
         sendMail(eachUserDetails);
       }
     });

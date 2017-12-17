@@ -35,7 +35,7 @@ export const getAllNotificationsAction = (data, dispatch) => {
     );
     resolve(socket.emit(
       'GET_ALL_NOTIFICATIONS',
-      { itemsCountPerPage: 5, currentPage: 1 }
+      { itemsCountPerPage: '', currentPage: '' }
     ));
     reject();
   });
@@ -73,7 +73,7 @@ export const updateNotificationAction = (data) => dispatch => {
   socket.on('UPDATE_NOTIFICATION', () => {
     socket.emit(
       'GET_ALL_NOTIFICATIONS',
-      { itemsCountPerPage: 5, currentPage: 1 }
+      { itemsCountPerPage: '', currentPage: '' }
     );
   });
   socket.on('GET_ALL_NOTIFICATIONS', (notifications) => {
@@ -81,4 +81,8 @@ export const updateNotificationAction = (data) => dispatch => {
   });
 };
 
-export default { getAllNotificationsAction };
+export default {
+  getAllNotificationsAction,
+  updateNotificationAction,
+  getNotificationsAction
+};

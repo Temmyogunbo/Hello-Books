@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
-import database from '../models';
-import verify from '../authentication/verify';
 
+import database from '../models';
+import verify from '../authentication';
 
 require('dotenv').config();
 /**
@@ -14,9 +14,12 @@ class UsersController {
  * Create a user
  *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} returns object
+ *
  * @memberof UsersController
  */
   static createUser(request, response) {
@@ -61,7 +64,7 @@ class UsersController {
         });
         response.status(201).json({
           success: true,
-          msg: 'Registration successful',
+          message: 'Registration successful',
           email,
           fullName,
           userName,
@@ -75,11 +78,11 @@ class UsersController {
         if (error.name === 'SequelizeUniqueConstraintError') {
           if (error.fields.userName) {
             response.status(401).json({
-              msg: 'Username must be unique'
+              message: 'Username already exist.'
             });
           } else {
             response.status(401).json({
-              msg: 'Email must be unique'
+              message: 'Email has been taken.'
             });
           }
         }
@@ -89,9 +92,12 @@ class UsersController {
  * Signs in a user and get a token
  *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} return object
+ *
  * @memberof UsersController
  */
   static signUserIn(request, response) {
@@ -125,7 +131,7 @@ class UsersController {
           if (token) {
             response.status(200).json({
               success: true,
-              msg: 'You are signed in',
+              message: 'You are signed in',
               email,
               userName,
               fullName,
@@ -138,21 +144,24 @@ class UsersController {
         } else {
           return response.status(401).json({
             success: false,
-            msg: 'Wrong username/password.'
+            message: 'Wrong username/password.'
           });
         }
       })
       .catch(() => response.status(401).json({
-        msg: 'You are not registered'
+        message: 'You are not registered'
       }));
   }
   /**
  * Change user password
  *
  * @static
+ *
  * @param {any} request
  * @param {any} response
+ *
  * @returns {object} returns object
+ *
  * @memberof UsersController
  */
   static changePassword(request, response) {
@@ -182,14 +191,14 @@ class UsersController {
           )
             .then(newUpdate => response.status(204).json(newUpdate))
             .catch(() => response.status(400)
-              .json({ msg: 'Your password cannot be updated.' }));
+              .json({ message: 'Your password cannot be updated.' }));
         }
         return response.status(403).json({
-          msg: 'Your old password is incorrect.'
+          message: 'Your old password is incorrect.'
         });
       })
       .catch(() => response.status(400)
-        .json({ msg: 'You are not a valid user.' }));
+        .json({ message: 'You are not a valid user.' }));
   }
 }
 

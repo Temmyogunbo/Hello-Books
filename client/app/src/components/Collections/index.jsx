@@ -241,14 +241,17 @@ class CollectionPage extends React.Component {
             handleDeleteBook={this.handleDeleteBook}
             handleEditBook={this.handleEditBook}
           />
+          {total ?
+            <Pagination
+              activePage={this.state.activePage}
+              itemsCountPerPage={this.state.itemsCountPerPage}
+              totalItemsCount={total}
+              pageRangeDisplayed={5}
+              handlePageChange={this.handlePageChange}
+            /> : null}
+
         </div>
-        <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={this.state.itemsCountPerPage}
-          totalItemsCount={total}
-          pageRangeDisplayed={5}
-          handlePageChange={this.handlePageChange}
-        />
+
       </div>
     );
   }

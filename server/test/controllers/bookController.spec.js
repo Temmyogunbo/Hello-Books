@@ -90,7 +90,7 @@ describe('Given /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.should.be.a('object');
-          res.body.errors[0].msg.should.eql('No books in the library');
+          res.body.errors[0].message.should.eql('No books in the library');
           done();
         });
     });
@@ -118,7 +118,8 @@ describe('Given /POST /api/v1/books', () => {
           res.body.book.id.should.eql(5);
           res.body.book.title.should.eql('The man in the mirror');
           res.body.book.category.should.eql('History');
-          res.body.book.description.should.eql('Enemy within and enemy  without');
+          res.body.book.description.should
+            .eql('Enemy within and enemy  without');
           res.body.book.imageUrl.should.eql('local');
           res.body.book.quantity.should.eql(19);
           res.body.book.should.have.property('id');
@@ -149,7 +150,8 @@ describe('Given /POST /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.have.property('error');
-          res.body.error.should.have.property('msg').eql('quantity is required');
+          res.body.error.should.have.property('msg')
+            .eql('quantity is required');
           res.body.should.be.a('object');
           done();
         });
@@ -170,7 +172,7 @@ describe('Given /POST /api/v1/books', () => {
         .send(book)
         .end((err, res) => {
           res.should.have.status(403);
-          res.body.msg.should.have.eql('Book already exist');
+          res.body.message.should.have.eql('Book already exist');
           res.body.should.be.a('object');
           done();
         });
@@ -191,14 +193,14 @@ describe('Given /POST /api/v1/books', () => {
         .send(book)
         .end((err, res) => {
           res.should.have.status(400);
-          res.body.should.have.property('msg')
+          res.body.should.have.property('message')
             .eql('Category does not exist. Be sure to check categories table.');
           res.body.should.be.a('object');
           done();
         });
     });
     it(
-'Then it should not add a book when quantity field is not an integer',
+      'Then it should not add a book when quantity field is not an integer',
       (done) => {
         const book = {
           title: 'The only child',
@@ -288,7 +290,7 @@ describe('Given /PUT /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
-          res.body.should.have.property('msg').eql('Category does not exist. Be sure to check categories table.');
+          res.body.should.have.property('message').eql('Category does not exist. Be sure to check categories table.');
           done();
         });
     });
@@ -309,7 +311,7 @@ describe('Given /PUT /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
-          res.body.should.have.property('msg').eql('No such book in the library.');
+          res.body.should.have.property('message').eql('No such book in the library.');
           done();
         });
     });
@@ -328,7 +330,7 @@ describe('Given /api/v1/books/:id', () => {
           res.should.have.status(404);
           res.body.should.be.a('object');
           res.body.errors[0].should
-            .have.property('msg').eql('Book cannot be found');
+            .have.property('message').eql('Book cannot be found');
           done();
         });
     });
@@ -385,7 +387,7 @@ describe('Given /api/v1/category', () => {
         .set('X-ACCESS-TOKEN', adminToken)
         .send(category)
         .end((err, res) => {
-          res.body.errors[0].msg.message.should.eql('category must be unique');
+          res.body.errors[0].message.message.should.eql('category must be unique');
           res.should.have.status(400);
           res.body.should.be.a('object');
           done();

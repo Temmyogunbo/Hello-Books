@@ -2,7 +2,7 @@
   "presets": ["es2015", "stage-0"],
   "env": {
     "test": {
-      "plugins": ["istanbul"]
+      "plugins": ["istanbul", "add-module-exports"]
     }
   }
 }

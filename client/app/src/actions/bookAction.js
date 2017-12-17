@@ -1,10 +1,10 @@
 import axios from 'axios';
 import toastr from 'toastr';
+
 import {
   getAllNotificationsAction,
 } from './notificationsAction';
 
-//import notifications from './notifications';
 import {
   EDIT_BOOK,
   ADD_BOOK,
@@ -96,7 +96,7 @@ export const addBookAction = bookData => dispatch =>
       toastr.success('Book(s) successfully added to the library.');
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
 /**It returns all book object
@@ -107,12 +107,12 @@ export const addBookAction = bookData => dispatch =>
  */
 export const getAllBooksAction = bookData => dispatch => {
   let bookRoute =
-   `/api/v1/books?page=${bookData.currentPage} \
-   &itemsCountPerPage=${bookData.itemsCountPerPage}`;
+   `/api/v1/books?page=${bookData.currentPage}&` +
+   `itemsCountPerPage=${bookData.itemsCountPerPage}`;
   if (bookData.bookCategory) {
-    bookRoute = `/api/v1/books?page=${bookData.currentPage}& \
-    itemsCountPerPage=${bookData.itemsCountPerPage}& \
-    category=${bookData.bookCategory.category}`;
+    bookRoute = `/api/v1/books?page=${bookData.currentPage}&` +
+    `itemsCountPerPage=${bookData.itemsCountPerPage}&category=` +
+    `${bookData.bookCategory.category}`;
   }
   if (bookData.bookId) {
     bookRoute = `/api/v1/books/${bookData.bookId}`;
@@ -121,7 +121,7 @@ export const getAllBooksAction = bookData => dispatch => {
     dispatch(getAllBooks(response.data));
   })
     .catch((error) => {
-      toastr.error(error.response.data.errors[0].msg);
+      toastr.error(error.response.data.errors[0].message);
     });
 };
 /**It returns borrow book object
@@ -145,7 +145,7 @@ export const borrowBookAction = bookData => dispatch =>
       }, dispatch);
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
 /**It returns book
@@ -162,7 +162,7 @@ export const returnBookAction = returnData => dispatch =>
     .then((response) => {
       const { historyObj } = returnData;
       dispatch(returnBook(historyObj));
-      toastr.success(response.data.msg);
+      toastr.success(response.data.message);
       getAllNotificationsAction({
         userId: `${returnData.userId}`,
         bookId: `${returnData.BookId}`,
@@ -170,7 +170,7 @@ export const returnBookAction = returnData => dispatch =>
       }, dispatch);
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 /**It returns delete book object
  *
@@ -185,7 +185,7 @@ export const deleteBookAction = bookData => dispatch =>
       toastr.success('Book deleted');
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
 /**It returns edit book object
@@ -201,7 +201,7 @@ export const editBookAction = bookData => (dispatch) =>
       toastr.success('Book updated successfully');
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 export default {
   editBookAction,
