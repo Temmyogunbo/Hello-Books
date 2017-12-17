@@ -56,7 +56,7 @@ categoryData => dispatch => axios.post('/api/v1/category', categoryData)
     toastr.success('You added a category');
   })
   .catch((error) => {
-    toastr.error(error.response.data.errors[0].msg.message);
+    toastr.error(error.response.data.errors[0].message.message);
   });
 export default {
   createBookCategoryAction,

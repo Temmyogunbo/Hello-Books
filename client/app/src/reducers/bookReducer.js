@@ -60,7 +60,8 @@ export default (state = initialState, action) => {
       count: state.count
     };
   case BORROW_A_BOOK:
-    newState = state.rows.filter(book => (book.id === action.id ? book.quantity -= 1 : book));
+    newState = state.rows.filter(book => (book.id === action.id ?
+      book.quantity -= 1 : book));
     return {
       rows: [...newState],
       count: state.count

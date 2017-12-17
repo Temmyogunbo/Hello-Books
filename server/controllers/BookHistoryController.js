@@ -26,18 +26,18 @@ class BookHistoryController {
     const { bookId, membership } = request.body;
     if (!membership) {
       return response.status(400).json({
-        msg: 'You must declare your membership type.'
+        message: 'You must declare your membership type.'
       });
     }
     return database.Book.findById(bookId).then((book) => {
       if (!book) {
         return response.status(404).json({
-          msg: 'No such book in the library'
+          message: 'No such book in the library'
         });
       }
       if (parseInt(book.dataValues.quantity, 10) < 1) {
         return response.status(404).json({
-          msg: 'No more books in the library'
+          message: 'No more books in the library'
         });
       }
       const numberofBooksAllowedWithDays =
@@ -63,12 +63,12 @@ class BookHistoryController {
                   .checkMembership(membership)[1];
                 if (numberofDaysBookUsed > numberofDaysAllowed) {
                   return response.status(403).json({
-                    msg: 'You have to return the previous book.'
+                    message: 'You have to return the previous book.'
                   });
                 } else if (parseInt(bookId, 10) ===
                 parseInt(eachUserDetails.dataValues.BookId, 10)) {
                   return response.status(403).json({
-                    msg: 'You cannot borrow the same book again.'
+                    message: 'You cannot borrow the same book again.'
                   });
                 }
               }
@@ -85,18 +85,18 @@ class BookHistoryController {
               })
               .then(record => response.status(201).json({
                 record,
-                msg: 'You successfully borrowed a book.'
+                message: 'You successfully borrowed a book.'
               }));
           } else {
             return response.status(403).json({
-              msg: 'You cannot borrow more than your membership level.'
+              message: 'You cannot borrow more than your membership level.'
             });
           }
         });
     })
       .catch(() => {
         response.status(400).json({
-          msg: 'Invalid book id'
+          message: 'Invalid book id'
         });
       });
   }
@@ -130,7 +130,7 @@ class BookHistoryController {
       }).then((record) => {
         if (record === null) {
           return response.status(404).json({
-            msg: 'No record found'
+            message: 'No record found'
           });
         }
         database.History.update(
@@ -147,7 +147,7 @@ class BookHistoryController {
         )
           .then(bookReturned => response.status(200).json({
             bookReturned,
-            msg: 'You returned a book.'
+            message: 'You returned a book.'
           }));
       });
   }
@@ -193,7 +193,7 @@ class BookHistoryController {
       .then((record) => {
         if (record.count === 0) {
           return response.status(404).json({
-            msg: 'No record found'
+            message: 'No record found'
           });
         }
         response.status(200).json({ rows: record.rows, count: record.count });

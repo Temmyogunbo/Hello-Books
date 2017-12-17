@@ -19,7 +19,6 @@ import {
 } from '../../src/constants/actionTypes';
 import {
   user,
-  user2,
   signinData,
   signupData,
   userPassword,

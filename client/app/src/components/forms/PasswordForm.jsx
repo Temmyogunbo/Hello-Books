@@ -125,7 +125,9 @@ class ChangePasswordForm extends React.Component {
   render() {
     const { errors, isButtonLoading } = this.state;
     return (
-      <div id="change-password" className="change-password-modal modal ">
+      <div
+        id="change-password"
+        className="change-password-modal modal container ">
         <div className="row modal-content">
           <div>CHANGE PASSWORD</div>
           <form onSubmit={this.onSubmit}>
@@ -136,7 +138,7 @@ class ChangePasswordForm extends React.Component {
               id={'oldPassword'}
               value={this.state.oldPassword}
               handleChange={this.handleChange}
-              error={errors.description}
+              error={errors.oldPassword}
             />
             <TextFieldGroup
               label={'New Password'}
@@ -156,18 +158,23 @@ class ChangePasswordForm extends React.Component {
               handleChange={this.handleChange}
               error={errors.confirmNewPassword}
             />
-            <Button
-              className={"btn brown darken-4 s12 "}
-              type={"submit"}
-              disabled={isButtonLoading}
-              children={'save changes'}
-            />
+            <div className="row">
+              <Button
+                className={"btn brown darken-4 col s4 m3 l3"}
+                type={"submit"}
+                id="sub"
+                disabled={isButtonLoading}
+                children={'save changes'}
+              />
+              <Button
+                className={"modal-close btn brown darken-4 col s3 m3 l3 right"}
+                type={'button'}
+                id="but"
+                children={'close'}
+              />
+            </div>
           </form>
-          <Button
-            className={"modal-close btn brown darken-4 col s9 m3 mt-2"}
-            onClick={this.handleClose}
-            children={'close'}
-          />
+
         </div>
       </div>
     );

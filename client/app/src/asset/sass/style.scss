@@ -94,12 +94,14 @@ body {
 }
 
 .login-button, .login-button:focus {
-  width: fit-content;
+  width: 100PX;
+  height: 38px;
   margin: 0 auto;
   text-align: center;
   padding: 10px;
   overflow: hidden;
-  background: #FF9800;
+  background-color: #FF9800;
+  cursor: pointer !important;
   border: 1px solid rgba(255, 152, 0, 0.9);
   border-radius: 4px;
 }
@@ -257,8 +259,16 @@ height: 250px;
    bottom:30px;
    height:45px;
    width:100%;
+
+}
+.pagination li.active {
+      background-color: #FF9800;
+
 }
 
+.clickable {
+    cursor: pointer;
+}
 @media only screen and (max-width: 480px) {
 .sign-title{
     color: white;

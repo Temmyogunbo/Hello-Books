@@ -69,7 +69,7 @@ export const getHistoryAction = userData => dispatch => {
       dispatch(getHistory(response.data));
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 };
 /**It returns user object with token
@@ -107,7 +107,7 @@ export const signupAction = userData => dispatch =>
       toastr.success('You successfully signed up');
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
 /**It returns user object with token
@@ -144,7 +144,7 @@ export const signinAction = user => dispatch =>
       }));
       toastr.success('You are Logged in successfully');
     }).catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 /**it returns an empty object
  *
@@ -158,7 +158,7 @@ export const changePasswordAction = userData => dispatch =>
       dispatch(changeUserPassword({}));
       toastr.success('Password changed');
     }).catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
 /**It clears local storage and set token to false

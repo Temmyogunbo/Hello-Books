@@ -44,6 +44,7 @@ function CardList({
                         style={{ width: '100%', height: '150px' }} />
                     </div>
                     <br />
+                    <br />
                     <div
                       className="card-color"
                     >
@@ -54,14 +55,14 @@ function CardList({
                 {role === 'admin' ? <div>
                   <i
                     id={book.id}
-                    className="fa fa-trash-o mr-1"
+                    className="fa fa-trash-o mr-2 clickable"
                     aria-hidden="true"
                     onClick={handleDeleteBook}
 
                   />
                   <i
                     id={book.id}
-                    className="material-icons mr-1"
+                    className="material-icons mr-1 clickable"
                     onClick={handleEditBook}
                   >edit
                   </i>

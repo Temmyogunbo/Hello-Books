@@ -94,13 +94,7 @@ export class SignUpForm extends React.Component {
     if (this.validateForm()) {
       this.props.signup(this.state);
       this.setState({
-        fullName: '',
-        userName: '',
-        password: '',
-        email: '',
-        confirmPassword: '',
         isLoading: false,
-        errors: {}
       });
     }
   }

@@ -23,7 +23,7 @@ function NotificationList({ notifications, updateNotification }) {
           <br />
           <div>
             <a
-              className="btn right bc"
+              className="brown darken-4 btn right bc"
               onClick={() => updateNotification({})}>
         Mark all as read
             </a>
@@ -44,7 +44,7 @@ function NotificationList({ notifications, updateNotification }) {
                   <TimeAgo date={notification.updatedAt} />
                 </div>
                 <div
-                  className="col s2"
+                  className="col s2 clickable"
                   onClick={() => updateNotification({
                     id: notification.id
                   })}

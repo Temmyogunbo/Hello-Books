@@ -30,7 +30,6 @@ import {
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
 /* eslint-disable max-nested-callbacks */
 describe('Given book actions', () => {
   describe('When I call the add book action', () => {

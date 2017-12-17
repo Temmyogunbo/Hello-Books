@@ -86,6 +86,9 @@ export class SignInForm extends React.Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.props.signin(this.state);
+      this.setState({
+        isLoading: false,
+      });
     }
   }
   /**It returns form element
@@ -132,7 +135,7 @@ export class SignInForm extends React.Component {
               group="login-button"
               dataAction="log-in-form"
               disabled={isLoading}
-              className="col s4 m4 login-button btn"
+              className="col s4 m4 login-button"
               children={' Log in'}
             />
             <div className="col s8 m8 l6">

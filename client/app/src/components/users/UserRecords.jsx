@@ -93,7 +93,7 @@ function UserRecords({
                   <th>Author</th>
                   <th>Due Date</th>
                   <th>Borrowed Date</th>
-                  <th>Return</th>
+                  <th>status</th>
                 </tr>
               </thead>
               <tbody>
