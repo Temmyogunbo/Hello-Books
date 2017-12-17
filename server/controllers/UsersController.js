@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
-import database from '../models';
-import verify from '../authentication/verify';
 
+import database from '../models';
+import verify from '../authentication';
 
 require('dotenv').config();
 /**

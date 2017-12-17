@@ -1,7 +1,7 @@
 import UsersController from '../controllers/UsersController';
 import BooksController from '../controllers/BooksController';
 import BookHistoryController from '../controllers/BookHistoryController';
-import verify from '../authentication/verify';
+import verify from '../authentication';
 
 export default (app) => {
   app.post(

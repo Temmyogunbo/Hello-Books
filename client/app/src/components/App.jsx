@@ -11,7 +11,7 @@ import HistoryPage from '../components/users/HistoryPage';
 import Notifications from '../../src/components/Notifications';
 import '../../../node_modules/toastr/toastr.scss';
 import PageNotFound from './PageNotFound';
-import Header from './Header';
+import NavigationBar from './NavigationBar';
 import Footer from './Footer';
 
 /**It returns a div element containg app routes
@@ -22,7 +22,7 @@ import Footer from './Footer';
 function App() {
   return (
     <div style={{ height: "100vh" }}>
-      <Header />
+      <NavigationBar />
       <Switch>
         <Route path="/signin" component={SignInPage} />
         <Route exact path="/" component={SplashScreen} />
