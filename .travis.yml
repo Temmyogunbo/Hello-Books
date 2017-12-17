@@ -16,7 +16,7 @@ script:
   # uncomment the line below
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 node_js:
-  - node
+  - "6"
 notifications:
   email: false
 services:
