@@ -5,7 +5,6 @@ import {
   getAllNotificationsAction,
 } from './notificationsAction';
 
-//import notifications from './notifications';
 import {
   EDIT_BOOK,
   ADD_BOOK,
