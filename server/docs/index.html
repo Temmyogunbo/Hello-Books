@@ -1,0 +1,815 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-user" class="toc-h2 toc-link" data-title="Create a user">Create a user</a>
+                  </li>
+                  <li>
+                    <a href="#signin-user" class="toc-h2 toc-link" data-title="Signin user">Signin user</a>
+                  </li>
+                  <li>
+                    <a href="#change-password" class="toc-h2 toc-link" data-title="Change Password">Change Password</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#books" class="toc-h1 toc-link" data-title="Books">Books</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#add-book" class="toc-h2 toc-link" data-title="Add book">Add book</a>
+                  </li>
+                  <li>
+                    <a href="#add-category" class="toc-h2 toc-link" data-title="Add category">Add category</a>
+                  </li>
+                  <li>
+                    <a href="#find-category" class="toc-h2 toc-link" data-title="Find category">Find category</a>
+                  </li>
+                  <li>
+                    <a href="#find-books" class="toc-h2 toc-link" data-title="Find books">Find books</a>
+                  </li>
+                  <li>
+                    <a href="#find-book" class="toc-h2 toc-link" data-title="Find book">Find book</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-book" class="toc-h2 toc-link" data-title="Update a book">Update a book</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-book" class="toc-h2 toc-link" data-title="Delete a book">Delete a book</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#users-borrow-history" class="toc-h1 toc-link" data-title="Users borrow history">Users borrow history</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#borrow-a-book" class="toc-h2 toc-link" data-title="Borrow a book">Borrow a book</a>
+                  </li>
+                  <li>
+                    <a href="#find-user-borrow-history" class="toc-h2 toc-link" data-title="Find user borrow history">Find user borrow history</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+      </div>
+        <ul class="toc-footer">
+            <li><a href='#'>HelloBooks</a></li>
+            <li><a href='https://emmanuelhellobooks.herokuapp.com'>Documentation Powered by Emmanuel</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to HellBooks API! You can use our API to access HelloBooks API endpoints, which can get information on various books, categories, users, and users history in our database.</p>
+
+<p>You can view code examples in the dark area to the right.</p>
+
+<p>HTTP Request url must prefix the base url</p>
+
+<p><code>BASE URL = http: //emmanuelhellobooks.herokuapp.com/api/vi</code> </p>
+<h1 id='authentication'>Authentication</h1>
+<p>The application uses Json web token simply known as JWT to authenticate user. The JWT token must be signed by the application and it expires after 24 hours.
+Also, the token must be included in every request. It should be in form of a bearer and token</p>
+
+<p><code>authenticate-token:Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></p>
+<h1 id='users'>Users</h1><h2 id='create-a-user'>Create a user</h2>
+<p>This endpoint create a user record. If record was sucessfully created, user gets a token that will be used for subsequent request.</p>
+
+<p>HTTP Request</p>
+
+<p><code>POST /users/signup</code></p>
+
+<p>HTTP Respone</p>
+
+<p><code>201 created</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Emmanuel Ogunbo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"emmy"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@gmail.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"confirmPassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Emmanuel Ogunbo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"emmy"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@gmail.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"users"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"membership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gold"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Registration successful"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='signin-user'>Signin user</h2>
+<p>This endpoint signs in a user into the application. The user gets a token upon successful sign in and it can be used for subsequent request.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>POST /users/signin</code></p>
+
+<p>HTTP Response</p>
+
+<p><code>200 ok</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"emmy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Emmanuel Ogunbo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"emmy"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@gmail.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"users"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"membership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gold"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You are signed in"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='change-password'>Change Password</h2>
+<p>This endpoint allows user to change their existing password after signing in.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>POST /users/change-password</code></p>
+
+<p><code>HTTP Response</code></p>
+
+<p><code>204</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"oldPassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oldPAssword"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"newPassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newPasword"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"emmy"</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='books'>Books</h1><h3 id='add-book'>Add book</h3>
+<p>This endpoint adds a book.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>POST /books</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Half of a yellow sun"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A sweet book from Chimamanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="s2">"gygydyhduhudhue67w6w"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chimanmanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imageURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.cloudinary.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><code>HTTP Response</code></p>
+
+<p><code>201 created</code></p>
+
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Half of a yellow sun"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A sweet book from Chimamanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="s2">"gygydyhduhudhue67w6w"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chimanmanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imageURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.cloudinary.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-12T16:27:39.497Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-12T16:27:39.497Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='add-category'>Add category</h2>
+<p>This endpoint adds a book category.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>POST /books/category</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-12T16:27:39.497Z"</span><span class="w">
+  </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-12T16:27:39.497Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='find-category'>Find category</h2>
+<p>This endpoint finds all the books category in the library.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>GET /books/category</code></p>
+
+<p><code>HTTP Response</code></p>
+
+<p><code>200 ok</code></p>
+
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-12T16:27:39.497Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-12T16:27:39.497Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='find-books'>Find books</h2>
+<p>This endpoint find all the books in the library.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>GET /books</code></p>
+
+<p><code>HTTP Response</code></p>
+
+<p><code>200 Ok</code></p>
+
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight plaintext"><code>[{
+  "id": 1,
+  "title": "Half of a yellow sun",
+  "description": "A sweet book from Chimamanda Adichie",
+  "imagePublicId":"gygydyhduhudhue67w6w",
+  "quantity": 3,
+  "category": "History",
+  "author": "Chimanmanda Adichie",
+  "imageURL": "http://www.cloudinary.com",
+  "createdAt": "2017-12-12T16:27:39.497Z",
+  "updatedAt": "2017-12-12T16:27:39.497Z"
+}]
+</code></pre><h2 id='find-book'>Find book</h2>
+<p>This endpoint find a particular book in the library.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>GET /books/:id</code></p>
+
+<p><code>200 Ok</code></p>
+
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">72</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Edward Luttwark"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love maths"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the great one of our time"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/emmanuelandela/image/upload/v1512970470/bp96wlczbbhjzofnqysv.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bp96wlczbbhjzofnqysv"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mathematics"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">450</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-11T05:34:30.389Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:59:00.133Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">77</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olutayo"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elementary Algebra"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The beginning of the end. Ain't funny."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/emmanuelandela/image/upload/v1513186793/o4efyaa0lcg7eykqn7c3.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"o4efyaa0lcg7eykqn7c3"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mathematics"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">43</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-13T17:39:56.306Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:43:41.962Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">87</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Emmanuel"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"How Europe under developed Africa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The beginning of the end"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/emmanuelandela/image/upload/v1513241751/hho2didgh4artkgdxvgz.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hho2didgh4artkgdxvgz"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-14T08:55:54.646Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:43:31.945Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">76</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Segun ola"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full body transplant"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The body stops working when it can no longer support life."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/emmanuelandela/image/upload/v1513158458/r95kp3kpkmbt4ksbv3f0.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r95kp3kpkmbt4ksbv3f0"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Science"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-13T09:47:37.679Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:43:26.572Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">69</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gvggbhb"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The one CHILD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Show me your friend and I tell you who you are."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/emmanuelandela/image/upload/v1512823254/jt97unsmgd84kcabhsej.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jt97unsmgd84kcabhsej"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Programming"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-09T12:40:56.916Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:43:24.509Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='update-a-book'>Update a book</h2>
+<p>This endpoint updates or edit a book.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>PUT /books/:id</code></p>
+
+<p><code>204</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Half of a yellow sun"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A sweet book from Chimamanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="s2">"gygydyhduhudhue67w6w"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chimanmanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imageURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.cloudinary.com"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>Response body</code></p>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre><h2 id='delete-a-book'>Delete a book</h2>
+<p>This endpoint deletes a book.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>DELETE /books/:id</code></p>
+
+<p><code>204</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Half of a yellow sun"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A sweet book from Chimamanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imagePublicId"</span><span class="p">:</span><span class="s2">"gygydyhduhudhue67w6w"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"History"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chimanmanda Adichie"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"imageURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.cloudinary.com"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>Response body</code></p>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre><h1 id='users-borrow-history'>Users borrow history</h1><h2 id='borrow-a-book'>Borrow a book</h2>
+<p>This endpoint allows user to borrow a book.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>POST  /users/2/books</code> </p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"bookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"membership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gold"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>HTTP Response</code></p>
+
+<p><code>201 created</code></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"record"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:50:21.088Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-21T09:50:21.088Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:50:21.089Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:50:21.089Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You successfully borrowed a book."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='find-user-borrow-history'>Find user borrow history</h2>
+<p>This endpoint allows user to find their their borrow history.</p>
+
+<p><code>HTTP Request</code></p>
+
+<p><code>GET /users/2/history</code></p>
+
+<p><code>HTTP Response</code></p>
+
+<p><code>200 ok</code></p>
+
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">72</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-21T09:50:21.088Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:50:21.088Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Edward Luttwark"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love maths"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">77</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-23T09:43:41.952Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-15T09:43:41.952Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olutayo"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elementary Algebra"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">87</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-22T17:35:47.595Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-14T17:35:47.595Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Emmanuel"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"How Europe under developed Africa"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">77</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-22T10:27:33.371Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-14T10:27:33.371Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olutayo"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elementary Algebra"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">76</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-21T17:43:31.417Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-13T17:43:31.417Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Segun ola"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full body transplant"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">76</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-22T10:02:20.152Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-14T10:02:20.152Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Segun ola"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full body transplant"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">69</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-19T19:57:15.874Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-11T19:57:15.874Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gvggbhb"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The one CHILD"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">69</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-19T21:35:48.384Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-11T21:35:48.384Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gvggbhb"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The one CHILD"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">69</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-19T22:02:06.020Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-11T22:02:06.020Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gvggbhb"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The one CHILD"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"BookId"</span><span class="p">:</span><span class="w"> </span><span class="mi">69</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-19T22:08:26.294Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"borrowedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-11T22:08:26.294Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Book"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gvggbhb"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The one CHILD"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='errors'>Errors</h1>
+<p>The HelloBooks API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Validation errors.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- Your supplied a wrong API key.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden -- The user is not allowed to access the resource.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The specified resource could not be found.</td>
+</tr>
+</tbody></table>
+
+<p>500 | Internal Server Error -- We had a problem with our server. Try again later.</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
