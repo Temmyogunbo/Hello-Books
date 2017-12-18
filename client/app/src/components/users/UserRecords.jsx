@@ -53,7 +53,7 @@ function UserRecords({
     <div>
       <div className=" bc-2 row">
         <h5
-          className="col s3 fs-2" style={{ color: "white" }}
+          className="col s3 fs-2 hide-on-small-only" style={{ color: "white" }}
         >
           Activity
         </h5>
@@ -85,7 +85,7 @@ function UserRecords({
         (userHistory).length > 0 ?
           <div>
 
-            <table className="users-profile">
+            <table className="users-profile responsive-table">
               <thead>
                 <tr>
                   <th>S/N</th>
