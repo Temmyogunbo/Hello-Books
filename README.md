@@ -1,7 +1,7 @@
 
-[![Build Status](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io.svg?branch=dashboard)](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io)
+[![Build Status](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io.svg?branch=development)](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
-[![Test Coverage](https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)
+[![Test Coverage](https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg?branch=development)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)
 # HelloBooks
 
 Hello-Books is a simple application that helps manage a library and its processes like stocking, tracking and renting books. With this application users are able to find and rent books. It is built on react, javascript front-end frame-work, and Postgres as database

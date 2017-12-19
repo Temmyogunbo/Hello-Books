@@ -21,7 +21,7 @@ import Footer from './Footer';
  */
 function App() {
   return (
-    <div style={{ height: "100vh" }}>
+    <div>
       <NavigationBar />
       <Switch>
         <Route path="/signin" component={SignInPage} />

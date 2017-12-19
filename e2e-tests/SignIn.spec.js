@@ -9,7 +9,6 @@ module.exports = {
       .click('#for-google-log-in')
       .waitForElementVisible('.card', 1000)
       .assert.urlEquals('http://localhost:5000/collections')
-      .pause(2000)
       .end();
   },
   'user can login': (client) => {
@@ -22,7 +21,6 @@ module.exports = {
       .click('#for-google-log-in')
       .waitForElementVisible('.card', 1000)
       .assert.urlEquals('http://localhost:5000/collections')
-      .pause(2000)
       .end();
   }
 };
