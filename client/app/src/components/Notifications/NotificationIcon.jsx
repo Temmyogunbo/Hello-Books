@@ -22,7 +22,7 @@ function NotificationIcon({ total }) {
           </i>
         </div>
         <div className="col s2 notif-icon" style={{ color: 'red' }}>
-          <div >{total === 0 ? null: total}</div>
+          <div >{total === 0 ? null : total}</div>
         </div>
       </Link>
     </div>

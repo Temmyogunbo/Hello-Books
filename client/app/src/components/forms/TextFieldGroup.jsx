@@ -45,7 +45,7 @@ function TextFieldGroup({
 }) {
   return (
     <div >
-      <div className="row input-field col.s5">
+      <div className="input-field">
         <label htmlFor={id}>
           <i className="material-icons">{icon}</i> {label}
         </label>{textArea ?

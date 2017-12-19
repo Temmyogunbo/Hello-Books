@@ -81,6 +81,20 @@ class BookForm extends React.Component {
       });
     }
   }
+  /**
+ * It update text fields when prefilled
+ *
+ * @memberof BookForm
+ *
+ * @returns {undefined}
+ */
+  componentDidUpdate() {
+    this.var = '';
+    const { $ } = window;
+    $(document).ready(() => {
+      Materialize.updateTextFields();
+    });
+  }
   /**This functions reads image and uploads to cloudinary
    *
  * @returns {void}

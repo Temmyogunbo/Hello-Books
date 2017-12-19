@@ -35,6 +35,20 @@ export class SignInForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onGoogleCallback = this.onGoogleCallback.bind(this);
   }
+  /**
+ * It update text fields when prefilled
+ *
+ * @memberof SignInForm
+ *
+ * @returns {undefined}
+ */
+  componentDidUpdate() {
+    this.var = '';
+    const { $ } = window;
+    $(document).ready(() => {
+      Materialize.updateTextFields();
+    });
+  }
   /**It hanldes google log in
    *
    * @returns {object} user's details on google
@@ -105,7 +119,7 @@ export class SignInForm extends React.Component {
       <div className="container">
         <form
           id="sign-in-form"
-          className="col s12 m6 l6 push-l4 div-container-form"
+          className="col s12 m6 l6 push-l3 push-m3 div-container-form"
           onSubmit={this.onSubmit}
         >
           <h3 className="sign-title">Log in:</h3><br />
@@ -129,32 +143,29 @@ export class SignInForm extends React.Component {
             handleChange={this.handleChange}
             error={errors.password}
           />
-          <div className="row">
-            <Button
-              id={"for-google-log-in"}
-              type={'submit'}
-              group="login-button"
-              dataAction="log-in-form"
-              disabled={isLoading}
-              className="col s4 m4 login-button"
-              children={' Log in'}
-            />
-            <div className="col s8 m8 l6">
-              <GoogleLogin
-                className="right google-button"
-                clientId={process.env.GOOGLE_CLIENT_ID}
-                onSuccess={this.onGoogleCallback}
-              >
-                <div className="left">Log in with</div>
-                <img
-                  className="google-icon"
-                  width="30"
-                  height="27"
-                  role="google fonts"
-                  src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
-                />
-              </GoogleLogin>
-            </div>
+          <Button
+            id={"for-google-log-in"}
+            type={'submit'}
+            group="login-button"
+            dataAction="log-in-form"
+            disabled={isLoading}
+            className="col s4 m4 login-button"
+            children={' Log in'}
+          />
+          <div className="col s8 m8 l6">
+            <GoogleLogin
+              className="right google-button"
+              clientId={process.env.GOOGLE_CLIENT_ID}
+              onSuccess={this.onGoogleCallback}
+            >
+              <div className="left">Log in with</div>
+              <img
+                width="30"
+                height="27"
+                role="google fonts"
+                src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
+              />
+            </GoogleLogin>
           </div>
         </form>
       </div>

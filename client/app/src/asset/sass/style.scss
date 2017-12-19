@@ -211,7 +211,8 @@ height: 250px;
     padding: 2px;
 }
 .google-button, .google-button:focus { 
-  border-radius: 2px;
+  height: 38px;
+  border-radius: 4px;
   background-color: #FF9800;
   font-size: 17px;
   font-weight: normal;
@@ -220,20 +221,18 @@ height: 250px;
   cursor: pointer !important;
   border: none;
 }
-.google-icon {
-    margin-left: 10px;
-    
-}
+
 .signup-button, .signup-button:focus {
-      border-radius: 2px;
-  background-color: #FF9800;
   width: 100PX;
-  height: 32px;
-  font-weight: normal;
-  color: white !important;
-  display: inline-block;
+  height: 38px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
+  overflow: hidden;
+  background-color: #FF9800;
   cursor: pointer !important;
-  border: none;
+  border: 1px solid rgba(255, 152, 0, 0.9);
+  border-radius: 4px;
 }
 
 .history-tab li:last-child {

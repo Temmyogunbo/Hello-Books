@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-require('dotenv').config();
+
 /** It verifies data from the user
  * and also verify token or issue token
  *
@@ -8,18 +8,18 @@ require('dotenv').config();
  * @class Authentication
  */
 class Authentication {
- /**
+  /**
   * It signs on user payload and returns a string
-  * 
+  *
   * @static
 
-  * @param {any} user 
+  * @param {any} user
 
   * @returns {object} signed token
 
   * @memberof Authentication
   */
- static getToken(user) {
+  static getToken(user) {
     return jwt.sign(user, process.env.SECRET_KEY, {
       expiresIn: 3600 * 24
     });
@@ -32,7 +32,7 @@ class Authentication {
    *
    * @param {any} request
    * @param {any} response
-   * 
+   *
    * @param {any} next
    *
    * @returns {object} json object
@@ -77,7 +77,7 @@ class Authentication {
       });
     } else {
       return response.status(403).json({
-        errors: [{ msg: 'You are not logged in.' }]
+        errors: [{ message: 'You are not logged in.' }]
       });
     }
   }

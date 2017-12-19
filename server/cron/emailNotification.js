@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import database from '../models';
+import model from '../models';
 import sendMail from './sendEmail';
 import membershipLevel from '../helper/membershipLevel';
 
@@ -9,15 +9,15 @@ import membershipLevel from '../helper/membershipLevel';
  *
  * @returns {object} returns object
  */
-const emailNotifications = () => database.History
+const emailNotifications = () => model.History
   .findAll({
     where: {
       returned: false
     },
     attributes: ['dueDate', 'borrowedDate'],
     include: [
-      { model: database.Book, attributes: ['author', 'title'] },
-      { model: database.User, attributes: ['fullName', 'email', 'membership'] }
+      { model: model.Book, attributes: ['author', 'title'] },
+      { model: model.User, attributes: ['fullName', 'email', 'membership'] }
     ]
   })
   .then((userDetails) => {
