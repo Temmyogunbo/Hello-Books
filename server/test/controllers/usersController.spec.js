@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+
 import app from '../../config/app';
 import mockData from '../mockData';
 
@@ -153,7 +154,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('Username must be unique');
+            res.body.message.should.eql('Username already exist.');
             done();
           });
       });
@@ -169,7 +170,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('Email must be unique');
+            res.body.message.should.eql('Email has been taken.');
             done();
           });
       });
@@ -195,7 +196,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(201);
-            res.body.msg.should.eql('Registration successful');
+            res.body.message.should.eql('Registration successful');
             res.body.email.should.eql('simi@yahoo.com');
             res.body.userName.should.eql('simisola');
             res.body.membership.should.eql('gold');
@@ -216,7 +217,7 @@ describe('Users', () => {
           .send(mockData.user2)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.should.have.property('msg').eql('You are not registered');
+            res.body.should.have.property('message').eql('You are not registered');
             done();
           });
       });
@@ -260,7 +261,7 @@ describe('Users', () => {
           .send(mockUser)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('You are not registered');
+            res.body.message.should.eql('You are not registered');
             done();
           });
       });
@@ -274,7 +275,7 @@ describe('Users', () => {
           .send(mockUser)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('Wrong username/password.');
+            res.body.message.should.eql('Wrong username/password.');
             done();
           });
       });
@@ -303,7 +304,7 @@ describe('Users', () => {
           .send(mockUser)
           .end((err, res) => {
             res.should.have.status(200);
-            res.body.msg.should.eql('You are signed in');
+            res.body.message.should.eql('You are signed in');
             res.body.email.should.eql('temmyogunbo@gmail.com');
             res.body.userName.should.eql('temmy');
             res.body.membership.should.eql('silver');
@@ -383,7 +384,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(403);
-            res.body.msg.should.eql('Your old password is incorrect.');
+            res.body.message.should.eql('Your old password is incorrect.');
             done();
           });
       });
@@ -399,7 +400,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(400);
-            res.body.msg.should.eql('You are not a valid user.');
+            res.body.message.should.eql('You are not a valid user.');
             done();
           });
       });
