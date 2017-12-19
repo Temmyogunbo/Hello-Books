@@ -25,12 +25,15 @@ const defaultProps = {
  *
  *
  * @class Notifications
+ *
  * @extends {React.Component}
  */
-class Notifications extends React.Component {
+export class Notifications extends React.Component {
   /**
    * Creates an instance of Notifications.
+   *
    * @param {any} props
+   *
    * @memberof Notifications
    */
   constructor(props) {

@@ -22,13 +22,17 @@ const propTypes = {
 /**It contains behaviours and state for book page component
  *
  * @returns {object} jsx
+ *
  * @class BookPage
+ *
  * @extends {React.Component}
  */
-class BookPage extends React.Component {
+export class BookPage extends React.Component {
   /**
      * Creates an instance of BookPage.
+     *
      * @param {any} props
+     *
      * @memberof BookPage
      */
   constructor(props) {
@@ -40,7 +44,8 @@ class BookPage extends React.Component {
   }
   /**It invokes an action that gets a particular book
      *
-     * @returns {void}
+     * @returns {undefined}
+     *
      * @memberof BookPage
      */
   componentDidMount() {
@@ -51,6 +56,7 @@ class BookPage extends React.Component {
      * @returns {undefined}
      *
      * @param {any} nextProps
+     *
      * @memberof BookPage
      */
   componentWillReceiveProps(nextProps) {
@@ -61,6 +67,7 @@ class BookPage extends React.Component {
   /**It handles borrow book
      *
      * @returns{undefined}
+     *
      * @memberof BookPage
      */
   handleBorrowBook() {
@@ -83,8 +90,8 @@ class BookPage extends React.Component {
   }
   /**It returns a div element
      *
-     *
      * @returns {object} jsx
+     *
      * @memberof BookPage
      */
   render() {

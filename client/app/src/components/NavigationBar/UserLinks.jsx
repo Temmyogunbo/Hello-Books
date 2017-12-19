@@ -21,7 +21,7 @@ function UserLinks({ isAdmin, signOutAction, total }) {
     <div>
       <ul
         id="nav-mobile"
-        className="right hide-on-med-and-down custom-nav-list"
+        className="right hide-on-med-and-down"
       >
         {isAdmin ? <li>
           <NotificationIcon total={total}/>

@@ -1,4 +1,4 @@
-import database from '../models';
+import models from '../models';
 
 /**
  * It contains utility method for books
@@ -29,7 +29,7 @@ class BooksController {
       description,
       imagePublicId
     } = request.body;
-    return database.Book.create({
+    return models.Book.create({
       title,
       category,
       author,
@@ -45,7 +45,7 @@ class BooksController {
         switch (error.name) {
         case 'SequelizeForeignKeyConstraintError':
           return response.status(400).json({
-            message: 'Category does not exist. Be sure to check categories table.'
+            message: 'Category does not exist.'
           });
         case 'SequelizeUniqueConstraintError':
           return response.status(403).json({
@@ -70,7 +70,7 @@ class BooksController {
    * @memberof BooksController
    */
   static addCategory(request, response) {
-    return database.Categories.create({
+    return models.Categories.create({
       category: request.body.category
     })
       .then(category => response.status(201).json(category))
@@ -91,7 +91,7 @@ class BooksController {
  * @memberof BooksController
  */
   static findCategory(request, response) {
-    return database.Categories.findAll({
+    return models.Categories.findAll({
       limit: 10,
       order: [['updatedAt', 'DESC']]
     })
@@ -104,9 +104,12 @@ class BooksController {
    * Get all books or a particular book
    *
    * @static
+   *
    * @param {any} request
    * @param {any} response
+   *
    * @returns {object}  book(s) object
+   *
    * @memberof BooksController
    */
   static findBookOrBooks(request, response) {
@@ -125,7 +128,7 @@ class BooksController {
     if (request.params[0]) {
       whereStatement.id = parseInt(request.params[0], 10);
     }
-    return database.Book.findAndCountAll({
+    return models.Book.findAndCountAll({
       where: whereStatement,
 
       limit,
@@ -167,7 +170,7 @@ class BooksController {
       description
     } = request.body;
     const bookId = parseInt(request.params[0], 10);
-    return database.Book.update(
+    return models.Book.update(
       {
         category,
         title,
@@ -193,7 +196,7 @@ class BooksController {
       .catch((error) => {
         if (error.name === 'SequelizeForeignKeyConstraintError') {
           return response.status(404).json({
-            message: 'Category does not exist. Be sure to check categories table.'
+            message: 'Category does not exist.'
           });
         }
       });
@@ -213,14 +216,14 @@ class BooksController {
   static deleteBook(request, response) {
     const bookId = parseInt(request.params[0], 10);
 
-    return database.Book.findById(bookId)
+    return models.Book.findById(bookId)
       .then((book) => {
         if (!book) {
           return response.status(404).json({
             errors: [{ message: 'Book cannot be found' }]
           });
         }
-        database.Book.destroy({
+        models.Book.destroy({
           where: {
             id: bookId
           }

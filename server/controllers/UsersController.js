@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
-import database from '../models';
-import verify from '../authentication';
+import models from '../models';
+import Authentication from '../Authentication';
 
 require('dotenv').config();
 /**
@@ -30,7 +30,7 @@ class UsersController {
       password,
     } = request.body;
 
-    return database.User
+    return models.User
       .create(
         {
           fullName,
@@ -54,7 +54,7 @@ class UsersController {
           id,
           role
         } = user;
-        const token = verify.getToken({
+        const token = Authentication.getToken({
           email,
           fullName,
           userName,
@@ -101,7 +101,7 @@ class UsersController {
  * @memberof UsersController
  */
   static signUserIn(request, response) {
-    return database.User.findOne({
+    return models.User.findOne({
       where: {
         userName: request.body.userName
       },
@@ -120,7 +120,7 @@ class UsersController {
           membership,
         } = user;
         if (bcrypt.compareSync(request.body.password, user.password)) {
-          const token = verify.getToken({
+          const token = Authentication.getToken({
             email,
             userName,
             fullName,
@@ -170,7 +170,7 @@ class UsersController {
       oldPassword,
       userName
     } = request.body;
-    return database.User.findOne({
+    return models.User.findOne({
       where: {
         userName
       },
@@ -179,7 +179,7 @@ class UsersController {
     })
       .then((password) => {
         if (bcrypt.compareSync(oldPassword, password.password)) {
-          return database.User.update(
+          return models.User.update(
             {
               password: bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10))
             },

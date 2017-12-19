@@ -5,9 +5,9 @@ require('dotenv').config();
  * and also verify token or issue token
  *
  *
- * @class Verify
+ * @class Authenrication
  */
-class Verify {
+class Authentication {
   /**
    * It signs on user payload and returns a string
    *
@@ -27,11 +27,15 @@ class Verify {
   /**
    *
    * It checks if a user is an admin
+   *
    * @static
+   *
    * @param {any} request
    * @param {any} response
    * @param {any} next
+   *
    * @returns {object} json object
+   *
    * @memberof Verify
    */
   static checkIfAdmin(request, response, next) {
@@ -46,11 +50,15 @@ class Verify {
   /**
    *
    * It checks if a user is logged in
+   *
    * @static
+   *
    * @param {any} request
    * @param {any} response
    * @param {any} next
+   *
    * @returns {object} json object
+   *
    * @memberof Verify
    */
   static isLoggedIn(request, response, next) {
@@ -76,10 +84,13 @@ class Verify {
    * It checks book data and validate
    *
    * @static
+   *
    * @param {any} request
    * @param {any} response
    * @param {any} next
+   *
    * @returns {undefined}
+   *
    * @memberof Verify
    */
   static validateBookRequest(request, response, next) {
@@ -114,10 +125,13 @@ class Verify {
    * It checks and validate user data
    *
    * @static
+   *
    * @param {any} request
    * @param {any} response
    * @param {any} next
+   *
    * @returns {undefined}
+   *
    * @memberof Verify
    */
   static validateUserRequest(request, response, next) {
@@ -166,4 +180,4 @@ class Verify {
   }
 }
 
-export default Verify;
+export default Authentication;

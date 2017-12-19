@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 const propTypes = {
   total: PropTypes.number.isRequired,
 };
-const defaultProps = {
-  total: 0,
-};
+
 /**
  *It returns a div element
  *
@@ -16,7 +14,7 @@ const defaultProps = {
  */
 function NotificationIcon({ total }) {
   return (
-    <div className="row">
+    <div className="row" style={{height: "10px"}}>
       <Link to="/notifications">
         <div className="col s4">
           <i className="material-icons">
@@ -24,7 +22,7 @@ function NotificationIcon({ total }) {
           </i>
         </div>
         <div className="col s2 notif-icon" style={{ color: 'red' }}>
-          <div >{total === 0 ? null : total}</div>
+          <div >{total && total}</div>
         </div>
       </Link>
     </div>
@@ -32,7 +30,6 @@ function NotificationIcon({ total }) {
 }
 
 NotificationIcon.propTypes = propTypes;
-NotificationIcon.defaultProps = defaultProps;
 
 
 export default NotificationIcon;

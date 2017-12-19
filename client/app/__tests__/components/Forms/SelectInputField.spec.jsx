@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import SelectInputField from '../../../src/components/Forms/SelectInputField';
+import SelectInputField from '../../../src/components/forms/SelectInputField';
 
 describe('Given TextFieldGroup', () => {
   describe('When I clicked on it', () => {

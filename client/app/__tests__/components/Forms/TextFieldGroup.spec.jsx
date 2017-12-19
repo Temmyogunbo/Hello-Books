@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import TextFieldGroup from '../../../src/components/Forms/TextFieldGroup';
+import TextFieldGroup from '../../../src/components/forms/TextFieldGroup';
 
 describe('Given TextFieldGroup', () => {
   describe('When I clicked on it', () => {
