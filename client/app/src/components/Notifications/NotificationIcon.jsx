@@ -14,7 +14,7 @@ const propTypes = {
  */
 function NotificationIcon({ total }) {
   return (
-    <div className="row" style={{height: "10px"}}>
+    <div className="row" style={{ height: "10px" }}>
       <Link to="/notifications">
         <div className="col s4">
           <i className="material-icons">
@@ -22,7 +22,7 @@ function NotificationIcon({ total }) {
           </i>
         </div>
         <div className="col s2 notif-icon" style={{ color: 'red' }}>
-          <div >{total && total}</div>
+          <div >{total === 0 ? null: total}</div>
         </div>
       </Link>
     </div>

@@ -10,11 +10,13 @@ const propTypes = {
 };
 /**
  * Class representing a CategoryForm component.
+ * 
  * @extends React
  */
 class CategoryForm extends React.Component {
   /**
   * Create a category.
+
   * @param {object} props - The properties.
   */
   constructor(props) {
@@ -30,6 +32,7 @@ class CategoryForm extends React.Component {
   }
 
   /**It handles some component component state
+   * 
    * @return {void}
    *
    * @memberof CategoryForm
@@ -56,6 +59,7 @@ class CategoryForm extends React.Component {
 
   /**
 **@description Checks that form is valid
+
 * @return {Boolean} boolean
 */
   validateForm() {
@@ -69,7 +73,9 @@ class CategoryForm extends React.Component {
   /**It handles submit
  *
  * @return {void} the add  action is dispatched
+ * 
  * @param {void} event - on click event
+ * 
  * @memberof create Book category form
  */
   onSubmit(event) {
@@ -85,6 +91,7 @@ class CategoryForm extends React.Component {
    *
    *
    * @returns {object} jsx
+   * 
    * @memberof CategoryForm
    */
   render() {
@@ -102,18 +109,22 @@ class CategoryForm extends React.Component {
               handleChange={this.handleChange}
               error={errors.category}
             />
+            <div className="row">
             <Button
-              className={"brown darken-4 btn s4"}
+                className={"brown darken-4 btn col s4 m3 l3"}
               type={"submit"}
               disabled={isLoading}
               children={'Create'}
             />
+            <Button
+                className="brown darken-4 modal-close btn col ss3 m3 l3 right"
+              onClick={this.handleClose}
+              children={'close'}
+              type={'button'}
+            />
+            </div>
           </form>
-          <Button
-            className="brown darken-4 modal-close btn col s4 m3 mt-2"
-            onClick={this.handleClose}
-            children={'close'}
-          />
+
         </div>
       </div>
     );

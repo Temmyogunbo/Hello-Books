@@ -19,7 +19,6 @@ const propTypes = {
 };
 const defaultProps = {
   notifications: [],
-  total: 0
 };
 /**It contains methods and state for the Notifications component
  *

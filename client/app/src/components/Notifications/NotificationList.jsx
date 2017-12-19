@@ -4,6 +4,8 @@ import TimeAgo from 'react-timeago';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 
+import Button from '../Button';
+
 const propTypes = {
   notifications: PropTypes.array.isRequired,
   updateNotification: PropTypes.func.isRequired
@@ -21,18 +23,10 @@ function NotificationList({
   updateNotification
 }) {
   return (
-    <div >
+    <div className="row" >
+      <br />
       {isEmpty(notifications) ?
         <h5>There are no unread notifications</h5> :
-        <div className="row">
-          <div>
-            <button
-              className="brown darken-4 btn bc mt-2"
-              onClick={() => updateNotification({})}>
-                          Mark all as read
-            </button>
-          </div>
-
           <ul>
             {notifications && notifications.map((notification) => (
               <li
@@ -75,7 +69,7 @@ function NotificationList({
                   </div>
                 </div>
               </li>))}
-          </ul></div>
+          </ul>
       }
     </div>
   );
