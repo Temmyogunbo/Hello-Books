@@ -5,21 +5,21 @@ require('dotenv').config();
  * and also verify token or issue token
  *
  *
- * @class Authenrication
+ * @class Authentication
  */
 class Authentication {
-  /**
-   * It signs on user payload and returns a string
-   *
-   * @static
-   *
-   * @param {any} user
-   *
-   * @returns {string} signed token
-   *
-   * @memberof Verify
-   */
-  static getToken(user) {
+ /**
+  * It signs on user payload and returns a string
+  * 
+  * @static
+
+  * @param {any} user 
+
+  * @returns {object} signed token
+
+  * @memberof Authentication
+  */
+ static getToken(user) {
     return jwt.sign(user, process.env.SECRET_KEY, {
       expiresIn: 3600 * 24
     });
@@ -32,11 +32,12 @@ class Authentication {
    *
    * @param {any} request
    * @param {any} response
+   * 
    * @param {any} next
    *
    * @returns {object} json object
    *
-   * @memberof Verify
+   * @memberof Authentication
    */
   static checkIfAdmin(request, response, next) {
     if (request.decoded.role === 'admin') {
@@ -59,7 +60,7 @@ class Authentication {
    *
    * @returns {object} json object
    *
-   * @memberof Verify
+   * @memberof Authentication
    */
   static isLoggedIn(request, response, next) {
     const token = request.headers.authorization || request.body.token ||
@@ -91,7 +92,7 @@ class Authentication {
    *
    * @returns {undefined}
    *
-   * @memberof Verify
+   * @memberof Authentication
    */
   static validateBookRequest(request, response, next) {
     if (request.url === '/api/v1/category' &&
@@ -132,7 +133,7 @@ class Authentication {
    *
    * @returns {undefined}
    *
-   * @memberof Verify
+   * @memberof Authentication
    */
   static validateUserRequest(request, response, next) {
     if (request.url === '/api/v1/users/signin' &&
