@@ -104,6 +104,7 @@ export class SignInForm extends React.Component {
     return (
       <div className="container">
         <form
+          id="sign-in-form"
           className="col s12 m6 l6 push-l4 div-container-form"
           onSubmit={this.onSubmit}
         >
