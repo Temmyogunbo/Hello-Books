@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import database from '../models';
+import models from '../models';
 import membershipLevel from '../helper/membershipLevel';
 
 /**
@@ -29,7 +29,7 @@ class BookHistoryController {
         message: 'You must declare your membership type.'
       });
     }
-    return database.Book.findById(bookId).then((book) => {
+    return models.Book.findById(bookId).then((book) => {
       if (!book) {
         return response.status(404).json({
           message: 'No such book in the library'
@@ -42,7 +42,7 @@ class BookHistoryController {
       }
       const numberofBooksAllowedWithDays =
           membershipLevel.checkMembership(membership);
-      database.History.findAll({
+      models.History.findAll({
         where: {
           UserId: userId,
           returned: false
@@ -50,9 +50,9 @@ class BookHistoryController {
       })
         .then((result) => {
           const numberofBooksBorrowed = result.length;
-          if ((numberofBooksBorrowed > 0 &&
-              numberofBooksBorrowed < numberofBooksAllowedWithDays[0]) ||
-              numberofBooksBorrowed === 0) {
+          if ((numberofBooksBorrowed > 0
+            && numberofBooksBorrowed < numberofBooksAllowedWithDays[0])
+            || numberofBooksBorrowed === 0) {
             // check if user borrow in the present day
             if (numberofBooksBorrowed > 0) {
               let eachUserDetails;
@@ -75,7 +75,7 @@ class BookHistoryController {
             }
 
             // user is borrowing different book and has not exceeded his limit
-            database.History
+            models.History
               .create({
                 UserId: userId,
                 BookId: bookId,
@@ -116,7 +116,7 @@ class BookHistoryController {
   static returnBook(request, response) {
     const bookId = parseInt(request.body.bookId, 10);
     const userId = parseInt(request.params[0], 10);
-    return database.History
+    return models.History
       .findOne({
         where: {
           UserId: userId,
@@ -125,7 +125,7 @@ class BookHistoryController {
         },
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: database.Book }
+          { model: models.Book }
         ]
       }).then((record) => {
         if (record === null) {
@@ -133,7 +133,7 @@ class BookHistoryController {
             message: 'No record found'
           });
         }
-        database.History.update(
+        models.History.update(
           {
             returned: true
           },
@@ -178,12 +178,12 @@ class BookHistoryController {
     if (request.query.returned) {
       whereStatement.returned = false;
     }
-    return database.History
+    return models.History
       .findAndCountAll({
         where: whereStatement,
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: database.Book, attributes: ['author', 'title'] }
+          { model: models.Book, attributes: ['author', 'title'] }
         ],
         order: [['updatedAt', 'DESC']],
         limit,

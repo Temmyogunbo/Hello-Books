@@ -159,7 +159,7 @@ class BookForm extends React.Component {
   }
   /**It updates user input
    *
-   * @returns {void} description- it updates an instance
+   * @returns {undefined} description- it updates an instance
    * of BookForm go its current state
    *
    * @param {any} event
@@ -182,7 +182,7 @@ class BookForm extends React.Component {
 
   /**It handles submit
  *
- * @return {void} the add book action is dispatched
+ * @return {undefined} the add book action is dispatched
  *
  * @param {void} event - on click event
  *

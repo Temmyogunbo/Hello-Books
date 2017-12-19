@@ -5,21 +5,21 @@ require('dotenv').config();
  * and also verify token or issue token
  *
  *
- * @class Verify
+ * @class Authentication
  */
-class Verify {
-  /**
-   * It signs on user payload and returns a string
-   *
-   * @static
-   *
-   * @param {any} user
-   *
-   * @returns {string} signed token
-   *
-   * @memberof Verify
-   */
-  static getToken(user) {
+class Authentication {
+ /**
+  * It signs on user payload and returns a string
+  * 
+  * @static
+
+  * @param {any} user 
+
+  * @returns {object} signed token
+
+  * @memberof Authentication
+  */
+ static getToken(user) {
     return jwt.sign(user, process.env.SECRET_KEY, {
       expiresIn: 3600 * 24
     });
@@ -27,12 +27,17 @@ class Verify {
   /**
    *
    * It checks if a user is an admin
+   *
    * @static
+   *
    * @param {any} request
    * @param {any} response
+   * 
    * @param {any} next
+   *
    * @returns {object} json object
-   * @memberof Verify
+   *
+   * @memberof Authentication
    */
   static checkIfAdmin(request, response, next) {
     if (request.decoded.role === 'admin') {
@@ -46,12 +51,16 @@ class Verify {
   /**
    *
    * It checks if a user is logged in
+   *
    * @static
+   *
    * @param {any} request
    * @param {any} response
    * @param {any} next
+   *
    * @returns {object} json object
-   * @memberof Verify
+   *
+   * @memberof Authentication
    */
   static isLoggedIn(request, response, next) {
     const token = request.headers.authorization || request.body.token ||
@@ -76,11 +85,14 @@ class Verify {
    * It checks book data and validate
    *
    * @static
+   *
    * @param {any} request
    * @param {any} response
    * @param {any} next
+   *
    * @returns {undefined}
-   * @memberof Verify
+   *
+   * @memberof Authentication
    */
   static validateBookRequest(request, response, next) {
     if (request.url === '/api/v1/category' &&
@@ -114,11 +126,14 @@ class Verify {
    * It checks and validate user data
    *
    * @static
+   *
    * @param {any} request
    * @param {any} response
    * @param {any} next
+   *
    * @returns {undefined}
-   * @memberof Verify
+   *
+   * @memberof Authentication
    */
   static validateUserRequest(request, response, next) {
     if (request.url === '/api/v1/users/signin' &&
@@ -166,4 +181,4 @@ class Verify {
   }
 }
 
-export default Verify;
+export default Authentication;

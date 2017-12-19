@@ -14,6 +14,7 @@ app.use(logger('dev'));
 // format request data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/docs', express.static(path.join(__dirname, '../docs')));
 app.use(expressValidator());
 
 app.use(express.static(`${__dirname}/../../../client/app/public`));

@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+
 import app from '../../config/app';
 
 const should = chai.should();
@@ -194,7 +195,7 @@ describe('Given /POST /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.have.property('message')
-            .eql('Category does not exist. Be sure to check categories table.');
+            .eql('Category does not exist.');
           res.body.should.be.a('object');
           done();
         });
@@ -290,7 +291,7 @@ describe('Given /PUT /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Category does not exist. Be sure to check categories table.');
+          res.body.should.have.property('message').eql('Category does not exist.');
           done();
         });
     });

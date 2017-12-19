@@ -3,7 +3,7 @@ import emailNotification from './emailNotification';
 
 /** *
  * cron job for sending notification
- * 
+ *
  * @returns {object} returns object
  */
 export const sendEmailNotification = () =>

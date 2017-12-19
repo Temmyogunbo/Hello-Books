@@ -1,4 +1,4 @@
-import database from '../models';
+import models from '../models';
 
 /**
  * Contains method for notification
@@ -8,6 +8,7 @@ import database from '../models';
 class Notifications {
   /**
      * Creates an instance of Notifications.
+     * 
      * @param {any} io
      *
      * @memberof Notifications
@@ -42,11 +43,11 @@ class Notifications {
       data.itemsCountPerPage * (data.currentPage - 1) : 0;
     const limit = data.itemsCountPerPage ? data.itemsCountPerPage : 5;
     const whereStatement = { seen: 'unread' };
-    return database.Notification
+    return models.Notification
       .findAndCountAll({
         attributes: ['id', 'notificationType', 'seen', 'updatedAt'],
-        include: [{ model: database.Book, attributes: ['author', 'title'] },
-          { model: database.User, attributes: ['userName'] }
+        include: [{ model: models.Book, attributes: ['author', 'title'] },
+          { model: models.User, attributes: ['userName'] }
         ],
         where: whereStatement,
         limit,
@@ -74,7 +75,7 @@ class Notifications {
   */
   addNotification(data) {
     this.var = '';
-    database.Notification.create({
+    models.Notification.create({
       UserId: parseInt(data.userId, 10),
       BookId: parseInt(data.bookId, 10),
       notificationType: data.notificationType
@@ -94,7 +95,7 @@ class Notifications {
     if (data.id) {
       whereStatement.id = data.id;
     }
-    return database.Notification.update(
+    return models.Notification.update(
       {
         seen: 'read'
       },
