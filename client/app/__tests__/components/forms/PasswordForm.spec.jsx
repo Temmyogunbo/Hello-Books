@@ -11,7 +11,7 @@ const props = {
 
 describe('Given a PasswordForm', () => {
   const wrapper = shallow(<PasswordForm {...props} />);
-  describe('When I clicked on it', () => {
+  describe('When I enter my data', () => {
     it('Then it should call the onSubmit method', () => {
       const event = { ...global.event };
       const onSubmitSpy = jest.spyOn(wrapper.instance(), 'onSubmit');
@@ -29,6 +29,10 @@ describe('Given a PasswordForm', () => {
     it('Then it should call the handleChange method', () => {
       const event = {
         ...global.event,
+        target: {
+          name: 'name',
+          value: 'value'
+        }
       };
       const handleChangeSpy = jest.spyOn(wrapper.instance(), 'handleChange');
       wrapper.instance().handleChange(event);

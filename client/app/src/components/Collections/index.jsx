@@ -46,12 +46,15 @@ const defaultProps = {
 /**It contans state and behaviours for Collection Page component
  *
  * @class CollectionPage
+ *
  * @extends {React.Component}
  */
-class CollectionPage extends React.Component {
+export class CollectionPage extends React.Component {
   /**
      * Creates an instance of CollectionPage.
+     *
      * @param {any} props
+     *
      * @memberof CollectionPage
      */
   constructor(props) {
@@ -69,6 +72,7 @@ class CollectionPage extends React.Component {
   /**It invokes action to get all books, notifications,
    * and also initializes modal element
    * and resets numberOfTimesBookDeleted to zero
+   *
      * @returns {void} jsx
      *
      * @memberof CollectionPage
@@ -97,9 +101,11 @@ class CollectionPage extends React.Component {
     });
   }
   /**It sets categories and books state on next props if it changes
+   *
    * @returns {void}
    *
    * @param {any} nextProps
+   *
    * @memberof CollectionPage
    */
   componentWillReceiveProps(nextProps) {
@@ -109,6 +115,7 @@ class CollectionPage extends React.Component {
   }
   /**It handles page changes by
    * setting a new state and invoking an action to get all books
+   *
      * @returns {undefined}
      *
      * @param {any} pageNumber
@@ -129,7 +136,9 @@ class CollectionPage extends React.Component {
    *
    *
    * @param {any} event
+   *
    * @returns {object} modal element
+   *
    * @memberof CollectionPage
    */
   handleEditBook(event) {
@@ -146,9 +155,11 @@ class CollectionPage extends React.Component {
   /**It deletes a book and set a new state
    * for numberOfTimesBookDeleted and also invokes
    * an action if it is upton to 5 times
+   *
    * @returns {object} modal element
    *
    * @param {any} event
+   *
    * @memberof CollectionPage
    */
   handleDeleteBook(event) {
@@ -185,6 +196,7 @@ class CollectionPage extends React.Component {
      *
      *
      * @returns {object} jsx
+     *
      * @memberof CollectionPage
      */
   render() {

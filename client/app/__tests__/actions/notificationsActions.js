@@ -11,7 +11,7 @@ import {
 import {
   GET_ALL_NOTIFICATIONS,
 } from '../../src/constants/actionTypes';
-import {notifications} from '../__mocks__/mockData'
+import { notifications } from '../__mocks__/mockData';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

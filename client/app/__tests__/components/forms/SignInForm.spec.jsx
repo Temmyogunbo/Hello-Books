@@ -21,6 +21,10 @@ describe('Given a SignInForm', () => {
     it('Then it should call the handleChange method', () => {
       const event = {
         ...global.event,
+        target: {
+          name: 'name',
+          value: 'value'
+        }
       };
       const handleChangeSpy = jest.spyOn(wrapper.instance(), 'handleChange');
       wrapper.instance().handleChange(event);

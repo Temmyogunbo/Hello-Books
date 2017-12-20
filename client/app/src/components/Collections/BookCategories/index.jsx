@@ -16,13 +16,17 @@ const propTypes = {
 /**This class contains method for bookcategories
  *
  * @returns {object} jsx
+ *
  * @class BookPage
+ *
  * @extends {React.Component}
  */
-class BookCategories extends React.Component {
+export class BookCategories extends React.Component {
   /**
      * Creates an instance of BookCategories.
+     *
      * @param {any} props
+     *
      * @memberof BookCategories
      */
   constructor(props) {
@@ -32,6 +36,7 @@ class BookCategories extends React.Component {
     };
   }
   /**It invokes an action that gets all books categories
+   *
      * @returns {void}
      *
      * @memberof BookCategories
@@ -41,9 +46,11 @@ class BookCategories extends React.Component {
   }
   /**It changes the categories state of the
    * component if there is a new props
+   *
      * @returns {void}
      *
      * @param {any} nextProps
+     *
      * @memberof BookCategories
      */
   componentWillReceiveProps(nextProps) {
@@ -54,8 +61,8 @@ class BookCategories extends React.Component {
 
   /**It returns a div elemnent
      *
-     *
      * @returns {object} jsx
+     *
      * @memberof BookCategories
      */
   render() {
@@ -89,6 +96,7 @@ class BookCategories extends React.Component {
             <li>
               <h5
                 className="clickable"
+                id="get-books"
                 onClick={() => this.props.getAllBooksByCategory({
                   bookCategory: '',
                   currentPage: currentPage,

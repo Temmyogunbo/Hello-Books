@@ -32,7 +32,7 @@ const propTypes = {
  *
  * @extends {React.Component}
  */
-class HistoryPage extends React.Component {
+export class HistoryPage extends React.Component {
   /**
    * Creates an instance of HistoryPage.
    *

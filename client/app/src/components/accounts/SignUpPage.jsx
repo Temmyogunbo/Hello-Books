@@ -77,18 +77,9 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.userReducer.isAuthenticated
 });
 
-/**
- * Itdispatches sign up action to the store
- *
- * @param {object} dispatch
- *
- * @returns {object} new state
-*/
-const mapDispatchToProps = dispatch => ({
-  signup: signupCredentials => dispatch(signupAction(signupCredentials)),
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    signup: signupAction
+  }
 )(SignUpPage);

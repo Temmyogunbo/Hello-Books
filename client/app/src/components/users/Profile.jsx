@@ -7,8 +7,8 @@ const propTypes = {
 
 /**It returns a div element containing user profile
  *
- *
  * @param {any} props
+ *
  * @returns {object} jsx
  */
 function Profile({ user }) {

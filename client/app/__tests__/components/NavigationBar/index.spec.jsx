@@ -76,10 +76,10 @@ describe('Given NavigationBar', () => {
       isAdmin: 'admin'
     };
     const shallowWrapper = shallow(<NavigationBar {...props} />);
-    it('Then it should call the componentWillMount method', () => {
-      const componentWillMountSpy = jest.spyOn(shallowWrapper.instance(), 'componentWillMount');
-      shallowWrapper.instance().componentWillMount();
-      expect(componentWillMountSpy).toHaveBeenCalledTimes(1);
+    it('Then it should call the componentDidMount method', () => {
+      const componentDidMountSpy = jest.spyOn(shallowWrapper.instance(), 'componentDidMount');
+      shallowWrapper.instance().componentDidMount();
+      expect(componentDidMountSpy).toHaveBeenCalledTimes(1);
     });
   });
 });
