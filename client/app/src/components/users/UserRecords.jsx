@@ -15,8 +15,8 @@ const propTypes = {
 };
 /**It returns div element containing user records
  *
- *
  * @param {any} props
+ *
  * @returns {object} jsx
  */
 function UserRecords({

@@ -13,8 +13,9 @@ const propTypes = {
  * @class Welcome
  * @extends {React.Component}
  */
-class Welcome extends React.Component {
+export class Welcome extends React.Component {
   /**it checks if a user is authenticated and redirects
+   *
    * @returns {undefined}
    *
    * @memberof SplashScreen
@@ -29,6 +30,7 @@ class Welcome extends React.Component {
    *
    *
    * @returns {object} jsx
+   *
    * @memberof Welcome
    */
   render() {

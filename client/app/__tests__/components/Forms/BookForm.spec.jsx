@@ -40,6 +40,10 @@ describe('Given a BookForm', () => {
     it('Then it should call the handleChange method', () => {
       const event = {
         ...global.event,
+        target: {
+          name: 'name',
+          value: 'value'
+        }
       };
       const handleChangeSpy = jest.spyOn(wrapper.instance(), 'handleChange');
       wrapper.instance().handleChange(event);
@@ -67,6 +71,10 @@ describe('Given a BookForm', () => {
     it('Then it should call the uploadTOCloudinary method', () => {
       const event = {
         ...global.event,
+        target: {
+          name: 'name',
+          value: 'value'
+        }
       };
       const uploadToCloudinarySpy = jest.spyOn(
         wrapper.instance(),

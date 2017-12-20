@@ -66,8 +66,9 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('./style.css'),
     new UglifyJSPlugin({
-      parallel: 4
-   }),
+      parallel: 4,
+      sourceMap: true
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve('./app/index.html')
     }),

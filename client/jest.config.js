@@ -17,6 +17,7 @@ module.exports = {
     '!app/index.html',
     '!app/src/socket',
     '!app/src/sass',
+    '!app/src/index.jsx'
   ],
   coverageDirectory: './coverage',
   moduleFileExtensions: ['js', 'jsx'],
