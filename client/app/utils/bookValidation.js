@@ -13,17 +13,11 @@ export default function bookValidation(formData) {
   if (Validator.isEmpty(formData.title)) {
     errors.title = 'Title is Required';
   }
-  if (formData.title.length < 5) {
-    errors.description = 'Minimum of 5 characters is required';
-  }
-  if (Validator.isEmpty(formData.category)) {
-    errors.category = 'Category is required';
+  if (formData.title.length < 2) {
+    errors.title = 'Title cannot be less than 2 characters';
   }
   if (formData.category.length < 5) {
-    errors.category = 'Minimum of 5 characters is required';
-  }
-  if (Validator.isEmpty(formData.quantity.toString() || formData.quantity)) {
-    errors.quantity = 'Quantity is required';
+    errors.category = 'Category cannot be less than 5 characters';
   }
   if (!numberReg.test(formData.quantity)) {
     errors.quantity = 'Quantity must be number';
@@ -31,11 +25,11 @@ export default function bookValidation(formData) {
   if (formData.quantity < 1) {
     errors.quantity = 'Quantity cannot be less than 1';
   }
-  if (Validator.isEmpty(formData.author)) {
-    errors.author = 'Author is required';
+  if (formData.author.length < 2) {
+    errors.author = 'Author name cannot be less than 2 characters';
   }
   if (formData.description.length < 10) {
-    errors.description = 'Minimum of 10 characters is required';
+    errors.description = 'Description cannot be less than 10 characters';
   }
   return {
     errors,
