@@ -20,7 +20,9 @@ const propTypes = {
 class ChangePasswordForm extends React.Component {
   /**
      * Creates an instance of ChangePasswordForm.
+     *
      * @param {any} props
+     *
      * @memberof ChangePasswordForm
      */
   constructor(props) {
@@ -38,6 +40,7 @@ class ChangePasswordForm extends React.Component {
   }
 
   /**It sets the component state back to its intial
+   *
    * @returns {void}
    *
    * @memberof ChangePasswordForm
@@ -99,7 +102,8 @@ class ChangePasswordForm extends React.Component {
     if (this.validateForm()) {
       const {
         oldPassword,
-        newPassword
+        newPassword,
+        confirmNewPassword
       } = this.state;
       const {
         changePassword,
@@ -109,6 +113,7 @@ class ChangePasswordForm extends React.Component {
       changePassword({
         oldPassword,
         newPassword,
+        confirmNewPassword,
         userName
       });
       this.handleClose();

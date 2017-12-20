@@ -37,9 +37,11 @@ export default (ComposedComponent) => {
       this.var = '';
     }
     /**It checks if user is authenticated before updating
+     *
  * @returns {undefined}
  *
  * @param {any} nextProps
+ *
  * @memberof CheckSignedInContainer
  */
     componentWillUpdate(nextProps) {
@@ -51,6 +53,7 @@ export default (ComposedComponent) => {
  * It returns a jsx object
  *
  * @returns {object} jsx
+ *
  * @memberof CheckSignedInContainer
  */
     render() {
@@ -60,10 +63,12 @@ export default (ComposedComponent) => {
     }
   }
   CheckSignedInContainer.propTypes = propTypes;
+
   /**It slices the state and return authenticate
    *
    *
    * @param {any} state
+   *
    * @returns {object} user
    */
   const mapStateToProps = (state) => ({

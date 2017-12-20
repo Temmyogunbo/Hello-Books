@@ -1,4 +1,3 @@
-import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 /**It validates category data
@@ -9,11 +8,8 @@ import isEmpty from 'lodash/isEmpty';
  */
 export default function categoryValidation(formData) {
   const errors = {};
-  if (Validator.isEmpty(formData.category)) {
-    errors.category = 'Category is Required';
-  }
   if (formData.category.length < 5) {
-    errors.category = 'Minimum of 5 characters is required';
+    errors.category = 'Category cannot be less than 5 characters';
   }
   return {
     errors,
