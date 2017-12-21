@@ -12,7 +12,8 @@ const sendMail = (userDetails) => {
   const subject = 'HelloBooks';
   const html = `
     <h3>Dear ${userDetails.User.fullName}</h3>
-    <p>You have been charged an additional amount of money for not returning the book
+    <p>You have been charged 
+    an additional amount of money for not returning the book
     <p> <b>Title: ${userDetails.Book.title}</b></P>
     <p><b>Author: ${userDetails.Book.author}</b></p></br>
     <p>on time. </p>

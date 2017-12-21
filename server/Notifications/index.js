@@ -1,48 +1,57 @@
-import db from '../models';
+import models from '../models';
 
 /**
- * @returns {undefined}
+ * Contains method for notification
  *
  * @class Notifications
  */
 class Notifications {
   /**
      * Creates an instance of Notifications.
+     * 
      * @param {any} io
+     *
      * @memberof Notifications
      */
   constructor(io) {
     this.io = io;
   }
   /**
-   * @returns {void}
-   *
-   * @param {any} notificationType
-   * @param {any} data
-   * @memberof Notifications
-   */
+ * Sends notification
+ *
+ * @param {any} notificationType
+ * @param {any} data
+ *
+ * @returns {string} returns string
+ *
+ * @memberof Notifications
+ */
   sendNotification(notificationType, data) {
     this.io.to('admin').emit(notificationType, data);
   }
   /**
-    *
-    * @param {any} data
-    * @returns {object} an instance of notifiacation model
-    * @memberof Notifications
-    */
+ * Get all notification
+ *
+ * @param {any} data
+ *
+ * @returns {object} returns onject
+ *
+ * @memberof Notifications
+ */
   getAllNotifications(data) {
-    let offset = data.itemsCountPerPage * (data.currentPage - 1);
-    let limit = data.itemsCountPerPage;
+    const offset = data.itemsCountPerPage ?
+      data.itemsCountPerPage * (data.currentPage - 1) : 0;
+    const limit = data.itemsCountPerPage ? data.itemsCountPerPage : 5;
     const whereStatement = { seen: 'unread' };
-    return db.Notification
+    return models.Notification
       .findAndCountAll({
         attributes: ['id', 'notificationType', 'seen', 'updatedAt'],
-        include: [{ model: db.Book, attributes: ['author', 'title'] },
-          { model: db.User, attributes: ['userName'] }
+        include: [{ model: models.Book, attributes: ['author', 'title'] },
+          { model: models.User, attributes: ['userName'] }
         ],
         where: whereStatement,
-        limit: limit,
-        offset: offset,
+        limit,
+        offset,
         order: [['updatedAt', 'DESC']]
       })
       .then((notifications) => {
@@ -56,33 +65,37 @@ class Notifications {
       });
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} data
-   * @returns {object} an instance of Notification
-   * @memberof Notifications
-   */
+  * add notification
+  *
+  * @param {any} data
+
+  * @memberof Notifications
+
+  @returns {undefined}
+  */
   addNotification(data) {
     this.var = '';
-    db.Notification.create({
+    models.Notification.create({
       UserId: parseInt(data.userId, 10),
       BookId: parseInt(data.bookId, 10),
       notificationType: data.notificationType
     });
   }
   /**
-     * @returns {object} an instance of Notification model
-     *
-     * @param {any} data
-     * @memberof Notifications
-     */
+ * Update a notification
+ *
+ * @param {any} data
+ *
+ * @returns {undefined}
+ *
+ * @memberof Notifications
+ */
   updateNotification(data) {
-    let whereStatement = {};
+    const whereStatement = {};
     if (data.id) {
       whereStatement.id = data.id;
     }
-    return db.Notification.update(
+    return models.Notification.update(
       {
         seen: 'read'
       },
@@ -90,7 +103,7 @@ class Notifications {
         where: whereStatement
       }
     )
-      .then((list) => {
+      .then(() => {
         this.sendNotification('UPDATE_NOTIFICATION', 'it was successfull');
       });
   }

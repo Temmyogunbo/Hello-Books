@@ -1,3 +1,2 @@
-client/app/*.js
-client/app/test/*.js
+client/
 server/test/controllers/*.js

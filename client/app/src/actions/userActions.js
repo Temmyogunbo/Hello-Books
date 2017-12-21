@@ -1,6 +1,6 @@
 import axios from 'axios';
 import toastr from 'toastr';
-import jwtDecode from 'jwt-decode';
+
 import setAuthToken from '../../utils/authorization';
 import {
   CHANGE_USERS_PASSWORD,
@@ -9,9 +9,10 @@ import {
   GET_USER_HISTORY,
 } from '../constants/actionTypes';
 
-/**
- * @return {object} - an object of
- * sends created user response as a payload to the reducer
+/**Dispatch an action to change user password
+ *
+ * @return {object} - user
+ *
  * @param {object} user - created user payload
  */
 export const changeUserPassword = user => ({
@@ -19,53 +20,62 @@ export const changeUserPassword = user => ({
   user
 });
 
-/**
+/**Dispatch an action that fetches user borrow history
  *
  * @return {object} All history
+ *
  * @param {detailedHistory} detailedHistory - dispatched history object
  */
-const getHistory = detailedHistory => ({
+export const getHistory = detailedHistory => ({
   type: GET_USER_HISTORY,
-  ...detailedHistory
+  detailedHistory
 });
 
-/**
+/**Dispatches an action of user
+ *
  * @return {object} - an object of created user
- * sends created user response as a payload to the reducer
+ *
  * @param {object} user - created user payload
  */
 export const setAuthUser = user => ({
   type: SET_AUTH_USERS,
   user
 });
-/**
+/**Dispatches an action that logs out a user
+ *
  * @return {object} - an object containing action type only
  */
 export const logOutUser = () => ({
   type: LOG_OUT_USERS
 });
 
-/**
+/**It returns borrow history of a user
+ *
 * @return {object} - returns an object of user's history
+
 * @param {object} userData - contains user id
 */
 export const getHistoryAction = userData => dispatch => {
-  let historyRoute = `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}`;
+  let historyRoute = `/api/v1/users/${userData.userId}/history?page=` +
+  `${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}`;
   if (userData.returned) {
     historyRoute =
-      `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&itemsCountPerPage=${userData.itemsCountPerPage}&returned=${userData.returned}`;
+      `/api/v1/users/${userData.userId}/history?page=${userData.currentPage}&` +
+      `itemsCountPerPage=${userData.itemsCountPerPage}&` +
+      `returned=${userData.returned}`;
   }
   return axios.get(historyRoute)
     .then((response) => {
-      dispatch(getHistory({ rows: response.data.rows, count: response.data.count }));
+      dispatch(getHistory(response.data));
     })
     .catch((error) => {
-      toastr.error(error.response.data.errors[0].msg);
+      toastr.error(error.response.data.message);
     });
 };
-/**
+/**It returns user object with token
+ *
  * @return {object} - created user from the server side
- * sends an object of the created user and returns an auth token for the user
+ *
  * @param {object} userData - userdetails to be registered
  */
 export const signupAction = userData => dispatch =>
@@ -97,11 +107,13 @@ export const signupAction = userData => dispatch =>
       toastr.success('You successfully signed up');
     })
     .catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
-/**
+
+/**It returns user object with token
+ *
  *  @return {object} - array of users
- * sends the users details to be verified before proceeding
+ *
  * @param {object} user - logged in user payload
  */
 export const signinAction = user => dispatch =>
@@ -132,25 +144,28 @@ export const signinAction = user => dispatch =>
       }));
       toastr.success('You are Logged in successfully');
     }).catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
-/**
+/**it returns an empty object
+ *
 *  @return {object} - empty object
+
 * @param {object} userData - logged in user payload
 */
-export const ChangePasswordAction = userData => dispatch =>
+export const changePasswordAction = userData => dispatch =>
   axios.put('/api/v1/users/change-password', userData)
     .then((response) => {
-      dispatch(changeUserPassword(response.data));
+      dispatch(changeUserPassword({}));
       toastr.success('Password changed');
     }).catch((error) => {
-      toastr.error(error.response.data.msg);
+      toastr.error(error.response.data.message);
     });
 
-/**
- *  @return {object} - array of users
+/**It clears local storage and set token to false
+ *
  * Destroy the user token and remove from localstorage
  *
+ *@returns{undefined}
  */
 export const signOutAction = () => (dispatch) => {
   localStorage.removeItem('jwtToken');
@@ -163,5 +178,6 @@ export default {
   getHistoryAction,
   signupAction,
   signinAction,
-  signOutAction
+  signOutAction,
+  changePasswordAction
 };

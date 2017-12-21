@@ -1,17 +1,17 @@
 /**
+ * Defines user membership level
  *
- *
- * @class BookFunc
+ * @class MembershipLevel
  */
 class MembershipLevel {
-  /**
-   *
-   *
-   * @static
-   * @param {any} membershipType
-   * @returns  {object} number of allowed withy days
-   * @memberof BookFunc
-   */
+/**
+ * Checks membership type
+ *
+ * @static
+ * @param {any} membershipType
+ * @returns {array} returns object
+ * @memberof MembershipLevel
+ */
   static checkMembership(membershipType) {
     const numberOfBooksAllowedWithDays = {
       platinum: [8, 10],

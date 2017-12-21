@@ -1,24 +1,27 @@
 import bcrypt from 'bcrypt';
-import db from '../models';
-import verify from '../authentication/verify';
 
+import models from '../models';
+import Authentication from '../Authentication';
 
 require('dotenv').config();
 /**
- *
+ * Class methodf for user
  *
  * @class UsersController
  */
 class UsersController {
-  /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof UsersController
-   */
+/**
+ * Create a user
+ *
+ * @static
+ *
+ * @param {any} request
+ * @param {any} response
+ *
+ * @returns {object} returns object
+ *
+ * @memberof UsersController
+ */
   static createUser(request, response) {
     const {
       fullName,
@@ -27,7 +30,7 @@ class UsersController {
       password,
     } = request.body;
 
-    return db.User
+    return models.User
       .create(
         {
           fullName,
@@ -51,7 +54,7 @@ class UsersController {
           id,
           role
         } = user;
-        const token = verify.getToken({
+        const token = Authentication.getToken({
           email,
           fullName,
           userName,
@@ -61,7 +64,7 @@ class UsersController {
         });
         response.status(201).json({
           success: true,
-          msg: 'Registration successful',
+          message: 'Registration successful',
           email,
           fullName,
           userName,
@@ -75,27 +78,30 @@ class UsersController {
         if (error.name === 'SequelizeUniqueConstraintError') {
           if (error.fields.userName) {
             response.status(401).json({
-              msg: 'Username must be unique'
+              message: 'Username already exist.'
             });
           } else {
             response.status(401).json({
-              msg: 'Email must be unique'
+              message: 'Email has been taken.'
             });
           }
         }
       });
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof UsersController
-   */
+ * Signs in a user and get a token
+ *
+ * @static
+ *
+ * @param {any} request
+ * @param {any} response
+ *
+ * @returns {object} return object
+ *
+ * @memberof UsersController
+ */
   static signUserIn(request, response) {
-    return db.User.findOne({
+    return models.User.findOne({
       where: {
         userName: request.body.userName
       },
@@ -114,7 +120,7 @@ class UsersController {
           membership,
         } = user;
         if (bcrypt.compareSync(request.body.password, user.password)) {
-          const token = verify.getToken({
+          const token = Authentication.getToken({
             email,
             userName,
             fullName,
@@ -125,7 +131,7 @@ class UsersController {
           if (token) {
             response.status(200).json({
               success: true,
-              msg: 'You are signed in',
+              message: 'You are signed in',
               email,
               userName,
               fullName,
@@ -138,59 +144,61 @@ class UsersController {
         } else {
           return response.status(401).json({
             success: false,
-            msg: 'Wrong username/password.'
+            message: 'Wrong username/password.'
           });
         }
       })
       .catch(() => response.status(401).json({
-        msg: 'You are not registered'
+        message: 'You are not registered'
       }));
   }
   /**
-   *
-   *
-   * @static
-   * @param {any} request
-   * @param {any} response
-   * @returns {undefined}
-   * @memberof UsersController
-   */
+ * Change user password
+ *
+ * @static
+ *
+ * @param {any} request
+ * @param {any} response
+ *
+ * @returns {object} returns object
+ *
+ * @memberof UsersController
+ */
   static changePassword(request, response) {
     const {
       newPassword,
       oldPassword,
       userName
     } = request.body;
-    return db.User.findOne({
+    return models.User.findOne({
       where: {
-        userName: userName
+        userName
       },
       attributes: ['password'],
       limit: 1
     })
       .then((password) => {
         if (bcrypt.compareSync(oldPassword, password.password)) {
-          return db.User.update(
+          return models.User.update(
             {
               password: bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10))
             },
             {
               where: {
-                userName: userName
+                userName
               }
             }
           )
-            .then((newUpdate) => response.status(204).json(newUpdate))
+            .then(newUpdate => response.status(204).json(newUpdate))
             .catch(() => response.status(400)
-              .json({ msg: 'Your password cannot be updated.' }));
-        } else {
-          return response.status(403).json({
-            msg: 'Your old password is incorrect.'
-          });
+              .json({ message: 'Your password cannot be updated.' }));
         }
+        return response.status(403).json({
+          message: 'Your old password is incorrect.'
+        });
       })
       .catch(() => response.status(400)
-        .json({ msg: 'You are not a valid user.' }));
+        .json({ message: 'You are not a valid user.' }));
   }
 }
 

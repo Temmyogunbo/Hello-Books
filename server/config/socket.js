@@ -6,10 +6,6 @@ export default (io) => {
       client.join('admin');
     });
     const Notification = new Notifications(io);
-    console.log('client connected');
-    client.on('disconnect', () => {
-      console.log('client disconnected');
-    });
     client.on('GET_ALL_NOTIFICATIONS', (data) => {
       Notification.getAllNotifications(data);
     });

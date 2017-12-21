@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+
 import app from '../../config/app';
 import mockData from '../mockData';
 
@@ -38,7 +39,7 @@ describe('Users', () => {
       });
   });
   describe('Given /api/v1/users', () => {
-    describe('When I want to add a user', ()=>{
+    describe('When I want to add a user', () => {
       it('Then it should not add a user without a full name', (done) => {
         const user = {
           fullName: '',
@@ -153,7 +154,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('Username must be unique');
+            res.body.message.should.eql('Username already exist.');
             done();
           });
       });
@@ -169,7 +170,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('Email must be unique');
+            res.body.message.should.eql('Email has been taken.');
             done();
           });
       });
@@ -195,7 +196,7 @@ describe('Users', () => {
           .send(user)
           .end((err, res) => {
             res.should.have.status(201);
-            res.body.msg.should.eql('Registration successful');
+            res.body.message.should.eql('Registration successful');
             res.body.email.should.eql('simi@yahoo.com');
             res.body.userName.should.eql('simisola');
             res.body.membership.should.eql('gold');
@@ -205,18 +206,18 @@ describe('Users', () => {
             done();
           });
       });
-    })
+    });
   });
 
-  describe('Given /api/v1/users/signin', ()=>{
-    describe('When a user wants to sign in', ()=> {
+  describe('Given /api/v1/users/signin', () => {
+    describe('When a user wants to sign in', () => {
       it('Then it should fail if the user enters incorrect crendentials upon signin', (done) => {
         chai.request(app)
           .post('/api/v1/users/signin')
           .send(mockData.user2)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.should.have.property('msg').eql('You are not registered');
+            res.body.should.have.property('message').eql('You are not registered');
             done();
           });
       });
@@ -260,7 +261,7 @@ describe('Users', () => {
           .send(mockUser)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('You are not registered');
+            res.body.message.should.eql('You are not registered');
             done();
           });
       });
@@ -274,7 +275,7 @@ describe('Users', () => {
           .send(mockUser)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.msg.should.eql('Wrong username/password.');
+            res.body.message.should.eql('Wrong username/password.');
             done();
           });
       });
@@ -303,7 +304,7 @@ describe('Users', () => {
           .send(mockUser)
           .end((err, res) => {
             res.should.have.status(200);
-            res.body.msg.should.eql('You are signed in');
+            res.body.message.should.eql('You are signed in');
             res.body.email.should.eql('temmyogunbo@gmail.com');
             res.body.userName.should.eql('temmy');
             res.body.membership.should.eql('silver');
@@ -312,112 +313,112 @@ describe('Users', () => {
             done();
           });
       });
-    })
-  })
+    });
+  });
 
 
-describe('Given /api/v1/users/change-password', () => {
-  describe('When I want to change password', ()=> {
-    it(' THen it should not update if old password is not supplied', (done) => {
-      const user = {
-        oldPassword: '',
-        newPassword: 'emmanuel',
-        userName: 'temmy'
+  describe('Given /api/v1/users/change-password', () => {
+    describe('When I want to change password', () => {
+      it(' THen it should not update if old password is not supplied', (done) => {
+        const user = {
+          oldPassword: '',
+          newPassword: 'emmanuel',
+          userName: 'temmy'
 
-    };
-    chai.request(app)
-      .put('/api/v1/users/change-password')
-      .set('X-ACCESS-TOKEN', userToken)
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.error.param.should.eql('oldPassword');
-        res.body.error.msg.should.eql('This field is required');
-        done();
+        };
+        chai.request(app)
+          .put('/api/v1/users/change-password')
+          .set('X-ACCESS-TOKEN', userToken)
+          .send(user)
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.error.param.should.eql('oldPassword');
+            res.body.error.msg.should.eql('This field is required');
+            done();
+          });
       });
-  });
-  it('Then it should not update if new password is not supplied', (done) => {
-    const user = {
-      oldPassword: 'emmanuel',
-      newPassword: '',
-      userName: 'temmy'
+      it('Then it should not update if new password is not supplied', (done) => {
+        const user = {
+          oldPassword: 'emmanuel',
+          newPassword: '',
+          userName: 'temmy'
 
-    };
-    chai.request(app)
-      .put('/api/v1/users/change-password')
-      .set('X-ACCESS-TOKEN', userToken)
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.error.param.should.eql('newPassword');
-        res.body.error.msg.should.eql('This field is required');
-        done();
+        };
+        chai.request(app)
+          .put('/api/v1/users/change-password')
+          .set('X-ACCESS-TOKEN', userToken)
+          .send(user)
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.error.param.should.eql('newPassword');
+            res.body.error.msg.should.eql('This field is required');
+            done();
+          });
       });
-  });
-  it('Then it should not update password less than 5 characters', (done) => {
-    const user = {
-      oldPassword: 'emmanuel',
-      newPassword: 'emm',
-      userName: 'temmy'
-    };
-    chai.request(app)
-      .put('/api/v1/users/change-password')
-      .set('X-ACCESS-TOKEN', userToken)
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.error.param.should.eql('newPassword');
-        res.body.error.msg.should.eql('New password must be a mininum of 5 characters');
-        done();
+      it('Then it should not update password less than 5 characters', (done) => {
+        const user = {
+          oldPassword: 'emmanuel',
+          newPassword: 'emm',
+          userName: 'temmy'
+        };
+        chai.request(app)
+          .put('/api/v1/users/change-password')
+          .set('X-ACCESS-TOKEN', userToken)
+          .send(user)
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.error.param.should.eql('newPassword');
+            res.body.error.msg.should.eql('New password must be a mininum of 5 characters');
+            done();
+          });
       });
-  });
-  it('Then it should not update password if old password is wrong', (done) => {
-    const user = {
-      oldPassword: 'emmanuel123',
-      newPassword: 'emmanuel',
-      userName: 'temmy'
-    };
-    chai.request(app)
-      .put('/api/v1/users/change-password')
-      .set('X-ACCESS-TOKEN', userToken)
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(403);
-        res.body.msg.should.eql('Your old password is incorrect.');
-        done();
+      it('Then it should not update password if old password is wrong', (done) => {
+        const user = {
+          oldPassword: 'emmanuel123',
+          newPassword: 'emmanuel',
+          userName: 'temmy'
+        };
+        chai.request(app)
+          .put('/api/v1/users/change-password')
+          .set('X-ACCESS-TOKEN', userToken)
+          .send(user)
+          .end((err, res) => {
+            res.should.have.status(403);
+            res.body.message.should.eql('Your old password is incorrect.');
+            done();
+          });
       });
-  });
-  it('Then it should not update password if old password is wrong', (done) => {
-    const user = {
-      oldPassword: 'emmanuel123',
-      newPassword: 'emmanuel',
-      userName: 'temmyyy'
-    };
-    chai.request(app)
-      .put('/api/v1/users/change-password')
-      .set('X-ACCESS-TOKEN', userToken)
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.msg.should.eql('You are not a valid user.');
-        done();
+      it('Then it should not update password if old password is wrong', (done) => {
+        const user = {
+          oldPassword: 'emmanuel123',
+          newPassword: 'emmanuel',
+          userName: 'temmyyy'
+        };
+        chai.request(app)
+          .put('/api/v1/users/change-password')
+          .set('X-ACCESS-TOKEN', userToken)
+          .send(user)
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.message.should.eql('You are not a valid user.');
+            done();
+          });
       });
-  });
-  it('Then it should update password if both old password and new pasword are correct', (done) => {
-    const user = {
-      oldPassword: 'emmanuel',
-      newPassword: 'emmanuel',
-      userName: 'temmy'
-    };
-    chai.request(app)
-      .put('/api/v1/users/change-password')
-      .set('X-ACCESS-TOKEN', userToken)
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(204);
-        done();
+      it('Then it should update password if both old password and new pasword are correct', (done) => {
+        const user = {
+          oldPassword: 'emmanuel',
+          newPassword: 'emmanuel',
+          userName: 'temmy'
+        };
+        chai.request(app)
+          .put('/api/v1/users/change-password')
+          .set('X-ACCESS-TOKEN', userToken)
+          .send(user)
+          .end((err, res) => {
+            res.should.have.status(204);
+            done();
+          });
       });
+    });
   });
-});
-})
 });

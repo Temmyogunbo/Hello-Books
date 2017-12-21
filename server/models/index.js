@@ -9,7 +9,6 @@ const basename = path.basename(module.filename);
 
 const env = process.env.NODE_ENV || 'development';
 const config = dbconfig[env];
-
 const db = {};
 // we define connection to the database i.e models/tables are
 // connected to the db

@@ -10,17 +10,17 @@ const initialState = {
 };
 
 /**
+ * Handles user state
  *
+ * @param {object} state
+ * @param {object} action
  *
- * @param {object} [action={}] - object payload from the actions
- * @returns {object} - returns users in an object
+ * @returns {object} new state
 */
-
 export default (state = initialState, action) => {
   switch (action.type) {
   case SET_AUTH_USERS:
     return {
-      ...state,
       user: action.user,
       isAuthenticated: !isEmpty(action.user),
     };

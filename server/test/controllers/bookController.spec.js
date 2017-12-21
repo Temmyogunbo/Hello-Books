@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+
 import app from '../../config/app';
 
 const should = chai.should();
@@ -90,7 +91,7 @@ describe('Given /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.should.be.a('object');
-          res.body.errors[0].msg.should.eql('No books in the library');
+          res.body.errors[0].message.should.eql('No books in the library');
           done();
         });
     });
@@ -98,115 +99,50 @@ describe('Given /api/v1/books', () => {
 });
 // Test post route
 describe('Given /POST /api/v1/books', () => {
-  describe('When I want to add a book', ()=> {
-  it('Then it should return the book added', (done) => {
-    const book = {
-      title: 'The man in the mirror',
-      author: 'Edward Luttwark',
-      category: 'History',
-      description: 'Enemy within and enemy  without',
-      imageUrl: 'local',
-      imagePublicId: 'andela',
-      quantity: 19
-    };
-    chai.request(app)
-      .post('/api/v1/books')
-      .set('X-ACCESS-TOKEN', adminToken)
-      .send(book)
-      .end((err, res) => {
-        res.should.have.status(201);
-        res.body.book.id.should.eql(5);
-        res.body.book.title.should.eql('The man in the mirror');
-        res.body.book.category.should.eql('History');
-        res.body.book.description.should.eql('Enemy within and enemy  without');
-        res.body.book.imageUrl.should.eql('local');
-        res.body.book.quantity.should.eql(19);
-        res.body.book.should.have.property('id');
-        res.body.book.should.have.property('title');
-        res.body.book.should.have.property('author');
-        res.body.book.should.have.property('category');
-        res.body.book.should.have.property('quantity');
-        res.body.book.should.have.property('imageUrl');
-        res.body.book.should.have.property('description');
-        res.body.should.be.a('object');
-        done();
-      });
-  });
-
-  it('Then it should not add a book without quantity field', (done) => {
-    const book = {
-      title: 'Art of war',
-      author: 'Edward Luttwark',
-      category: 'history',
-      imageUrl: 'http',
-      imagePublicId: '12344ufufhfjf',
-      description: 'Enemy of the state'
-    };
-    chai.request(app)
-      .post('/api/v1/books')
-      .set('X-ACCESS-TOKEN', adminToken)
-      .send(book)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.property('error');
-        res.body.error.should.have.property('msg').eql('quantity is required');
-        res.body.should.be.a('object');
-        done();
-      });
-  });
-  it('Then it should not add a book if it already exist', (done) => {
-    const book = {
-      title: 'The Pentagon',
-      author: 'Edward Luttwark',
-      category: 'history',
-      quantity: 45,
-      imageUrl: 'http',
-      imagePublicId: '12344ufufhfjf',
-      description: 'Enemy of the state'
-    };
-    chai.request(app)
-      .post('/api/v1/books')
-      .set('X-ACCESS-TOKEN', adminToken)
-      .send(book)
-      .end((err, res) => {
-        res.should.have.status(403);
-        res.body.msg.should.have.eql('Book already exist')
-        res.body.should.be.a('object');
-        done();
-      });
-  });
-  it('Then it should not add a book when the category doesn\'t exist', (done) => {
-    const book = {
-      title: 'The martial arts',
-      author: 'Edward Luttwark',
-      category: 'history',
-      imageUrl: 'http',
-      imagePublicId: '1717373738383kfkf',
-      description: 'Enemy of the state',
-      quantity: 11
-    };
-    chai.request(app)
-      .post('/api/v1/books')
-      .set('X-ACCESS-TOKEN', adminToken)
-      .send(book)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.property('msg')
-          .eql('Category does not exist. Be sure to check categories table.');
-        res.body.should.be.a('object');
-        done();
-      });
-  });
-  it('Then it should not add a book when quantity field is not an integer',
-    (done) => {
+  describe('When I want to add a book', () => {
+    it('Then it should return the book added', (done) => {
       const book = {
-        title: 'The only child',
+        title: 'The man in the mirror',
         author: 'Edward Luttwark',
         category: 'History',
-        description: 'I love war',
-        imageUrl: 'theone',
-        imagePublicId: '93i398jriu88484hfu',
-        quantity: 'string'
+        description: 'Enemy within and enemy  without',
+        imageUrl: 'local',
+        imagePublicId: 'andela',
+        quantity: 19
+      };
+      chai.request(app)
+        .post('/api/v1/books')
+        .set('X-ACCESS-TOKEN', adminToken)
+        .send(book)
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.book.id.should.eql(5);
+          res.body.book.title.should.eql('The man in the mirror');
+          res.body.book.category.should.eql('History');
+          res.body.book.description.should
+            .eql('Enemy within and enemy  without');
+          res.body.book.imageUrl.should.eql('local');
+          res.body.book.quantity.should.eql(19);
+          res.body.book.should.have.property('id');
+          res.body.book.should.have.property('title');
+          res.body.book.should.have.property('author');
+          res.body.book.should.have.property('category');
+          res.body.book.should.have.property('quantity');
+          res.body.book.should.have.property('imageUrl');
+          res.body.book.should.have.property('description');
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+
+    it('Then it should not add a book without quantity field', (done) => {
+      const book = {
+        title: 'Art of war',
+        author: 'Edward Luttwark',
+        category: 'history',
+        imageUrl: 'http',
+        imagePublicId: '12344ufufhfjf',
+        description: 'Enemy of the state'
       };
       chai.request(app)
         .post('/api/v1/books')
@@ -214,19 +150,87 @@ describe('Given /POST /api/v1/books', () => {
         .send(book)
         .end((err, res) => {
           res.should.have.status(400);
-          res.body.error.should.have.property('param');
+          res.body.should.have.property('error');
           res.body.error.should.have.property('msg')
-            .eql('quantity must be an integer');
+            .eql('quantity is required');
           res.body.should.be.a('object');
           done();
         });
-    }
-  );
-})
+    });
+    it('Then it should not add a book if it already exist', (done) => {
+      const book = {
+        title: 'The Pentagon',
+        author: 'Edward Luttwark',
+        category: 'history',
+        quantity: 45,
+        imageUrl: 'http',
+        imagePublicId: '12344ufufhfjf',
+        description: 'Enemy of the state'
+      };
+      chai.request(app)
+        .post('/api/v1/books')
+        .set('X-ACCESS-TOKEN', adminToken)
+        .send(book)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.message.should.have.eql('Book already exist');
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('Then it should not add a book when the category doesn\'t exist', (done) => {
+      const book = {
+        title: 'The martial arts',
+        author: 'Edward Luttwark',
+        category: 'history',
+        imageUrl: 'http',
+        imagePublicId: '1717373738383kfkf',
+        description: 'Enemy of the state',
+        quantity: 11
+      };
+      chai.request(app)
+        .post('/api/v1/books')
+        .set('X-ACCESS-TOKEN', adminToken)
+        .send(book)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.have.property('message')
+            .eql('Category does not exist.');
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it(
+      'Then it should not add a book when quantity field is not an integer',
+      (done) => {
+        const book = {
+          title: 'The only child',
+          author: 'Edward Luttwark',
+          category: 'History',
+          description: 'I love war',
+          imageUrl: 'theone',
+          imagePublicId: '93i398jriu88484hfu',
+          quantity: 'string'
+        };
+        chai.request(app)
+          .post('/api/v1/books')
+          .set('X-ACCESS-TOKEN', adminToken)
+          .send(book)
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.error.should.have.property('param');
+            res.body.error.should.have.property('msg')
+              .eql('quantity must be an integer');
+            res.body.should.be.a('object');
+            done();
+          });
+      }
+    );
+  });
 });
 // Test PUT route
 describe('Given /PUT /api/v1/books', () => {
-  describe('When I want to update a book', ()=> {
+  describe('When I want to update a book', () => {
     it('THen it should update the desired field if all fields are supplied', (done) => {
       const book = {
         title: 'THe beginning of the end',
@@ -287,7 +291,7 @@ describe('Given /PUT /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
-          res.body.should.have.property('msg').eql('Category does not exist. Be sure to check categories table.');
+          res.body.should.have.property('message').eql('Category does not exist.');
           done();
         });
     });
@@ -308,17 +312,17 @@ describe('Given /PUT /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
-          res.body.should.have.property('msg').eql('No such book in the library.');
+          res.body.should.have.property('message').eql('No such book in the library.');
           done();
         });
     });
-  })
+  });
 });
 
 
 // Test Delete Route
 describe('Given /api/v1/books/:id', () => {
-  describe('When I want to delete a book', ()=> {
+  describe('When I want to delete a book', () => {
     it('Then it should not succeed when book does not exist', (done) => {
       chai.request(app)
         .delete('/api/v1/books/300')
@@ -327,7 +331,7 @@ describe('Given /api/v1/books/:id', () => {
           res.should.have.status(404);
           res.body.should.be.a('object');
           res.body.errors[0].should
-            .have.property('msg').eql('Book cannot be found');
+            .have.property('message').eql('Book cannot be found');
           done();
         });
     });
@@ -353,12 +357,12 @@ describe('Given /api/v1/books/:id', () => {
           done();
         });
     });
-  })
+  });
 });
 
 // Test category Route
 describe('Given /api/v1/category', () => {
-  describe('When I want to add a category', ()=> {
+  describe('When I want to add a category', () => {
     it('Then it should return the category added', (done) => {
       const category = {
         category: 'Romance'
@@ -368,8 +372,8 @@ describe('Given /api/v1/category', () => {
         .set('X-ACCESS-TOKEN', adminToken)
         .send(category)
         .end((err, res) => {
-          res.body.category.should.have.property('id');
-          res.body.category.category.should.eql('Romance');
+          res.body.should.have.property('id');
+          res.body.category.should.eql('Romance');
           res.should.have.status(201);
           res.body.should.be.a('object');
           done();
@@ -384,7 +388,7 @@ describe('Given /api/v1/category', () => {
         .set('X-ACCESS-TOKEN', adminToken)
         .send(category)
         .end((err, res) => {
-          res.body.errors[0].msg.message.should.eql('category must be unique')
+          res.body.errors[0].message.message.should.eql('category must be unique');
           res.should.have.status(400);
           res.body.should.be.a('object');
           done();
@@ -406,7 +410,7 @@ describe('Given /api/v1/category', () => {
           done();
         });
     });
-  })
+  });
 });
 // GET category
 describe('Given /api/v1/category', () => {
@@ -421,11 +425,9 @@ describe('Given /api/v1/category', () => {
           res.body[0].should.have.property('id');
           res.body[0].should.have.property('category');
           res.body[0].category.should.eql('Romance');
-          res.body.should.have.length(4)
+          res.body.should.have.length(4);
           done();
         });
     });
-
-
-  })
+  });
 });

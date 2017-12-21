@@ -12,10 +12,11 @@ const propTypes = {
   handlePageChange: PropTypes.func.isRequired
 };
 const defaultProps = ({
-  activePage: 1
+  activePage: 1,
+  totalItemsCount: 5
 });
 
-/**
+/**It returns a div element of pagination
  *
  *
  * @param {any} props
@@ -29,7 +30,7 @@ function Pagination({
   handlePageChange
 }) {
   return (
-    <div className="right">
+    <div className="col s6 m6 l6 push-l6 push-s4 push-m6 pagination">
       <PaginationJs
         activePage={activePage}
         itemsCountPerPage={itemsCountPerPage}

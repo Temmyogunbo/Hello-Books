@@ -1,7 +1,7 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-/**
+/**It validates user data before sending to server
  * @description Validates Sign Up form data
  * @param  {object} formData
  * @return {object} object- contains error and boolean
@@ -14,9 +14,6 @@ export default function signUpValidation(formData) {
   if (Validator.isEmpty(formData.userName)) {
     errors.userName = 'User Name is Required';
   }
-  if (Validator.isEmpty(formData.email)) {
-    errors.email = 'Email is Required';
-  }
   if (!Validator.isEmail(formData.email)) {
     errors.email = 'Email is invalid';
   }
@@ -24,7 +21,7 @@ export default function signUpValidation(formData) {
     errors.password = 'Password is Required';
   }
   if (Validator.isEmpty(formData.confirmPassword)) {
-    errors.confirmPassword = 'Password Confirmation is Required';
+    errors.confirmPassword = 'You need to confirm your password.';
   }
   if (!Validator.equals(formData.password, formData.confirmPassword)) {
     errors.confirmPassword = 'Passwords must match';

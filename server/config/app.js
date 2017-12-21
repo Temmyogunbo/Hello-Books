@@ -14,23 +14,23 @@ app.use(logger('dev'));
 // format request data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/docs', express.static(path.join(__dirname, '../docs')));
 app.use(expressValidator());
 
-app.use(express.static(`${__dirname}/../../client/app/public`));
-// Require our routes into the application.
+app.use(express.static(`${__dirname}/../../../client/app/public`));
 (route)(app);
 
 app.use('*', (request, response) => {
   response.sendFile(path.join(
     __dirname,
-    '/../../client/app/public/index.html'
+    '/../../../client/app/public/index.html'
   ));
 });
 
 // error handler
 // development error handler
 if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => res.status(err.status || 500).json({
+  app.use((err, req, res) => res.status(err.status || 500).json({
     msg: err.msg,
     error: err
   }));
