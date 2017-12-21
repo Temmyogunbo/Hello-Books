@@ -49,7 +49,7 @@ function UserLinks({ isAdmin, signOutAction, total }) {
         {isAdmin ? <li>
           <NotificationIcon total={total}/>
         </li> : <li>
-          <Link to="/history">
+          <Link to="/history" id="history-nav-link">
               History
           </Link>
         </li>}

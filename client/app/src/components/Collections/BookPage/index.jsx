@@ -97,8 +97,8 @@ export class BookPage extends React.Component {
   render() {
     return (
       <div className="container mt-2">
-        <div className="row hide-on-small-only">
-          <div className="col s6">
+        <div className="row">
+          <div className="col s12 m6 l4">
             <div>
               <img
                 className="responsive-img"
@@ -108,6 +108,7 @@ export class BookPage extends React.Component {
             </div>
             {this.props.role === 'admin' ? null :
               <Button
+                id={'borrow-book'}
                 type={'submit'}
                 className={"bc waves-effect waves-light btn brown darken-4"}
                 onClick={this.handleBorrowBook}
@@ -115,7 +116,7 @@ export class BookPage extends React.Component {
               />}
 
           </div>
-          <div className="col s6">
+          <div className="col s12 m6 l8">
             <div className="fs-2">
               {this.state.book.title}
               <div>
@@ -125,39 +126,6 @@ export class BookPage extends React.Component {
             <div className="mt-2">
               {this.state.book.description}
             </div>
-          </div>
-        </div>
-        <div className="hide-on-med-and-up mt-2">
-          <div className="row">
-            <div className="col s6">
-              <div>
-                <img
-                  className="responsive-img"
-                  src={this.state.book.imageUrl}
-                  style={{ height: "300px", width: "300px" }}
-                />
-              </div>
-              {this.props.role === 'admin' ? null :
-                <Button
-                  type={'submit'}
-                  className={"bc waves-effect waves-light btn brown darken-4"}
-                  onClick={this.handleBorrowBook}
-                  children={'Borrow Book'}
-                /> }
-
-            </div>
-            <div className="col s6">
-              <div className="fs-2">
-                {this.state.book.title}
-                <div>
-                    by {this.state.book.author}
-                </div>
-              </div>
-              <div className="mt-2">
-                {this.state.book.description}
-              </div>
-            </div>
-
           </div>
         </div>
       </div>

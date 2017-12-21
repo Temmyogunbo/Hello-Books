@@ -7,7 +7,6 @@ const dotEnvWebpack = require('dotenv-webpack');
 
 dotEnv.config();
 
-const CLIENTPORT = 5000 || process.env;
 
 const config = {
   entry: [
@@ -17,7 +16,7 @@ const config = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(`./app/public`),
-    publicPath: `http://localhost:${CLIENTPORT}/`
+    publicPath: `http://localhost:${process.env.port}/`
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
@@ -25,8 +24,8 @@ const config = {
   devtool: 'inline-source-map',
   devServer: {
     compress: true,
-    port: CLIENTPORT,
-    publicPath: `http://localhost:${CLIENTPORT}/`,
+    port: process.env.port,
+    publicPath: `http://localhost:${process.env.port}/`,
     // access dev server from an arbitrary url. handy in html5 router
     historyApiFallback: true,
     hot: true,

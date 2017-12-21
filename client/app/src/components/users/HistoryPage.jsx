@@ -122,8 +122,8 @@ export class HistoryPage extends React.Component {
   }
   /**It returns a div element
    *
-   *
    * @returns {object} jsx
+   *
    * @memberof HistoryPage
    */
   render() {

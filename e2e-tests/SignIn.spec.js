@@ -3,12 +3,13 @@ module.exports = {
     client
       .url('http://localhost:5000/signin')
       .waitForElementVisible('body')
-      .waitForElementVisible('#sign-in-form',1000)
+      .waitForElementVisible('#sign-in-form', 1000)
       .setValue('input[name="userName"]', 'admin')
       .setValue('input[name="password"]', 'emmanuel')
       .click('#for-google-log-in')
       .waitForElementVisible('.card', 1000)
       .assert.urlEquals('http://localhost:5000/collections')
+      .pause(2000)
       .end();
   },
   'user can login': (client) => {
@@ -21,6 +22,7 @@ module.exports = {
       .click('#for-google-log-in')
       .waitForElementVisible('.card', 1000)
       .assert.urlEquals('http://localhost:5000/collections')
+      .pause(3000)
       .end();
   }
 };
