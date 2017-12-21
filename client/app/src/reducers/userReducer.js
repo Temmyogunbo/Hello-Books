@@ -2,6 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import {
   CHANGE_USERS_PASSWORD,
   SET_AUTH_USERS,
+  LOG_OUT_USERS,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -26,7 +27,11 @@ export default (state = initialState, action) => {
     };
   case CHANGE_USERS_PASSWORD:
     return state;
-
+  case LOG_OUT_USERS:
+    return {
+      user: {},
+      isAuthenticated: false,
+    };
   default:
     return state;
   }

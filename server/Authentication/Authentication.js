@@ -43,9 +43,10 @@ class Authentication {
     if (request.decoded.role === 'admin') {
       next();
     } else {
-      return response.status(403).json({
-        errors: [{ message: 'You are not authorised' }],
-      });
+      return response.status(403)
+        .json({
+          message: 'You are not authorised',
+        });
     }
   }
   /**
@@ -68,17 +69,15 @@ class Authentication {
     if (token) {
       jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
-          return response.status(401).json({
-            errors: [{ message: 'You are not authenticated' }],
-          });
+          return response.status(401)
+            .json({ message: 'You are not authenticated' });
         }
         request.decoded = decoded;
         next();
       });
     } else {
-      return response.status(403).json({
-        errors: [{ message: 'You are not logged in.' }],
-      });
+      return response.status(401)
+        .json({ message: 'You are not logged in.' });
     }
   }
   /**

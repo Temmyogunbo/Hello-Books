@@ -357,7 +357,7 @@ describe('Given /api/v1/books/:id', () => {
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.errors[0].should
+          res.body.should
             .have.property('message').eql('You are not authorised');
           done();
         });

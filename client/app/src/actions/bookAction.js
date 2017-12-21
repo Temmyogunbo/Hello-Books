@@ -121,7 +121,7 @@ export const getAllBooksAction = bookData => dispatch => {
     dispatch(getAllBooks(response.data));
   })
     .catch((error) => {
-      toastr.error(error.response.data.errors[0].message);
+      toastr.error(error.response.data.message);
     });
 };
 /**It returns borrow book object

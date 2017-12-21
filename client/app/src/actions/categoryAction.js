@@ -39,8 +39,7 @@ export const getBookCategoryAction = () => dispatch =>
       dispatch(getBookCategory(response.data));
     })
     .catch((error) => {
-      toastr.error(error.response.data);
-      return error;
+      toastr.error(error.response.data.message);
     });
 
 /**It returns created category object
@@ -56,7 +55,7 @@ categoryData => dispatch => axios.post('/api/v1/category', categoryData)
     toastr.success('You added a category');
   })
   .catch((error) => {
-    toastr.error(error.response.data.errors[0].message.message);
+    toastr.error(error.response.data.message);
   });
 export default {
   createBookCategoryAction,

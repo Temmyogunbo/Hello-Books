@@ -20,9 +20,4 @@ const appReducer = combineReducers({
  *
  * @returns {object} new state
 */
-export default (state, action) => {
-  if (action.type === 'LOG_OUT_USERS') {
-    state = undefined;
-  }
-  return appReducer(state, action);
-};
+export default (state, action) => appReducer(state, action);
