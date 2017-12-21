@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import models from '../models';
-import membershipLevel from '../helper/membershipLevel';
+import MembershipLevel from '../helper/MembershipLevel';
 
 /**
  * A static class that manages user borrow history
@@ -26,27 +26,27 @@ class BookHistoryController {
     const { bookId, membership } = request.body;
     if (!membership) {
       return response.status(400).json({
-        message: 'You must declare your membership type.'
+        message: 'You must declare your membership type.',
       });
     }
     return models.Book.findById(bookId).then((book) => {
       if (!book) {
         return response.status(404).json({
-          message: 'No such book in the library'
+          message: 'No such book in the library',
         });
       }
       if (parseInt(book.dataValues.quantity, 10) < 1) {
         return response.status(404).json({
-          message: 'No more books in the library'
+          message: 'No more books in the library',
         });
       }
       const numberofBooksAllowedWithDays =
-          membershipLevel.checkMembership(membership);
+          MembershipLevel.checkMembership(membership);
       models.History.findAll({
         where: {
           UserId: userId,
-          returned: false
-        }
+          returned: false,
+        },
       })
         .then((result) => {
           const numberofBooksBorrowed = result.length;
@@ -59,16 +59,16 @@ class BookHistoryController {
               for (eachUserDetails of result) {
                 const numberofDaysBookUsed = moment(new Date())
                   .diff(moment(eachUserDetails.borrowedDate), 'days');
-                const numberofDaysAllowed = membershipLevel
+                const numberofDaysAllowed = MembershipLevel
                   .checkMembership(membership)[1];
                 if (numberofDaysBookUsed > numberofDaysAllowed) {
                   return response.status(403).json({
-                    message: 'You have to return the previous book.'
+                    message: 'You have to return the previous book.',
                   });
                 } else if (parseInt(bookId, 10) ===
                 parseInt(eachUserDetails.dataValues.BookId, 10)) {
                   return response.status(403).json({
-                    message: 'You cannot borrow the same book again.'
+                    message: 'You cannot borrow the same book again.',
                   });
                 }
               }
@@ -81,22 +81,22 @@ class BookHistoryController {
                 BookId: bookId,
                 borrowedDate: new Date(),
                 dueDate: new Date(new Date().getTime() +
-                    (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000))
+                    (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000)),
               })
               .then(record => response.status(201).json({
                 record,
-                message: 'You successfully borrowed a book.'
+                message: 'You successfully borrowed a book.',
               }));
           } else {
             return response.status(403).json({
-              message: 'You cannot borrow more than your membership level.'
+              message: 'You cannot borrow more than your membership level.',
             });
           }
         });
     })
       .catch(() => {
         response.status(400).json({
-          message: 'Invalid book id'
+          message: 'Invalid book id',
         });
       });
   }
@@ -121,33 +121,33 @@ class BookHistoryController {
         where: {
           UserId: userId,
           BookId: bookId,
-          returned: false
+          returned: false,
         },
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: models.Book }
-        ]
+          { model: models.Book },
+        ],
       }).then((record) => {
         if (record === null) {
           return response.status(404).json({
-            message: 'No record found'
+            message: 'No record found',
           });
         }
         models.History.update(
           {
-            returned: true
+            returned: true,
           },
           {
             fields: ['returned'],
             where: {
               BookId: bookId,
-              UserId: userId
-            }
-          }
+              UserId: userId,
+            },
+          },
         )
           .then(bookReturned => response.status(200).json({
             bookReturned,
-            message: 'You returned a book.'
+            message: 'You returned a book.',
           }));
       });
   }
@@ -167,7 +167,7 @@ class BookHistoryController {
   static findUserHistory(request, response) {
     const {
       itemsCountPerPage,
-      page
+      page,
     } = request.query;
     const userId = parseInt(request.params[0], 10);
     const whereStatement = { UserId: userId };
@@ -183,17 +183,17 @@ class BookHistoryController {
         where: whereStatement,
         attributes: ['BookId', 'dueDate', 'borrowedDate', 'returned'],
         include: [
-          { model: models.Book, attributes: ['author', 'title'] }
+          { model: models.Book, attributes: ['author', 'title'] },
         ],
         order: [['updatedAt', 'DESC']],
         limit,
-        offset
+        offset,
 
       })
       .then((record) => {
         if (record.count === 0) {
           return response.status(404).json({
-            message: 'No record found'
+            message: 'No record found',
           });
         }
         response.status(200).json({ rows: record.rows, count: record.count });

@@ -24,5 +24,5 @@ module.exports = {
       .assert.urlEquals('http://localhost:5000/collections')
       .pause(3000)
       .end();
-  }
+  },
 };

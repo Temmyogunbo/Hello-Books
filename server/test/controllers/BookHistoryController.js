@@ -28,7 +28,8 @@ describe('Given /api/v1/users/2/books', () => {
         .end((err, res) => {
           res.should.have.status(403);
           res.should.be.a('object');
-          res.body.should.have.property('message').eql('You cannot borrow the same book again.');
+          res.body.should.have.property('message')
+            .eql('You cannot borrow the same book again.');
           done();
         });
     });
@@ -53,7 +54,8 @@ describe('Given /api/v1/users/2/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.should.be.a('object');
-          res.body.should.have.property('message').eql('No such book in the library');
+          res.body.should.have.property('message')
+            .eql('No such book in the library');
           done();
         });
     });
@@ -65,22 +67,27 @@ describe('Given /api/v1/users/2/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.should.be.a('object');
-          res.body.should.have.property('message').eql('No more books in the library');
+          res.body.should.have.property('message')
+            .eql('No more books in the library');
           done();
         });
     });
-    it('Then I should not borrow book if my membership type is not known', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/2/books')
-        .set('X-ACCESS-TOKEN', userToken)
-        .send({ membership: '', bookId: 3 })
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.should.be.a('object');
-          res.body.should.have.property('message').eql('You must declare your membership type.');
-          done();
-        });
-    });
+    it(
+      'Then I should not borrow book if my membership type is not known',
+      (done) => {
+        chai.request(app)
+          .post('/api/v1/users/2/books')
+          .set('X-ACCESS-TOKEN', userToken)
+          .send({ membership: '', bookId: 3 })
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.should.be.a('object');
+            res.body.should.have.property('message')
+              .eql('You must declare your membership type.');
+            done();
+          });
+      },
+    );
     it('Then I should borrow book if all criterias are met', (done) => {
       chai.request(app)
         .post('/api/v1/users/2/books')

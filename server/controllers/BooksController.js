@@ -27,7 +27,7 @@ class BooksController {
       quantity,
       imageUrl,
       description,
-      imagePublicId
+      imagePublicId,
     } = request.body;
     return models.Book.create({
       title,
@@ -36,20 +36,20 @@ class BooksController {
       quantity,
       imageUrl,
       description,
-      imagePublicId
+      imagePublicId,
     })
       .then(book => response.status(201).json({
-        book
+        book,
       }))
       .catch((error) => {
         switch (error.name) {
         case 'SequelizeForeignKeyConstraintError':
           return response.status(400).json({
-            message: 'Category does not exist.'
+            message: 'Category does not exist.',
           });
         case 'SequelizeUniqueConstraintError':
           return response.status(403).json({
-            message: 'Book already exist'
+            message: 'Book already exist',
           });
         default:
           return null;
@@ -71,11 +71,11 @@ class BooksController {
    */
   static addCategory(request, response) {
     return models.Categories.create({
-      category: request.body.category
+      category: request.body.category,
     })
       .then(category => response.status(201).json(category))
       .catch(error => response.status(400).json({
-        errors: [{ message: error.errors[0] }]
+        errors: [{ message: error.errors[0] }],
       }));
   }
   /**
@@ -93,7 +93,7 @@ class BooksController {
   static findCategory(request, response) {
     return models.Categories.findAll({
       limit: 10,
-      order: [['updatedAt', 'DESC']]
+      order: [['updatedAt', 'DESC']],
     })
       .then(category => response.status(200).json(category))
       .catch(error => response.status(400)
@@ -116,7 +116,7 @@ class BooksController {
     const {
       itemsCountPerPage,
       page,
-      category
+      category,
     } = request.query;
 
     const offset = itemsCountPerPage ? itemsCountPerPage * (page - 1) : 0;
@@ -133,16 +133,16 @@ class BooksController {
 
       limit,
       offset,
-      order: [['updatedAt', 'DESC']]
+      order: [['updatedAt', 'DESC']],
     })
       .then((books) => {
         if (books.count === 0) {
           return response.status(404).json({
-            errors: [{ message: 'No books in the library' }]
+            errors: [{ message: 'No books in the library' }],
           });
         }
         return response.status(200).json({
-          count: books.count, rows: books.rows
+          count: books.count, rows: books.rows,
         });
       })
       .catch(error => response.status(400)
@@ -167,7 +167,7 @@ class BooksController {
       author,
       quantity,
       imageUrl,
-      description
+      description,
     } = request.body;
     const bookId = parseInt(request.params[0], 10);
     return models.Book.update(
@@ -177,26 +177,26 @@ class BooksController {
         author,
         quantity,
         imageUrl,
-        description
+        description,
       },
       {
         where: {
-          id: bookId
-        }
-      }
+          id: bookId,
+        },
+      },
     )
       .then((book) => {
         if (book[0]) {
           return response.status(204).json({});
         }
         return response.status(404).json({
-          message: 'No such book in the library.'
+          message: 'No such book in the library.',
         });
       })
       .catch((error) => {
         if (error.name === 'SequelizeForeignKeyConstraintError') {
           return response.status(404).json({
-            message: 'Category does not exist.'
+            message: 'Category does not exist.',
           });
         }
       });
@@ -220,13 +220,13 @@ class BooksController {
       .then((book) => {
         if (!book) {
           return response.status(404).json({
-            errors: [{ message: 'Book cannot be found' }]
+            errors: [{ message: 'Book cannot be found' }],
           });
         }
         models.Book.destroy({
           where: {
-            id: bookId
-          }
+            id: bookId,
+          },
         })
           .then(() => response.status(204).json({}))
           .catch(error => response.status(400)

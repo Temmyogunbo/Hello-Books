@@ -21,7 +21,7 @@ class Authentication {
   */
   static getToken(user) {
     return jwt.sign(user, process.env.SECRET_KEY, {
-      expiresIn: 3600 * 24
+      expiresIn: 3600 * 24,
     });
   }
   /**
@@ -44,7 +44,7 @@ class Authentication {
       next();
     } else {
       return response.status(403).json({
-        errors: [{ msg: 'You are not authorised' }]
+        errors: [{ message: 'You are not authorised' }],
       });
     }
   }
@@ -69,7 +69,7 @@ class Authentication {
       jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
           return response.status(401).json({
-            errors: [{ message: 'You are not authenticated' }]
+            errors: [{ message: 'You are not authenticated' }],
           });
         }
         request.decoded = decoded;
@@ -77,7 +77,7 @@ class Authentication {
       });
     } else {
       return response.status(403).json({
-        errors: [{ message: 'You are not logged in.' }]
+        errors: [{ message: 'You are not logged in.' }],
       });
     }
   }
@@ -95,8 +95,8 @@ class Authentication {
    * @memberof Authentication
    */
   static validateBookRequest(request, response, next) {
-    if (request.url === '/api/v1/category' &&
-      request.method === 'POST') {
+    if (request.url === '/api/v1/category'
+    && request.method === 'POST') {
       request.check('category', 'category is required').notEmpty();
       const errors = request.validationErrors();
       if (errors) {
@@ -108,7 +108,7 @@ class Authentication {
       request.check('imageUrl', 'imageUrl is required').notEmpty();
       request.check(
         'imagePublicId',
-        'cloudinary public Id is required'
+        'cloudinary public Id is required',
       ).notEmpty();
       request.check('description', 'Description is required').notEmpty();
       request.check('title', 'title is required').notEmpty();
@@ -136,12 +136,12 @@ class Authentication {
    * @memberof Authentication
    */
   static validateUserRequest(request, response, next) {
-    if (request.url === '/api/v1/users/signin' &&
-      request.method === 'POST') {
+    if (request.url === '/api/v1/users/signin'
+    && request.method === 'POST') {
       request.check('password', 'Password is required').notEmpty();
       request.check(
         'password',
-        'Password must be a mininum of 5 characters'
+        'Password must be a mininum of 5 characters',
       ).isLength({ min: 5 });
       request.check('userName', 'Username is required').notEmpty();
       const errors = request.validationErrors();
@@ -155,7 +155,7 @@ class Authentication {
       request.check('newPassword', 'This field is required').notEmpty();
       request.check(
         'newPassword',
-        'New password must be a mininum of 5 characters'
+        'New password must be a mininum of 5 characters',
       ).isLength({ min: 5 });
       const errors = request.validationErrors();
       if (errors) {
@@ -170,7 +170,7 @@ class Authentication {
       request.check('password', 'Password is required').notEmpty();
       request.check(
         'password',
-        'Password must be a mininum of 5 characters'
+        'Password must be a mininum of 5 characters',
       ).isLength({ min: 5 });
       const errors = request.validationErrors();
       if (errors) {

@@ -13,5 +13,5 @@ module.export = {
       .pause(3000)
       .assert.urlEquals('http://localhost:5000/history')
       .end();
-  }
+  },
 };

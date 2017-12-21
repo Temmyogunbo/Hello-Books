@@ -8,7 +8,7 @@ import models from '../models';
 class Notifications {
   /**
      * Creates an instance of Notifications.
-     * 
+     *
      * @param {any} io
      *
      * @memberof Notifications
@@ -47,20 +47,20 @@ class Notifications {
       .findAndCountAll({
         attributes: ['id', 'notificationType', 'seen', 'updatedAt'],
         include: [{ model: models.Book, attributes: ['author', 'title'] },
-          { model: models.User, attributes: ['userName'] }
+          { model: models.User, attributes: ['userName'] },
         ],
         where: whereStatement,
         limit,
         offset,
-        order: [['updatedAt', 'DESC']]
+        order: [['updatedAt', 'DESC']],
       })
       .then((notifications) => {
         this.sendNotification(
           'GET_ALL_NOTIFICATIONS',
           {
             count: notifications.count,
-            rows: notifications.rows
-          }
+            rows: notifications.rows,
+          },
         );
       });
   }
@@ -78,7 +78,7 @@ class Notifications {
     models.Notification.create({
       UserId: parseInt(data.userId, 10),
       BookId: parseInt(data.bookId, 10),
-      notificationType: data.notificationType
+      notificationType: data.notificationType,
     });
   }
   /**
@@ -97,11 +97,11 @@ class Notifications {
     }
     return models.Notification.update(
       {
-        seen: 'read'
+        seen: 'read',
       },
       {
-        where: whereStatement
-      }
+        where: whereStatement,
+      },
     )
       .then(() => {
         this.sendNotification('UPDATE_NOTIFICATION', 'it was successfull');

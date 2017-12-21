@@ -14,5 +14,5 @@ module.exports = {
       .waitForElementPresent('#get-books', 3000)
       .assert.urlEquals('http://localhost:5000/collections')
       .end();
-  }
+  },
 };
