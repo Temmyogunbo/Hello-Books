@@ -14,8 +14,8 @@ class BookHistoryController {
   *
   * @static
 
-  * @param {any} request
-  * @param {any} response
+  * @param {object} request
+  * @param {object} response
 
   * @returns {object} returns object
 
@@ -31,7 +31,7 @@ class BookHistoryController {
     }
     return models.Book.findById(bookId).then((book) => {
       if (!book) {
-        return response.status(404).json({
+        return response.status(400).json({
           message: 'No such book in the library',
         });
       }
@@ -41,7 +41,7 @@ class BookHistoryController {
         });
       }
       const numberofBooksAllowedWithDays =
-          MembershipLevel.checkMembership(membership);
+        MembershipLevel.checkMembership(membership);
       models.History.findAll({
         where: {
           UserId: userId,
@@ -53,50 +53,60 @@ class BookHistoryController {
           if ((numberofBooksBorrowed > 0
             && numberofBooksBorrowed < numberofBooksAllowedWithDays[0])
             || numberofBooksBorrowed === 0) {
-            // check if user borrow in the present day
             if (numberofBooksBorrowed > 0) {
-              let eachUserDetails;
-              for (eachUserDetails of result) {
+              const numberOfDays = [];
+              const theSameBook = [];
+              result.map((eachUserDetails) => {
                 const numberofDaysBookUsed = moment(new Date())
                   .diff(moment(eachUserDetails.borrowedDate), 'days');
                 const numberofDaysAllowed = MembershipLevel
                   .checkMembership(membership)[1];
                 if (numberofDaysBookUsed > numberofDaysAllowed) {
-                  return response.status(403).json({
-                    message: 'You have to return the previous book.',
-                  });
+                  numberOfDays.push('limit exceeded');
                 } else if (parseInt(bookId, 10) ===
-                parseInt(eachUserDetails.dataValues.BookId, 10)) {
-                  return response.status(403).json({
-                    message: 'You cannot borrow the same book again.',
-                  });
+                    parseInt(eachUserDetails.dataValues.BookId, 10)) {
+                  theSameBook.push('the same book');
                 }
+              });
+              if (numberOfDays.length > 0) {
+                return response.status(409).json({
+                  message: 'You have to return the previous book.',
+                });
+              }
+              if (theSameBook.length > 0) {
+                return response.status(409).json({
+                  message: 'You cannot borrow the same book again',
+                });
               }
             }
 
-            // user is borrowing different book and has not exceeded his limit
             models.History
               .create({
                 UserId: userId,
                 BookId: bookId,
                 borrowedDate: new Date(),
                 dueDate: new Date(new Date().getTime() +
-                    (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000)),
+                  (numberofBooksAllowedWithDays[1] * 24 * 3600 * 1000)),
               })
               .then(record => response.status(201).json({
                 record,
                 message: 'You successfully borrowed a book.',
               }));
           } else {
-            return response.status(403).json({
+            return response.status(409).json({
               message: 'You cannot borrow more than your membership level.',
-            });
+            })
+              .catch(() => {
+                response.status(500).json({
+                  message: 'An error occured',
+                });
+              });
           }
         });
     })
       .catch(() => {
-        response.status(400).json({
-          message: 'Invalid book id',
+        response.status(500).json({
+          message: 'An error occured',
         });
       });
   }
@@ -106,8 +116,8 @@ class BookHistoryController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request
+ * @param {object} response
  *
  * @returns {object} json object
  *
@@ -148,8 +158,14 @@ class BookHistoryController {
           .then(bookReturned => response.status(200).json({
             bookReturned,
             message: 'You returned a book.',
+          }))
+          .catch(() => response.status(500).json({
+            message: 'An error occured',
           }));
-      });
+      })
+      .catch(() => response.status(500).json({
+        message: 'An error occured',
+      }));
   }
   /**
  *
@@ -157,8 +173,8 @@ class BookHistoryController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request
+ * @param {object} response
  *
  * @returns {object} user object
  *

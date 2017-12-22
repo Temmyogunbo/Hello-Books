@@ -15,8 +15,8 @@ class UsersController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request
+ * @param {object} response
  *
  * @returns {object} returns object
  *
@@ -97,8 +97,8 @@ class UsersController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request
+ * @param {object} response
  *
  * @returns {object} return object
  *
@@ -168,8 +168,8 @@ class UsersController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request
+ * @param {object} response
  *
  * @returns {object} returns object
  *

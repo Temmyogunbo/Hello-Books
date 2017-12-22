@@ -9,7 +9,7 @@ class Notifications {
   /**
      * Creates an instance of Notifications.
      *
-     * @param {any} io
+     * @param {object} io
      *
      * @memberof Notifications
      */
@@ -19,8 +19,8 @@ class Notifications {
   /**
  * Sends notification
  *
- * @param {any} notificationType
- * @param {any} data
+ * @param {string} notificationType
+ * @param {object} data
  *
  * @returns {string} returns string
  *
@@ -32,7 +32,7 @@ class Notifications {
   /**
  * Get all notification
  *
- * @param {any} data
+ * @param {object} data
  *
  * @returns {object} returns onject
  *
@@ -67,7 +67,7 @@ class Notifications {
   /**
   * add notification
   *
-  * @param {any} data
+  * @param {object} data
 
   * @memberof Notifications
 
@@ -84,7 +84,7 @@ class Notifications {
   /**
  * Update a notification
  *
- * @param {any} data
+ * @param {object} data
  *
  * @returns {undefined}
  *

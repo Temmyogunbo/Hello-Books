@@ -67,7 +67,6 @@ export default (sequelize, DataTypes) => {
       });
   });
   History.associate = (models) => {
-    // Will add bookId to History
     History.belongsTo(models.Book, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
@@ -75,8 +74,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
       },
     });
-    // will add userId to history, will delete and update dependencies
-    // if book is deleted and updated respectively
+
     History.belongsTo(models.User, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

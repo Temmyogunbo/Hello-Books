@@ -5,27 +5,27 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       category: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
         validate: {
-          notEmpty: true
-        }
+          notEmpty: true,
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down(queryInterface) {
     return queryInterface.dropTable('Categories');
-  }
+  },
 };

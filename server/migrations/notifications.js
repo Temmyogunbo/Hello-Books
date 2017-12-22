@@ -5,7 +5,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       BookId: {
         type: Sequelize.INTEGER,
@@ -13,8 +13,8 @@ module.exports = {
         onUpdate: 'CASCADE',
         references: {
           model: 'Books',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       UserId: {
         type: Sequelize.INTEGER,
@@ -22,29 +22,29 @@ module.exports = {
         onUpdate: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       notificationType: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       seen: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'unread'
+        defaultValue: 'unread',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down(queryInterface) {
     return queryInterface.dropTable('Notifications');
-  }
+  },
 };

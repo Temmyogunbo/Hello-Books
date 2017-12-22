@@ -41,6 +41,7 @@ describe('Users', () => {
         done();
       });
   });
+
   describe('Given /api/v1/users', () => {
     describe('When I want to add a user', () => {
       it('Then it should not add a user without a full name', (done) => {
@@ -195,7 +196,7 @@ describe('Users', () => {
           });
       });
       it(
-        'Then it should return the user payload incuding token, boolean, and a success message',
+        'Then it should return the user payload',
         (done) => {
           const user = {
             fullName: 'simi',
@@ -224,22 +225,9 @@ describe('Users', () => {
 
   describe('Given /api/v1/users/signin', () => {
     describe('When a user wants to sign in', () => {
-      // it(
-      //   'Then it should fail if the user enters incorrect crendentials upon signin',
-      //   (done) => {
-      //     chai.request(app)
-      //       .post('/api/v1/users/signin')
-      //       .send(mockData.user2)
-      //       .end((err, res) => {
-      //         res.should.have.status(401);
-      //         res.body.should.have.property('message')
-      //           .eql('You are not registered');
-      //         done();
-      //       });
-      //   },
-      // );
       it(
-        'Then it should fail if the user does not enter the username and password fields',
+        'Then it should fail if the user does not' +
+         'enter the username and password fields',
         (done) => {
           const mockUser = {
             userName: '',
@@ -306,7 +294,8 @@ describe('Users', () => {
         },
       );
       it(
-        'Then it should not sign in a user with password less than 5 characters',
+        'Then it should not sign in a user' +
+        'with password less than 5 characters',
         (done) => {
           const user = {
             userName: 'temmy',
@@ -325,7 +314,7 @@ describe('Users', () => {
         },
       );
       it(
-        'Then it should return users payload incuding token and a success message',
+        'Then it should return users payload',
         (done) => {
           const mockUser = {
             userName: 'temmy',
@@ -454,7 +443,7 @@ describe('Users', () => {
         },
       );
       it(
-        'Then it should update password if both old password and new pasword are correct',
+        'Then it should update password',
         (done) => {
           const user = {
             oldPassword: 'emmanuel',
@@ -467,7 +456,8 @@ describe('Users', () => {
             .send(user)
             .end((err, res) => {
               res.body.userName.should.eql(user.userName);
-              bcrypt.compareSync(user.oldPassword, res.body.password).should.eql(true);
+              bcrypt.compareSync(user.oldPassword, res.body.password)
+                .should.eql(true);
               res.should.have.status(200);
               res.body.should.have.property('id');
               res.body.should.have.property('fullName');

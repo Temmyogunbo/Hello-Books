@@ -13,7 +13,7 @@ class Authentication {
   *
   * @static
 
-  * @param {any} user
+  * @param {object} user
 
   * @returns {object} signed token
 
@@ -30,10 +30,10 @@ class Authentication {
    *
    * @static
    *
-   * @param {any} request
-   * @param {any} response
+   * @param {object} request
+   * @param {object} response
    *
-   * @param {any} next
+   * @param {object} next
    *
    * @returns {object} json object
    *
@@ -55,9 +55,9 @@ class Authentication {
    *
    * @static
    *
-   * @param {any} request
-   * @param {any} response
-   * @param {any} next
+   * @param {object} request
+   * @param {object} response
+   * @param {object} next
    *
    * @returns {object} json object
    *
@@ -85,9 +85,9 @@ class Authentication {
    *
    * @static
    *
-   * @param {any} request
-   * @param {any} response
-   * @param {any} next
+   * @param {object} request
+   * @param {object} response
+   * @param {object} next
    *
    * @returns {undefined}
    *
@@ -126,9 +126,9 @@ class Authentication {
    *
    * @static
    *
-   * @param {any} request
-   * @param {any} response
-   * @param {any} next
+   * @param {object} request
+   * @param {object} response
+   * @param {object} next
    *
    * @returns {undefined}
    *

@@ -26,7 +26,7 @@ before((done) => {
       done();
     });
 });
-// Test GET route
+
 describe('Given /api/v1/books', () => {
   describe('When I want to get books', () => {
     it('Then all books should be returned', (done) => {
@@ -98,7 +98,7 @@ describe('Given /api/v1/books', () => {
     });
   });
 });
-// Test post route
+
 describe('Given /POST /api/v1/books', () => {
   describe('When I want to add a book', () => {
     it('Then it should return the book added', (done) => {
@@ -232,7 +232,7 @@ describe('Given /POST /api/v1/books', () => {
     );
   });
 });
-// Test PUT route
+
 describe('Given /PUT /api/v1/books', () => {
   describe('When I want to update a book', () => {
     it('Then it should not update a book without a category field', (done) => {
@@ -324,7 +324,6 @@ describe('Given /PUT /api/v1/books', () => {
 });
 
 
-// Test Delete Route
 describe('Given /api/v1/books/:id', () => {
   describe('When I want to delete a book', () => {
     it('Then it should not succeed when book does not exist', (done) => {
@@ -377,7 +376,6 @@ describe('Given /api/v1/books/:id', () => {
   });
 });
 
-// Test category Route
 describe('Given /api/v1/category', () => {
   describe('When I want to add a category', () => {
     it('Then it should return the category added', (done) => {
@@ -429,7 +427,7 @@ describe('Given /api/v1/category', () => {
     });
   });
 });
-// GET category
+
 describe('Given /api/v1/category', () => {
   describe('When I want to get a category', () => {
     it('Then it should return the category available', (done) => {

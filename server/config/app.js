@@ -6,12 +6,10 @@ import expressValidator from 'express-validator';
 import dotenv from 'dotenv';
 import route from '../routes';
 
-// creating express application
 const app = express();
 dotenv.config();
 app.use(logger('dev'));
 
-// format request data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/docs', express.static(path.join(__dirname, '../docs')));
@@ -27,8 +25,7 @@ app.use('*', (request, response) => {
   ));
 });
 
-// error handler
-// development error handler
+
 if (app.get('env') === 'development') {
   app.use((error, request, response) =>
     response.status(error.status || 500).json({
@@ -37,7 +34,6 @@ if (app.get('env') === 'development') {
     }));
 }
 
-// error handler test environment
 if (app.get('env') === 'test') {
   app.use((error, request, response) =>
     response.status(error.status || 500).json({
@@ -45,7 +41,6 @@ if (app.get('env') === 'test') {
       error,
     }));
 }
-// production error handler
 app.use((error, request, response) =>
   response.status(error.status || 500).json({
     message: error.message,
