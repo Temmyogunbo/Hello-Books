@@ -12,7 +12,7 @@ const propTypes = {
 
 /**it returns unordered list element
  *
- * @param {any} props
+ * @param {object} props
  *
  * @returns {object} jsx
  */

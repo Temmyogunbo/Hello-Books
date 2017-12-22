@@ -33,7 +33,7 @@ class CategoryForm extends React.Component {
 
   /**It handles some component component state
    *
-   * @return {void}
+   * @return {undefined}
    *
    * @memberof CategoryForm
    */
@@ -47,9 +47,9 @@ class CategoryForm extends React.Component {
 
   /**It updates the name field
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @param {any} event
+   * @param {object} event
    *
    * @memberof CategoryForm
    */
@@ -72,9 +72,9 @@ class CategoryForm extends React.Component {
 
   /**It handles submit
  *
- * @return {void} the add  action is dispatched
+ * @return {object} the add  action is dispatched
  *
- * @param {void} event - on click event
+ * @param {object} event - on click event
  *
  * @memberof create Book category form
  */

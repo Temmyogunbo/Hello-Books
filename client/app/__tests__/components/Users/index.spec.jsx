@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { HistoryPage } from '../../../src/components/users/HistoryPage';
-//import { book2 } from '../../__mocks__/mockData';
+import { Users } from '../../../src/components/Users';
 
 const props = {
   getHistory: jest.fn(),
@@ -14,8 +13,8 @@ const props = {
 
 };
 
-describe('Given  a HistoryPage', () => {
-  const wrapper = shallow(<HistoryPage {...props} />);
+describe('Given  a Users', () => {
+  const wrapper = shallow(<Users {...props} />);
   describe('When the browser opens', () => {
     it('Then it should render without crashing', () => {
       expect(wrapper).toBeDefined();
@@ -67,7 +66,7 @@ describe('Given  a HistoryPage', () => {
 });
 
 
-describe('Given  a HistoryPage', () => {
+describe('Given  a Users', () => {
   const props = {
     getHistory: jest.fn(),
     changePassword: jest.fn(),
@@ -77,7 +76,7 @@ describe('Given  a HistoryPage', () => {
     returnBook: jest.fn()
 
   };
-  const wrapper = shallow(<HistoryPage {...props} />);
+  const wrapper = shallow(<Users {...props} />);
   describe('When the browser opens', () => {
     it('Then it should call the componentWilMount method', () => {
       const componentWillMountSpy = jest.spyOn(
@@ -91,8 +90,8 @@ describe('Given  a HistoryPage', () => {
 });
 
 
-describe('Given  a HistoryPage', () => {
-  const wrapper = shallow(<HistoryPage {...props} />);
+describe('Given  a Users', () => {
+  const wrapper = shallow(<Users {...props} />);
   describe('When the browser opens', () => {
     it(
       'Then it should call the handleReturnBook when returned is true',

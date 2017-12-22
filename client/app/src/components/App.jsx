@@ -6,8 +6,8 @@ import SignUpPage from '../components/accounts/SignUpPage';
 import SplashScreen from './Welcome';
 import CheckSignedInContainer from '../../utils/CheckSignedInContainer';
 import BookPage from '../components/Collections/BookPage';
-import CollectionsPage from '../components/Collections';
-import HistoryPage from '../components/users/HistoryPage';
+import Collections from '../components/Collections';
+import Users from '../components/Users';
 import Notifications from '../../src/components/Notifications';
 import PageNotFound from './PageNotFound';
 import NavigationBar from './NavigationBar';
@@ -29,12 +29,12 @@ function App() {
         <Route
           exact
           path="/collections"
-          component={CheckSignedInContainer(CollectionsPage)}
+          component={CheckSignedInContainer(Collections)}
         />
         <Route
           exact
           path="/history"
-          component={CheckSignedInContainer(HistoryPage)}
+          component={CheckSignedInContainer(Users)}
         />
         <Route
           path="/collections/books/:bookId"

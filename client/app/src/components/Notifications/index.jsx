@@ -31,7 +31,7 @@ export class Notifications extends React.Component {
   /**
    * Creates an instance of Notifications.
    *
-   * @param {any} props
+   * @param {object} props
    *
    * @memberof Notifications
    */
@@ -59,7 +59,7 @@ export class Notifications extends React.Component {
    *
    * @returns {undefined}
    *
-   * @param {any} pageNumber
+   * @param {number} pageNumber
    *
    * @memberof Notifications
    */

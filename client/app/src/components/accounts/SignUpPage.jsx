@@ -14,7 +14,9 @@ const propTypes = {
  * class component for signup page
  *
  * @export
+ * 
  * @class SignUpPage
+ * 
  * @extends {React.Component}
  */
 export class SignUpPage extends React.Component {
@@ -22,6 +24,7 @@ export class SignUpPage extends React.Component {
    *
    *
    * @memberof SignUpPage
+   * 
    * @returns {undefined}
    */
   componentWillMount() {
@@ -34,7 +37,8 @@ export class SignUpPage extends React.Component {
    *  receiving nex tprops and redirects to the collectionbs page
    * @returns {undefined}
    *
-   * @param {any} nextProps
+   * @param {object} nextProps
+   * 
    * @memberof SignUpPage
    */
   componentWillReceiveProps(nextProps) {

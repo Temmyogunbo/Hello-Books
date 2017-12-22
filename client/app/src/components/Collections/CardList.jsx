@@ -13,7 +13,8 @@ const propTypes = {
 /**It returns a div element
 *
 *
-* @param {any} props
+* @param {object} props
+
 * @returns {object} jsx
 */
 function CardList({

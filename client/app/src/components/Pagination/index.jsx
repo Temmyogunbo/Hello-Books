@@ -18,8 +18,8 @@ const defaultProps = ({
 
 /**It returns a div element of pagination
  *
+ * @param {object} props
  *
- * @param {any} props
  * @returns {object} jsx
  */
 function Pagination({

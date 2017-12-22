@@ -8,9 +8,11 @@ const propTypes = {
 };
 
 /**it contains method for welcome component
+ *
  * @returns {object} jsx
  *
  * @class Welcome
+ *
  * @extends {React.Component}
  */
 export class Welcome extends React.Component {

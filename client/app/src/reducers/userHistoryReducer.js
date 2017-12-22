@@ -17,10 +17,10 @@ let newState;
 export default (state = initialState, action) => {
   switch (action.type) {
   case GET_USER_HISTORY:
-    return { ...action.detailedHistory }
+    return { ...action.detailedHistory };
   case RETURN_A_BOOK:
-    newState = state.rows.filter(historyObject => 
-      historyObject.BookId === action.bookReturned.BookId ? historyObject.returned = true : historyObject);
+    newState = state.rows.filter(historyObject =>
+      (historyObject.BookId === action.bookReturned.BookId ? historyObject.returned = true : historyObject));
     return {
       rows: [...newState],
       count: state.count

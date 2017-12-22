@@ -5,7 +5,7 @@ import swal from 'sweetalert2';
 import cloudinary from 'cloudinary';
 
 import BookCategories from './BookCategories';
-import CardLayout from './CardLayout';
+import CardLayout from './CardList';
 import BookForm from '../forms/BookForm';
 import settings from '../../../utils/cloudinarySettings';
 import CategoryForm from '../forms/CategoryForm';
@@ -45,17 +45,17 @@ const defaultProps = {
 };
 /**It contans state and behaviours for Collection Page component
  *
- * @class CollectionPage
+ * @class Collections
  *
  * @extends {React.Component}
  */
-export class CollectionPage extends React.Component {
+export class Collections extends React.Component {
   /**
-     * Creates an instance of CollectionPage.
+     * Creates an instance of Collections.
      *
-     * @param {any} props
+     * @param {object} props
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   constructor(props) {
     super(props);
@@ -73,9 +73,9 @@ export class CollectionPage extends React.Component {
    * and also initializes modal element
    * and resets numberOfTimesBookDeleted to zero
    *
-     * @returns {void} jsx
+     * @returns {object} jsx
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   componentDidMount() {
     const { $ } = window;
@@ -102,11 +102,11 @@ export class CollectionPage extends React.Component {
   }
   /**It sets categories and books state on next props if it changes
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @param {any} nextProps
+   * @param {object} nextProps
    *
-   * @memberof CollectionPage
+   * @memberof Collections
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.books !== this.props.books) {
@@ -118,9 +118,9 @@ export class CollectionPage extends React.Component {
    *
      * @returns {undefined}
      *
-     * @param {any} pageNumber
+     * @param {number} pageNumber
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   handlePageChange(pageNumber) {
     this.setState({
@@ -135,11 +135,11 @@ export class CollectionPage extends React.Component {
    *  and changes the book state of the component
    *
    *
-   * @param {any} event
+   * @param {object} event
    *
    * @returns {object} modal element
    *
-   * @memberof CollectionPage
+   * @memberof Collections
    */
   handleEditBook(event) {
     const { $ } = window;
@@ -158,9 +158,9 @@ export class CollectionPage extends React.Component {
    *
    * @returns {object} modal element
    *
-   * @param {any} event
+   * @param {object} event
    *
-   * @memberof CollectionPage
+   * @memberof Collections
    */
   handleDeleteBook(event) {
     event.preventDefault();
@@ -197,7 +197,7 @@ export class CollectionPage extends React.Component {
      *
      * @returns {object} jsx
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   render() {
     const {
@@ -268,8 +268,8 @@ export class CollectionPage extends React.Component {
     );
   }
 }
-CollectionPage.propTypes = propTypes;
-CollectionPage.defaultProps = defaultProps;
+Collections.propTypes = propTypes;
+Collections.defaultProps = defaultProps;
 
 /**
  * It slices the state and returns role, books, and total
@@ -300,5 +300,5 @@ connect(
     createBookCategory: createBookCategoryAction,
     getNotifications: getNotificationsAction
   }
-)(CollectionPage);
+)(Collections);
 

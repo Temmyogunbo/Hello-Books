@@ -19,13 +19,15 @@ const defaultProps = {
 /**It contains state and behaviours for NavigtionBar component
  *
  * @returns {object} jsx
+ *
  * @class Navigation
+ *
  * @extends {React.Component}
  */
 export class NavigationBar extends React.Component {
   /**
    * Creates an instance of Navigation.
-   * @param {any} props
+   * @param {object} props
    * @memberof Navigation
    */
   constructor(props) {
@@ -37,7 +39,8 @@ export class NavigationBar extends React.Component {
   }
   /**It checks if a user is an admin before mounting
    * and also initializes modal component
-   * @returns {void}
+   *
+   * @returns {undefined}
    *
    * @memberof Navigation
    */
@@ -55,9 +58,10 @@ export class NavigationBar extends React.Component {
     });
   }
   /**It sets on receiving next props
+   *
    * @returns {undefined}
    *
-   * @param {any} nextProps
+   * @param {object} nextProps
    *
    * @memberof NavigationBar
    */
@@ -92,7 +96,7 @@ export class NavigationBar extends React.Component {
    *
  * @returns {undefined}
  *
- * @param {any} event
+ * @param {object} event
  *
  * @memberof DashboardHead
  */
@@ -104,6 +108,7 @@ export class NavigationBar extends React.Component {
   /**It returns nav element
    *
    * @returns {object} jsx
+   *
    * @memberof Navigation
    */
   render() {

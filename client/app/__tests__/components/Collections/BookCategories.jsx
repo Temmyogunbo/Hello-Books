@@ -1,21 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { BookPage } from '../../../../src/components/Collections/BookPage';
-import { book2 } from '../../../__mocks__/mockData';
+import { BookCategories }
+  from '../../../src/components/Collections/BookCategories';
 
 const props = {
-  books: {},
-  user: {},
-  items: [{ id: 1, category: 'English' }, { id: 2, category: 'mathematics' }],
-  getBook: jest.fn(),
-  borrowBook: jest.fn(),
-  role: 'users',
-  match: { params: { bookId: 1 } }
+  category: [],
+  getBookCategory: jest.fn(),
+  getAllBooksByCategory: jest.fn(),
+  itemsCountPerPage: 5,
+  currentPage: 1,
+
 };
 
-describe('Given a BookPage', () => {
-  const wrapper = shallow(<BookPage {...props} />);
+describe('Given  BookCategories', () => {
+  const wrapper = shallow(<BookCategories {...props} />);
   describe('When the browser opens', () => {
     it('Then it should render without crashing', () => {
       expect(wrapper).toBeDefined();
@@ -28,15 +27,16 @@ describe('Given a BookPage', () => {
         'componentWillReceiveProps'
       );
       const nextProps = {
-        books: book2
+        category: [{
+          id: 9,
+          category: "Mechanics",
+          createdAt: "2017-12-14T17:02:12.868Z",
+          updatedAt: "2017-12-14T17:02:12.868Z"
+        }]
       };
       wrapper.instance().componentWillReceiveProps(nextProps);
       expect(componentWillReceivePropsSpy).toHaveBeenCalledTimes(1);
     });
-    it('Then it should call the handleBorrowBook method', () => {
-      const handleBorrowBookSpy = jest.spyOn(wrapper.instance(), 'handleBorrowBook');
-      wrapper.instance().handleBorrowBook();
-      expect(handleBorrowBookSpy).toHaveBeenCalledTimes(1);
-    });
   });
 });
+

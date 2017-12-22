@@ -3,8 +3,8 @@ import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getBookCategoryAction } from '../../../actions/categoryAction';
-import { getAllBooksAction } from '../../../actions/bookAction';
+import { getBookCategoryAction } from '../../actions/categoryAction';
+import { getAllBooksAction } from '../../actions/bookAction';
 
 const propTypes = {
   category: PropTypes.array.isRequired,
@@ -25,7 +25,7 @@ export class BookCategories extends React.Component {
   /**
      * Creates an instance of BookCategories.
      *
-     * @param {any} props
+     * @param {object} props
      *
      * @memberof BookCategories
      */
@@ -37,7 +37,7 @@ export class BookCategories extends React.Component {
   }
   /**It invokes an action that gets all books categories
    *
-     * @returns {void}
+     * @returns {undefined}
      *
      * @memberof BookCategories
      */
@@ -47,9 +47,9 @@ export class BookCategories extends React.Component {
   /**It changes the categories state of the
    * component if there is a new props
    *
-     * @returns {void}
+     * @returns {undefined}
      *
-     * @param {any} nextProps
+     * @param {object} nextProps
      *
      * @memberof BookCategories
      */

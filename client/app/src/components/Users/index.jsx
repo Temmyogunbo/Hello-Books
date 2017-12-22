@@ -24,21 +24,21 @@ const propTypes = {
   returnBook: PropTypes.func.isRequired
 };
 
-/**It contains state and behaviours for HistoryPage componenent
+/**It contains state and behaviours for Users componenent
  *
  * @returns {object} jsx
  *
- * @class HistoryPage
+ * @class Users
  *
  * @extends {React.Component}
  */
-export class HistoryPage extends React.Component {
+export class Users extends React.Component {
   /**
-   * Creates an instance of HistoryPage.
+   * Creates an instance of Users.
    *
-   * @param {any} props
+   * @param {object} props
    *
-   * @memberof HistoryPage
+   * @memberof Users
    */
   constructor(props) {
     super(props);
@@ -51,9 +51,9 @@ export class HistoryPage extends React.Component {
   }
   /**It checks if a user role is admin
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @memberof HistoryPage
+   * @memberof Users
    */
   componentWillMount() {
     if (this.props.user.role === 'admin') {
@@ -64,9 +64,9 @@ export class HistoryPage extends React.Component {
   }
   /**It calls action to fetch user history and initializes modal component
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @memberof HistoryPage
+   * @memberof Users
    */
   componentDidMount() {
     const { $ } = window;
@@ -85,9 +85,9 @@ export class HistoryPage extends React.Component {
    *
    * @returns {undefined}
    *
-   * @param {any} pageNumber
+   * @param {number} pageNumber
    *
-   * @memberof HistoryPage
+   * @memberof Users
    */
   handlePageChange(pageNumber) {
     this.setState({
@@ -101,9 +101,11 @@ export class HistoryPage extends React.Component {
   /**It handles return book
    *
    *
-   * @param {any} data
-   * @returns {void}
-   * @memberof HistoryPage
+   * @param {object} data
+   *
+   * @returns {undefined}
+   *
+   * @memberof Users
    */
   handleReturnBook(data) {
     const { historyObj, id, CB } = data;
@@ -124,7 +126,7 @@ export class HistoryPage extends React.Component {
    *
    * @returns {object} jsx
    *
-   * @memberof HistoryPage
+   * @memberof Users
    */
   render() {
     const {
@@ -177,10 +179,10 @@ const mapStateToProps = (state) => ({
   userHistoryReducer: state.userHistoryReducer.rows,
   total: state.userHistoryReducer.count
 });
-HistoryPage.propTypes = propTypes;
+Users.propTypes = propTypes;
 export default
 connect(mapStateToProps, {
   getHistory: getHistoryAction,
   returnBook: returnBookAction,
   changePassword: changePasswordAction
-})(HistoryPage);
+})(Users);

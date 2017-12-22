@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import CardList from '../../../../src/components/Collections/CardLayout';
+import CardList from '../../../src/components/Collections/CardList';
 
 const props = {
   books: [{}],

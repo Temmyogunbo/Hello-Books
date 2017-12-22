@@ -92,7 +92,7 @@ export class SignInForm extends React.Component {
    *
    * @return {void} the login action is dispatched
    *
-   * @param {any} event
+   * @param {object} event
    *
    * @memberof SignInForm
    */

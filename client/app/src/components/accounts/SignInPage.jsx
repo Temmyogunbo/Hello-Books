@@ -24,6 +24,7 @@ export class SignInPage extends React.Component {
  * and redirects to the collections page
  *
  * @memberof SignInPage
+ *
  * @returns {undefined}
  */
   componentWillMount() {
@@ -35,7 +36,7 @@ export class SignInPage extends React.Component {
  * It checks if a user is authenticted
  * if the props should change
  *
- * @param {any} nextProps
+ * @param {object} nextProps
  *
  * @memberof SignInPage
  *
@@ -52,6 +53,7 @@ export class SignInPage extends React.Component {
  * that will be attached to the DOM
  *
  * @returns {object} jsx
+ *
  * @memberof SignInPage
  */
   render() {

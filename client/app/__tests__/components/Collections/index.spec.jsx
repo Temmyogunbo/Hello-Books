@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { CollectionPage } from '../../../src/components/Collections';
+import { Collections } from '../../../src/components/Collections';
 import { book2 } from '../../__mocks__/mockData';
 
 const props = {
@@ -19,8 +19,8 @@ const props = {
 
 };
 
-describe('Given a CollectionPage', () => {
-  const wrapper = shallow(<CollectionPage {...props} />);
+describe('Given a Collections', () => {
+  const wrapper = shallow(<Collections {...props} />);
   describe('When the browser opens', () => {
     it('Then it should render without crashing', () => {
       expect(wrapper).toBeDefined();

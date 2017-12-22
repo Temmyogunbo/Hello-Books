@@ -12,15 +12,15 @@ const propTypes = {
 };
 /**It contains state and behaviours for sign up form
  *
- *
  * @class SignUpForm
+ *
  * @extends {React.Component}
  */
 export class SignUpForm extends React.Component {
   /**
    * Creates an instance of SignUpForm.
    *
-   * @param {any} props
+   * @param {object} props
    *
    * @memberof SignUpForm
    */
@@ -70,9 +70,9 @@ export class SignUpForm extends React.Component {
   }
   /**It updates name field
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @param {any} event
+   * @param {object} event
    *
    * @memberof SignUpForm
    */
@@ -83,7 +83,7 @@ export class SignUpForm extends React.Component {
    *
    * @returns {object} user's details on google
    *
-   * @param {any} response
+   * @param {object} response
    *
    * @memberof SignUpForm
    */
@@ -100,7 +100,7 @@ export class SignUpForm extends React.Component {
   /**It handles form submission
    * @return {undefined}
    *
-   * @param {any} event
+   * @param {object} event
    *
    * @memberof SignUpForm
    */

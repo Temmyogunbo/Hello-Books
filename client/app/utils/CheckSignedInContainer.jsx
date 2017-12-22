@@ -12,6 +12,7 @@ export default (ComposedComponent) => {
  * This class checks if a user is alresdy authenticated
  *
  * @class CheckSignedInContainer
+ * 
  * @extends {React.Component}
  */
   class CheckSignedInContainer extends React.Component {
@@ -28,6 +29,7 @@ export default (ComposedComponent) => {
       }
     }
     /**It removes background image
+     * 
   * @returns {undefined}
   *
   * @memberof CheckSignedInContainer
@@ -40,7 +42,7 @@ export default (ComposedComponent) => {
      *
  * @returns {undefined}
  *
- * @param {any} nextProps
+ * @param {object} nextProps
  *
  * @memberof CheckSignedInContainer
  */
@@ -67,7 +69,7 @@ export default (ComposedComponent) => {
   /**It slices the state and return authenticate
    *
    *
-   * @param {any} state
+   * @param {object} state
    *
    * @returns {object} user
    */

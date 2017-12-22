@@ -5,8 +5,8 @@ import {
 
 /**Dispatched notifications and total action
  *
- * @param {any} notifications
- * @param {any} total
+ * @param {object} notifications
+ * @param {number} total
  *
  * @return {object} returns object
  */
@@ -20,8 +20,8 @@ const getAllNotifications = (notifications, total) => ({
  *
 * @return {object} - returns an object of notifications
 
-* @param {any} data
-@param {any} dispatch
+* @param {object} data
+@param {function} dispatch
 */
 export const getAllNotificationsAction = (data, dispatch) => {
   const promise = new Promise((resolve, reject) => {
@@ -50,8 +50,8 @@ export const getAllNotificationsAction = (data, dispatch) => {
  *
 * @return {object} - returns
 
-* @param {any} data
-@param {any} dispatch
+* @param {object} data
+@param {function} dispatch
 */
 export const getNotificationsAction = (data) => dispatch => {
   socket.emit('GET_ALL_NOTIFICATIONS', data);
@@ -65,8 +65,8 @@ export const getNotificationsAction = (data) => dispatch => {
  *
 * @return {object} - returns an object of category
 
-* @param {any} data
-@param {any} dispatch
+* @param {object} data
+@param {function} dispatch
 */
 export const updateNotificationAction = (data) => dispatch => {
   socket.emit('UPDATE_NOTIFICATION', { id: data.id });

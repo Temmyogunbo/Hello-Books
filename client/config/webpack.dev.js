@@ -27,7 +27,6 @@ const config = {
     compress: true,
     port: port,
     publicPath: `http://localhost:${port}/`,
-    // access dev server from an arbitrary url. handy in html5 router
     historyApiFallback: true,
     hot: true,
     proxy: {

@@ -11,8 +11,9 @@ const propTypes = {
 
 /**It returns a div elemnent notifications list
  *
- * @param {any} notifications
- * @param {any} updateNotification
+ * @param {object} notifications
+ *
+ * @param {function} updateNotification
  *
  * @returns {object} jsx
  */

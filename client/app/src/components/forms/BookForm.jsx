@@ -21,12 +21,15 @@ const propTypes = {
  *
  *
  * @class BookForm
+ *
  * @extends {React.Component}
  */
 class BookForm extends React.Component {
   /**
    * Creates an instance of BookForm.
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof BookForm
    */
   constructor(props) {
@@ -57,9 +60,9 @@ class BookForm extends React.Component {
    * imagePublicId, bookHead, buttonText, isEdit, and isButtonLoading
    * on receiving new properties
    *
- * @returns {void}
+ * @returns {undefined}
  *
- * @param {any} nextProps
+ * @param {object} nextProps
  *
  * @memberof BookForm
  */
@@ -97,11 +100,12 @@ class BookForm extends React.Component {
   }
   /**This functions reads image and uploads to cloudinary
    *
- * @returns {void}
+ * @returns {undefined}
  *
  * @description- it uploads images to cloudinary
  *
- * @param {any} event
+ * @param {object} event
+ *
  * @memberof BookForm
  */
   uploadToCloudinary(event) {
@@ -176,7 +180,8 @@ class BookForm extends React.Component {
    * @returns {undefined} description- it updates an instance
    * of BookForm go its current state
    *
-   * @param {any} event
+   * @param {object} event
+   *
    * @memberof BookForm
    */
   handleChange(event) {
@@ -184,6 +189,7 @@ class BookForm extends React.Component {
   }
   /**
   **@description Checks that form is valid
+
   * @return {Boolean} boolean
   */
   validateForm() {
@@ -198,7 +204,7 @@ class BookForm extends React.Component {
  *
  * @return {undefined} the add book action is dispatched
  *
- * @param {void} event - on click event
+ * @param {object} event - on click event
  *
  * @memberof add Book form
  */
@@ -244,6 +250,7 @@ class BookForm extends React.Component {
    *
    *
    * @returns {object} jsx
+   * 
    * @memberof BookForm
    */
   render() {

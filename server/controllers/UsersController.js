@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import models from '../models';
-import Authentication from '../Authentication/Authentication';
+import Authentication from '../helper/Authentication';
 
 require('dotenv').config();
 /**

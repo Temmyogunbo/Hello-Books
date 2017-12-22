@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Profile from '../../../src/components/users/Profile';
+import Profile from '../../../src/components/Users/Profile';
 
 const user = {
   fullName: 'fullname',

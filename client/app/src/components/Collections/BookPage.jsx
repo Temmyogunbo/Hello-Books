@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import {
   getAllBooksAction,
   borrowBookAction
-} from '../../../actions/bookAction';
-import Button from '../../Button';
+} from '../../actions/bookAction';
+import Button from '../Button';
 
 const propTypes = {
   books: PropTypes.object.isRequired,
@@ -31,7 +31,7 @@ export class BookPage extends React.Component {
   /**
      * Creates an instance of BookPage.
      *
-     * @param {any} props
+     * @param {object} props
      *
      * @memberof BookPage
      */
@@ -55,7 +55,7 @@ export class BookPage extends React.Component {
    *
      * @returns {undefined}
      *
-     * @param {any} nextProps
+     * @param {object} nextProps
      *
      * @memberof BookPage
      */
