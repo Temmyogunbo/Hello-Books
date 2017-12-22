@@ -92,7 +92,7 @@ describe('Given /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.should.be.a('object');
-          res.body.errors[0].message.should.eql('No books in the library');
+          res.body.message.should.eql('No book(s) in the library');
           done();
         });
     });
@@ -173,7 +173,7 @@ describe('Given /POST /api/v1/books', () => {
         .set('X-ACCESS-TOKEN', adminToken)
         .send(book)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(409);
           res.body.message.should.have.eql('Book already exist');
           res.body.should.be.a('object');
           done();
@@ -235,29 +235,6 @@ describe('Given /POST /api/v1/books', () => {
 // Test PUT route
 describe('Given /PUT /api/v1/books', () => {
   describe('When I want to update a book', () => {
-    it(
-      'THen it should update the desired field if all fields are supplied',
-      (done) => {
-        const book = {
-          title: 'THe beginning of the end',
-          author: 'Edward Luttwark',
-          category: 'History',
-          description: 'Enemy within and enemy  without',
-          imageUrl: 'local',
-          imagePublicId: '1717373738383kfkf',
-          quantity: 19,
-        };
-        chai.request(app)
-          .put('/api/v1/books/1')
-          .set('X-ACCESS-TOKEN', adminToken)
-          .send(book)
-          .end((err, res) => {
-            res.should.have.status(204);
-            res.body.should.be.a('object');
-            done();
-          });
-      },
-    );
     it('Then it should not update a book without a category field', (done) => {
       const book = {
         title: 'The one',
@@ -306,27 +283,39 @@ describe('Given /PUT /api/v1/books', () => {
           });
       },
     );
+
     it(
-      'Then it should not update a book when the book does not exist',
+      'Then it should update a book if it exist and all data are correct',
       (done) => {
         const book = {
           title: 'The fire killer',
           author: 'Edward Luttwark',
-          category: 'Amity',
+          category: 'History',
           description: 'Enemy within and enemy  without',
           imageUrl: 'local',
           imagePublicId: '1717373738383kfkf',
           quantity: 19,
         };
         chai.request(app)
-          .put('/api/v1/books/20')
+          .put('/api/v1/books/2')
           .set('X-ACCESS-TOKEN', adminToken)
           .send(book)
           .end((err, res) => {
-            res.should.have.status(404);
+            res.should.have.status(200);
+            res.body.title.should.eql('The fire killer');
+            res.body.category.should.eql('History');
+            res.body.description.should
+              .eql('Enemy within and enemy  without');
+            res.body.imageUrl.should.eql('local');
+            res.body.quantity.should.eql(19);
+            res.body.id.should.eql(2);
+            res.body.should.have.property('title');
+            res.body.should.have.property('author');
+            res.body.should.have.property('category');
+            res.body.should.have.property('quantity');
+            res.body.should.have.property('imageUrl');
+            res.body.should.have.property('description');
             res.body.should.be.a('object');
-            res.body.should.have.property('message')
-              .eql('No such book in the library.');
             done();
           });
       },
@@ -345,7 +334,7 @@ describe('Given /api/v1/books/:id', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
-          res.body.errors[0].should
+          res.body.should
             .have.property('message').eql('Book cannot be found');
           done();
         });
@@ -367,7 +356,20 @@ describe('Given /api/v1/books/:id', () => {
         .delete('/api/v1/books/3')
         .set('X-ACCESS-TOKEN', adminToken)
         .end((err, res) => {
-          res.should.have.status(204);
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.bookDeleted.should.eql(1);
+          done();
+        });
+    });
+    it('Then it should not get a book afer it has been deleted', (done) => {
+      chai.request(app)
+        .get('/api/v1/books/3')
+        .set('X-ACCESS-TOKEN', adminToken)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should
+            .have.property('message').eql('No book(s) in the library');
           res.body.should.be.a('object');
           done();
         });
@@ -394,23 +396,7 @@ describe('Given /api/v1/category', () => {
           done();
         });
     });
-    it('Then it should not add a category if it already exists', (done) => {
-      const category = {
-        category: 'History',
-      };
-      chai.request(app)
-        .post('/api/v1/category')
-        .set('X-ACCESS-TOKEN', adminToken)
-        .send(category)
-        .end((err, res) => {
-          res.body.errors[0].message.message
-            .should.eql('category must be unique');
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
-    it('Should not create a category without a field', (done) => {
+    it('Should not add a category without a field', (done) => {
       const category = {
         category: '',
       };
@@ -422,6 +408,21 @@ describe('Given /api/v1/category', () => {
           res.body.error.should
             .have.property('msg').eql('category is required');
           res.should.have.status(400);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('Then it should not add a category if it already exist', (done) => {
+      const book = {
+        category: 'History',
+      };
+      chai.request(app)
+        .post('/api/v1/category')
+        .set('X-ACCESS-TOKEN', adminToken)
+        .send(book)
+        .end((err, res) => {
+          res.should.have.status(409);
+          res.body.message.should.have.eql('Category already exist');
           res.body.should.be.a('object');
           done();
         });

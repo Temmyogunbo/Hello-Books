@@ -5,23 +5,23 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     fullName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
-        min: 5
-      }
+        min: 5,
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -29,17 +29,17 @@ export default (sequelize, DataTypes) => {
       unique: true,
       validate: {
         isEmail: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     membership: {
       type: DataTypes.ENUM,
-      values: ['platinum', 'gold', 'silver']
+      values: ['platinum', 'gold', 'silver'],
     },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'users'
+      defaultValue: 'users',
     },
   });
   return User;

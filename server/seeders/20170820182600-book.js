@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface) => queryInterface.bulkInsert('Books', [{
+  up: queryInterface => queryInterface.bulkInsert('Books', [{
     title: 'Half of a yellow sun',
     category: 'History',
     description: 'Story of the Igbos in Eastern part of Nigeria, struggling to be recognized',
@@ -44,5 +44,5 @@ module.exports = {
     updatedAt: new Date(),
   }], {}),
 
-  down: (queryInterface) => queryInterface.bulkDelete('Books', null, {})
+  down: queryInterface => queryInterface.bulkDelete('Books', null, {}),
 };

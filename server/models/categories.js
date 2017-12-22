@@ -6,9 +6,9 @@ export default (sequelize, DataTypes) => {
       unique: true,
       validate: {
         notEmpty: true,
-        min: 2
-      }
-    }
+        min: 2,
+      },
+    },
   });
   return Categories;
 };

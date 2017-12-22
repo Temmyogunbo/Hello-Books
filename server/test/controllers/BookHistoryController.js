@@ -73,7 +73,7 @@ describe('Given /api/v1/users/2/books', () => {
         });
     });
     it(
-      'Then I should not borrow book if my membership type is not known',
+      'Then it should not borrow book if my membership type is not known',
       (done) => {
         chai.request(app)
           .post('/api/v1/users/2/books')

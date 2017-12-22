@@ -77,12 +77,16 @@ class UsersController {
       .catch((error) => {
         if (error.name === 'SequelizeUniqueConstraintError') {
           if (error.fields.userName) {
-            response.status(401).json({
+            response.status(409).json({
               message: 'Username already exist.',
             });
-          } else {
-            response.status(401).json({
+          } else if (error.fields.email) {
+            response.status(409).json({
               message: 'Email has been taken.',
+            });
+          } else {
+            response.status(500).json({
+              message: 'An error occured',
             });
           }
         }
@@ -111,6 +115,11 @@ class UsersController {
       limit: 1,
     })
       .then((user) => {
+        if (!user) {
+          return response.status(401).json({
+            message: 'You are not registered',
+          });
+        }
         const {
           email,
           userName,
@@ -148,9 +157,11 @@ class UsersController {
           });
         }
       })
-      .catch(() => response.status(401).json({
-        message: 'You are not registered',
-      }));
+      .catch(() => {
+        response.status(500).json({
+          message: 'An error occured',
+        });
+      });
   }
   /**
  * Change user password
@@ -187,18 +198,23 @@ class UsersController {
               where: {
                 userName,
               },
+              returning: true,
+              plain: true,
             },
           )
-            .then(newUpdate => response.status(204).json(newUpdate))
-            .catch(() => response.status(400)
-              .json({ message: 'Your password cannot be updated.' }));
+            .then(newUpdate => response.status(200)
+              .json(newUpdate[1].dataValues))
+            .catch(() =>
+              response.status(500)
+                .json({ message: 'An error occured' }));
         }
-        return response.status(403).json({
+        return response.status(400).json({
           message: 'Your old password is incorrect.',
         });
       })
-      .catch(() => response.status(400)
-        .json({ message: 'You are not a valid user.' }));
+      .catch(() =>
+        response.status(500)
+          .json({ message: 'An error occured' }));
   }
 }
 
