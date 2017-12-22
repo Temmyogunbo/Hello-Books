@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import UserRecords from '../../../src/components/users/UserRecords';
+import UserRecords from '../../../src/components/Users/UserRecords';
 
 const props = {
   userHistory: [{
