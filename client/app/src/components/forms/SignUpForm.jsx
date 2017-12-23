@@ -124,90 +124,92 @@ export class SignUpForm extends React.Component {
     const { errors, isLoading } = this.state;
 
     return (
-      <div className="container">
-        <form
-          className="col s12 l6  m6 push-l3 push-m3  div-container-form"
-          onSubmit={this.onSubmit}
-        >
-          <h4 className="hide-on-med-and-down sign-title">
+      <div className="row">
+        <div className="container">
+          <form
+            className="col s12 l6  m6 push-l3 push-m3  div-container-form"
+            onSubmit={this.onSubmit}
+          >
+            <h4 className="hide-on-med-and-down sign-title">
           Sign up to HelloBooks:
-          </h4>
-          <h4 className="hide-on-large-only">Sign up:</h4>
-          <TextFieldGroup
-            label={'Full Name'}
-            field={'fullName'}
-            id={'first_name'}
-            type={'text'}
-            icon={''}
-            value={this.state.fullName}
-            handleChange={this.handleChange}
-            error={errors.fullName}
-          />
-          <TextFieldGroup
-            label={'Username'}
-            field={'userName'}
-            id={'user_name'}
-            type={'text'}
-            icon={''}
-            value={this.state.userName}
-            handleChange={this.handleChange}
-            error={errors.userName}
-          />
-          <TextFieldGroup
-            label={'Email'}
-            field={'email'}
-            id={'email'}
-            type={'email'}
-            icon={''}
-            value={this.state.email}
-            handleChange={this.handleChange}
-            error={errors.email}
-          />
-          <TextFieldGroup
-            label={'Password'}
-            field={'password'}
-            id={'password'}
-            type={'password'}
-            icon={''}
-            value={this.state.password}
-            handleChange={this.handleChange}
-            error={errors.password}
-          />
-          <TextFieldGroup
-            label={'Confirm Password'}
-            field={'confirmPassword'}
-            id={'confirm_password'}
-            type={'password'}
-            icon={''}
-            value={this.state.confirmPassword}
-            handleChange={this.handleChange}
-            error={errors.confirmPassword}
-          />
-          <Button
-            id={"for-google-signup"}
-            className={"col s4 m4 signup-button"}
-            type={"submit"}
-            disabled={isLoading}
-            children={' Sign up'}
-          />
-          <div className="col s8 m8 l6">
-            <GoogleLogin
-              className="right google-button"
-              clientId={process.env.GOOGLE_CLIENT_ID}
-              onSuccess={this.onGoogleCallback}
-            >
-              <div className="left">Sign up with</div>
-              <img
-                className="right"
-                width="25"
-                height="25"
-                role="google fonts"
-                src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
-              />
-            </GoogleLogin>
-          </div>
-          <br />
-        </form>
+            </h4>
+            <h4 className="hide-on-large-only">Sign up:</h4>
+            <TextFieldGroup
+              label={'Full Name'}
+              field={'fullName'}
+              id={'first_name'}
+              type={'text'}
+              icon={''}
+              value={this.state.fullName}
+              handleChange={this.handleChange}
+              error={errors.fullName}
+            />
+            <TextFieldGroup
+              label={'Username'}
+              field={'userName'}
+              id={'user_name'}
+              type={'text'}
+              icon={''}
+              value={this.state.userName}
+              handleChange={this.handleChange}
+              error={errors.userName}
+            />
+            <TextFieldGroup
+              label={'Email'}
+              field={'email'}
+              id={'email'}
+              type={'email'}
+              icon={''}
+              value={this.state.email}
+              handleChange={this.handleChange}
+              error={errors.email}
+            />
+            <TextFieldGroup
+              label={'Password'}
+              field={'password'}
+              id={'password'}
+              type={'password'}
+              icon={''}
+              value={this.state.password}
+              handleChange={this.handleChange}
+              error={errors.password}
+            />
+            <TextFieldGroup
+              label={'Confirm Password'}
+              field={'confirmPassword'}
+              id={'confirm_password'}
+              type={'password'}
+              icon={''}
+              value={this.state.confirmPassword}
+              handleChange={this.handleChange}
+              error={errors.confirmPassword}
+            />
+            <Button
+              id={"for-google-signup"}
+              className={"col s4 m4 signup-button"}
+              type={"submit"}
+              disabled={isLoading}
+              children={' Sign up'}
+            />
+            <div className="col s8 m8 l6">
+              <GoogleLogin
+                className="right google-button"
+                clientId={process.env.GOOGLE_CLIENT_ID}
+                onSuccess={this.onGoogleCallback}
+              >
+                <div className="left">Sign up with</div>
+                <img
+                  className="right"
+                  width="25"
+                  height="25"
+                  role="google fonts"
+                  src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
+                />
+              </GoogleLogin>
+            </div>
+            <br />
+          </form>
+        </div>
       </div>
     );
   }

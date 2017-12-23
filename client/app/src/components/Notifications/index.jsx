@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Pagination from '../Pagination';
+import PageNotFound from '../PageNotFound';
 import {
   getNotificationsAction,
   updateNotificationAction
@@ -14,7 +15,8 @@ const propTypes = {
   notifications: PropTypes.array.isRequired,
   getNotifications: PropTypes.func.isRequired,
   updateNotification: PropTypes.func.isRequired,
-  total: PropTypes.number
+  total: PropTypes.number,
+  isAdmin: PropTypes.bool.isRequired,
 
 };
 const defaultProps = {
@@ -82,21 +84,25 @@ export class Notifications extends React.Component {
     const {
       notifications,
       updateNotification,
-      total
+      total,
+      isAdmin,
     } = this.props;
     return (
       <div className="container">
-        <NotificationList
-          notifications={notifications}
-          updateNotification={updateNotification}
-        />
-        {total ? <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={this.state.itemsCountPerPage}
-          totalItemsCount={total}
-          pageRangeDisplayed={5}
-          handlePageChange={this.handlePageChange}
-        /> : null}
+        {isAdmin ? <div>
+          <NotificationList
+            notifications={notifications}
+            updateNotification={updateNotification}
+          />
+          {total ? <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={this.state.itemsCountPerPage}
+            totalItemsCount={total}
+            pageRangeDisplayed={5}
+            handlePageChange={this.handlePageChange}
+          /> : null}</div> :
+          <PageNotFound />}
+
 
       </div>
     );

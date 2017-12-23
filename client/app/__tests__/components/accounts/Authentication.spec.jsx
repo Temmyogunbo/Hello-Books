@@ -1,27 +1,25 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SignUpPage } from '../../../src/components/accounts/SignUpPage';
+
+import { Authentication } from '../../../src/components/accounts/Authentication';
 
 jest.mock('react-router-dom');
 
-
-describe('Given a Sign up Page', () => {
-  describe('When I am not authenticated', () => {
+describe('Given an Authentication', () => {
+  describe('When I want to signin or signup', () => {
     const props = {
       isAuthenticated: false,
-      Signup: jest.fn(),
+      signin: jest.fn(),
+      signup: jest.fn(),
+      render: jest.fn(),
       history: { replace: jest.fn() }
-
     };
-    const shallowWrapper = shallow(<SignUpPage history={history} {...props} />);
+    const shallowWrapper = shallow(<Authentication {...props} />);
 
+    it('Then it renders a div elements', () => {
+      expect(shallowWrapper.find('div').length).toBeGreaterThanOrEqual(2);
+    });
 
-    it('Then it renders sign in form', () => {
-      expect(shallowWrapper.find('SignUpForm')).toHaveLength(1);
-    });
-    it('Then it has classname image', () => {
-      expect(shallowWrapper.find('div').at(1).hasClass('image')).toBe(true);
-    });
     it('Then it should call the componentWillReceiveProps method', () => {
       const componentWillReceivePropsSpy = jest.spyOn(
         shallowWrapper.instance(),
@@ -36,16 +34,21 @@ describe('Given a Sign up Page', () => {
   });
 });
 
-describe('Given a Sign up Page', () => {
+describe('Given a Sign In Page', () => {
   describe('When I am not authenticated', () => {
     const props = {
       isAuthenticated: true,
-      Signin: jest.fn(),
+      signin: jest.fn(),
+      signup: jest.fn(),
+      render: jest.fn(),
       history: { replace: jest.fn() }
     };
-    const shallowWrapper = shallow(<SignUpPage {...props} />);
+    const shallowWrapper = shallow(<Authentication {...props} />);
     it('Then it should call the componentWillMount method', () => {
-      const componentWillMountSpy = jest.spyOn(shallowWrapper.instance(), 'componentWillMount');
+      const componentWillMountSpy = jest.spyOn(
+        shallowWrapper.instance(),
+        'componentWillMount'
+      );
       shallowWrapper.instance().componentWillMount();
       expect(componentWillMountSpy).toHaveBeenCalledTimes(1);
     });

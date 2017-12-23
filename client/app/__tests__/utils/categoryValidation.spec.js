@@ -19,7 +19,7 @@ describe('Given category validation', () => {
       () => {
         const { errors, isValid } = categoryValidation(fields);
         expect(errors).toBeDefined();
-        expect(errors.category).toBe('Category cannot be less than 5 characters');
+        expect(errors.category).toBe('Category cannot be less than 3 characters');
         expect(isValid).toBe(false);
       }
     );

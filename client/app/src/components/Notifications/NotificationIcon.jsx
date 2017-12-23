@@ -10,7 +10,7 @@ const propTypes = {
  *It returns a div element
  *
  * @param {number} {total}
- * 
+ *
  * @returns {object} jsx
  */
 function NotificationIcon({ total }) {

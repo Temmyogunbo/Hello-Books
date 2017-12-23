@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   field: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string,
+    PropTypes.number]),
   label: PropTypes.string.isRequired,
   error: PropTypes.string,
   icon: PropTypes.string,

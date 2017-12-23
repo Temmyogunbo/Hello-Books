@@ -250,7 +250,7 @@ class BookForm extends React.Component {
    *
    *
    * @returns {object} jsx
-   * 
+   *
    * @memberof BookForm
    */
   render() {

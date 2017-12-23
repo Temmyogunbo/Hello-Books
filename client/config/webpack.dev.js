@@ -7,7 +7,7 @@ const dotEnvWebpack = require('dotenv-webpack');
 
 dotEnv.config();
 
-const port = process.env.PORT || 5000;
+const port = parseInt(process.env.PORT, 10) || 5000;
 
 const config = {
   entry: [

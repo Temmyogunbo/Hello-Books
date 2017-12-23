@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   notifications: PropTypes.array.isRequired,
-  updateNotification: PropTypes.func.isRequired
+  updateNotification: PropTypes.func.isRequired,
 };
 
 /**It returns a div elemnent notifications list

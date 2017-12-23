@@ -22,7 +22,8 @@ export default (app) => {
     UsersController.changePassword,
   );
   app.get(
-    /^\/api\/v1\/category$/, Authentication.isLoggedIn,
+    /^\/api\/v1\/category$/,
+    Authentication.isLoggedIn,
     BooksController.findCategory,
   );
   app.get(
@@ -31,30 +32,35 @@ export default (app) => {
     BooksController.findBookOrBooks,
   );
   app.get(
-    /^\/api\/v1\/books$/, Authentication.isLoggedIn,
+    /^\/api\/v1\/books$/,
+    Authentication.isLoggedIn,
     BooksController.findBookOrBooks,
   );
   app.post(
-    /^\/api\/v1\/books$/, Authentication.isLoggedIn,
+    /^\/api\/v1\/books$/,
+    Authentication.isLoggedIn,
     Authentication.checkIfAdmin,
     Authentication.validateBookRequest,
     BooksController.addBook,
   );
 
   app.post(
-    /^\/api\/v1\/category$/, Authentication.isLoggedIn,
+    /^\/api\/v1\/category$/,
+    Authentication.isLoggedIn,
     Authentication.checkIfAdmin,
     Authentication.validateBookRequest,
     BooksController.addCategory,
   );
   app.put(
-    /^\/api\/v1\/books\/(\d+)$/, Authentication.isLoggedIn,
+    /^\/api\/v1\/books\/(\d+)$/,
+    Authentication.isLoggedIn,
     Authentication.checkIfAdmin,
     Authentication.validateBookRequest,
     BooksController.updateBook,
   );
   app.delete(
-    /^\/api\/v1\/books\/(\d+)$/, Authentication.isLoggedIn,
+    /^\/api\/v1\/books\/(\d+)$/,
+    Authentication.isLoggedIn,
     Authentication.checkIfAdmin,
     BooksController.deleteBook,
   );

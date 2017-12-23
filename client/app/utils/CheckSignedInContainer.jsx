@@ -5,17 +5,29 @@ import PropTypes from 'prop-types';
 export default (ComposedComponent) => {
   const propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    role: PropTypes.string.isRequired,
   };
 
   /**
  * This class checks if a user is alresdy authenticated
  *
  * @class CheckSignedInContainer
- * 
+ *
  * @extends {React.Component}
  */
   class CheckSignedInContainer extends React.Component {
+    /**
+     * Creates an instance of CheckSignedInContainer.
+     * @param {object} props
+     * @memberof CheckSignedInContainer
+     */
+    constructor(props) {
+      super(props);
+      this.state = {
+        isAdmin: false,
+      };
+    }
     /**It checks if user is authenticated
  * before mounting componet
  *
@@ -26,10 +38,12 @@ export default (ComposedComponent) => {
     componentWillMount() {
       if (!this.props.isAuthenticated) {
         window.location = '/signin';
+      } else if (this.props.role === 'admin') {
+        this.setState({ isAdmin: true, });
       }
     }
     /**It removes background image
-     * 
+     *
   * @returns {undefined}
   *
   * @memberof CheckSignedInContainer
@@ -60,7 +74,7 @@ export default (ComposedComponent) => {
  */
     render() {
       return (
-        <ComposedComponent {...this.props} />
+        <ComposedComponent {...this.props} isAdmin={this.state.isAdmin} />
       );
     }
   }
@@ -74,7 +88,8 @@ export default (ComposedComponent) => {
    * @returns {object} user
    */
   const mapStateToProps = (state) => ({
-    isAuthenticated: state.userReducer.isAuthenticated
+    isAuthenticated: state.userReducer.isAuthenticated,
+    role: state.userReducer.user.role,
   });
 
   return connect(mapStateToProps)(CheckSignedInContainer);

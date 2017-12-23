@@ -8,17 +8,13 @@ import {
   editBookAction,
   addBookAction,
   getAllBooksAction,
-  borrowBookAction,
-  returnBookAction,
   deleteBookAction
 } from '../../src/actions/bookAction';
 import {
   EDIT_BOOK,
   ADD_BOOK,
   GET_ALL_BOOKS,
-  BORROW_A_BOOK,
-  RETURN_A_BOOK,
-  DELETE_BOOK,
+  DELETE_BOOK
 } from '../../src/constants/actionTypes';
 import {
   book1,
@@ -44,7 +40,7 @@ describe('Given book actions', () => {
             status: 201,
             response: {
               book: book2
-            },
+            }
           }
         );
 

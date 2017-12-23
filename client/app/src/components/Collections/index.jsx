@@ -5,7 +5,7 @@ import swal from 'sweetalert2';
 import cloudinary from 'cloudinary';
 
 import BookCategories from './BookCategories';
-import CardLayout from './CardList';
+import CardList from './CardList';
 import BookForm from '../forms/BookForm';
 import settings from '../../../utils/cloudinarySettings';
 import CategoryForm from '../forms/CategoryForm';
@@ -38,7 +38,7 @@ const propTypes = {
   getNotifications: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   history: PropTypes.object.isRequired,
-  role: PropTypes.string.isRequired
+  isAdmin: PropTypes.bool.isRequired,
 };
 const defaultProps = {
   total: 0
@@ -209,12 +209,12 @@ export class Collections extends React.Component {
       history,
       total,
       categories,
-      role
+      isAdmin,
     } = this.props;
     return (
       <div className="container mt-2">
         <div className="row">
-          {role === 'admin' ?
+          {isAdmin ?
             <div>
               <BookForm
                 book={this.state.book}
@@ -246,8 +246,8 @@ export class Collections extends React.Component {
             currentPage={this.state.activePage}
             itemsCountPerPage={this.state.itemsCountPerPage}
           />
-          <CardLayout
-            role={role}
+          <CardList
+            isAdmin={isAdmin}
             books={books}
             getAllBooks={getAllBooks}
             handleDeleteBook={this.handleDeleteBook}
@@ -280,7 +280,6 @@ Collections.defaultProps = defaultProps;
  * @returns {object} new state
 */
 const mapStateToProps = (state) => ({
-  role: state.userReducer.user.role,
   books: state.bookReducer.rows,
   total: state.bookReducer.count,
   categories: state.bookCategoryReducer

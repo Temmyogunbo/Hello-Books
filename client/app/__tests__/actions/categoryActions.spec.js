@@ -9,7 +9,7 @@ import {
 } from '../../src/actions/categoryAction';
 import {
   CREATE_BOOK_CATEGORY,
-  GET_BOOK_CATEGORY
+  GET_BOOK_CATEGORY,
 } from '../../src/constants/actionTypes';
 
 import {

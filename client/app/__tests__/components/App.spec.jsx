@@ -15,3 +15,12 @@ describe('Given App component', () => {
   });
 });
 
+describe('Given App components', () => {
+  describe('Routes component', () => {
+    const wrapper = shallow(<Routes />);
+    it('should render self and subcomponents', () => {
+      expect(wrapper.find('Switch').exists()).toBe(true);
+      expect(wrapper.find('Route').exists()).toBe(true);
+    });
+  });
+});

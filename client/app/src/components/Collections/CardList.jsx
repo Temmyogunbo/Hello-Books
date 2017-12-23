@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 const propTypes = {
   books: PropTypes.array.isRequired,
-  role: PropTypes.string.isRequired,
   handleDeleteBook: PropTypes.func.isRequired,
-  handleEditBook: PropTypes.func.isRequired
+  handleEditBook: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 };
 /**It returns a div element
 *
@@ -19,9 +19,9 @@ const propTypes = {
 */
 function CardList({
   books,
-  role,
   handleDeleteBook,
-  handleEditBook
+  handleEditBook,
+  isAdmin,
 }) {
   return (
     <div className="col s12 l8 m8">
@@ -48,26 +48,27 @@ function CardList({
                     <br />
                     <div
                       className="card-color"
+                      style={{ margin: "0 10px 0 10px" }}
                     >
                       {book.title}
                     </div>
                   </div>
                 </Link>
-                {role === 'admin' ? <div>
+                {isAdmin ? <div>
                   <i
                     id={book.id}
-                    className="fa fa-trash-o mr-2 clickable"
+                    className="material-icons left clickable"
+                    onClick={handleEditBook}
+                  >edit
+                  </i>
+                  <span className="">Qty: {book.quantity}</span>
+                  <i
+                    id={book.id}
+                    className="fa fa-trash-o  clickable right"
                     aria-hidden="true"
                     onClick={handleDeleteBook}
 
                   />
-                  <i
-                    id={book.id}
-                    className="material-icons mr-1 clickable"
-                    onClick={handleEditBook}
-                  >edit
-                  </i>
-                  <span>Qty: {book.quantity}</span>
                 </div> : null}
               </div>
             </li>))}

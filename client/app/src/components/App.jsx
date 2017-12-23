@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import SignInPage from '../components/accounts/SignInPage';
-import SignUpPage from '../components/accounts/SignUpPage';
+import Authentication from '../components/accounts/Authentication';
+import SignInForm from '../components/forms/SignInForm';
+import SignUpForm from '../components/forms/SignUpForm';
 import SplashScreen from './Welcome';
 import CheckSignedInContainer from '../../utils/CheckSignedInContainer';
 import BookPage from '../components/Collections/BookPage';
@@ -23,9 +24,47 @@ function App() {
     <div>
       <NavigationBar />
       <Switch>
-        <Route path="/signin" component={SignInPage} />
-        <Route exact path="/" component={SplashScreen} />
-        <Route path="/signup" component={SignUpPage} />
+        <Route path="/signin" render={
+          (props) =>
+            (
+              <Authentication
+                {...props}
+                render={ownProps =>
+                  (
+                    <SignInForm
+                      signin={ownProps.signin}
+                    />
+                  )}
+              />
+            )
+        } />
+        <Route path="/signup" render={
+          (props) =>
+            (
+              <Authentication
+                {...props}
+                render={ownProps =>
+                  (
+                    <SignUpForm
+                      signup={ownProps.signup}
+                    />
+                  )}
+              />
+            )
+        } />
+        <Route exact path="/" render={
+          (props) =>
+            (
+              <Authentication
+                {...props}
+                render={ownProps =>
+                  (
+                    <SplashScreen />
+                  )}
+              />
+            )
+        } />
+
         <Route
           exact
           path="/collections"
