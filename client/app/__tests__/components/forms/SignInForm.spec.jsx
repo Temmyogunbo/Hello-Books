@@ -23,7 +23,7 @@ describe('Given a SignInForm', () => {
         ...global.event,
         target: {
           name: 'name',
-          value: 'value'
+          value: 'value',
         }
       };
       const handleChangeSpy = jest.spyOn(wrapper.instance(), 'handleChange');

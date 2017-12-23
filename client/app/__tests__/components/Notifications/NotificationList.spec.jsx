@@ -1,12 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 
 import NotificationList from
   '../../../src/components/Notifications/NotificationList';
 
 const props = {
   notifications: {},
-  updateNotification: jest.fn()
+  updateNotification: jest.fn(),
 };
 
 describe('Given a NotifcationList', () => {

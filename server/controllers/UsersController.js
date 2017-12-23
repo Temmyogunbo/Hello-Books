@@ -117,7 +117,7 @@ class UsersController {
       .then((user) => {
         if (!user) {
           return response.status(401).json({
-            message: 'You are not registered',
+            message: 'Invalid username or password',
           });
         }
         const {
@@ -153,7 +153,7 @@ class UsersController {
         } else {
           return response.status(401).json({
             success: false,
-            message: 'Wrong username/password.',
+            message: 'Invalid username or password',
           });
         }
       })

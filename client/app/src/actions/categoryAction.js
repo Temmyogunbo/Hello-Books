@@ -14,7 +14,7 @@ import {
  */
 const createBookCategory = category => ({
   type: CREATE_BOOK_CATEGORY,
-  category
+  category,
 });
 
 /**Dispatched category action
@@ -25,7 +25,7 @@ const createBookCategory = category => ({
  */
 const getBookCategory = category => ({
   type: GET_BOOK_CATEGORY,
-  category
+  category,
 });
 
 

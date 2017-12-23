@@ -11,13 +11,13 @@ const propTypes = {
   textArea: PropTypes.string,
   id: PropTypes.string,
   type: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
 };
 TextFieldGroup.defaultProps = {
   type: 'text',
   id: '',
   field: '',
-  icon: ''
+  icon: '',
 };
 /**It either returns input field or textarea
  *
@@ -42,7 +42,7 @@ function TextFieldGroup({
   type,
   icon,
   textArea,
-  handleChange
+  handleChange,
 }) {
   return (
     <div >

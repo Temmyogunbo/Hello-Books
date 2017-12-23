@@ -34,7 +34,7 @@ export class NavigationBar extends React.Component {
     super(props);
     this.state = {
       isAdmin: false,
-      total: 0
+      total: 0,
     };
   }
   /**It checks if a user is an admin before mounting
@@ -48,7 +48,7 @@ export class NavigationBar extends React.Component {
     const { $ } = window;
     if (this.props.role === 'admin') {
       this.setState({
-        isAdmin: true
+        isAdmin: true,
       });
     }
     $(document).ready(() => {

@@ -41,7 +41,7 @@ const propTypes = {
   isAdmin: PropTypes.bool.isRequired,
 };
 const defaultProps = {
-  total: 0
+  total: 0,
 };
 /**It contans state and behaviours for Collection Page component
  *
@@ -63,7 +63,7 @@ export class Collections extends React.Component {
       activePage: 1,
       itemsCountPerPage: 5,
       book: {},
-      numberOfTimesBookDeleted: 0
+      numberOfTimesBookDeleted: 0,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleEditBook = this.handleEditBook.bind(this);
@@ -180,14 +180,15 @@ export class Collections extends React.Component {
         (result) => { }
       );
       this.setState({
-        numberOfTimesBookDeleted: this.state.numberOfTimesBookDeleted + 1
+        numberOfTimesBookDeleted:
+        this.state.numberOfTimesBookDeleted + 1,
       });
 
       if (this.state.numberOfTimesBookDeleted === 5) {
         this.props.getAllBooks({
           bookCategory: '',
           currentPage: 1,
-          itemsCountPerPage: 5
+          itemsCountPerPage: 5,
         });
       }
     }).catch(swal.noop);

@@ -5,7 +5,7 @@ import PasswordForm from '../../../src/components/forms/PasswordForm';
 
 const props = {
   userName: 'temmy',
-  changePassword: jest.fn()
+  changePassword: jest.fn(),
 };
 
 

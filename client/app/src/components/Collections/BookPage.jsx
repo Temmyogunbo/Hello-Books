@@ -38,7 +38,7 @@ export class BookPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      book: {}
+      book: {},
     };
     this.handleBorrowBook = this.handleBorrowBook.bind(this);
   }
@@ -149,5 +149,5 @@ const mapStateToProps = (state, props) => ({
 BookPage.propTypes = propTypes;
 export default connect(mapStateToProps, {
   getBook: getAllBooksAction,
-  borrowBook: borrowBookAction
+  borrowBook: borrowBookAction,
 })(BookPage);

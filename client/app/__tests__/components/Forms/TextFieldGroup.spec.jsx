@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 import TextFieldGroup from '../../../src/components/forms/TextFieldGroup';
 
 describe('Given TextFieldGroup', () => {
@@ -13,7 +13,7 @@ describe('Given TextFieldGroup', () => {
       type: 'text',
       icon: 'person',
       textArea: '',
-      handleChange: jest.fn()
+      handleChange: jest.fn(),
     };
     const wrapper = shallow(<TextFieldGroup {...props}/>);
     it('Then it renders an input field', () => {
@@ -37,7 +37,7 @@ describe('Given TextFieldGroup', () => {
         type: 'text',
         icon: 'person',
         textArea: 'I am here',
-        handleChange: jest.fn()
+        handleChange: jest.fn(),
       };
       const shallowWrapper = shallow(<TextFieldGroup {...props2} />);
       expect(shallowWrapper.find('textarea').length).toBe(1);

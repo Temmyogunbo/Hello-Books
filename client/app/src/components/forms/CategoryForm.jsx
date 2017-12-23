@@ -6,7 +6,7 @@ import TextFieldGroup from './TextFieldGroup';
 import Button from "../Button";
 
 const propTypes = {
-  createBookCategory: PropTypes.func.isRequired
+  createBookCategory: PropTypes.func.isRequired,
 };
 /**
  * Class representing a CategoryForm component.
@@ -24,7 +24,7 @@ class CategoryForm extends React.Component {
     this.state = {
       category: '',
       isLoading: false,
-      errors: {}
+      errors: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -41,7 +41,7 @@ class CategoryForm extends React.Component {
     this.setState({
       errors: {},
       isLoading: false,
-      category: ''
+      category: '',
     });
   }
 

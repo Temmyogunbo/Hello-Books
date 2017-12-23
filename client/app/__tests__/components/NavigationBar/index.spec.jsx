@@ -51,14 +51,18 @@ describe('Given NavigationBar', () => {
     it('Then it checks if user is admin', () => {
       expect(wrapper.state().isAdmin).toBe(false);
     });
-    it('Then it should call the componentWillReceiveProps method', () => {
-      const componentWillReceivePropsSpy = jest.spyOn(shallowWrapper.instance(), 'componentWillReceiveProps');
-      const nextProps = {
-        isAdmin: 'admin'
-      };
-      shallowWrapper.instance().componentWillReceiveProps(nextProps);
-      expect(componentWillReceivePropsSpy).toHaveBeenCalledTimes(1);
-    });
+    it(
+      'Then it should call the componentWillReceiveProps method',
+      () => {
+        const componentWillReceivePropsSpy = jest.
+          spyOn(shallowWrapper.instance(), 'componentWillReceiveProps');
+        const nextProps = {
+          isAdmin: 'admin'
+        };
+        shallowWrapper.instance().componentWillReceiveProps(nextProps);
+        expect(componentWillReceivePropsSpy).toHaveBeenCalledTimes(1);
+      }
+    );
     it('Then it should calls signOutAction function', () => {
       const signOutAction = shallowWrapper.find('Link').last().exists();
       expect(signOutAction).toEqual(true);

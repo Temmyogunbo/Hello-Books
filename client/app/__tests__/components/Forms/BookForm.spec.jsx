@@ -13,7 +13,7 @@ const props = {
   addBook: jest.fn(),
   categories: [{ id: 1, category: 'English' },
     { id: 2, category: 'mathematics' }],
-  error: ''
+  error: '',
 };
 
 describe('Given a BookForm', () => {

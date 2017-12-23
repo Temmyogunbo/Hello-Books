@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 
 import Profile from '../../../src/components/Users/Profile';
 
@@ -7,7 +7,7 @@ const user = {
   fullName: 'fullname',
   userName: 'username',
   email: 'email',
-  membership: 'membership'
+  membership: 'membership',
 
 };
 

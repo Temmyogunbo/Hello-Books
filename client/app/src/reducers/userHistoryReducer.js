@@ -3,7 +3,10 @@ import {
   RETURN_A_BOOK
 } from '../constants/actionTypes';
 
-const initialState = { rows: [], count: 0 };
+const initialState = {
+  rows: [],
+  count: 0,
+};
 let newState;
 
 /**

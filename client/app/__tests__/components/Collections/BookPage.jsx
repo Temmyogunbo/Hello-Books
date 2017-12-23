@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { BookPage } from '../../../src/components/Collections/BookPage';
-import { book2 } from '../../__mocks__/mockData';
+import { secondBookSample } from '../../__mocks__/mockData';
 
 const props = {
   books: {},
@@ -11,7 +11,7 @@ const props = {
   getBook: jest.fn(),
   borrowBook: jest.fn(),
   role: 'users',
-  match: { params: { bookId: 1 } }
+  match: { params: { bookId: 1 } },
 };
 
 describe('Given a BookPage', () => {
@@ -28,13 +28,16 @@ describe('Given a BookPage', () => {
         'componentWillReceiveProps'
       );
       const nextProps = {
-        books: book2
+        books: secondBookSample,
       };
       wrapper.instance().componentWillReceiveProps(nextProps);
       expect(componentWillReceivePropsSpy).toHaveBeenCalledTimes(1);
     });
     it('Then it should call the handleBorrowBook method', () => {
-      const handleBorrowBookSpy = jest.spyOn(wrapper.instance(), 'handleBorrowBook');
+      const handleBorrowBookSpy = jest.spyOn(
+        wrapper.instance(),
+        'handleBorrowBook'
+      );
       wrapper.instance().handleBorrowBook();
       expect(handleBorrowBookSpy).toHaveBeenCalledTimes(1);
     });

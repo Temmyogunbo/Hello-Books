@@ -7,7 +7,7 @@ import NotificationIcon from '../Notifications/NotificationIcon';
 const propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   signOutAction: PropTypes.func.isRequired,
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
 };
 
 /**it returns unordered list element

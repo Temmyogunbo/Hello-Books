@@ -28,7 +28,7 @@ export const changeUserPassword = user => ({
  */
 export const getHistory = detailedHistory => ({
   type: GET_USER_HISTORY,
-  detailedHistory
+  detailedHistory,
 });
 
 /**Dispatches an action of user
@@ -39,14 +39,14 @@ export const getHistory = detailedHistory => ({
  */
 export const setAuthUser = user => ({
   type: SET_AUTH_USERS,
-  user
+  user,
 });
 /**Dispatches an action that logs out a user
  *
  * @return {object} - an object containing action type only
  */
 export const logOutUser = () => ({
-  type: LOG_OUT_USERS
+  type: LOG_OUT_USERS,
 });
 
 /**It returns borrow history of a user
@@ -89,7 +89,6 @@ export const signupAction = userData => dispatch =>
         membership,
         fullName,
         token,
-        msg
       } = response.data;
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('role', response.data.role);
@@ -102,7 +101,6 @@ export const signupAction = userData => dispatch =>
         membership,
         fullName,
         token,
-        msg
       }));
       toastr.success('You successfully signed up');
     })
@@ -127,7 +125,6 @@ export const signinAction = user => dispatch =>
         membership,
         fullName,
         token,
-        msg
       } = response.data;
 
       localStorage.setItem('jwtToken', token);
@@ -140,7 +137,6 @@ export const signinAction = user => dispatch =>
         role,
         membership,
         fullName,
-        msg
       }));
       toastr.success('You are Logged in successfully');
     }).catch((error) => {
@@ -179,5 +175,5 @@ export default {
   signupAction,
   signinAction,
   signOutAction,
-  changePasswordAction
+  changePasswordAction,
 };

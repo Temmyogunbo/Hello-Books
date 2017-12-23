@@ -8,11 +8,11 @@ const propTypes = {
   error: PropTypes.string,
   textArea: PropTypes.string,
   items: PropTypes.array.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
 };
 SelectFieldGroup.defaultProps = {
   field: '',
-  items: []
+  items: [],
 };
 /**It returns select component
  *
@@ -30,7 +30,7 @@ function SelectFieldGroup({
   label,
   error,
   items,
-  handleChange
+  handleChange,
 }) {
   const selectList = items.map(eachItem => (
     <option

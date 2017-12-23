@@ -11,7 +11,7 @@ const propTypes = {
   returnBook: PropTypes.func.isRequired,
   activePage: PropTypes.number.isRequired,
   itemsCountPerPage: PropTypes.number.isRequired,
-  userId: PropTypes.number.isRequired
+  userId: PropTypes.number.isRequired,
 };
 /**It returns div element containing user records
  *
@@ -26,7 +26,7 @@ function UserRecords({
   returnBook,
   activePage,
   itemsCountPerPage,
-  userId
+  userId,
 }) {
   let historyItem = userHistory.map((historyObj, index) => (
     <tr key={index}>

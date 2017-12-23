@@ -3,15 +3,15 @@ import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getBookCategoryAction } from '../../actions/categoryAction';
-import { getAllBooksAction } from '../../actions/bookAction';
+import { getBookCategoryAction, } from '../../actions/categoryAction';
+import { getAllBooksAction, } from '../../actions/bookAction';
 
 const propTypes = {
   category: PropTypes.array.isRequired,
   getBookCategory: PropTypes.func.isRequired,
   getAllBooksByCategory: PropTypes.func.isRequired,
   itemsCountPerPage: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired
+  currentPage: PropTypes.number.isRequired,
 };
 /**This class contains method for bookcategories
  *
@@ -32,7 +32,7 @@ export class BookCategories extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
     };
   }
   /**It invokes an action that gets all books categories
@@ -88,10 +88,10 @@ export class BookCategories extends React.Component {
       ));
     }
     return (
-      <div className="col s4 l4 m4"
+      <div className="col s4 l3 m4"
       >
         { isEmpty(categoryItems) ? <div /> :
-          <ul className="book-categories col s12 m3 l3">
+          <ul className="book-categories col s12 m4 l4">
             <h5>CATEGORY </h5>
             <li>
               <h5

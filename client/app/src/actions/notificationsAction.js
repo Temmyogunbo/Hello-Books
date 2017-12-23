@@ -13,7 +13,7 @@ import {
 const getAllNotifications = (notifications, total) => ({
   type: GET_ALL_NOTIFICATIONS,
   notifications,
-  total
+  total,
 });
 
 /**It returns all notifications object
@@ -30,7 +30,7 @@ export const getAllNotificationsAction = (data, dispatch) => {
       {
         userId: data.userId,
         bookId: data.bookId,
-        notificationType: data.notificationType
+        notificationType: data.notificationType,
       }
     );
     resolve(socket.emit(
@@ -84,5 +84,5 @@ export const updateNotificationAction = (data) => dispatch => {
 export default {
   getAllNotificationsAction,
   updateNotificationAction,
-  getNotificationsAction
+  getNotificationsAction,
 };

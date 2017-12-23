@@ -40,7 +40,7 @@ function Button({
   id,
   onClick,
   icon,
-  style
+  style,
 }) {
   return (
     <button

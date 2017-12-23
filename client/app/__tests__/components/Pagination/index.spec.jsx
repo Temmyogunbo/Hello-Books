@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 
 import Pagination from '../../../src/components/Pagination';
 
@@ -8,7 +8,7 @@ const props = {
   itemsCountPerPage: 5,
   pageRangeDisplayed: 5,
   totalItemsCount: 5,
-  handlePageChange: jest.fn()
+  handlePageChange: jest.fn(),
 };
 
 describe('Given Pagination', () => {

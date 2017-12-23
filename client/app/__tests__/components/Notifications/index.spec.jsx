@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 
-import { Notifications } from
+import { Notifications, } from
   '../../../src/components/Notifications';
 
 const props = {
@@ -22,7 +22,7 @@ const props = {
   }],
   getNotifications: jest.fn(),
   updateNotification: jest.fn(),
-  total: 0
+  total: 0,
 };
 
 describe('Given Notifcations', () => {

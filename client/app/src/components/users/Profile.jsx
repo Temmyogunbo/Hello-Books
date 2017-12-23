@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 /**It returns a div element containing user profile
@@ -16,7 +16,7 @@ function Profile({ user }) {
     fullName,
     userName,
     email,
-    membership
+    membership,
   } = user;
   return (
     <div className="col s9 mt-2">

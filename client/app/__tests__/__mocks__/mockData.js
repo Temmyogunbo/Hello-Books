@@ -1,14 +1,9 @@
 // For Authentication actions
 
-export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFp' +
-'bCI6InRlbW15b2d1bmJvQGdtYWlsLmNvbSIsInVzZXJOYW1' +
-'lIjoidGVtbXkiLCJmdWxsTmFtZSI6IkVtbWFudWVsIiwiaW' +
-'QiOjEsInJvbGUiOiJhZG1pbiIsIm1lbWJlcnNoaXAiOiJnb2xkIiw' +
-'iaWF0IjoxNTEyMDUzMzgxLCJleHAiOjE1MTIxMzk3ODF9.A4LGBsXyo' +
-'WG5pM5LbxCxcy3Fe6sDAxIIEK5VJBkXIfQ';
+export const { token } = process.env;
 
 // For categories operations
-export const category1 = {
+export const secondcategorySample = {
   category: {
     id: 6,
     title: 'Programming',
@@ -26,7 +21,7 @@ export const category = {
 export const categoryData = {
   category: 'Programming'
 };
-export const book2 = {
+export const secondBookSample = {
   id: 7,
   author: "Ogunbo Emmanuel",
   title: "How to get rich in 5 days",
@@ -44,7 +39,7 @@ export const bookData = {
   currentPage: 1,
   itemsCountPerPage: 5,
 };
-export const bookData2 = {
+export const secondBookData = {
   currentPage: 1,
   itemsCountPerPage: 5,
   bookCategory: { category: 'History' }
@@ -139,7 +134,7 @@ export const userNotAuthenticated = {
 };
 
 // For book operations
-export const book1 = {
+export const firstBookSample = {
   rows: [{
     id: 6,
     author: "P.N Okeke",
@@ -170,7 +165,7 @@ export const book1 = {
 };
 
 
-export const book3 = {
+export const thirdBookData = {
   title: 'Ancient Tips on travelling',
   author: 'O\'Hare',
   description: 'This tips would help you become a better traveller',
@@ -183,10 +178,10 @@ export const book3 = {
   createdAt: '2017-11-17T10:25:01.852Z'
 };
 
-export const books1 = [book1];
+export const books1 = [firstBookSample];
 
-export const booksAfterDeletion = [book2];
-export const booksAfterUpdating = [book1, book3];
+export const booksAfterDeletion = [secondBookSample];
+export const booksAfterUpdating = [firstBookSample, thirdBookData];
 
 // For borrowing operations
 export const borrow1 = {
@@ -258,8 +253,8 @@ export const category3 = {
   updatedAt: '2017-10-14T17:58:29.869Z'
 };
 
-export const categories1 = [category1, category2];
-export const categories2 = [category1, category2, category3];
+export const categories1 = [secondcategorySample, category2];
+export const categories2 = [secondcategorySample, category2, category3];
 
 export const googleDetails = {
   El: '116643864639139228843',

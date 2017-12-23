@@ -33,6 +33,9 @@ export class Authentication extends React.Component {
     if (this.props.isAuthenticated) {
       window.location = '/collections';
     }
+    window.onerror = function (message, url, lineNumber) {
+      return true;
+    };
   }
   /**
      * It checks if a user is still authenticated on

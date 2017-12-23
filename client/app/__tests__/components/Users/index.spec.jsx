@@ -9,7 +9,7 @@ const props = {
   user: {},
   total: 0,
   userHistoryReducer: [],
-  returnBook: jest.fn()
+  returnBook: jest.fn(),
 
 };
 
@@ -36,7 +36,7 @@ describe('Given  a Users', () => {
           historyObj: {
             returned: false,
             id: 1,
-            CB: jest.fn()
+            CB: jest.fn(),
           }
         };
         const handleReturnBookSpy = jest.spyOn(
@@ -52,7 +52,7 @@ describe('Given  a Users', () => {
         ...global.event,
         target: {
           name: 'name',
-          value: 'value'
+          value: 'value',
         }
       };
       const handlePageChangeSpy = jest.spyOn(
@@ -61,30 +61,6 @@ describe('Given  a Users', () => {
       );
       wrapper.instance().handlePageChange(event);
       expect(handlePageChangeSpy).toHaveBeenCalledTimes(1);
-    });
-  });
-});
-
-
-describe('Given  a Users', () => {
-  const props = {
-    getHistory: jest.fn(),
-    changePassword: jest.fn(),
-    user: { role: 'admin' },
-    total: 0,
-    userHistoryReducer: [],
-    returnBook: jest.fn()
-
-  };
-  const wrapper = shallow(<Users {...props} />);
-  describe('When the browser opens', () => {
-    it('Then it should call the componentWilMount method', () => {
-      const componentWillMountSpy = jest.spyOn(
-        wrapper.instance(),
-        'componentWillMount'
-      );
-      wrapper.instance().componentWillMount();
-      expect(componentWillMountSpy).toHaveBeenCalledTimes(1);
     });
   });
 });
@@ -111,6 +87,5 @@ describe('Given  a Users', () => {
         expect(handleReturnBookSpy).toHaveBeenCalledTimes(1);
       }
     );
-
   });
 });

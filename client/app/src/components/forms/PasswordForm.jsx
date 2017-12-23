@@ -7,7 +7,7 @@ import Button from '../Button';
 
 const propTypes = {
   changePassword: PropTypes.func.isRequired,
-  userName: PropTypes.string.isRequired
+  userName: PropTypes.string.isRequired,
 };
 
 /**It contains state and behaviours for component
@@ -32,7 +32,7 @@ class ChangePasswordForm extends React.Component {
       newPassword: '',
       confirmNewPassword: '',
       isButtonLoading: false,
-      errors: {}
+      errors: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -51,7 +51,7 @@ class ChangePasswordForm extends React.Component {
       newPassword: '',
       confirmNewPassword: '',
       isButtonLoading: false,
-      errors: {}
+      errors: {},
     });
   }
   /**It validates formData
@@ -114,7 +114,7 @@ class ChangePasswordForm extends React.Component {
         oldPassword,
         newPassword,
         confirmNewPassword,
-        userName
+        userName,
       });
       this.handleClose();
       return $('#change-password').modal('close');
@@ -128,7 +128,10 @@ class ChangePasswordForm extends React.Component {
    * @memberof ChangePasswordForm
    */
   render() {
-    const { errors, isButtonLoading } = this.state;
+    const {
+      errors,
+      isButtonLoading,
+    } = this.state;
     return (
       <div
         id="change-password"

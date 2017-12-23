@@ -41,7 +41,7 @@ export class Notifications extends React.Component {
     super(props);
     this.state = {
       activePage: 1,
-      itemsCountPerPage: 5
+      itemsCountPerPage: 5,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
@@ -54,7 +54,7 @@ export class Notifications extends React.Component {
   componentDidMount() {
     this.props.getNotifications({
       currentPage: this.state.activePage,
-      itemsCountPerPage: this.state.itemsCountPerPage
+      itemsCountPerPage: this.state.itemsCountPerPage,
     });
   }
   /**It handles page change and invokes notifications
@@ -70,7 +70,7 @@ export class Notifications extends React.Component {
       activePage: pageNumber,
     }, () => this.props.getNotifications({
       currentPage: this.state.activePage,
-      itemsCountPerPage: this.state.itemsCountPerPage
+      itemsCountPerPage: this.state.itemsCountPerPage,
     }));
   }
   /**It returns a div element containing notification list

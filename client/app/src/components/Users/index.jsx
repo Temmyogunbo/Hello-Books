@@ -49,19 +49,6 @@ export class Users extends React.Component {
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
-  /**It checks if a user role is admin
-   *
-   * @returns {undefined}
-   *
-   * @memberof Users
-   */
-  componentWillMount() {
-    if (this.props.user.role === 'admin') {
-      this.setState({
-        isAdmin: true
-      });
-    }
-  }
   /**It calls action to fetch user history and initializes modal component
    *
    * @returns {undefined}

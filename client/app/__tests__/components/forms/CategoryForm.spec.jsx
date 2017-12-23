@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import CategoryForm from '../../../src/components/forms/CategoryForm';
 
 const props = {
-  createBookCategory: jest.fn()
+  createBookCategory: jest.fn(),
 };
 
 

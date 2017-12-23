@@ -272,7 +272,7 @@ describe('Users', () => {
           .send(mockUser)
           .end((err, res) => {
             res.should.have.status(401);
-            res.body.message.should.eql('You are not registered');
+            res.body.message.should.eql('Invalid username or password');
             done();
           });
       });
@@ -288,7 +288,7 @@ describe('Users', () => {
             .send(mockUser)
             .end((err, res) => {
               res.should.have.status(401);
-              res.body.message.should.eql('Wrong username/password.');
+              res.body.message.should.eql('Invalid username or password');
               done();
             });
         },

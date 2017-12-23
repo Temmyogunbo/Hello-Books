@@ -15,7 +15,7 @@ const propTypes = {
   book: PropTypes.object.isRequired,
   editBook: PropTypes.func.isRequired,
   addBook: PropTypes.func.isRequired,
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
 };
 /**It contains method and behaviours for BookForm component
  *
@@ -48,7 +48,7 @@ class BookForm extends React.Component {
       imageUrl: '',
       isLoading: false,
       isButtonLoading: true,
-      errors: {}
+      errors: {},
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -80,7 +80,7 @@ class BookForm extends React.Component {
         bookHead: "EDIT BOOK BY CATEGORY",
         buttonText: 'EDIT BOOK',
         isEdit: true,
-        isButtonLoading: false
+        isButtonLoading: false,
       });
     }
   }
@@ -111,7 +111,7 @@ class BookForm extends React.Component {
   uploadToCloudinary(event) {
     event.preventDefault();
     this.setState({
-      isLoading: true
+      isLoading: true,
     });
     const { $ } = window;
     const { files } = $(event.target)[0];
@@ -139,7 +139,7 @@ class BookForm extends React.Component {
               imagePublicId: response.public_id,
               imageUrl: response.secure_url,
               isButtonLoading: false,
-              isLoading: false
+              isLoading: false,
             });
           }
         );
@@ -172,7 +172,7 @@ class BookForm extends React.Component {
       buttonText: 'ADD BOOK',
       isEdit: false,
       isLoading: false,
-      isButtonLoading: true
+      isButtonLoading: true,
     }, () => $('#book-form-modal').modal('close'));
   }
   /**It updates user input
@@ -231,7 +231,7 @@ class BookForm extends React.Component {
           title,
           author,
           id,
-          imagePublicId
+          imagePublicId,
         }).then(() => this.handleClose());
       } else {
         this.props.addBook({
@@ -241,7 +241,7 @@ class BookForm extends React.Component {
           imageUrl,
           title,
           author,
-          imagePublicId
+          imagePublicId,
         }).then(() => this.handleClose());
       }
     }

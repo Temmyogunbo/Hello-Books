@@ -33,7 +33,7 @@ export class SignUpForm extends React.Component {
       email: '',
       confirmPassword: '',
       isLoading: false,
-      errors: {}
+      errors: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -93,7 +93,7 @@ export class SignUpForm extends React.Component {
       userName: response.profileObj.givenName,
       password: response.profileObj.googleId,
       email: response.profileObj.email,
-      confirmPassword: response.profileObj.googleId
+      confirmPassword: response.profileObj.googleId,
     });
     document.getElementById("for-google-signup").click();
   }

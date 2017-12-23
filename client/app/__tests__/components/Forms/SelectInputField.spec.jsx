@@ -10,7 +10,7 @@ describe('Given TextFieldGroup', () => {
       label: 'category',
       error: '',
       items: [{ id: 1, category: 'English' }, { id: 2, category: 'mathematics' }],
-      handleChange: jest.fn()
+      handleChange: jest.fn(),
     };
     const wrapper = shallow(<SelectInputField {...props} />);
     it('Then it renders a select field', () => {

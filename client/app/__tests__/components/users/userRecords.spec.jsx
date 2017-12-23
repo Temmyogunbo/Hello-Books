@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 
 import UserRecords from '../../../src/components/Users/UserRecords';
 
@@ -11,7 +11,7 @@ const props = {
     returned: false,
     Book: {
       author: "Akinkugbe",
-      title: "Intestine"
+      title: "Intestine",
     }
   }],
   handleReturnBook: jest.fn(),
@@ -19,7 +19,7 @@ const props = {
   returnBook: jest.fn(),
   activePage: 1,
   itemsCountPerPage: 5,
-  userId: 1
+  userId: 1,
 };
 
 describe('Given  UserRecords', () => {

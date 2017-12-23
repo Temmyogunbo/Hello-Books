@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { Authentication } from '../../../src/components/accounts/Authentication';
+import { Authentication, }
+  from '../../../src/components/accounts/Authentication';
 
 jest.mock('react-router-dom');
 
@@ -12,7 +13,8 @@ describe('Given an Authentication', () => {
       signin: jest.fn(),
       signup: jest.fn(),
       render: jest.fn(),
-      history: { replace: jest.fn() }
+      history: { replace: jest.fn(), }
+
     };
     const shallowWrapper = shallow(<Authentication {...props} />);
 
@@ -41,7 +43,7 @@ describe('Given a Sign In Page', () => {
       signin: jest.fn(),
       signup: jest.fn(),
       render: jest.fn(),
-      history: { replace: jest.fn() }
+      history: { replace: jest.fn(), }
     };
     const shallowWrapper = shallow(<Authentication {...props} />);
     it('Then it should call the componentWillMount method', () => {

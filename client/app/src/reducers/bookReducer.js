@@ -3,7 +3,7 @@ import {
   EDIT_BOOK,
   GET_ALL_BOOKS,
   ADD_BOOK,
-  BORROW_A_BOOK
+  BORROW_A_BOOK,
 } from '../constants/actionTypes';
 
 const initialState = { rows: [], count: 0 };

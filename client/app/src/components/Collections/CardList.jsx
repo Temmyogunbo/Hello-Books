@@ -24,7 +24,7 @@ function CardList({
   isAdmin,
 }) {
   return (
-    <div className="col s12 l8 m8">
+    <div className="col s12 l9 m8">
       {
         isEmpty(books) ?
           <ul >
@@ -54,18 +54,19 @@ function CardList({
                     </div>
                   </div>
                 </Link>
-                {isAdmin ? <div>
+                {isAdmin ? <div className="row">
                   <i
                     id={book.id}
-                    className="material-icons left clickable"
+                    className="material-icons clickable col s3 m3 l3"
                     onClick={handleEditBook}
                   >edit
                   </i>
-                  <span className="">Qty: {book.quantity}</span>
+                  <span className="col s6 m6 l6">Qty: {book.quantity}</span>
                   <i
                     id={book.id}
-                    className="fa fa-trash-o  clickable right"
+                    className="fa fa-trash-o  clickable col s3 m3 l3"
                     aria-hidden="true"
+                    style={{ fontSize: "26px" }}
                     onClick={handleDeleteBook}
 
                   />

@@ -23,7 +23,7 @@ import {
  */
 export const editBook = book => ({
   type: EDIT_BOOK,
-  book
+  book,
 });
 
 /**Dispatched action to add book
@@ -34,7 +34,7 @@ export const editBook = book => ({
  */
 export const addBook = book => ({
   type: ADD_BOOK,
-  book
+  book,
 });
 
 /**Dispatched action to delete book
@@ -46,7 +46,7 @@ export const addBook = book => ({
  */
 export const deleteBook = id => ({
   type: DELETE_BOOK,
-  id
+  id,
 });
 
 /**Dispatched action to get all books
@@ -58,7 +58,7 @@ export const deleteBook = id => ({
  */
 export const getAllBooks = books => ({
   type: GET_ALL_BOOKS,
-  books
+  books,
 });
 
 /**Dispatched borrow book action
@@ -69,7 +69,7 @@ export const getAllBooks = books => ({
  */
 export const borrowBook = id => ({
   type: BORROW_A_BOOK,
-  id
+  id,
 });
 
 /**Dispatched return book action
@@ -80,7 +80,7 @@ export const borrowBook = id => ({
  */
 export const returnBook = bookReturned => ({
   type: RETURN_A_BOOK,
-  bookReturned
+  bookReturned,
 });
 
 /**It returns book object
@@ -166,7 +166,7 @@ export const returnBookAction = returnData => dispatch =>
       getAllNotificationsAction({
         userId: `${returnData.userId}`,
         bookId: `${returnData.BookId}`,
-        notificationType: 'BOOK_RETURNED'
+        notificationType: 'BOOK_RETURNED',
       }, dispatch);
     })
     .catch((error) => {

@@ -8,20 +8,20 @@ import {
   editBookAction,
   addBookAction,
   getAllBooksAction,
-  deleteBookAction
+  deleteBookAction,
 } from '../../src/actions/bookAction';
 import {
   EDIT_BOOK,
   ADD_BOOK,
   GET_ALL_BOOKS,
-  DELETE_BOOK
+  DELETE_BOOK,
 } from '../../src/constants/actionTypes';
 import {
-  book1,
-  book2,
+  firstBookSample,
+  secondBookSample,
   bookData,
-  bookData2,
-  bookData3
+  secondBookData,
+  thirdBookData,
 } from '../__mocks__/mockData';
 
 const middlewares = [thunk];
@@ -39,7 +39,7 @@ describe('Given book actions', () => {
           {
             status: 201,
             response: {
-              book: book2
+              book: secondBookSample,
             }
           }
         );
@@ -48,11 +48,11 @@ describe('Given book actions', () => {
       const expectedActions =
         [{
           type: ADD_BOOK,
-          book: book2
+          book: secondBookSample,
         }];
       const store = mockStore({ });
       // act
-      const action = addBookAction(book2);
+      const action = addBookAction(secondBookSample);
 
       store.dispatch(action).then(() => {
         // assert
@@ -115,7 +115,7 @@ describe('Given book actions', () => {
         .stubRequest(
           '/api/v1/books?page=1&itemsCountPerPage=5',
           {
-            response: book1,
+            response: firstBookSample,
             headers: { 'content-type': 'application/json' }
           }
         );
@@ -124,7 +124,7 @@ describe('Given book actions', () => {
       const expectedActions = [
         {
           type: GET_ALL_BOOKS,
-          books: book1
+          books: firstBookSample,
         }
       ];
       const store = mockStore({ });
@@ -147,7 +147,7 @@ describe('Given book actions', () => {
           .stubRequest(
             `/api/v1/books?page=1&itemsCountPerPage=5`,
             {
-              response: book1,
+              response: firstBookSample,
               headers: { 'content-type': 'application/json' }
             }
           );
@@ -156,12 +156,12 @@ describe('Given book actions', () => {
         const expectedActions = [
           {
             type: GET_ALL_BOOKS,
-            books: book1
+            books: firstBookSample,
           }
         ];
         const store = mockStore({});
         // act
-        const action = getAllBooksAction(bookData2);
+        const action = getAllBooksAction(secondBookData);
 
         store.dispatch(action).then(() => {
         // assert
@@ -180,7 +180,7 @@ describe('Given book actions', () => {
           .stubRequest(
             `/api/v1/books?page=1&itemsCountPerPage=5`,
             {
-              response: book1,
+              response: firstBookSample,
               headers: { 'content-type': 'application/json' }
             }
           );
@@ -189,12 +189,12 @@ describe('Given book actions', () => {
         const expectedActions = [
           {
             type: GET_ALL_BOOKS,
-            books: book1
+            books: firstBookSample,
           }
         ];
         const store = mockStore({});
         // act
-        const action = getAllBooksAction(bookData3);
+        const action = getAllBooksAction(thirdBookData);
 
         store.dispatch(action).then(() => {
         // assert
@@ -227,16 +227,16 @@ describe('Given book actions', () => {
       const expectedActions = [
         {
           type: EDIT_BOOK,
-          book: book2
+          book: secondBookSample,
         }
       ];
       const store = mockStore({});
       const bookData = {
-        book: book2,
+        book: secondBookSample,
         id: 7
       };
       // act
-      const action = editBookAction(book2);
+      const action = editBookAction(secondBookSample);
 
       store.dispatch(action).then(() => {
         // assert

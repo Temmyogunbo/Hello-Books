@@ -15,7 +15,7 @@ const props = {
   getBookCategory: jest.fn(),
   createBookCategory: jest.fn(),
   getNotifications: jest.fn(),
-  categories: []
+  categories: [],
 
 };
 

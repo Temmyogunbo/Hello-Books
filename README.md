@@ -1,4 +1,5 @@
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io.svg?branch=development)](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 [![Test Coverage](https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg?branch=development)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)

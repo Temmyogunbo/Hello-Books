@@ -1,6 +1,6 @@
 import {
   CREATE_BOOK_CATEGORY,
-  GET_BOOK_CATEGORY
+  GET_BOOK_CATEGORY,
 } from '../constants/actionTypes';
 
 const initialState = [];
