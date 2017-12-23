@@ -58,6 +58,7 @@ These are the common status codes used in the app.
 5. `404 Not Found` - Used when the application returns an empty result.
 6. `500 Internal Server Error` - A generic error message, given when no more specific message is suitable.
 7. `403 Forbidden` - Used when a user is accessing a restricted end point.
+8. `409 conflicts` - Used when request cannot be processed when there is a conflicts. e.g username already exists
 
 ## Deployment
 This application is deployed on heroku server
