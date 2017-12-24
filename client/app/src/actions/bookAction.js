@@ -105,7 +105,7 @@ export const addBookAction = bookData => dispatch =>
  *
  * @return {object} - returns an object of books
  */
-export const getAllBooksAction = bookData => dispatch => {
+export const getBookOrBooksAction = bookData => dispatch => {
   let bookRoute =
    `/api/v1/books?page=${bookData.currentPage}&` +
    `itemsCountPerPage=${bookData.itemsCountPerPage}`;
@@ -206,7 +206,7 @@ export const editBookAction = bookData => (dispatch) =>
 export default {
   editBookAction,
   addBookAction,
-  getAllBooksAction,
+  getBookOrBooksAction,
   borrowBookAction,
   returnBookAction,
   deleteBookAction

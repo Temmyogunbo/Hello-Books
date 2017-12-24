@@ -9,9 +9,9 @@ module.exports = {
       .setValue('input[name="email"]', 'saitama@gmail.com')
       .setValue('input[name="password"]', 'emmanuel')
       .setValue('input[name="confirmPassword"]', 'emmanuel')
-      .pause(3000)
       .click('#for-google-signup')
-      .waitForElementPresent('#get-books', 3000)
+      .pause(3000)
+      .waitForElementVisible('ul:first-child', 5000)
       .assert.urlEquals('http://localhost:5000/collections')
       .end();
   },

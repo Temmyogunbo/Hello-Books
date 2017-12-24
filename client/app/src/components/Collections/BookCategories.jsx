@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getBookCategoryAction, } from '../../actions/categoryAction';
-import { getAllBooksAction, } from '../../actions/bookAction';
+import { getBookOrBooksAction, } from '../../actions/bookAction';
 
 const propTypes = {
   category: PropTypes.array.isRequired,
@@ -124,5 +124,5 @@ const mapStateToProps = (state) => ({
 BookCategories.propTypes = propTypes;
 export default connect(mapStateToProps, {
   getBookCategory: getBookCategoryAction,
-  getAllBooksByCategory: getAllBooksAction
+  getAllBooksByCategory: getBookOrBooksAction
 })(BookCategories);

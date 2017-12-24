@@ -6,8 +6,6 @@ import signInValidation from '../../../utils/signInValidation';
 import TextFieldGroup from './TextFieldGroup';
 import Button from '../Button/index';
 
-console.log = () => { };
-
 const propTypes = {
   signin: PropTypes.func.isRequired,
 };

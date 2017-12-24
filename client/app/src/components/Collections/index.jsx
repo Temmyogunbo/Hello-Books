@@ -10,7 +10,7 @@ import BookForm from '../forms/BookForm';
 import settings from '../../../utils/cloudinarySettings';
 import CategoryForm from '../forms/CategoryForm';
 import {
-  getAllBooksAction,
+  getBookOrBooksAction,
   borrowBookAction,
   editBookAction,
   addBookAction,
@@ -292,7 +292,7 @@ connect(
   mapStateToProps,
   {
     editBook: editBookAction,
-    getAllBooks: getAllBooksAction,
+    getAllBooks: getBookOrBooksAction,
     borrowBook: borrowBookAction,
     addBook: addBookAction,
     deleteBook: deleteBookAction,

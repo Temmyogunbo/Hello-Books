@@ -4,19 +4,19 @@ import swal from 'sweetalert2';
 import { connect } from 'react-redux';
 
 import {
-  getAllBooksAction,
+  getBookOrBooksAction,
   borrowBookAction
 } from '../../actions/bookAction';
 import Button from '../Button';
 
 const propTypes = {
-  books: PropTypes.object.isRequired,
+  books: PropTypes.object,
   history: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   getBook: PropTypes.func.isRequired,
   borrowBook: PropTypes.func.isRequired,
-  role: PropTypes.string.isRequired,
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 /**It contains behaviours and state for book page component
@@ -42,7 +42,8 @@ export class BookPage extends React.Component {
     };
     this.handleBorrowBook = this.handleBorrowBook.bind(this);
   }
-  /**It invokes an action that gets a particular book
+  /**
+   * It invokes an action that gets a particular book
      *
      * @returns {undefined}
      *
@@ -106,7 +107,7 @@ export class BookPage extends React.Component {
                 style={{ height: "300px", width: "300px" }}
               />
             </div>
-            {this.props.role === 'admin' ? null :
+            {this.props.isAdmin ? null :
               <Button
                 id={'borrow-book'}
                 type={'submit'}
@@ -142,12 +143,11 @@ export class BookPage extends React.Component {
 */
 const mapStateToProps = (state, props) => ({
   user: state.userReducer.user,
-  role: state.userReducer.user.role,
   books: state.bookReducer.rows.find(book => parseInt(book.id, 10) ===
-        parseInt(props.match.params.bookId, 10))
+        parseInt(props.match.params.bookId, 10)),
 });
 BookPage.propTypes = propTypes;
 export default connect(mapStateToProps, {
-  getBook: getAllBooksAction,
+  getBook: getBookOrBooksAction,
   borrowBook: borrowBookAction,
 })(BookPage);

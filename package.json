@@ -5,7 +5,7 @@
   "scripts": {
     "e2e-setup": "selenium-standalone install",
     "e2e-test": "selenium-standalone start",
-    "start-e2e": "npm run pretest && nightwatch",
+    "start-e2e": " nightwatch",
     "start": "cross-env NODE_ENV=production node server/dist/bin/www.js",
     "build": "rm -rf server/dist && babel server/ --out-dir server/dist/ --copy-files",
     "start:dev": "babel-node -- server/bin/www.js",

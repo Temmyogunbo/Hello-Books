@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store';
 import {
   editBookAction,
   addBookAction,
-  getAllBooksAction,
+  getBookOrBooksAction,
   deleteBookAction,
 } from '../../src/actions/bookAction';
 import {
@@ -129,7 +129,7 @@ describe('Given book actions', () => {
       ];
       const store = mockStore({ });
       // act
-      const action = getAllBooksAction(bookData);
+      const action = getBookOrBooksAction(bookData);
 
       store.dispatch(action).then(() => {
         // assert
@@ -161,7 +161,7 @@ describe('Given book actions', () => {
         ];
         const store = mockStore({});
         // act
-        const action = getAllBooksAction(secondBookData);
+        const action = getBookOrBooksAction(secondBookData);
 
         store.dispatch(action).then(() => {
         // assert
@@ -194,7 +194,7 @@ describe('Given book actions', () => {
         ];
         const store = mockStore({});
         // act
-        const action = getAllBooksAction(thirdBookData);
+        const action = getBookOrBooksAction(thirdBookData);
 
         store.dispatch(action).then(() => {
         // assert
