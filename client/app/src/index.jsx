@@ -9,6 +9,7 @@ import createHistory from 'history/createBrowserHistory';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
 import axios from 'axios';
+import toastr from 'toastr';
 
 import setAuthToken from '../utils/authorization';
 import { setAuthUser, signOutAction } from './actions/userActions';
@@ -16,6 +17,11 @@ import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import '../src/asset/sass/style.scss';
 import '../../node_modules/toastr/toastr.scss';
+
+toastr.options = {
+  preventDuplicates: true,
+  preventOpenDuplicates: true
+};
 
 const store = createStore(
   rootReducer,
