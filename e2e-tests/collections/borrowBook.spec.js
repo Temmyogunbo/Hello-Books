@@ -1,5 +1,5 @@
 module.exports = {
-  'it should return a book': (client) => {
+  'it should borrow a book ': (client) => {
     client
       .url('localhost:5000/signin')
       .waitForElementVisible('body')
@@ -7,17 +7,16 @@ module.exports = {
       .setValue('input[name="password"]', 'emmanuel')
       .click('#for-google-log-in')
       .waitForElementVisible('ul:first-child', 10000)
-      .pause(3000)
-      .click('ul#nav-mobile > li:first-child')
       .pause(2000)
-      .waitForElementVisible('.container')
-      .click('.users-profile tbody > tr td:last-child > button')
-      .pause(5000)
+      .click('ul.book-list > li:first-child')
+      .assert.elementPresent('.container')
+      .click('#borrow-book')
+      .waitForElementVisible('button.swal2-confirm')
       .click('button.swal2-confirm')
-      .pause(1000)
+      .assert.elementPresent('#toast-container')
       .assert.containsText(
         '#toast-container',
-        'You returned a book',
+        'You successfully borrowed a book',
       )
       .pause(2000)
       .end();

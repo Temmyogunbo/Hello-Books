@@ -27,7 +27,7 @@ function CardList({
     <div className="col s12 l9 m8">
       {
         isEmpty(books) ?
-          <ul >
+          <ul className="book-list">
 
             {books && books.map(book => (<li
               key={book.id}

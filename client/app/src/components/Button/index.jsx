@@ -10,7 +10,7 @@ const propTypes = {
   dataAction: PropTypes.string,
   onClick: PropTypes.func,
   icon: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 Button.defaultProps = {

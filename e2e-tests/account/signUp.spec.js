@@ -1,5 +1,5 @@
 module.exports = {
-  'user can signup': (client) => {
+  'it should sign up': (client) => {
     client
       .url('http://localhost:5000/signup')
       .waitForElementVisible('body')
@@ -11,7 +11,8 @@ module.exports = {
       .setValue('input[name="confirmPassword"]', 'emmanuel')
       .click('#for-google-signup')
       .pause(3000)
-      .waitForElementVisible('ul:first-child', 5000)
+      .waitForElementVisible('ul> li:first-child', 5000)
+      .pause(2000)
       .assert.urlEquals('http://localhost:5000/collections')
       .end();
   },

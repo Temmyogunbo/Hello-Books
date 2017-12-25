@@ -227,7 +227,7 @@ export class Collections extends React.Component {
               <CategoryForm
                 createBookCategory={createBookCategory}
               />
-              <div className="right">
+              <div className="right" id="add-book-or-category-div">
                 <a
                   className=
                     "bc mr-2 btn modal-trigger brown darken-4"
@@ -236,8 +236,9 @@ export class Collections extends React.Component {
                   ADD CATEGORY
                 </a>
                 <a
+                id="add-book"
                   className=
-                    "btn modal-trigger brown darken-4"
+                    "book btn modal-trigger brown darken-4"
                   href="#book-form-modal"
                 >
                   ADD BOOK

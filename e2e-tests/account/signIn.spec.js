@@ -1,5 +1,5 @@
 module.exports = {
-  'Admin user can login': (client) => {
+  'it should sign in as admin': (client) => {
     client
       .url('http://localhost:5000/signin')
       .waitForElementVisible('body')
@@ -12,7 +12,7 @@ module.exports = {
       .pause(2000)
       .end();
   },
-  'user can login': (client) => {
+  'it should sign in as ordinary user': (client) => {
     client
       .url('http://localhost:5000/signin')
       .waitForElementVisible('body')

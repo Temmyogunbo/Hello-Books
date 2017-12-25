@@ -54,7 +54,7 @@ function Profile({ user }) {
               Change Password
             </div>
             <a
-              className="col s3 btn modal-trigger brown darken-4"
+              className="col s3 btn modal-trigger brown darken-4 edit-button"
               href="#change-password"
             >
               EDIT
@@ -108,7 +108,7 @@ function Profile({ user }) {
               Change Password
             </div>
             <a
-              className="col s3 btn modal-trigger brown darken-4 "
+              className="col s3 btn modal-trigger brown darken-4 edit-button"
               href="#change-password"
             >
               EDIT

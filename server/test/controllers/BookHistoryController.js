@@ -100,7 +100,7 @@ describe('Given /api/v1/users/2/books', () => {
             res.body.record.should.have.property('id').eql(5);
             res.body.record.should.have.property('UserId').eql(2);
             res.body.record.should.have.property('BookId').eql(3);
-            res.body.message.should.eql('You successfully borrowed a book.');
+            res.body.message.should.eql('You successfully borrowed a book');
             res.should.be.a('object');
             done();
           });

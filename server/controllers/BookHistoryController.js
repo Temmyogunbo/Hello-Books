@@ -90,7 +90,7 @@ class BookHistoryController {
               })
               .then(record => response.status(201).json({
                 record,
-                message: 'You successfully borrowed a book.',
+                message: 'You successfully borrowed a book',
               }));
           } else {
             return response.status(409).json({
