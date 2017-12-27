@@ -93,13 +93,13 @@ describe('Given /api/v1/users/2/books', () => {
         chai.request(app)
           .post('/api/v1/users/2/books')
           .set('X-ACCESS-TOKEN', userToken)
-          .send({ membership: 'platinum', bookId: 3 })
+          .send({ membership: 'platinum', bookId: 5 })
           .end((err, res) => {
             res.should.have.status(201);
             res.body.record.should.have.property('returned').eql(false);
             res.body.record.should.have.property('id').eql(5);
             res.body.record.should.have.property('UserId').eql(2);
-            res.body.record.should.have.property('BookId').eql(3);
+            res.body.record.should.have.property('BookId').eql(5);
             res.body.message.should.eql('You successfully borrowed a book');
             res.should.be.a('object');
             done();
@@ -160,7 +160,7 @@ describe('Given /api/v1/users/2/history', () => {
             res.body.rows[0].Book.should.have.property('author');
             res.body.rows[0].Book.should.have.property('title');
             res.body.rows[0].Book.author.should.eql('Edward Luttwark');
-            res.body.rows[0].Book.title.should.eql('The Pentagon');
+            res.body.rows[0].Book.title.should.eql('The fire killer');
             res.should.be.a('object');
             done();
           });

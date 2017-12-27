@@ -24,22 +24,26 @@ class BookHistoryController {
   static borrowBook(request, response) {
     const userId = parseInt(request.params[0], 10);
     const { bookId, membership } = request.body;
+
     if (!membership) {
       return response.status(400).json({
         message: 'You must declare your membership type.',
       });
     }
+
     return models.Book.findById(bookId).then((book) => {
       if (!book) {
         return response.status(400).json({
           message: 'No such book in the library',
         });
       }
+
       if (parseInt(book.dataValues.quantity, 10) < 1) {
         return response.status(404).json({
           message: 'No more books in the library',
         });
       }
+
       const numberofBooksAllowedWithDays =
         MembershipLevel.checkMembership(membership);
       models.History.findAll({
@@ -110,6 +114,7 @@ class BookHistoryController {
         });
       });
   }
+
   /**
  *
  * Return borrow book
@@ -167,6 +172,7 @@ class BookHistoryController {
         message: 'An error occured',
       }));
   }
+
   /**
  *
  * returns borrow history

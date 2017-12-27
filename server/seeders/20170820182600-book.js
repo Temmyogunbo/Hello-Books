@@ -42,7 +42,19 @@ module.exports = {
     imagePublicId: 'trial',
     createdAt: new Date(),
     updatedAt: new Date(),
-  }], {}),
+  },
+  {
+    title: 'Andela remix ',
+    category: 'Programming',
+    author: 'Bruno Mars',
+    description: 'A fictitious story of a man named Alice trying to make the most decision of is life.',
+    quantity: 30,
+    imageUrl: 'localhost:5000',
+    imagePublicId: 'trial',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  ], {}),
 
   down: queryInterface => queryInterface.bulkDelete('Books', null, {}),
 };

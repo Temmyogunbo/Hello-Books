@@ -36,16 +36,16 @@ describe('Given /api/v1/books', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.should.be.a('object');
-          res.body.count.should.eql(4);
+          res.body.count.should.eql(5);
           res.body.rows.should.be.a('array');
           res.body.rows[0].should.be.a('object');
           res.body.rows[0].should.have.property('id');
           res.body.rows[0].should.have.property('author');
           res.body.rows[0].id.should.be.a('number');
           res.body.rows[0].author.should.be.a('string');
-          res.body.rows[0].title.should.eql('The Pentagon');
-          res.body.rows[1].title.should.eql('Alice in Wonderland');
-          res.body.rows[2].title.should.eql('Half of a yellow sun');
+          res.body.rows[0].title.should.eql('Half of a yellow sun');
+          res.body.rows[1].title.should.eql('The Pentagon');
+          res.body.rows[2].title.should.eql('Alice in Wonderland');
           done();
         });
     });
@@ -117,7 +117,7 @@ describe('Given /POST /api/v1/books', () => {
         .send(book)
         .end((err, res) => {
           res.should.have.status(201);
-          res.body.book.id.should.eql(5);
+          res.body.book.id.should.eql(6);
           res.body.book.title.should.eql('The man in the mirror');
           res.body.book.category.should.eql('History');
           res.body.book.description.should
