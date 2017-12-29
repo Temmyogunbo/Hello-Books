@@ -5,8 +5,19 @@ import { Collections } from '../../../src/components/Collections';
 import { book2 } from '../../__mocks__/mockData';
 
 const props = {
-  books: [],
-  total: 0,
+  books: [{
+    id: 92,
+    author: "Olusegun Oni",
+    title: "Christmas game ot thrones",
+    description: "I code for fun",
+    imageUrl: "https://lveh4uenku9g634ttq7u.jpg",
+    imagePublicId: "lveh4uenku9g634ttq7u",
+    category: "Medicine",
+    quantity: 40,
+    createdAt: "2017-12-25T16:35:04.215Z",
+    updatedAt: "2017-12-25T16:35:04.215Z",
+  }],
+  total: 1,
   role: 'users',
   editBook: jest.fn(),
   addBook: jest.fn(),
@@ -16,6 +27,7 @@ const props = {
   createBookCategory: jest.fn(),
   getNotifications: jest.fn(),
   categories: [],
+  isAdmin: false,
 
 };
 
@@ -82,6 +94,27 @@ describe('Given a Collections', () => {
       );
       wrapper.instance().handleDeleteBook(event);
       expect(handleDeleteBookSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('Then it should render BookForm to admin user', () => {
+      const props2 = {
+        books: [],
+        total: 0,
+        role: 'users',
+        editBook: jest.fn(),
+        addBook: jest.fn(),
+        getAllBooks: jest.fn(),
+        deleteBook: jest.fn(),
+        getBookCategory: jest.fn(),
+        createBookCategory: jest.fn(),
+        getNotifications: jest.fn(),
+        categories: [],
+        isAdmin: true,
+
+      };
+      const shallowWrapper = shallow(<Collections {...props2} />);
+
+      expect(shallowWrapper.find('BookForm').exists()).toBe(true);
     });
   });
 });

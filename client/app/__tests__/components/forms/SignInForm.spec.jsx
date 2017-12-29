@@ -30,6 +30,21 @@ describe('Given a SignInForm', () => {
       wrapper.instance().handleChange(event);
       expect(handleChangeSpy).toHaveBeenCalledTimes(1);
     });
+
+    it('Then it should call the onGoogleCallBack method', () => {
+      const response = {
+        profileObj: {
+          givenName: "Emmanuel",
+          googleId: "106447309498165670025",
+        }
+      };
+      const onGoogleCallbackSpy = jest.spyOn(
+        wrapper.instance(),
+        'onGoogleCallback'
+      );
+      wrapper.instance().onGoogleCallback(response);
+      expect(onGoogleCallbackSpy).toHaveBeenCalledTimes(1);
+    });
   });
 });
 

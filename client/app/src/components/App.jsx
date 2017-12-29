@@ -22,7 +22,7 @@ import Footer from './Footer';
  *
  * @returns {object} jsx
  */
-function App() {
+export function App() {
   return (
     <div>
       <NavigationBar />
@@ -92,6 +92,5 @@ function App() {
     </div>
   );
 }
-
 export default App;
 

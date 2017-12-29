@@ -12,6 +12,7 @@ const props = {
   borrowBook: jest.fn(),
   role: 'users',
   match: { params: { bookId: 1 } },
+  isAdmin: false,
 };
 
 describe('Given a BookPage', () => {

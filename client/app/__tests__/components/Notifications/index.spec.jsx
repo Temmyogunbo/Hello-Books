@@ -29,7 +29,10 @@ describe('Given Notifcations', () => {
   describe('When the browser opens', () => {
     const wrapper = shallow(<Notifications {...props} />);
     it('Then it should call the handleChange method', () => {
-      const handlePageChangeSpy = jest.spyOn(wrapper.instance(), 'handlePageChange');
+      const handlePageChangeSpy = jest.spyOn(
+        wrapper.instance(),
+        'handlePageChange'
+      );
       wrapper.instance().handlePageChange(2);
       expect(handlePageChangeSpy).toHaveBeenCalledTimes(1);
     });

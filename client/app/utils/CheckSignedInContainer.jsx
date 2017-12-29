@@ -2,7 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default (ComposedComponent) => {
+/**
+ * It checks if a component is signed in and
+ * also determine if admin before rendering
+ *
+ * @param {any} ComposedComponent
+ *
+ * @returns {object} jsx
+ */
+export const CheckSignedContainer = (ComposedComponent) => {
   const propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     history: PropTypes.object.isRequired,
@@ -19,7 +27,9 @@ export default (ComposedComponent) => {
   class CheckSignedInContainer extends React.Component {
     /**
      * Creates an instance of CheckSignedInContainer.
+     *
      * @param {object} props
+     *
      * @memberof CheckSignedInContainer
      */
     constructor(props) {
@@ -94,3 +104,4 @@ export default (ComposedComponent) => {
 
   return connect(mapStateToProps)(CheckSignedInContainer);
 };
+export default CheckSignedContainer;
