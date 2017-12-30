@@ -258,7 +258,7 @@ class BookForm extends React.Component {
     return (
       <div id="book-form-modal" className="add-book-modal modal">
         <div className="row modal-content">
-          <div>{this.state.bookHead}</div>
+          <h6>{this.state.bookHead}</h6>
           <form onSubmit={this.onSubmit}>
             <SelectInputField
               label={'category'}

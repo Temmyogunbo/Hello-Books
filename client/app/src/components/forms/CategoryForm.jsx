@@ -99,7 +99,7 @@ class CategoryForm extends React.Component {
     return (
       <div id="book-category-form-modal" className="add-book-modal modal">
         <div className="row modal-content">
-          <div>CREATE A CATEGORY</div>
+          <h6>CREATE A CATEGORY</h6>
           <form onSubmit={this.onSubmit}>
             <TextFieldGroup
               label={'Category'}

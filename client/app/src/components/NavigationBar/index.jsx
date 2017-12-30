@@ -114,28 +114,26 @@ export class NavigationBar extends React.Component {
   render() {
     const { isAuthenticated } = this.props.user;
     return (
-      <div>
-        <nav className="custom-nav-wrapper">
-          <div className="container nav-wrapper">
-            <Link to={isAuthenticated ? "#" : "/"}
-              className="brand-logo custom-logo-wrap">
+      <nav className="custom-nav-wrapper">
+        <div className="container nav-wrapper">
+          <Link to={isAuthenticated ? "#" : "/"}
+            className="brand-logo custom-logo-wrap">
               HelloBooks
-            </Link>
-            <Link to={isAuthenticated ? "#" : "/"}
-              data-activates="mobile-demo"
-              className="button-collapse"
-            >
-              <i className="material-icons">menu</i>
-            </Link>
-            { isAuthenticated ?
-              <UserLinks
-                isAdmin={this.state.isAdmin}
-                signOutAction={this.props.signOutAction}
-                total={this.state.total}
-              /> : <GuestLinks /> }
-          </div>
-        </nav>
-      </div>
+          </Link>
+          <Link to={isAuthenticated ? "#" : "/"}
+            data-activates="mobile-demo"
+            className="button-collapse"
+          >
+            <i className="material-icons">menu</i>
+          </Link>
+          { isAuthenticated ?
+            <UserLinks
+              isAdmin={this.state.isAdmin}
+              signOutAction={this.props.signOutAction}
+              total={this.state.total}
+            /> : <GuestLinks /> }
+        </div>
+      </nav>
     );
   }
 }

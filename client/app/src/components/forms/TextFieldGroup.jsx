@@ -45,30 +45,28 @@ function TextFieldGroup({
   handleChange,
 }) {
   return (
-    <div >
-      <div className="input-field">
-        <label htmlFor={id}>
-          <i className="material-icons">{icon}</i> {label}
-        </label>{textArea ?
-          <textarea
-            className="materialize-textarea"
-            value={textArea}
-            onChange={handleChange}
-            name={field}
-          /> :
-          <input
-            name={field}
-            id={id}
-            type={type}
-            className="validate"
-            value={value}
-            onChange={handleChange}
-          />}
+    <div className="input-field">
+      <label htmlFor={id}>
+        <i className="material-icons">{icon}</i> {label}
+      </label>{textArea ?
+        <textarea
+          className="materialize-textarea"
+          value={textArea}
+          onChange={handleChange}
+          name={field}
+        /> :
+        <input
+          name={field}
+          id={id}
+          type={type}
+          className="validate"
+          value={value}
+          onChange={handleChange}
+        />}
 
-        <span className="error-block">
-          {error}
-        </span>
-      </div>
+      <span className="error-block">
+        {error}
+      </span>
     </div>
   );
 }

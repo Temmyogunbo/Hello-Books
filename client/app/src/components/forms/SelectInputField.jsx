@@ -40,21 +40,19 @@ function SelectFieldGroup({
     </option>
   ));
   return (
-    <div >
-      <div className="row">
-        <label>{label}</label>
-        <select
-          className="browser-default"
-          onChange={handleChange}
-          name={field}
-          value={value}>
-          <option>Select a {field}</option>
-          {selectList}
-        </select>
-        <span className="error-block">
-          {error}
-        </span>
-      </div>
+    <div className="row">
+      <label>{label}</label>
+      <select
+        className="browser-default"
+        onChange={handleChange}
+        name={field}
+        value={value}>
+        <option>Select a {field}</option>
+        {selectList}
+      </select>
+      <span className="error-block">
+        {error}
+      </span>
     </div>
   );
 }

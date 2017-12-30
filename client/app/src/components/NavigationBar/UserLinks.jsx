@@ -23,13 +23,14 @@ function UserLinks({ isAdmin, signOutAction, total }) {
         id="nav-mobile"
         className="right hide-on-med-and-down"
       >
-        {isAdmin ? <li>
-          <NotificationIcon total={total}/>
-        </li> : <li>
-          <Link to="/history">
+        <li>
+          {isAdmin ?
+            <NotificationIcon total={total}/> :
+            <Link to="/history">
               History
-          </Link>
-        </li>}
+            </Link>
+          }
+        </li>
         <li>
           <Link to="/collections">
                         Collections
@@ -46,14 +47,14 @@ function UserLinks({ isAdmin, signOutAction, total }) {
         id="mobile-demo"
         className="side-nav"
       >
-        {isAdmin ? <li>
-          <NotificationIcon total={total}/>
-        </li> : <li>
-          <Link to="/history" id="history-nav-link">
+        <li>
+          {isAdmin ?
+            <NotificationIcon total={total}/> :
+            <Link to="/history" id="history-nav-link">
               History
-          </Link>
-        </li>}
-
+            </Link>
+          }
+        </li>
         <li>
           <Link to="/collections">
                         Collection

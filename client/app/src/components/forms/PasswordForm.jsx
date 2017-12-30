@@ -137,7 +137,7 @@ class ChangePasswordForm extends React.Component {
         id="change-password"
         className="change-password-modal modal container ">
         <div className="row modal-content">
-          <div>CHANGE PASSWORD</div>
+          <h6>CHANGE PASSWORD</h6>
           <form onSubmit={this.onSubmit}>
             <TextFieldGroup
               label={'Old Password'}

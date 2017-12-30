@@ -7,7 +7,7 @@ describe('Given a Welcome page', () => {
   describe('When the browser opens', () => {
     const wrapper = shallow(<Welcome />);
     it('Then it renders a div elements', () => {
-      expect(wrapper.find('div').length).toBeGreaterThanOrEqual(2);
+      expect(wrapper.find('p').exists()).toBe(true);
     });
   });
 });

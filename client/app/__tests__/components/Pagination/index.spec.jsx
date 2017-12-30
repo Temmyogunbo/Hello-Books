@@ -15,7 +15,7 @@ describe('Given Pagination', () => {
   describe('When the browser opens', () => {
     const wrapper = shallow(<Pagination {...props} />);
     it('Then it renders a div element', () => {
-      expect(wrapper.find('div')).toHaveLength(1);
+      expect(wrapper.find('PaginationJs')).toHaveLength(0);
     });
   });
 });

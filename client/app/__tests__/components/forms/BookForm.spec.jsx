@@ -50,20 +50,25 @@ describe('Given a BookForm', () => {
       expect(handleChangeSpy).toHaveBeenCalledTimes(1);
     });
     it('Then it should call the componentWillReceiveProps method', () => {
-      const componentWillReceivePropsSpy = jest.spyOn(wrapper.instance(), 'componentWillReceiveProps');
+      const componentWillReceivePropsSpy = jest.spyOn(
+        wrapper.instance(),
+        'componentWillReceiveProps'
+      );
       const nextProps = {
-        description: 'I got a voucher',
-        id: 1,
-        category: 'Programming',
-        title: 'African child',
-        quantity: 10,
-        author: 'Emmanuel',
-        imageUrl: 'http://andela.com',
-        imagePublicId: '737363636',
-        bookHead: "EDIT BOOK BY CATEGORY",
-        buttonText: 'EDIT BOOK',
-        isEdit: true,
-        isButtonLoading: false
+        book: {
+          description: 'I got a voucher',
+          id: 1,
+          category: 'Programming',
+          title: 'African child',
+          quantity: 10,
+          author: 'Emmanuel',
+          imageUrl: 'http://andela.com',
+          imagePublicId: '737363636',
+          bookHead: "EDIT BOOK BY CATEGORY",
+          buttonText: 'EDIT BOOK',
+          isEdit: true,
+          isButtonLoading: false
+        }
       };
       wrapper.instance().componentWillReceiveProps(nextProps);
       expect(componentWillReceivePropsSpy).toHaveBeenCalledTimes(1);
