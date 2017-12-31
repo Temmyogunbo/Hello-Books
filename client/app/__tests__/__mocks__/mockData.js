@@ -34,42 +34,6 @@ export const secondBookSample = {
   createdAt: "2017-12-01T17:42:32.877Z",
   updatedAt: "2017-12-03T11:45:30.303Z"
 };
-
-export const bookData = {
-  currentPage: 1,
-  itemsCountPerPage: 5,
-};
-export const secondBookData = {
-  currentPage: 1,
-  itemsCountPerPage: 5,
-  bookCategory: { category: 'History' }
-};
-export const bookData3 = {
-  currentPage: 1,
-  itemsCountPerPage: 5,
-  bookId: 1
-};
-
-export const user = {
-  email: 'temmyogunbo@gmail.com',
-  userName: 'temmy',
-  fullName: 'Emmanuel',
-  id: 1,
-  role: 'admin',
-  membership: 'gold',
-  msg: 'You are signed in',
-
-};
-export const user2 = {
-  email: "dino@gmail.com",
-  fullName: "dino",
-  userName: "dino",
-  membership: "gold",
-  msg: 'Registration successful',
-  id: 36,
-  role: "users",
-
-};
 export const signupData = {
   email: 'temmyogunbo@gmail.com',
   userName: 'temmy',
@@ -141,7 +105,7 @@ export const firstBookSample = {
     title: "Engineering Mathematics",
     description: "The moon falls if apples falls. Isaac said so",
     imageUrl: "https://res.cloudinary.com/emmanuelandela/" +
-    "image/upload/v1512149777/y1psocziflotgjg2mtvf.jpg",
+      "image/upload/v1512149777/y1psocziflotgjg2mtvf.jpg",
     imagePublicId: "y1psocziflotgjg2mtvf",
     category: "Engineering",
     quantity: 35,
@@ -154,7 +118,7 @@ export const firstBookSample = {
     title: "How to get rich in 5 days",
     description: "Don't doubt it. There has been lots of testimonies.",
     imageUrl: "https://res.cloudinary.com/emmanuelandela/" +
-    "image/upload/v1512150149/gbqfcbvqpirssqonmafp.jpg",
+      "image/upload/v1512150149/gbqfcbvqpirssqonmafp.jpg",
     imagePublicId: "gbqfcbvqpirssqonmafp",
     category: "Finance",
     quantity: 43,
@@ -170,13 +134,49 @@ export const thirdBookData = {
   author: 'O\'Hare',
   description: 'This tips would help you become a better traveller',
   imageUrl: 'https://res.cloudinary.com/dcl7tqhww/image/upload/' +
-  'v1510914293/fbuuwg6uqiab9b3rxpvh.jpg',
+    'v1510914293/fbuuwg6uqiab9b3rxpvh.jpg',
   st: true,
   quantity: 57,
   category: 'Travels',
   updatedAt: '2017-11-17T10:25:01.852Z',
   createdAt: '2017-11-17T10:25:01.852Z'
 };
+export const bookData = {
+  currentPage: 1,
+  itemsCountPerPage: 5,
+};
+export const secondBookData = {
+  currentPage: 1,
+  itemsCountPerPage: 5,
+  bookCategory: { category: 'History' }
+};
+export const bookData3 = {
+  currentPage: 1,
+  itemsCountPerPage: 5,
+  bookId: 1
+};
+
+export const user = {
+  email: 'temmyogunbo@gmail.com',
+  userName: 'temmy',
+  fullName: 'Emmanuel',
+  id: 1,
+  role: 'admin',
+  membership: 'gold',
+  msg: 'You are signed in',
+
+};
+export const user2 = {
+  email: "dino@gmail.com",
+  fullName: "dino",
+  userName: "dino",
+  membership: "gold",
+  msg: 'Registration successful',
+  id: 36,
+  role: "users",
+
+};
+
 
 export const books1 = [firstBookSample];
 
