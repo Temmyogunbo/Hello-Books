@@ -78,7 +78,7 @@ export class BookCategories extends React.Component {
             className="clickable"
             onClick={() => this.props.getAllBooksByCategory({
               bookCategory: category,
-              currentPage: currentPage,
+              currentPage: 1,
               itemsCountPerPage: itemsCountPerPage
             })}
           >

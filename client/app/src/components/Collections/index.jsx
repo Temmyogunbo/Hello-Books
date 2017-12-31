@@ -64,6 +64,7 @@ export class Collections extends React.Component {
       itemsCountPerPage: 5,
       book: {},
       numberOfTimesBookDeleted: 0,
+      bookCategory: '',
     };
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleEditBook = this.handleEditBook.bind(this);
@@ -126,7 +127,7 @@ export class Collections extends React.Component {
     this.setState({
       activePage: pageNumber,
     }, () => this.props.getAllBooks({
-      bookCategory: '',
+      bookCategory: this.state.bookCategory,
       currentPage: this.state.activePage,
       itemsCountPerPage: this.state.itemsCountPerPage
     }));
@@ -236,7 +237,7 @@ export class Collections extends React.Component {
                   ADD CATEGORY
                 </a>
                 <a
-                id="add-book"
+                  id="add-book"
                   className=
                     "book btn modal-trigger brown darken-4"
                   href="#book-form-modal"

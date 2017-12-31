@@ -30,15 +30,16 @@ function Pagination({
   handlePageChange
 }) {
   return (
+    <div className="col s6 m6 l6 push-l6 push-s4 push-m6 pagination">
+      <PaginationJs
 
-    <PaginationJs
-      activePage={activePage}
-      itemsCountPerPage={itemsCountPerPage}
-      pageRangeDisplayed={pageRangeDisplayed}
-      totalItemsCount={totalItemsCount}
-      onChange={handlePageChange}
-    />
-
+        activePage={activePage}
+        itemsCountPerPage={itemsCountPerPage}
+        pageRangeDisplayed={pageRangeDisplayed}
+        totalItemsCount={totalItemsCount}
+        onChange={handlePageChange}
+      />
+    </div>
   );
 }
 
