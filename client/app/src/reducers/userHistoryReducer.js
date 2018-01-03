@@ -12,8 +12,8 @@ let newState;
 /**
  * Handles user borrow history state
  *
- * @param {object} state
- * @param {object} action
+ * @param {object} state - application state
+ * @param {object} action - contains what to do
  *
  * @returns {object} new state
 */

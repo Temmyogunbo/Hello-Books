@@ -20,7 +20,7 @@ export class SignUpForm extends React.Component {
   /**
    * Creates an instance of SignUpForm.
    *
-   * @param {object} props
+   * @param {object} props - contains react object
    *
    * @memberof SignUpForm
    */
@@ -72,7 +72,7 @@ export class SignUpForm extends React.Component {
    *
    * @returns {undefined}
    *
-   * @param {object} event
+   * @param {object} event - html event object
    *
    * @memberof SignUpForm
    */
@@ -83,7 +83,7 @@ export class SignUpForm extends React.Component {
    *
    * @returns {object} user's details on google
    *
-   * @param {object} response
+   * @param {object} response - response object from google
    *
    * @memberof SignUpForm
    */
@@ -100,7 +100,7 @@ export class SignUpForm extends React.Component {
   /**It handles form submission
    * @return {undefined}
    *
-   * @param {object} event
+   * @param {object} event - html event object
    *
    * @memberof SignUpForm
    */

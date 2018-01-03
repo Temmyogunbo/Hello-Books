@@ -14,8 +14,8 @@ class BookHistoryController {
   *
   * @static
 
-  * @param {object} request
-  * @param {object} response
+  * @param {object} request - request object
+  * @param {object} response - response object
 
   * @returns {object} returns object
 
@@ -121,8 +121,8 @@ class BookHistoryController {
  *
  * @static
  *
- * @param {object} request
- * @param {object} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} json object
  *
@@ -179,8 +179,8 @@ class BookHistoryController {
  *
  * @static
  *
- * @param {object} request
- * @param {object} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} user object
  *

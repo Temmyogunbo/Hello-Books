@@ -15,7 +15,12 @@ const propTypes = {
 };
 /**It returns div element containing user records
  *
- * @param {object} props
+ * @param {object} userHistory - points to user history object
+ * @param {function} handleReturnBook - points to handleReturnBook function
+* @param {object} getHistory - points to getHistory function
+ * @param {number} activePage - it stores active page
+ * @param {number} itemsCountPerPage - it stores items counts perpage
+ *  @param {number} userId - it stores userId
  *
  * @returns {object} jsx
  */

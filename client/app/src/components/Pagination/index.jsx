@@ -18,7 +18,11 @@ const defaultProps = ({
 
 /**It returns a div element of pagination
  *
- * @param {object} props
+ * @param {number} activePage - it stores active page
+  * @param {number} itemsCountPerPAge - it stores items count per page
+   * @param {number} pageRangeDisplayed - it stores page raqnge number
+   * @param {number} totalItemsCount - it stores total number of items
+    * @param {function} handlePageChange - points to handlePageChange funtion
  *
  * @returns {object} jsx
  */

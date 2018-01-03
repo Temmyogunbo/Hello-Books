@@ -8,8 +8,8 @@ const initialState = [];
 /**
  * Handles books category state
  *
- * @param {object} state
- * @param {object} action
+ * @param {object} state - previous app state
+ * @param {object} action - object on what to do
  *
  * @returns {object} new state
 */

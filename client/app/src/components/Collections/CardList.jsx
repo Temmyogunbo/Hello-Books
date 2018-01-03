@@ -13,7 +13,11 @@ const propTypes = {
 /**It returns a div element
 *
 *
-* @param {object} props
+* @param {object} books - books object
+* @param {function} handleDeleteBook - function that delete a book
+* @param {function} handleEditBook - function that edits a book
+* @param {boolean} isAdmin - boolean value
+
 
 * @returns {object} jsx
 */

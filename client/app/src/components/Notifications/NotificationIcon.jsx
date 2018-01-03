@@ -9,7 +9,7 @@ const propTypes = {
 /**
  *It returns a div element
  *
- * @param {number} {total}
+ * @param {number} total - it stores total number for notifications
  *
  * @returns {object} jsx
  */

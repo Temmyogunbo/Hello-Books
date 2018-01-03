@@ -55,8 +55,8 @@ class Authentication {
    *
    * @static
    *
-   * @param {object} request
-   * @param {object} response
+   * @param {object} request - request object
+   * @param {object} response - response object
    * @param {object} next
    *
    * @returns {object} json object
@@ -85,9 +85,9 @@ class Authentication {
    *
    * @static
    *
-   * @param {object} request
-   * @param {object} response
-   * @param {object} next
+   * @param {object} request - request object
+   * @param {object} response - response object
+   * @param {object} next - express next function
    *
    * @returns {undefined}
    *
@@ -126,8 +126,8 @@ class Authentication {
    *
    * @static
    *
-   * @param {object} request
-   * @param {object} response
+   * @param {object} request - request object
+   * @param {object} response - response object
    * @param {object} next
    *
    * @returns {undefined}

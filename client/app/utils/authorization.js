@@ -5,7 +5,7 @@ import axios from 'axios';
  *
  *@returns {undefined}
 
- * @param {string} token
+ * @param {string} token - user token
  */
 function setAuthToken(token) {
   if (token) {

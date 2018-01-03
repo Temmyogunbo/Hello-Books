@@ -31,7 +31,7 @@ export class BookPage extends React.Component {
   /**
      * Creates an instance of BookPage.
      *
-     * @param {object} props
+     * @param {object} props - contains props from react
      *
      * @memberof BookPage
      */
@@ -56,7 +56,7 @@ export class BookPage extends React.Component {
    *
      * @returns {undefined}
      *
-     * @param {object} nextProps
+     * @param {object} nextProps - contains next props object
      *
      * @memberof BookPage
      */
@@ -136,8 +136,8 @@ export class BookPage extends React.Component {
 /**
  * It slices the store and returns user, role, and books object
  *
- * @param {object} state
- * @param{object} props
+ * @param {object} state - contains application state
+ * @param{object} props - contains props object for the component
  *
  * @returns {object} new state
 */

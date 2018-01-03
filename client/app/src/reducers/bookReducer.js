@@ -12,8 +12,8 @@ let numberOfItemsInStore;
 /**
  * Handles books state
  *
- * @param {object} state
- * @param {object} action
+ * @param {object} state - application state
+ * @param {object} action - contains what to do in the store
  *
  * @returns {object} new state
 */

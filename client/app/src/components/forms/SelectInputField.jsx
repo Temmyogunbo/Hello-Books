@@ -17,11 +17,11 @@ SelectFieldGroup.defaultProps = {
 /**It returns select component
  *
  *
- *  @param {string}  field
- *  @param {string}  value
- *  @param {string}   label
- *  @param {object}  errors
- *  @param {function}   handleChange
+ *  @param {string}  field - field string
+ *  @param {string}  value - value string
+ *  @param {string}   label - label string
+ *  @param {object}  errors - errors object
+ *  @param {function}   handleChange - handleChange function
  * @returns {object} jsx
  */
 function SelectFieldGroup({

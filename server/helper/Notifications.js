@@ -19,29 +19,30 @@ class Notifications {
   /**
  * Sends notification
  *
- * @param {string} notificationType
- * @param {object} data
+ * @param {string} notificationType - type of notification
+ * @param {object} notification - notification object
  *
  * @returns {string} returns string
  *
  * @memberof Notifications
  */
-  sendNotification(notificationType, data) {
-    this.io.to('admin').emit(notificationType, data);
+  sendNotification(notificationType, notification) {
+    this.io.to('admin').emit(notificationType, notification);
   }
   /**
  * Get all notification
  *
- * @param {object} data
+ * @param {object} notifications - notifications object
  *
  * @returns {object} returns onject
  *
  * @memberof Notifications
  */
-  getAllNotifications(data) {
-    const offset = data.itemsCountPerPage ?
-      data.itemsCountPerPage * (data.currentPage - 1) : 0;
-    const limit = data.itemsCountPerPage ? data.itemsCountPerPage : 5;
+  getAllNotifications(notifications) {
+    const offset = notifications.itemsCountPerPage ?
+      notifications.itemsCountPerPage * (notifications.currentPage - 1) : 0;
+    const limit = notifications.itemsCountPerPage ?
+      notifications.itemsCountPerPage : 5;
     const whereStatement = { seen: 'unread' };
     return models.Notification
       .findAndCountAll({
@@ -54,12 +55,12 @@ class Notifications {
         offset,
         order: [['updatedAt', 'DESC']],
       })
-      .then((notifications) => {
+      .then((returnedNotifications) => {
         this.sendNotification(
           'GET_ALL_NOTIFICATIONS',
           {
-            count: notifications.count,
-            rows: notifications.rows,
+            count: returnedNotifications.count,
+            rows: returnedNotifications.rows,
           },
         );
       });
@@ -67,33 +68,33 @@ class Notifications {
   /**
   * add notification
   *
-  * @param {object} data
+  * @param {object} notification
 
   * @memberof Notifications
 
   @returns {undefined}
   */
-  addNotification(data) {
+  addNotification(notification) {
     this.var = '';
     models.Notification.create({
-      UserId: parseInt(data.userId, 10),
-      BookId: parseInt(data.bookId, 10),
-      notificationType: data.notificationType,
+      UserId: parseInt(notification.userId, 10),
+      BookId: parseInt(notification.bookId, 10),
+      notificationType: notification.notificationType,
     });
   }
   /**
  * Update a notification
  *
- * @param {object} data
+ * @param {object} updateNotification
  *
  * @returns {undefined}
  *
  * @memberof Notifications
  */
-  updateNotification(data) {
+  updateNotification(updateNotification) {
     const whereStatement = {};
-    if (data.id) {
-      whereStatement.id = data.id;
+    if (updateNotification.id) {
+      whereStatement.id = updateNotification.id;
     }
     return models.Notification.update(
       {

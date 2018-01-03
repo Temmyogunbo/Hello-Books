@@ -12,7 +12,10 @@ const propTypes = {
 
 /**it returns unordered list element
  *
- * @param {object} props
+ * @param {boolean} isAdmin - it stores boolean value
+ *  @param {function} signOutAction - it stores signOutAction function for userLinks
+  * @param {number} total - it stores total number of notifications
+
  *
  * @returns {object} jsx
  */

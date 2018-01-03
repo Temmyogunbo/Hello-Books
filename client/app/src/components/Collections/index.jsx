@@ -53,7 +53,7 @@ export class Collections extends React.Component {
   /**
      * Creates an instance of Collections.
      *
-     * @param {object} props
+     * @param {object} props - contains props object from react
      *
      * @memberof Collections
      */
@@ -105,7 +105,7 @@ export class Collections extends React.Component {
    *
    * @returns {undefined}
    *
-   * @param {object} nextProps
+   * @param {object} nextProps - contains nextprops object
    *
    * @memberof Collections
    */
@@ -119,7 +119,7 @@ export class Collections extends React.Component {
    *
      * @returns {undefined}
      *
-     * @param {number} pageNumber
+     * @param {number} pageNumber - page number
      *
      * @memberof Collections
      */
@@ -155,11 +155,11 @@ export class Collections extends React.Component {
   }
   /**It deletes a book and set a new state
    * for numberOfTimesBookDeleted and also invokes
-   * an action if it is upton to 5 times
+   * an action if it is upon to 5 times
    *
    * @returns {object} modal element
    *
-   * @param {object} event
+   * @param {object} event - html event object
    *
    * @memberof Collections
    */

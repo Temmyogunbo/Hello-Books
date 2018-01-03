@@ -22,14 +22,14 @@ TextFieldGroup.defaultProps = {
 /**It either returns input field or textarea
  *
  *
- * @param {string}  id
- *  @param {string}  field
- *  @param {string}  value
- *  @param {string}   label
- *  @param {object}  errors
- *  @param {string}   type
- *  @param {string}   icon
- *  @param {function}   handleChange
+ * @param {string}  id - textFieldGroup id
+ *  @param {string}  field - field string for textFieldGroup
+ *  @param {string}  value - value string for textFieldGroup
+ *  @param {string}   label - label string for textFieldGroup
+ *  @param {object}  errors - errors object for textFieldGroup
+ *  @param {string}   type - type of textFieldGroup
+ *  @param {string}   icon - textFieldGroup icon if available
+ *  @param {function}   handleChange - function for textFieldGroup
  * }
  * @returns {object} jsx
  */

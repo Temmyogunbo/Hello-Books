@@ -50,7 +50,7 @@ class CategoryForm extends React.Component {
    *
    * @returns {undefined}
    *
-   * @param {object} event
+   * @param {object} event - html event object
    *
    * @memberof CategoryForm
    */

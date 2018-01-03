@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  * It checks if a component is signed in and
  * also determine if admin before rendering
  *
- * @param {any} ComposedComponent
+ * @param {object} ComposedComponent
  *
  * @returns {object} jsx
  */
@@ -28,7 +28,7 @@ export const CheckSignedContainer = (ComposedComponent) => {
     /**
      * Creates an instance of CheckSignedInContainer.
      *
-     * @param {object} props
+     * @param {object} props - contains react props
      *
      * @memberof CheckSignedInContainer
      */
@@ -93,7 +93,7 @@ export const CheckSignedContainer = (ComposedComponent) => {
   /**It slices the state and return authenticate
    *
    *
-   * @param {object} state
+   * @param {object} state - application state
    *
    * @returns {object} user
    */

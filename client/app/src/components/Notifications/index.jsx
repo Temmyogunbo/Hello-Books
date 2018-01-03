@@ -33,7 +33,7 @@ export class Notifications extends React.Component {
   /**
    * Creates an instance of Notifications.
    *
-   * @param {object} props
+   * @param {object} props - it contains react props
    *
    * @memberof Notifications
    */
@@ -61,7 +61,7 @@ export class Notifications extends React.Component {
    *
    * @returns {undefined}
    *
-   * @param {number} pageNumber
+   * @param {number} pageNumber - it stores page number for notification page
    *
    * @memberof Notifications
    */
@@ -114,7 +114,7 @@ Notifications.defaultProps = defaultProps;
 /**
  * It slices the state and returns role, notifications, and total
  *
- * @param {object} state
+ * @param {object} state - application state object
  *
  * @returns {object} new state
 */

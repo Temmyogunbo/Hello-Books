@@ -36,7 +36,7 @@ export class Users extends React.Component {
   /**
    * Creates an instance of Users.
    *
-   * @param {object} props
+   * @param {object} props - contains react props
    *
    * @memberof Users
    */
@@ -72,7 +72,7 @@ export class Users extends React.Component {
    *
    * @returns {undefined}
    *
-   * @param {number} pageNumber
+   * @param {number} pageNumber - stores page number
    *
    * @memberof Users
    */
@@ -88,14 +88,14 @@ export class Users extends React.Component {
   /**It handles return book
    *
    *
-   * @param {object} data
+   * @param {object} bookObject - contains book details to be deleted
    *
    * @returns {undefined}
    *
    * @memberof Users
    */
-  handleReturnBook(data) {
-    const { historyObj, id, CB } = data;
+  handleReturnBook(bookObject) {
+    const { historyObj, id, CB } = bookObject;
     if (!historyObj.returned) {
       return swal('You want to return this book')
         .then(() => {
@@ -157,7 +157,7 @@ export class Users extends React.Component {
 /**
  * It slices the state and returns user, userHistoryReducer, total
  *
- * @param {object} state
+ * @param {object} state - application state
  *
  * @returns {object} new state
 */

@@ -12,8 +12,8 @@ class BooksController {
  *
  * @static
  *
- * @param {object} request
- * @param {object} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} book object
  *
@@ -64,8 +64,8 @@ class BooksController {
    *
    * @static
    *
-   * @param {object} request
-   * @param {object} response
+   * @param {object} request - request object
+   * @param {object} response - response object
    *
    * @returns {object} category object
    *
@@ -94,8 +94,8 @@ class BooksController {
  *
  * @static
  *
- * @param {object} request
- * @param {object} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} category object
  *
@@ -116,8 +116,8 @@ class BooksController {
    *
    * @static
    *
-   * @param {object} request
-   * @param {object} response
+   * @param {object} request - request object
+   * @param {object} response - response object
    *
    * @returns {object}  book(s) object
    *
@@ -164,8 +164,8 @@ class BooksController {
  *
  * @static
  *
- * @param {object} request
- * @param {object} response
+ * @param {object} request - request object
+ * @param {object} response - respinse object
  *
  * @returns {object} returns object
  *
@@ -225,8 +225,8 @@ class BooksController {
  *
  * @static
  *
- * @param {object} request
- * @param {object} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} returns object
  *

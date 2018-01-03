@@ -21,7 +21,7 @@ class ChangePasswordForm extends React.Component {
   /**
      * Creates an instance of ChangePasswordForm.
      *
-     * @param {object} props
+     * @param {object} props - contains react props object
      *
      * @memberof ChangePasswordForm
      */
@@ -80,7 +80,7 @@ class ChangePasswordForm extends React.Component {
   /**It updates the namne field
    * @returns {undefined}
    *
-   * @param {object} event
+   * @param {object} event - html event object
    *
    * @memberof ChangePasswordForm
    */
@@ -90,7 +90,7 @@ class ChangePasswordForm extends React.Component {
   /**It handles submit
    *
    *
-   * @param {object} event
+   * @param {object} event - html event object
    * \
    * @returns {undefined}
    *

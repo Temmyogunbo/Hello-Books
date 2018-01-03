@@ -25,7 +25,7 @@ export class BookCategories extends React.Component {
   /**
      * Creates an instance of BookCategories.
      *
-     * @param {object} props
+     * @param {object} props - props object
      *
      * @memberof BookCategories
      */
@@ -49,7 +49,7 @@ export class BookCategories extends React.Component {
    *
      * @returns {undefined}
      *
-     * @param {object} nextProps
+     * @param {object} nextProps - contains nextProps object
      *
      * @memberof BookCategories
      */
@@ -114,7 +114,7 @@ export class BookCategories extends React.Component {
 /**
  * It slices the state and returns category array
  *
- * @param {object} state
+ * @param {object} state - contains application state
  *
  * @returns {object} new state
 */

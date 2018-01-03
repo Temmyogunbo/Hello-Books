@@ -40,7 +40,7 @@ export class Authentication extends React.Component {
      *
      * @returns {undefined}
      *
-     * @param {object} nextProps
+     * @param {object} nextProps - contains nextProps object
      *
      * @memberof Authentication
      */
@@ -67,8 +67,8 @@ Authentication.propTypes = propTypes;
 /**
  * It slices the state and returned isAuthenticated boolean
  *
- * @param {object} state
- * @param {object} ownProps
+ * @param {object} state - application state object
+ * @param {object} ownProps - ownProps dispatched to store
  *
  * @returns {object} new state
 */

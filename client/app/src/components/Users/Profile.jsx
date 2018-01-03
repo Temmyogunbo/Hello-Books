@@ -7,7 +7,10 @@ const propTypes = {
 
 /**It returns a div element containing user profile
  *
- * @param {object} props
+ * @param {string} fullName - contains profile full name
+ * @param {string} userName - contains profile user name
+ * @param {string} email - contains profile email
+ * @param {string} membership - contains profile membership
  *
  * @returns {object} jsx
  */

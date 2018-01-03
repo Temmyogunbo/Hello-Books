@@ -28,7 +28,7 @@ class BookForm extends React.Component {
   /**
    * Creates an instance of BookForm.
    *
-   * @param {object} props
+   * @param {object} props - conatains props object from react
    *
    * @memberof BookForm
    */
@@ -62,7 +62,7 @@ class BookForm extends React.Component {
    *
  * @returns {undefined}
  *
- * @param {object} nextProps
+ * @param {object} nextProps - contains nextProps object
  *
  * @memberof BookForm
  */
@@ -104,7 +104,7 @@ class BookForm extends React.Component {
  *
  * @description- it uploads images to cloudinary
  *
- * @param {object} event
+ * @param {object} event - html event object
  *
  * @memberof BookForm
  */
@@ -181,7 +181,7 @@ class BookForm extends React.Component {
    * @returns {undefined} description- it updates an instance
    * of BookForm go its current state
    *
-   * @param {object} event
+   * @param {object} event - html event object
    *
    * @memberof BookForm
    */
@@ -205,7 +205,7 @@ class BookForm extends React.Component {
  *
  * @return {undefined} the add book action is dispatched
  *
- * @param {object} event - on click event
+ * @param {object} event - onclick event
  *
  * @memberof add Book form
  */

@@ -24,7 +24,7 @@ export const changeUserPassword = user => ({
  *
  * @return {object} All history
  *
- * @param {detailedHistory} detailedHistory - dispatched history object
+ * @param {object} detailedHistory - dispatched history object
  */
 export const getHistory = detailedHistory => ({
   type: GET_USER_HISTORY,

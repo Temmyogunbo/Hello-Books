@@ -9,7 +9,7 @@ class MembershipLevel {
  *
  * @static
  *
- * @param {string} membershipType
+ * @param {string} membershipType - membership type
  *
  * @returns {array} returns object
  *

@@ -19,7 +19,7 @@ export class SignInForm extends React.Component {
   /**
      * Creates an instance of SignInForm.
      *
-     * @param {any} props
+     * @param {object} props - contains react object
      *
      * @memberof SignInForm
      */
@@ -53,7 +53,7 @@ export class SignInForm extends React.Component {
    *
    * @returns {object} user's details on google
    *
-   * @param {any} response
+   * @param {object} response
    *
    * @memberof SignInForm
    */
@@ -66,9 +66,9 @@ export class SignInForm extends React.Component {
   }
   /**It updates the name field
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @param {any} event
+   * @param {object} event - html event object
    *
    * @memberof SignInForm
    */
@@ -90,9 +90,9 @@ export class SignInForm extends React.Component {
   }
   /**It handles form submission
    *
-   * @return {void} the login action is dispatched
+   * @return {undefined} the login action is dispatched
    *
-   * @param {object} event
+   * @param {object} event - html event object
    *
    * @memberof SignInForm
    */

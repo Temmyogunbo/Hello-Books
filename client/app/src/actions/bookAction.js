@@ -17,9 +17,9 @@ import {
 /**
  *Dispatched action to edit book
 
- * @param {object} book
+ * @param {object} book - book object
  *
- * @return {book} object
+ * @return {object} book
  */
 export const editBook = book => ({
   type: EDIT_BOOK,
@@ -28,7 +28,7 @@ export const editBook = book => ({
 
 /**Dispatched action to add book
  *
- * @param {object} book
+ * @param {object} book - book object
  *
  * @return {book} book - dispatched book object
  */
@@ -39,7 +39,7 @@ export const addBook = book => ({
 
 /**Dispatched action to delete book
  *
- * @param {bookId} id
+ * @param {number} id - book id
  *
  * @return {object} description delete book object
  *
@@ -51,7 +51,7 @@ export const deleteBook = id => ({
 
 /**Dispatched action to get all books
  *
- * @param {books} books
+ * @param {object} books - books object
  *
  * @return {object} object
  *
@@ -65,7 +65,7 @@ export const getAllBooks = books => ({
  *
  * @return {object} All books
  *
- * @param {error} id - dispatched book id
+ * @param {number} id - dispatched book id
  */
 export const borrowBook = id => ({
   type: BORROW_A_BOOK,
@@ -76,7 +76,7 @@ export const borrowBook = id => ({
  *
  * @return {returnMessage} returnMessage - dispatched returned message
  *
- * @param {object} bookReturned book details
+ * @param {object} bookReturned - book details
  */
 export const returnBook = bookReturned => ({
   type: RETURN_A_BOOK,
@@ -128,9 +128,9 @@ export const getBookOrBooksAction = bookData => dispatch => {
 };
 /**It returns borrow book object
  *
-* @param {bookData} bookData
+* @param {object} bookData - bookData object
 
-* @return {object} response
+* @return {object} response - response object
 */
 export const borrowBookAction = bookData => dispatch =>
   axios.post(

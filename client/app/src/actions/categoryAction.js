@@ -8,9 +8,9 @@ import {
 
 /**Dispatched category action
  *
- * @param {object} category
+ * @param {object} category - contains category object to be dispatched
  *
- * @return {book} category - dispatched category object
+ * @return {object} category - dispatched category object
  */
 const createBookCategory = category => ({
   type: CREATE_BOOK_CATEGORY,
@@ -19,7 +19,7 @@ const createBookCategory = category => ({
 
 /**Dispatched category action
  *
- * @param {object} category
+ * @param {object} category - contains category object to be dispatched
  *
  * @return {object} category - dispatched category object
  */
