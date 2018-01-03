@@ -76,7 +76,7 @@ class Authentication {
         next();
       });
     } else {
-      return response.status(401)
+      return response.status(40)
         .json({ message: 'You are not logged in.' });
     }
   }

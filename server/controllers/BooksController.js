@@ -124,25 +124,23 @@ class BooksController {
    * @memberof BooksController
    */
   static findBookOrBooks(request, response) {
-    const {
+    const whereStatement = {};
+    const bookId = request.params[0];
+    let {
       itemsCountPerPage,
       page,
-      category,
     } = request.query;
+    const { category } = request.query;
+    itemsCountPerPage = parseInt(itemsCountPerPage, 10) || 10;
+    page = parseInt(page, 10) || 0;
+    whereStatement.category = category || { $ne: null };
+    whereStatement.id = bookId ? parseInt(bookId, 10) : { $ne: null };
 
-    const offset = itemsCountPerPage ? itemsCountPerPage * (page - 1) : 0;
-    const limit = itemsCountPerPage || 10;
-    const whereStatement = {};
-    if (category) {
-      whereStatement.category = category;
-    }
-    if (request.params[0]) {
-      whereStatement.id = parseInt(request.params[0], 10);
-    }
+    let offset = itemsCountPerPage * (page - 1);
+    offset = offset <= -1 ? 0 : offset;
     return models.Book.findAndCountAll({
       where: whereStatement,
-
-      limit,
+      limit: itemsCountPerPage,
       offset,
       order: [['updatedAt', 'DESC']],
     })
@@ -156,8 +154,9 @@ class BooksController {
           count: books.count, rows: books.rows,
         });
       })
-      .catch(error => response.status(400)
-        .json(error.errors.map(errorMessage => errorMessage.message)));
+      .catch(() => response.status(500).json({
+        message: 'An error occured',
+      }));
   }
   /**
  * Edit and update a particular book

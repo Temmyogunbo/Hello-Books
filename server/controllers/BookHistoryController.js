@@ -95,6 +95,9 @@ class BookHistoryController {
               .then(record => response.status(201).json({
                 record,
                 message: 'You successfully borrowed a book',
+              }))
+              .catch(() => response.status(500).json({
+                message: 'An error occured',
               }));
           } else {
             return response.status(409).json({
@@ -219,7 +222,10 @@ class BookHistoryController {
           });
         }
         response.status(200).json({ rows: record.rows, count: record.count });
-      });
+      })
+      .catch(() => response.status(500).json({
+        message: 'An error occured',
+      }));
   }
 }
 export default BookHistoryController;
