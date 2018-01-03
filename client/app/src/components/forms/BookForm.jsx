@@ -173,6 +173,7 @@ class BookForm extends React.Component {
       isEdit: false,
       isLoading: false,
       isButtonLoading: true,
+      imageUrl: '',
     }, () => $('#book-form-modal').modal('close'));
   }
   /**It updates user input
@@ -210,8 +211,8 @@ class BookForm extends React.Component {
  */
   onSubmit(event) {
     event.preventDefault();
+    const { $ } = window;
     if (this.validateForm()) {
-      this.setState({ errors: {}, isButtonLoading: true });
       const {
         category,
         quantity,
@@ -232,7 +233,13 @@ class BookForm extends React.Component {
           author,
           id,
           imagePublicId,
-        }).then(() => this.handleClose());
+        }).then((response) => {
+          if (response && response.status < 400) {
+            this.handleClose();
+            return $('#book-category-form-modal').modal('close');
+          }
+        });
+        this.setState({ errors: {}, });
       } else {
         this.props.addBook({
           category,
@@ -242,7 +249,13 @@ class BookForm extends React.Component {
           title,
           author,
           imagePublicId,
-        }).then(() => this.handleClose());
+        }).then((response) => {
+          if (response && response.status < 400) {
+            this.handleClose();
+            return $('#book-category-form-modal').modal('close');
+          }
+        });
+        this.setState({ errors: {}, });
       }
     }
   }

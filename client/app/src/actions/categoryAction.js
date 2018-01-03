@@ -51,11 +51,13 @@ export const getBookCategoryAction = () => dispatch =>
 export const createBookCategoryAction =
 categoryData => dispatch => axios.post('/api/v1/category', categoryData)
   .then((response) => {
-    dispatch(createBookCategory(response.data.category));
+    dispatch(createBookCategory(response.data));
     toastr.success('You added a category');
+    return response;
   })
   .catch((error) => {
     toastr.error(error.response.data.message);
+    return error;
   });
 export default {
   createBookCategoryAction,

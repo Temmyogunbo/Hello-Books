@@ -94,9 +94,11 @@ export const addBookAction = bookData => dispatch =>
     .then((response) => {
       dispatch(addBook(response.data.book));
       toastr.success('Book(s) successfully added to the library.');
+      return response;
     })
     .catch((error) => {
       toastr.error(error.response.data.message);
+      return error;
     });
 
 /**It returns all book object

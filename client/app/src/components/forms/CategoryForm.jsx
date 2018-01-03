@@ -5,6 +5,7 @@ import categoryValidation from '../../../utils/categoryValidation';
 import TextFieldGroup from './TextFieldGroup';
 import Button from "../Button";
 
+
 const propTypes = {
   createBookCategory: PropTypes.func.isRequired,
 };
@@ -82,9 +83,13 @@ class CategoryForm extends React.Component {
     const { $ } = window;
     event.preventDefault();
     if (this.validateForm()) {
-      this.props.createBookCategory(this.state);
-      this.handleClose();
-      return $('#book-category-form-modal').modal('close');
+      this.props.createBookCategory(this.state)
+        .then((response) => {
+          if (response && response.status < 400) {
+            this.handleClose();
+            return $('#book-category-form-modal').modal('close');
+          }
+        });
     }
   }
   /**It returns a div element

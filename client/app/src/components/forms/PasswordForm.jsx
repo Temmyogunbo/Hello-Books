@@ -109,15 +109,17 @@ class ChangePasswordForm extends React.Component {
         changePassword,
         userName
       } = this.props;
-      this.setState({ errors: {}, isButtonLoading: true });
       changePassword({
         oldPassword,
         newPassword,
         confirmNewPassword,
         userName,
+      }).then((response) => {
+        if (response && response.status < 400) {
+          this.handleClose();
+          return $('#change-password').modal('close');
+        }
       });
-      this.handleClose();
-      return $('#change-password').modal('close');
     }
   }
   /**It returns a div element

@@ -153,8 +153,10 @@ export const changePasswordAction = userData => dispatch =>
     .then((response) => {
       dispatch(changeUserPassword({}));
       toastr.success('Password changed');
+      return response;
     }).catch((error) => {
       toastr.error(error.response.data.message);
+      return error;
     });
 
 /**It clears local storage and set token to false
