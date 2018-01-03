@@ -11,13 +11,15 @@ module.exports = {
       .pause(5000)
       .click('#add-book-or-category-div > a')
       .waitForElementVisible('#book-category-form-modal', 4000)
-      .setValue('input[name="category"]', 'Arts')
+      .setValue('input[name="category"]', 'Romance001')
       .click('#book-category-form-modal > div form div > button')
       .assert.elementPresent('#toast-container')
+      .pause(2000)
       .assert.containsText(
         '#toast-container',
         'You added a category',
       )
+      .assert.containsText('.book-categories > li:nth-child(3)', 'Romance001')
       .pause(2000)
       .end();
   },

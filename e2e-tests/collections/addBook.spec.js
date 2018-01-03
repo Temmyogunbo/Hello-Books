@@ -11,7 +11,7 @@ module.exports = {
       .pause(10000)
       .click('#add-book')
       .waitForElementVisible('#book-form-modal', 4000)
-      .setValue('input[name="title"]', 'Christmas game of thrones')
+      .setValue('input[name="title"]', 'Christmas game ot thrones')
       .setValue('input[name="author"]', 'Olusegun Oni')
       .clearValue('input[name="quantity"]')
       .setValue('input[name="quantity"]', 40)
@@ -26,17 +26,5 @@ module.exports = {
       )
       .end();
   },
-  'it should check if book added successfully': (client) => {
-    client
-      .url('localhost:5000/signin')
-      .waitForElementVisible('body')
-      .setValue('input[name="userName"]', 'admin')
-      .setValue('input[name="password"]', 'emmanuel')
-      .click('#for-google-log-in')
-      .waitForElementVisible('ul:first-child', 10000)
-      .assert.elementPresent('.container')
-      .assert.element
-      .pause(10000)
-      .end();
-  },
+
 };
