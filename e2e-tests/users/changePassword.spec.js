@@ -16,10 +16,10 @@ module.exports = {
       .waitForElementVisible('.modal-content')
       .assert.elementPresent('.modal-content')
       .setValue('input[name="oldPassword"]', 'emmanuel')
-      .setValue('input[name="newPassword"]', 'emmanuel')
+      .setValue('input[name="newPassword"]', 'emmanuelogunbo')
       .setValue(
         'input[name="confirmNewPassword"]',
-        'emmanuel',
+        'emmanuelogunbo',
       )
       .click('form:last-child button:first-child')
       .pause(1000)
@@ -28,6 +28,22 @@ module.exports = {
         '#toast-container',
         'Password changed',
       )
+      .end();
+  },
+  'it should not sign with old password': (client) => {
+    client
+      .url('http://localhost:5000/signin')
+      .waitForElementVisible('body')
+      .waitForElementVisible('#sign-in-form', 1000)
+      .setValue('input[name="userName"]', 'temmy')
+      .setValue('input[name="password"]', 'emmanuel')
+      .click('#for-google-log-in')
+      .pause(2000)
+      .assert.containsText(
+        '#toast-container',
+        'Invalid username or password',
+      )
+      .pause(2000)
       .end();
   },
   'it should not change password when old password is wrong': (client) => {
