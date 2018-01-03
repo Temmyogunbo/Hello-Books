@@ -11,7 +11,7 @@ module.exports = {
       .pause(10000)
       .click('#add-book')
       .waitForElementVisible('#book-form-modal', 4000)
-      .setValue('input[name="title"]', 'Christmas game ot thrones')
+      .setValue('input[name="title"]', 'Christmas game of thrones in Nigeria')
       .setValue('input[name="author"]', 'Olusegun Oni')
       .clearValue('input[name="quantity"]')
       .setValue('input[name="quantity"]', 40)
@@ -24,7 +24,9 @@ module.exports = {
         '#toast-container',
         'Book(s) successfully added to the library.',
       )
-      .end();
+      .assert.containsText(
+        'ul:first-child li div a div div.card-color',
+        'Christmas game of thrones in Nigeria',
+      );
   },
-
 };
