@@ -52,7 +52,7 @@ class BooksController {
             message: 'Book already exist',
           });
         default:
-          return response.status(403).json({
+          return response.status(500).json({
             message: 'An error occured',
           });
         }
