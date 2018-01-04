@@ -6,44 +6,44 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isInt: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         isInt: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     notificationType: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     seen: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unread'
-    }
+      defaultValue: 'unread',
+    },
   });
   Notification.associate = (models) => {
     Notification.belongsTo(models.Book, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       foreignKey: {
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
     Notification.belongsTo(models.User, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       foreignKey: {
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   };
   return Notification;

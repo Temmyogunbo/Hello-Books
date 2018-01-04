@@ -15,18 +15,21 @@ const propTypes = {
   book: PropTypes.object.isRequired,
   editBook: PropTypes.func.isRequired,
   addBook: PropTypes.func.isRequired,
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
 };
 /**It contains method and behaviours for BookForm component
  *
  *
  * @class BookForm
+ *
  * @extends {React.Component}
  */
 class BookForm extends React.Component {
   /**
    * Creates an instance of BookForm.
-   * @param {any} props
+   *
+   * @param {object} props - conatains props object from react
+   *
    * @memberof BookForm
    */
   constructor(props) {
@@ -45,7 +48,7 @@ class BookForm extends React.Component {
       imageUrl: '',
       isLoading: false,
       isButtonLoading: true,
-      errors: {}
+      errors: {},
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -57,9 +60,9 @@ class BookForm extends React.Component {
    * imagePublicId, bookHead, buttonText, isEdit, and isButtonLoading
    * on receiving new properties
    *
- * @returns {void}
+ * @returns {undefined}
  *
- * @param {any} nextProps
+ * @param {object} nextProps - contains nextProps object
  *
  * @memberof BookForm
  */
@@ -77,7 +80,7 @@ class BookForm extends React.Component {
         bookHead: "EDIT BOOK BY CATEGORY",
         buttonText: 'EDIT BOOK',
         isEdit: true,
-        isButtonLoading: false
+        isButtonLoading: false,
       });
     }
   }
@@ -97,17 +100,18 @@ class BookForm extends React.Component {
   }
   /**This functions reads image and uploads to cloudinary
    *
- * @returns {void}
+ * @returns {undefined}
  *
  * @description- it uploads images to cloudinary
  *
- * @param {any} event
+ * @param {object} event - html event object
+ *
  * @memberof BookForm
  */
   uploadToCloudinary(event) {
     event.preventDefault();
     this.setState({
-      isLoading: true
+      isLoading: true,
     });
     const { $ } = window;
     const { files } = $(event.target)[0];
@@ -135,7 +139,7 @@ class BookForm extends React.Component {
               imagePublicId: response.public_id,
               imageUrl: response.secure_url,
               isButtonLoading: false,
-              isLoading: false
+              isLoading: false,
             });
           }
         );
@@ -168,7 +172,8 @@ class BookForm extends React.Component {
       buttonText: 'ADD BOOK',
       isEdit: false,
       isLoading: false,
-      isButtonLoading: true
+      isButtonLoading: true,
+      imageUrl: '',
     }, () => $('#book-form-modal').modal('close'));
   }
   /**It updates user input
@@ -176,7 +181,8 @@ class BookForm extends React.Component {
    * @returns {undefined} description- it updates an instance
    * of BookForm go its current state
    *
-   * @param {any} event
+   * @param {object} event - html event object
+   *
    * @memberof BookForm
    */
   handleChange(event) {
@@ -184,6 +190,7 @@ class BookForm extends React.Component {
   }
   /**
   **@description Checks that form is valid
+
   * @return {Boolean} boolean
   */
   validateForm() {
@@ -198,14 +205,14 @@ class BookForm extends React.Component {
  *
  * @return {undefined} the add book action is dispatched
  *
- * @param {void} event - on click event
+ * @param {object} event - onclick event
  *
  * @memberof add Book form
  */
   onSubmit(event) {
     event.preventDefault();
+    const { $ } = window;
     if (this.validateForm()) {
-      this.setState({ errors: {}, isButtonLoading: true });
       const {
         category,
         quantity,
@@ -225,8 +232,14 @@ class BookForm extends React.Component {
           title,
           author,
           id,
-          imagePublicId
-        }).then(() => this.handleClose());
+          imagePublicId,
+        }).then((response) => {
+          if (response && response.status < 400) {
+            this.handleClose();
+            return $('#book-category-form-modal').modal('close');
+          }
+        });
+        this.setState({ errors: {}, });
       } else {
         this.props.addBook({
           category,
@@ -235,8 +248,14 @@ class BookForm extends React.Component {
           imageUrl,
           title,
           author,
-          imagePublicId
-        }).then(() => this.handleClose());
+          imagePublicId,
+        }).then((response) => {
+          if (response && response.status < 400) {
+            this.handleClose();
+            return $('#book-category-form-modal').modal('close');
+          }
+        });
+        this.setState({ errors: {}, });
       }
     }
   }
@@ -244,6 +263,7 @@ class BookForm extends React.Component {
    *
    *
    * @returns {object} jsx
+   *
    * @memberof BookForm
    */
   render() {
@@ -251,7 +271,7 @@ class BookForm extends React.Component {
     return (
       <div id="book-form-modal" className="add-book-modal modal">
         <div className="row modal-content">
-          <div>{this.state.bookHead}</div>
+          <h6>{this.state.bookHead}</h6>
           <form onSubmit={this.onSubmit}>
             <SelectInputField
               label={'category'}

@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 
-import { Notifications } from
+import { Notifications, } from
   '../../../src/components/Notifications';
 
 const props = {
@@ -22,14 +22,17 @@ const props = {
   }],
   getNotifications: jest.fn(),
   updateNotification: jest.fn(),
-  total: 0
+  total: 0,
 };
 
 describe('Given Notifcations', () => {
   describe('When the browser opens', () => {
     const wrapper = shallow(<Notifications {...props} />);
     it('Then it should call the handleChange method', () => {
-      const handlePageChangeSpy = jest.spyOn(wrapper.instance(), 'handlePageChange');
+      const handlePageChangeSpy = jest.spyOn(
+        wrapper.instance(),
+        'handlePageChange'
+      );
       wrapper.instance().handlePageChange(2);
       expect(handlePageChangeSpy).toHaveBeenCalledTimes(1);
     });

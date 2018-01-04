@@ -1,14 +1,9 @@
 // For Authentication actions
 
-export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFp' +
-'bCI6InRlbW15b2d1bmJvQGdtYWlsLmNvbSIsInVzZXJOYW1' +
-'lIjoidGVtbXkiLCJmdWxsTmFtZSI6IkVtbWFudWVsIiwiaW' +
-'QiOjEsInJvbGUiOiJhZG1pbiIsIm1lbWJlcnNoaXAiOiJnb2xkIiw' +
-'iaWF0IjoxNTEyMDUzMzgxLCJleHAiOjE1MTIxMzk3ODF9.A4LGBsXyo' +
-'WG5pM5LbxCxcy3Fe6sDAxIIEK5VJBkXIfQ';
+export const { token } = process.env;
 
 // For categories operations
-export const category1 = {
+export const secondcategorySample = {
   category: {
     id: 6,
     title: 'Programming',
@@ -26,7 +21,7 @@ export const category = {
 export const categoryData = {
   category: 'Programming'
 };
-export const book2 = {
+export const secondBookSample = {
   id: 7,
   author: "Ogunbo Emmanuel",
   title: "How to get rich in 5 days",
@@ -38,42 +33,6 @@ export const book2 = {
   quantity: 43,
   createdAt: "2017-12-01T17:42:32.877Z",
   updatedAt: "2017-12-03T11:45:30.303Z"
-};
-
-export const bookData = {
-  currentPage: 1,
-  itemsCountPerPage: 5,
-};
-export const bookData2 = {
-  currentPage: 1,
-  itemsCountPerPage: 5,
-  bookCategory: { category: 'History' }
-};
-export const bookData3 = {
-  currentPage: 1,
-  itemsCountPerPage: 5,
-  bookId: 1
-};
-
-export const user = {
-  email: 'temmyogunbo@gmail.com',
-  userName: 'temmy',
-  fullName: 'Emmanuel',
-  id: 1,
-  role: 'admin',
-  membership: 'gold',
-  msg: 'You are signed in',
-
-};
-export const user2 = {
-  email: "dino@gmail.com",
-  fullName: "dino",
-  userName: "dino",
-  membership: "gold",
-  msg: 'Registration successful',
-  id: 36,
-  role: "users",
-
 };
 export const signupData = {
   email: 'temmyogunbo@gmail.com',
@@ -139,14 +98,14 @@ export const userNotAuthenticated = {
 };
 
 // For book operations
-export const book1 = {
+export const firstBookSample = {
   rows: [{
     id: 6,
     author: "P.N Okeke",
     title: "Engineering Mathematics",
     description: "The moon falls if apples falls. Isaac said so",
     imageUrl: "https://res.cloudinary.com/emmanuelandela/" +
-    "image/upload/v1512149777/y1psocziflotgjg2mtvf.jpg",
+      "image/upload/v1512149777/y1psocziflotgjg2mtvf.jpg",
     imagePublicId: "y1psocziflotgjg2mtvf",
     category: "Engineering",
     quantity: 35,
@@ -159,7 +118,7 @@ export const book1 = {
     title: "How to get rich in 5 days",
     description: "Don't doubt it. There has been lots of testimonies.",
     imageUrl: "https://res.cloudinary.com/emmanuelandela/" +
-    "image/upload/v1512150149/gbqfcbvqpirssqonmafp.jpg",
+      "image/upload/v1512150149/gbqfcbvqpirssqonmafp.jpg",
     imagePublicId: "gbqfcbvqpirssqonmafp",
     category: "Finance",
     quantity: 43,
@@ -170,23 +129,59 @@ export const book1 = {
 };
 
 
-export const book3 = {
+export const thirdBookData = {
   title: 'Ancient Tips on travelling',
   author: 'O\'Hare',
   description: 'This tips would help you become a better traveller',
   imageUrl: 'https://res.cloudinary.com/dcl7tqhww/image/upload/' +
-  'v1510914293/fbuuwg6uqiab9b3rxpvh.jpg',
+    'v1510914293/fbuuwg6uqiab9b3rxpvh.jpg',
   st: true,
   quantity: 57,
   category: 'Travels',
   updatedAt: '2017-11-17T10:25:01.852Z',
   createdAt: '2017-11-17T10:25:01.852Z'
 };
+export const bookData = {
+  currentPage: 1,
+  itemsCountPerPage: 5,
+};
+export const secondBookData = {
+  currentPage: 1,
+  itemsCountPerPage: 5,
+  bookCategory: { category: 'History' }
+};
+export const bookData3 = {
+  currentPage: 1,
+  itemsCountPerPage: 5,
+  bookId: 1
+};
 
-export const books1 = [book1];
+export const user = {
+  email: 'temmyogunbo@gmail.com',
+  userName: 'temmy',
+  fullName: 'Emmanuel',
+  id: 1,
+  role: 'admin',
+  membership: 'gold',
+  msg: 'You are signed in',
 
-export const booksAfterDeletion = [book2];
-export const booksAfterUpdating = [book1, book3];
+};
+export const user2 = {
+  email: "dino@gmail.com",
+  fullName: "dino",
+  userName: "dino",
+  membership: "gold",
+  msg: 'Registration successful',
+  id: 36,
+  role: "users",
+
+};
+
+
+export const books1 = [firstBookSample];
+
+export const booksAfterDeletion = [secondBookSample];
+export const booksAfterUpdating = [firstBookSample, thirdBookData];
 
 // For borrowing operations
 export const borrow1 = {
@@ -258,8 +253,8 @@ export const category3 = {
   updatedAt: '2017-10-14T17:58:29.869Z'
 };
 
-export const categories1 = [category1, category2];
-export const categories2 = [category1, category2, category3];
+export const categories1 = [secondcategorySample, category2];
+export const categories2 = [secondcategorySample, category2, category3];
 
 export const googleDetails = {
   El: '116643864639139228843',

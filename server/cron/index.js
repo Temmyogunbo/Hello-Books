@@ -11,7 +11,7 @@ export const sendEmailNotification = () =>
     cronTime: '00 30 11 * * 1-5',
     onTick: emailNotification,
     timeZone: 'Africa/Lagos',
-    start: true
+    start: true,
   });
 
 emailNotification();

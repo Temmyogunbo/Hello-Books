@@ -5,17 +5,17 @@ import configureMockStore from 'redux-mock-store';
 
 import {
   createBookCategoryAction,
-  getBookCategoryAction
+  getBookCategoryAction,
 } from '../../src/actions/categoryAction';
 import {
   CREATE_BOOK_CATEGORY,
-  GET_BOOK_CATEGORY
+  GET_BOOK_CATEGORY,
 } from '../../src/constants/actionTypes';
 
 import {
   category,
-  category1,
-  categoryData
+  secondcategorySample,
+  categoryData,
 } from '../__mocks__/mockData';
 
 const middlewares = [thunk];
@@ -72,7 +72,7 @@ describe('Given category actions', () => {
           {
             status: 200,
             response:
-              { category: category1 },
+              { category: secondcategorySample, },
           }
         );
 
@@ -80,7 +80,7 @@ describe('Given category actions', () => {
       const expectedActions =
         [{
           type: CREATE_BOOK_CATEGORY,
-          category: category1
+          category: secondcategorySample
         }];
       const store = mockStore({});
       // act

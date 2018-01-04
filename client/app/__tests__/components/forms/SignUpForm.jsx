@@ -12,7 +12,7 @@ const user = {
   userName: 'name',
   email: 'email',
   password: 'password',
-  confirmPassword: 'password'
+  confirmPassword: 'password',
 };
 
 describe('Given a SignUpForm', () => {
@@ -25,7 +25,10 @@ describe('Given a SignUpForm', () => {
       expect(onSubmitSpy).toHaveBeenCalledTimes(1);
     });
     it('should call the onGoogleCallback method', () => {
-      const onGoogleCallbackOnSpy = jest.spyOn(wrapper.instance(), 'onGoogleCallback');
+      const onGoogleCallbackOnSpy = jest.spyOn(
+        wrapper.instance(),
+        'onGoogleCallback'
+      );
       wrapper.instance().onGoogleCallback({ profileObj: user });
       expect(onGoogleCallbackOnSpy).toHaveBeenCalledTimes(1);
     });
@@ -34,7 +37,7 @@ describe('Given a SignUpForm', () => {
         ...global.event,
         target: {
           name: 'name',
-          value: 'value'
+          value: 'value',
         }
       };
       const handleChangeSpy = jest.spyOn(wrapper.instance(), 'handleChange');

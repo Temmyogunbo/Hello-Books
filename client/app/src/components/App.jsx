@@ -1,13 +1,17 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+} from 'react-router-dom';
 
-import SignInPage from '../components/accounts/SignInPage';
-import SignUpPage from '../components/accounts/SignUpPage';
+import Authentication from '../components/accounts/Authentication';
+import SignInForm from '../components/forms/SignInForm';
+import SignUpForm from '../components/forms/SignUpForm';
 import SplashScreen from './Welcome';
 import CheckSignedInContainer from '../../utils/CheckSignedInContainer';
 import BookPage from '../components/Collections/BookPage';
-import CollectionsPage from '../components/Collections';
-import HistoryPage from '../components/users/HistoryPage';
+import Collections from '../components/Collections';
+import Users from '../components/Users';
 import Notifications from '../../src/components/Notifications';
 import PageNotFound from './PageNotFound';
 import NavigationBar from './NavigationBar';
@@ -18,23 +22,61 @@ import Footer from './Footer';
  *
  * @returns {object} jsx
  */
-function App() {
+export function App() {
   return (
     <div>
       <NavigationBar />
       <Switch>
-        <Route path="/signin" component={SignInPage} />
-        <Route exact path="/" component={SplashScreen} />
-        <Route path="/signup" component={SignUpPage} />
+        <Route path="/signin" render={
+          (props) =>
+            (
+              <Authentication
+                {...props}
+                render={ownProps =>
+                  (
+                    <SignInForm
+                      signin={ownProps.signin}
+                    />
+                  )}
+              />
+            )
+        } />
+        <Route path="/signup" render={
+          (props) =>
+            (
+              <Authentication
+                {...props}
+                render={ownProps =>
+                  (
+                    <SignUpForm
+                      signup={ownProps.signup}
+                    />
+                  )}
+              />
+            )
+        } />
+        <Route exact path="/" render={
+          (props) =>
+            (
+              <Authentication
+                {...props}
+                render={ownProps =>
+                  (
+                    <SplashScreen />
+                  )}
+              />
+            )
+        } />
+
         <Route
           exact
           path="/collections"
-          component={CheckSignedInContainer(CollectionsPage)}
+          component={CheckSignedInContainer(Collections)}
         />
         <Route
           exact
           path="/history"
-          component={CheckSignedInContainer(HistoryPage)}
+          component={CheckSignedInContainer(Users)}
         />
         <Route
           path="/collections/books/:bookId"
@@ -50,6 +92,5 @@ function App() {
     </div>
   );
 }
-
 export default App;
 

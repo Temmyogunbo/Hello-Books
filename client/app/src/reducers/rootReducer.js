@@ -15,14 +15,9 @@ const appReducer = combineReducers({
 /**
  * Handles all state
  *
- * @param {object} state
- * @param {object} action
+ * @param {object} state - application state
+ * @param {object} action - contains what to do
  *
  * @returns {object} new state
 */
-export default (state, action) => {
-  if (action.type === 'LOG_OUT_USERS') {
-    state = undefined;
-  }
-  return appReducer(state, action);
-};
+export default (state, action) => appReducer(state, action);

@@ -5,12 +5,12 @@ import swal from 'sweetalert2';
 import cloudinary from 'cloudinary';
 
 import BookCategories from './BookCategories';
-import CardLayout from './CardLayout';
+import CardList from './CardList';
 import BookForm from '../forms/BookForm';
 import settings from '../../../utils/cloudinarySettings';
 import CategoryForm from '../forms/CategoryForm';
 import {
-  getAllBooksAction,
+  getBookOrBooksAction,
   borrowBookAction,
   editBookAction,
   addBookAction,
@@ -38,24 +38,24 @@ const propTypes = {
   getNotifications: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   history: PropTypes.object.isRequired,
-  role: PropTypes.string.isRequired
+  isAdmin: PropTypes.bool.isRequired,
 };
 const defaultProps = {
-  total: 0
+  total: 0,
 };
 /**It contans state and behaviours for Collection Page component
  *
- * @class CollectionPage
+ * @class Collections
  *
  * @extends {React.Component}
  */
-export class CollectionPage extends React.Component {
+export class Collections extends React.Component {
   /**
-     * Creates an instance of CollectionPage.
+     * Creates an instance of Collections.
      *
-     * @param {any} props
+     * @param {object} props - contains props object from react
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   constructor(props) {
     super(props);
@@ -63,7 +63,8 @@ export class CollectionPage extends React.Component {
       activePage: 1,
       itemsCountPerPage: 5,
       book: {},
-      numberOfTimesBookDeleted: 0
+      numberOfTimesBookDeleted: 0,
+      bookCategory: '',
     };
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleEditBook = this.handleEditBook.bind(this);
@@ -73,9 +74,9 @@ export class CollectionPage extends React.Component {
    * and also initializes modal element
    * and resets numberOfTimesBookDeleted to zero
    *
-     * @returns {void} jsx
+     * @returns {object} jsx
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   componentDidMount() {
     const { $ } = window;
@@ -102,11 +103,11 @@ export class CollectionPage extends React.Component {
   }
   /**It sets categories and books state on next props if it changes
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @param {any} nextProps
+   * @param {object} nextProps - contains nextprops object
    *
-   * @memberof CollectionPage
+   * @memberof Collections
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.books !== this.props.books) {
@@ -118,15 +119,15 @@ export class CollectionPage extends React.Component {
    *
      * @returns {undefined}
      *
-     * @param {any} pageNumber
+     * @param {number} pageNumber - page number
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   handlePageChange(pageNumber) {
     this.setState({
       activePage: pageNumber,
     }, () => this.props.getAllBooks({
-      bookCategory: '',
+      bookCategory: this.state.bookCategory,
       currentPage: this.state.activePage,
       itemsCountPerPage: this.state.itemsCountPerPage
     }));
@@ -135,11 +136,11 @@ export class CollectionPage extends React.Component {
    *  and changes the book state of the component
    *
    *
-   * @param {any} event
+   * @param {object} event
    *
    * @returns {object} modal element
    *
-   * @memberof CollectionPage
+   * @memberof Collections
    */
   handleEditBook(event) {
     const { $ } = window;
@@ -154,13 +155,13 @@ export class CollectionPage extends React.Component {
   }
   /**It deletes a book and set a new state
    * for numberOfTimesBookDeleted and also invokes
-   * an action if it is upton to 5 times
+   * an action if it is upon to 5 times
    *
    * @returns {object} modal element
    *
-   * @param {any} event
+   * @param {object} event - html event object
    *
-   * @memberof CollectionPage
+   * @memberof Collections
    */
   handleDeleteBook(event) {
     event.preventDefault();
@@ -180,14 +181,15 @@ export class CollectionPage extends React.Component {
         (result) => { }
       );
       this.setState({
-        numberOfTimesBookDeleted: this.state.numberOfTimesBookDeleted + 1
+        numberOfTimesBookDeleted:
+        this.state.numberOfTimesBookDeleted + 1,
       });
 
       if (this.state.numberOfTimesBookDeleted === 5) {
         this.props.getAllBooks({
           bookCategory: '',
           currentPage: 1,
-          itemsCountPerPage: 5
+          itemsCountPerPage: 5,
         });
       }
     }).catch(swal.noop);
@@ -197,7 +199,7 @@ export class CollectionPage extends React.Component {
      *
      * @returns {object} jsx
      *
-     * @memberof CollectionPage
+     * @memberof Collections
      */
   render() {
     const {
@@ -209,12 +211,12 @@ export class CollectionPage extends React.Component {
       history,
       total,
       categories,
-      role
+      isAdmin,
     } = this.props;
     return (
       <div className="container mt-2">
         <div className="row">
-          {role === 'admin' ?
+          {isAdmin ?
             <div>
               <BookForm
                 book={this.state.book}
@@ -226,7 +228,7 @@ export class CollectionPage extends React.Component {
               <CategoryForm
                 createBookCategory={createBookCategory}
               />
-              <div className="right">
+              <div className="right" id="add-book-or-category-div">
                 <a
                   className=
                     "bc mr-2 btn modal-trigger brown darken-4"
@@ -235,8 +237,9 @@ export class CollectionPage extends React.Component {
                   ADD CATEGORY
                 </a>
                 <a
+                  id="add-book"
                   className=
-                    "btn modal-trigger brown darken-4"
+                    "book btn modal-trigger brown darken-4"
                   href="#book-form-modal"
                 >
                   ADD BOOK
@@ -246,8 +249,8 @@ export class CollectionPage extends React.Component {
             currentPage={this.state.activePage}
             itemsCountPerPage={this.state.itemsCountPerPage}
           />
-          <CardLayout
-            role={role}
+          <CardList
+            isAdmin={isAdmin}
             books={books}
             getAllBooks={getAllBooks}
             handleDeleteBook={this.handleDeleteBook}
@@ -268,8 +271,8 @@ export class CollectionPage extends React.Component {
     );
   }
 }
-CollectionPage.propTypes = propTypes;
-CollectionPage.defaultProps = defaultProps;
+Collections.propTypes = propTypes;
+Collections.defaultProps = defaultProps;
 
 /**
  * It slices the state and returns role, books, and total
@@ -280,7 +283,6 @@ CollectionPage.defaultProps = defaultProps;
  * @returns {object} new state
 */
 const mapStateToProps = (state) => ({
-  role: state.userReducer.user.role,
   books: state.bookReducer.rows,
   total: state.bookReducer.count,
   categories: state.bookCategoryReducer
@@ -292,7 +294,7 @@ connect(
   mapStateToProps,
   {
     editBook: editBookAction,
-    getAllBooks: getAllBooksAction,
+    getAllBooks: getBookOrBooksAction,
     borrowBook: borrowBookAction,
     addBook: addBookAction,
     deleteBook: deleteBookAction,
@@ -300,5 +302,5 @@ connect(
     createBookCategory: createBookCategoryAction,
     getNotifications: getNotificationsAction
   }
-)(CollectionPage);
+)(Collections);
 

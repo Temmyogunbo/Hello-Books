@@ -28,11 +28,9 @@ const sendMail = (userDetails) => {
   const request = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
-    body: mail.toJSON()
+    body: mail.toJSON(),
   });
 
-  sg.API(request, (error, response) => {
-    if (error) console.log(error);
-  });
+  sg.API(request, () => {});
 };
 export default sendMail;

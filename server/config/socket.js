@@ -1,4 +1,4 @@
-import Notifications from '../Notifications';
+import Notifications from '../helper/Notifications';
 
 export default (io) => {
   io.on('connect', (client) => {

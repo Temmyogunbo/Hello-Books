@@ -4,7 +4,8 @@ import axios from 'axios';
 /**It attaches token to header request
  *
  *@returns {undefined}
- * @param {any} token
+
+ * @param {string} token - user token
  */
 function setAuthToken(token) {
   if (token) {

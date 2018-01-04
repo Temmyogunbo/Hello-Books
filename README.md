@@ -1,10 +1,11 @@
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io.svg?branch=development)](https://travis-ci.org/Temmyogunbo/Temmyogunbo.github.io)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 [![Test Coverage](https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg?branch=development)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)
 # HelloBooks
 
-Hello-Books is a simple application that helps manage a library and its processes like stocking, tracking and renting books. With this application users are able to find and rent books. It is built on react, javascript front-end frame-work, and Postgres as database
+HelloBooks is a simple application that helps manage a library and its processes like stocking, tracking and renting books. With this application users are able to find and rent books. It is built on react, javascript front-end frame-work, and Postgres as database
 
 ## Getting Started
 
@@ -57,19 +58,69 @@ These are the common status codes used in the app.
 5. `404 Not Found` - Used when the application returns an empty result.
 6. `500 Internal Server Error` - A generic error message, given when no more specific message is suitable.
 7. `403 Forbidden` - Used when a user is accessing a restricted end point.
+8. `409 conflicts` - Used when request cannot be processed when there is a conflicts. e.g username already exists
 
 ## Deployment
 This application is deployed on heroku server
 
-## Contributing
+### Contributing
+------------------------------------------------------
 
-A web application is never finished. We welcome contributions. 
+Development of HelloBooks is everyone's concern. While we welcome contribution for bugfixes and improvement please read below how you can take part in the project
 
-## Authors
+# <h3> Code of Conduct
+The author has adopted a Code of Conduct that he expects project participant to follow. Please read [the full text](https://github.com/Temmyogunbo/Temmyogunbo.github.io/blob/bug/153845835/implement-feedback-from-LF/CODE_OF_CONDUCT.md) so that you can understand the does and dont
+
+# <h3>Contributing Guide
+
+Read our [contributing guide](https://github.com/Temmyogunbo/Temmyogunbo.github.io/blob/bug/153845835/implement-feedback-from-LF/CONTRIBUTING.md) to learn about our development process, how to propose bug fixes, improvements, and how to buid and test your changes to HelloBooks
+
+### Frequently asked quesion
+
+## What is HelloBooks?
+HelloBooks is a simple application that helps manage a library and its processes like stocking, tracking and renting books.
+
+## What are the current available features?
+These includes: 
+* Sign up
+* Sign in
+* Change password
+* Add book
+* Edit book
+* Borrow book
+* Return book
+* Notifications
+
+## How do I own an account?
+You need to sign up with option of google plus [here](https://emmanuelhellobooks.herokuapp.com/signup)
+
+## How do I contribute?
+Read our contributing section then raise a PR.
+
+## Where can I contribute?
+You can either contribute to the client side or server side or both.
+
+## Who are the contributors?
+For now, it is Emmanuel Ogunbo only.
+
+### Product Limitations
+
+The known limitation includes:
+* Three membership level, gold( 4 books for 6 days), silver(6 books for 8 days), platinum(8 books for 10 days)
+
+* Membership growth is solely determine by the admin
+
+* Books cannot be read online
+
+*  Users cannot reset password but only change it
+
+* Users cannot contribute books to the application
+
+## Author
 
 * **Emmanuel Ogunbo** 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+HelloBooks is  [MIT licensed](https://github.com/Temmyogunbo/Temmyogunbo.github.io/blob/bug/153845835/implement-feedback-from-LF/LICENSE) 
 

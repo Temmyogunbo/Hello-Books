@@ -19,7 +19,7 @@ export class SignInForm extends React.Component {
   /**
      * Creates an instance of SignInForm.
      *
-     * @param {any} props
+     * @param {object} props - contains react object
      *
      * @memberof SignInForm
      */
@@ -53,7 +53,7 @@ export class SignInForm extends React.Component {
    *
    * @returns {object} user's details on google
    *
-   * @param {any} response
+   * @param {object} response
    *
    * @memberof SignInForm
    */
@@ -66,9 +66,9 @@ export class SignInForm extends React.Component {
   }
   /**It updates the name field
    *
-   * @returns {void}
+   * @returns {undefined}
    *
-   * @param {any} event
+   * @param {object} event - html event object
    *
    * @memberof SignInForm
    */
@@ -90,9 +90,9 @@ export class SignInForm extends React.Component {
   }
   /**It handles form submission
    *
-   * @return {void} the login action is dispatched
+   * @return {undefined} the login action is dispatched
    *
-   * @param {any} event
+   * @param {object} event - html event object
    *
    * @memberof SignInForm
    */
@@ -116,58 +116,60 @@ export class SignInForm extends React.Component {
     const { errors, isLoading } = this.state;
 
     return (
-      <div className="container">
-        <form
-          id="sign-in-form"
-          className="col s12 m6 l6 push-l3 push-m3 div-container-form"
-          onSubmit={this.onSubmit}
-        >
-          <h3 className="sign-title">Log in:</h3><br />
-          <TextFieldGroup
-            label={'Username'}
-            field={'userName'}
-            id={'first_name'}
-            type={'text'}
-            icon={'person'}
-            value={this.state.userName}
-            handleChange={this.handleChange}
-            error={errors.userName}
-          />
-          <TextFieldGroup
-            label={'Password'}
-            field={'password'}
-            id={'password'}
-            type={'password'}
-            icon={'lock'}
-            value={this.state.password}
-            handleChange={this.handleChange}
-            error={errors.password}
-          />
-          <Button
-            id={"for-google-log-in"}
-            type={'submit'}
-            group="login-button"
-            dataAction="log-in-form"
-            disabled={isLoading}
-            className="col s4 m4 login-button"
-            children={' Log in'}
-          />
-          <div className="col s8 m8 l6">
-            <GoogleLogin
-              className="right google-button"
-              clientId={process.env.GOOGLE_CLIENT_ID}
-              onSuccess={this.onGoogleCallback}
-            >
-              <div className="left">Log in with</div>
-              <img
-                width="30"
-                height="27"
-                role="google fonts"
-                src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
-              />
-            </GoogleLogin>
-          </div>
-        </form>
+      <div className="row">
+        <div className="container">
+          <form
+            id="sign-in-form"
+            className="col s12 m6 l6 push-l3 push-m3 div-container-form"
+            onSubmit={this.onSubmit}
+          >
+            <h3 className="sign-title">Log in:</h3><br />
+            <TextFieldGroup
+              label={'Username'}
+              field={'userName'}
+              id={'first_name'}
+              type={'text'}
+              icon={'person'}
+              value={this.state.userName}
+              handleChange={this.handleChange}
+              error={errors.userName}
+            />
+            <TextFieldGroup
+              label={'Password'}
+              field={'password'}
+              id={'password'}
+              type={'password'}
+              icon={'lock'}
+              value={this.state.password}
+              handleChange={this.handleChange}
+              error={errors.password}
+            />
+            <Button
+              id={"for-google-log-in"}
+              type={'submit'}
+              group="login-button"
+              dataAction="log-in-form"
+              disabled={isLoading}
+              className="col s4 m4 login-button"
+              children={' Log in'}
+            />
+            <div className="col s8 m8 l6">
+              <GoogleLogin
+                className="right google-button"
+                clientId={process.env.GOOGLE_CLIENT_ID}
+                onSuccess={this.onGoogleCallback}
+              >
+                <div className="left">Log in with</div>
+                <img
+                  width="30"
+                  height="27"
+                  role="google fonts"
+                  src="https://lh3.googleusercontent.com/N-AY2XwXafWq4TQWfua6VyjPVQvTGRdz9CKOHaBl2nu2GVg7zxS886X5giZ9yY2qIjPh=w300"
+                />
+              </GoogleLogin>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

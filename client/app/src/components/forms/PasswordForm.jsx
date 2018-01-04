@@ -7,7 +7,7 @@ import Button from '../Button';
 
 const propTypes = {
   changePassword: PropTypes.func.isRequired,
-  userName: PropTypes.string.isRequired
+  userName: PropTypes.string.isRequired,
 };
 
 /**It contains state and behaviours for component
@@ -21,7 +21,7 @@ class ChangePasswordForm extends React.Component {
   /**
      * Creates an instance of ChangePasswordForm.
      *
-     * @param {any} props
+     * @param {object} props - contains react props object
      *
      * @memberof ChangePasswordForm
      */
@@ -32,7 +32,7 @@ class ChangePasswordForm extends React.Component {
       newPassword: '',
       confirmNewPassword: '',
       isButtonLoading: false,
-      errors: {}
+      errors: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -41,7 +41,7 @@ class ChangePasswordForm extends React.Component {
 
   /**It sets the component state back to its intial
    *
-   * @returns {void}
+   * @returns {undefined}
    *
    * @memberof ChangePasswordForm
    */
@@ -51,7 +51,7 @@ class ChangePasswordForm extends React.Component {
       newPassword: '',
       confirmNewPassword: '',
       isButtonLoading: false,
-      errors: {}
+      errors: {},
     });
   }
   /**It validates formData
@@ -80,7 +80,7 @@ class ChangePasswordForm extends React.Component {
   /**It updates the namne field
    * @returns {undefined}
    *
-   * @param {any} event
+   * @param {object} event - html event object
    *
    * @memberof ChangePasswordForm
    */
@@ -90,7 +90,7 @@ class ChangePasswordForm extends React.Component {
   /**It handles submit
    *
    *
-   * @param {any} event
+   * @param {object} event - html event object
    * \
    * @returns {undefined}
    *
@@ -109,15 +109,17 @@ class ChangePasswordForm extends React.Component {
         changePassword,
         userName
       } = this.props;
-      this.setState({ errors: {}, isButtonLoading: true });
       changePassword({
         oldPassword,
         newPassword,
         confirmNewPassword,
-        userName
+        userName,
+      }).then((response) => {
+        if (response && response.status < 400) {
+          this.handleClose();
+          return $('#change-password').modal('close');
+        }
       });
-      this.handleClose();
-      return $('#change-password').modal('close');
     }
   }
   /**It returns a div element
@@ -128,13 +130,16 @@ class ChangePasswordForm extends React.Component {
    * @memberof ChangePasswordForm
    */
   render() {
-    const { errors, isButtonLoading } = this.state;
+    const {
+      errors,
+      isButtonLoading,
+    } = this.state;
     return (
       <div
         id="change-password"
         className="change-password-modal modal container ">
         <div className="row modal-content">
-          <div>CHANGE PASSWORD</div>
+          <h6>CHANGE PASSWORD</h6>
           <form onSubmit={this.onSubmit}>
             <TextFieldGroup
               label={'Old Password'}

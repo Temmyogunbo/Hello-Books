@@ -3,7 +3,7 @@ import {
   EDIT_BOOK,
   GET_ALL_BOOKS,
   ADD_BOOK,
-  BORROW_A_BOOK
+  BORROW_A_BOOK,
 } from '../constants/actionTypes';
 
 const initialState = { rows: [], count: 0 };
@@ -12,8 +12,8 @@ let numberOfItemsInStore;
 /**
  * Handles books state
  *
- * @param {object} state
- * @param {object} action
+ * @param {object} state - application state
+ * @param {object} action - contains what to do in the store
  *
  * @returns {object} new state
 */

@@ -24,7 +24,7 @@ import {
   userPassword,
   passwordResponse,
   userHistory,
-  userData
+  userData,
 } from '../__mocks__/mockData';
 
 

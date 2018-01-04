@@ -1,6 +1,6 @@
 import {
   CREATE_BOOK_CATEGORY,
-  GET_BOOK_CATEGORY
+  GET_BOOK_CATEGORY,
 } from '../constants/actionTypes';
 
 const initialState = [];
@@ -8,8 +8,8 @@ const initialState = [];
 /**
  * Handles books category state
  *
- * @param {object} state
- * @param {object} action
+ * @param {object} state - previous app state
+ * @param {object} action - object on what to do
  *
  * @returns {object} new state
 */

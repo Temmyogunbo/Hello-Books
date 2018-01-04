@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
  *
  * @description Validates Sign In form
  *
- * @param  {object} formData
+ * @param  {object} formData - form data object
  *
  * @return {object} object- contains errors and boolean
  */

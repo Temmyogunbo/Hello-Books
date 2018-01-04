@@ -12,8 +12,8 @@ class BooksController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} book object
  *
@@ -27,7 +27,7 @@ class BooksController {
       quantity,
       imageUrl,
       description,
-      imagePublicId
+      imagePublicId,
     } = request.body;
     return models.Book.create({
       title,
@@ -36,23 +36,25 @@ class BooksController {
       quantity,
       imageUrl,
       description,
-      imagePublicId
+      imagePublicId,
     })
       .then(book => response.status(201).json({
-        book
+        book,
       }))
       .catch((error) => {
         switch (error.name) {
         case 'SequelizeForeignKeyConstraintError':
           return response.status(400).json({
-            message: 'Category does not exist.'
+            message: 'Category does not exist.',
           });
         case 'SequelizeUniqueConstraintError':
-          return response.status(403).json({
-            message: 'Book already exist'
+          return response.status(409).json({
+            message: 'Book already exist',
           });
         default:
-          return null;
+          return response.status(500).json({
+            message: 'An error occured',
+          });
         }
       });
   }
@@ -62,8 +64,8 @@ class BooksController {
    *
    * @static
    *
-   * @param {any} request
-   * @param {any} response
+   * @param {object} request - request object
+   * @param {object} response - response object
    *
    * @returns {object} category object
    *
@@ -71,20 +73,29 @@ class BooksController {
    */
   static addCategory(request, response) {
     return models.Categories.create({
-      category: request.body.category
+      category: request.body.category,
     })
       .then(category => response.status(201).json(category))
-      .catch(error => response.status(400).json({
-        errors: [{ message: error.errors[0] }]
-      }));
+      .catch((error) => {
+        switch (error.name) {
+        case 'SequelizeUniqueConstraintError':
+          return response.status(409).json({
+            message: 'Category already exist',
+          });
+        default:
+          return response.status(500).json({
+            message: 'An error occured',
+          });
+        }
+      });
   }
   /**
  * Find category
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} category object
  *
@@ -93,11 +104,11 @@ class BooksController {
   static findCategory(request, response) {
     return models.Categories.findAll({
       limit: 10,
-      order: [['updatedAt', 'DESC']]
+      order: [['updatedAt', 'DESC']],
     })
       .then(category => response.status(200).json(category))
-      .catch(error => response.status(400)
-        .json(error.errors.map(errorMessage => errorMessage.message)));
+      .catch(() => response.status(500)
+        .json({ message: 'An error occured' }));
   }
 
   /**
@@ -105,56 +116,55 @@ class BooksController {
    *
    * @static
    *
-   * @param {any} request
-   * @param {any} response
+   * @param {object} request - request object
+   * @param {object} response - response object
    *
    * @returns {object}  book(s) object
    *
    * @memberof BooksController
    */
   static findBookOrBooks(request, response) {
-    const {
+    const whereStatement = {};
+    const bookId = request.params[0];
+    let {
       itemsCountPerPage,
       page,
-      category
     } = request.query;
+    const { category } = request.query;
+    itemsCountPerPage = parseInt(itemsCountPerPage, 10) || 10;
+    page = parseInt(page, 10) || 0;
+    whereStatement.category = category || { $ne: null };
+    whereStatement.id = bookId ? parseInt(bookId, 10) : { $ne: null };
 
-    const offset = itemsCountPerPage ? itemsCountPerPage * (page - 1) : 0;
-    const limit = itemsCountPerPage || 10;
-    const whereStatement = {};
-    if (category) {
-      whereStatement.category = category;
-    }
-    if (request.params[0]) {
-      whereStatement.id = parseInt(request.params[0], 10);
-    }
+    let offset = itemsCountPerPage * (page - 1);
+    offset = offset <= -1 ? 0 : offset;
     return models.Book.findAndCountAll({
       where: whereStatement,
-
-      limit,
+      limit: itemsCountPerPage,
       offset,
-      order: [['updatedAt', 'DESC']]
+      order: [['updatedAt', 'DESC']],
     })
       .then((books) => {
         if (books.count === 0) {
           return response.status(404).json({
-            errors: [{ message: 'No books in the library' }]
+            message: 'No book(s) in the library',
           });
         }
         return response.status(200).json({
-          count: books.count, rows: books.rows
+          count: books.count, rows: books.rows,
         });
       })
-      .catch(error => response.status(400)
-        .json(error.errors.map(errorMessage => errorMessage.message)));
+      .catch(() => response.status(500).json({
+        message: 'An error occured',
+      }));
   }
   /**
  * Edit and update a particular book
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request - request object
+ * @param {object} response - respinse object
  *
  * @returns {object} returns object
  *
@@ -167,47 +177,55 @@ class BooksController {
       author,
       quantity,
       imageUrl,
-      description
+      description,
     } = request.body;
     const bookId = parseInt(request.params[0], 10);
-    return models.Book.update(
-      {
-        category,
-        title,
-        author,
-        quantity,
-        imageUrl,
-        description
-      },
-      {
-        where: {
-          id: bookId
+    return models.Book.findById(bookId)
+      .then((foundBook) => {
+        if (!foundBook) {
+          return response.status(404).json({ message: 'Book cannot be found' });
         }
-      }
-    )
-      .then((book) => {
-        if (book[0]) {
-          return response.status(204).json({});
-        }
-        return response.status(404).json({
-          message: 'No such book in the library.'
-        });
-      })
-      .catch((error) => {
-        if (error.name === 'SequelizeForeignKeyConstraintError') {
-          return response.status(404).json({
-            message: 'Category does not exist.'
+        models.Book.update(
+          {
+            category,
+            title,
+            author,
+            quantity,
+            imageUrl,
+            description,
+          },
+          {
+            where: {
+              id: bookId,
+            },
+            returning: true,
+            plain: true,
+          },
+        )
+          .then(book =>
+            response.status(200).json(book[1].dataValues))
+
+          .catch((error) => {
+            if (error.name === 'SequelizeForeignKeyConstraintError') {
+              return response.status(404).json({
+                message: 'Category does not exist.',
+              });
+            }
+            return response.status(500).json({
+              message: 'An error occured',
+            });
           });
-        }
-      });
+      })
+      .catch(() => response.status(500)
+        .json({ message: 'An error occured' }));
   }
   /**
  * Delete a book
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} returns object
  *
@@ -219,21 +237,23 @@ class BooksController {
     return models.Book.findById(bookId)
       .then((book) => {
         if (!book) {
-          return response.status(404).json({
-            errors: [{ message: 'Book cannot be found' }]
-          });
+          return response.status(404).json({ message: 'Book cannot be found' });
         }
         models.Book.destroy({
           where: {
-            id: bookId
-          }
+            id: bookId,
+          },
+          returning: true,
+          plain: true,
         })
-          .then(() => response.status(204).json({}))
-          .catch(error => response.status(400)
-            .json(error.errors.map(errorMessage => errorMessage.message)));
+          .then((bookDeleted) => {
+            response.status(200).json({ bookDeleted });
+          })
+          .catch(() => response.status(500)
+            .json({ message: 'An error occured' }));
       })
-      .catch(error => response.status(400)
-        .json(error.errors.map(errorMessage => errorMessage.message)));
+      .catch(() => response.status(500)
+        .json({ message: 'An error occured' }));
   }
 }
 export default BooksController;
