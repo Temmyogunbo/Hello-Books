@@ -94,7 +94,10 @@ describe('Given NavigationBar', () => {
     };
     const shallowWrapper = shallow(<NavigationBar {...props} />);
     it('Then it should call the componentDidMount method', () => {
-      const componentDidMountSpy = jest.spyOn(shallowWrapper.instance(), 'componentDidMount');
+      const componentDidMountSpy = jest.spyOn(
+        shallowWrapper.instance(),
+        'componentDidMount'
+      );
       shallowWrapper.instance().componentDidMount();
       expect(componentDidMountSpy).toHaveBeenCalledTimes(1);
     });

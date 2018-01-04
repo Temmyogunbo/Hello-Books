@@ -198,12 +198,14 @@ export const deleteBookAction = bookData => dispatch =>
 */
 export const editBookAction = bookData => (dispatch) =>
   axios.put(`/api/v1/books/${bookData.id}`, bookData)
-    .then(() => {
-      dispatch(editBook(bookData));
+    .then((response) => {
+      dispatch(editBook(response.data));
       toastr.success('Book updated successfully');
+      return response;
     })
     .catch((error) => {
       toastr.error(error.response.data.message);
+      return error;
     });
 export default {
   editBookAction,

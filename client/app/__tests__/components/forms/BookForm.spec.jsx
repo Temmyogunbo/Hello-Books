@@ -31,7 +31,7 @@ describe('Given a BookForm', () => {
       expect(wrapper.find('SelectFieldGroup').length).toBe(1);
     });
 
-    it('Then it should call the onSubmit method', () => {
+    it('Then it should call the onSubmit method to edit a book', () => {
       const event = { ...global.event };
       const onSubmitSpy = jest.spyOn(wrapper.instance(), 'onSubmit');
       wrapper.instance().onSubmit(event);
