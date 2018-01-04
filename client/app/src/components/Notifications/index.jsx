@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Pagination from '../Pagination';
+import PageNotFound from '../PageNotFound';
 import {
   getNotificationsAction,
   updateNotificationAction
@@ -14,7 +15,8 @@ const propTypes = {
   notifications: PropTypes.array.isRequired,
   getNotifications: PropTypes.func.isRequired,
   updateNotification: PropTypes.func.isRequired,
-  total: PropTypes.number
+  total: PropTypes.number,
+  isAdmin: PropTypes.bool.isRequired,
 
 };
 const defaultProps = {
@@ -31,7 +33,7 @@ export class Notifications extends React.Component {
   /**
    * Creates an instance of Notifications.
    *
-   * @param {any} props
+   * @param {object} props - it contains react props
    *
    * @memberof Notifications
    */
@@ -39,7 +41,7 @@ export class Notifications extends React.Component {
     super(props);
     this.state = {
       activePage: 1,
-      itemsCountPerPage: 5
+      itemsCountPerPage: 5,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
@@ -52,14 +54,14 @@ export class Notifications extends React.Component {
   componentDidMount() {
     this.props.getNotifications({
       currentPage: this.state.activePage,
-      itemsCountPerPage: this.state.itemsCountPerPage
+      itemsCountPerPage: this.state.itemsCountPerPage,
     });
   }
   /**It handles page change and invokes notifications
    *
    * @returns {undefined}
    *
-   * @param {any} pageNumber
+   * @param {number} pageNumber - it stores page number for notification page
    *
    * @memberof Notifications
    */
@@ -68,7 +70,7 @@ export class Notifications extends React.Component {
       activePage: pageNumber,
     }, () => this.props.getNotifications({
       currentPage: this.state.activePage,
-      itemsCountPerPage: this.state.itemsCountPerPage
+      itemsCountPerPage: this.state.itemsCountPerPage,
     }));
   }
   /**It returns a div element containing notification list
@@ -82,21 +84,25 @@ export class Notifications extends React.Component {
     const {
       notifications,
       updateNotification,
-      total
+      total,
+      isAdmin,
     } = this.props;
     return (
       <div className="container">
-        <NotificationList
-          notifications={notifications}
-          updateNotification={updateNotification}
-        />
-        {total ? <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={this.state.itemsCountPerPage}
-          totalItemsCount={total}
-          pageRangeDisplayed={5}
-          handlePageChange={this.handlePageChange}
-        /> : null}
+        {isAdmin ? <div>
+          <NotificationList
+            notifications={notifications}
+            updateNotification={updateNotification}
+          />
+          {total ? <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={this.state.itemsCountPerPage}
+            totalItemsCount={total}
+            pageRangeDisplayed={5}
+            handlePageChange={this.handlePageChange}
+          /> : null}</div> :
+          <PageNotFound />}
+
 
       </div>
     );
@@ -108,7 +114,7 @@ Notifications.defaultProps = defaultProps;
 /**
  * It slices the state and returns role, notifications, and total
  *
- * @param {object} state
+ * @param {object} state - application state object
  *
  * @returns {object} new state
 */

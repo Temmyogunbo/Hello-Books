@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface) => queryInterface.bulkInsert('Books', [{
+  up: queryInterface => queryInterface.bulkInsert('Books', [{
     title: 'Half of a yellow sun',
     category: 'History',
     description: 'Story of the Igbos in Eastern part of Nigeria, struggling to be recognized',
@@ -42,7 +42,19 @@ module.exports = {
     imagePublicId: 'trial',
     createdAt: new Date(),
     updatedAt: new Date(),
-  }], {}),
+  },
+  {
+    title: 'Andela remix ',
+    category: 'Programming',
+    author: 'Bruno Mars',
+    description: 'A fictitious story of a man named Alice trying to make the most decision of is life.',
+    quantity: 30,
+    imageUrl: 'localhost:5000',
+    imagePublicId: 'trial',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  ], {}),
 
-  down: (queryInterface) => queryInterface.bulkDelete('Books', null, {})
+  down: queryInterface => queryInterface.bulkDelete('Books', null, {}),
 };

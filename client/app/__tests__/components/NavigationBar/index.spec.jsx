@@ -51,17 +51,34 @@ describe('Given NavigationBar', () => {
     it('Then it checks if user is admin', () => {
       expect(wrapper.state().isAdmin).toBe(false);
     });
-    it('Then it should call the componentWillReceiveProps method', () => {
-      const componentWillReceivePropsSpy = jest.spyOn(shallowWrapper.instance(), 'componentWillReceiveProps');
-      const nextProps = {
-        isAdmin: 'admin'
+    it(
+      'Then it should call the componentWillReceiveProps method',
+      () => {
+        const componentWillReceivePropsSpy = jest.
+          spyOn(shallowWrapper.instance(), 'componentWillReceiveProps');
+        const nextProps = {
+          isAdmin: 'admin',
+          total: 1,
+          role: 'admin',
+        };
+        shallowWrapper.instance().componentWillReceiveProps(nextProps);
+        expect(componentWillReceivePropsSpy).toHaveBeenCalledTimes(1);
+      }
+    );
+    it('Then it should calls signOutAction', () => {
+      const event = {
+        ...global.event,
+        target: {
+          name: 'name',
+          value: 'value',
+        }
       };
-      shallowWrapper.instance().componentWillReceiveProps(nextProps);
-      expect(componentWillReceivePropsSpy).toHaveBeenCalledTimes(1);
-    });
-    it('Then it should calls signOutAction function', () => {
-      const signOutAction = shallowWrapper.find('Link').last().exists();
-      expect(signOutAction).toEqual(true);
+      const signOutActionSpy = jest.spyOn(
+        shallowWrapper.instance(),
+        'signOutAction'
+      );
+      shallowWrapper.instance().signOutAction(event);
+      expect(signOutActionSpy).toHaveBeenCalledTimes(1);
     });
   });
 });
@@ -77,7 +94,10 @@ describe('Given NavigationBar', () => {
     };
     const shallowWrapper = shallow(<NavigationBar {...props} />);
     it('Then it should call the componentDidMount method', () => {
-      const componentDidMountSpy = jest.spyOn(shallowWrapper.instance(), 'componentDidMount');
+      const componentDidMountSpy = jest.spyOn(
+        shallowWrapper.instance(),
+        'componentDidMount'
+      );
       shallowWrapper.instance().componentDidMount();
       expect(componentDidMountSpy).toHaveBeenCalledTimes(1);
     });

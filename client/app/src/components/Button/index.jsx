@@ -10,7 +10,7 @@ const propTypes = {
   dataAction: PropTypes.string,
   onClick: PropTypes.func,
   icon: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 Button.defaultProps = {
@@ -23,11 +23,11 @@ Button.defaultProps = {
 /**It returns a button component
  *
  *
- * @param {type}  className
- *  @param {type}   type,
- *  @param {type}   dataAction
- * @param {type}    disabled
- *   @param {type}  children
+ * @param {string}  className - button class name
+ * @param {string}   type - button type
+ * @param {string}   dataAction
+ * @param {boolean}    disabled - button atribute that sets to true or false
+ * @param {string}  children - button text
  * }
  * @returns {object} jsx
  */
@@ -40,7 +40,7 @@ function Button({
   id,
   onClick,
   icon,
-  style
+  style,
 }) {
   return (
     <button

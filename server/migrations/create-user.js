@@ -5,42 +5,42 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userName: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
         validate: {
-          notEmpty: true
-        }
+          notEmpty: true,
+        },
       },
       fullName: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true
-        }
+          notEmpty: true,
+        },
       },
       password: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notEmpty: true,
-          min: 5
-        }
+          min: 5,
+        },
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
         validate: {
-          isEmail: true
-        }
+          isEmail: true,
+        },
       },
       membership: {
         type: Sequelize.ENUM,
-        values: ['platinum', 'gold', 'silver']
+        values: ['platinum', 'gold', 'silver'],
       },
       role: {
         type: Sequelize.STRING,
@@ -49,16 +49,16 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down(queryInterface) {
     return queryInterface.dropTable('Users');
-  }
+  },
 };
 

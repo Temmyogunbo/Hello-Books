@@ -19,25 +19,28 @@ const defaultProps = {
 /**It contains state and behaviours for NavigtionBar component
  *
  * @returns {object} jsx
+ *
  * @class Navigation
+ *
  * @extends {React.Component}
  */
 export class NavigationBar extends React.Component {
   /**
    * Creates an instance of Navigation.
-   * @param {any} props
+   * @param {object} props
    * @memberof Navigation
    */
   constructor(props) {
     super(props);
     this.state = {
       isAdmin: false,
-      total: 0
+      total: 0,
     };
   }
   /**It checks if a user is an admin before mounting
    * and also initializes modal component
-   * @returns {void}
+   *
+   * @returns {undefined}
    *
    * @memberof Navigation
    */
@@ -45,7 +48,7 @@ export class NavigationBar extends React.Component {
     const { $ } = window;
     if (this.props.role === 'admin') {
       this.setState({
-        isAdmin: true
+        isAdmin: true,
       });
     }
     $(document).ready(() => {
@@ -55,9 +58,10 @@ export class NavigationBar extends React.Component {
     });
   }
   /**It sets on receiving next props
+   *
    * @returns {undefined}
    *
-   * @param {any} nextProps
+   * @param {object} nextProps
    *
    * @memberof NavigationBar
    */
@@ -92,7 +96,7 @@ export class NavigationBar extends React.Component {
    *
  * @returns {undefined}
  *
- * @param {any} event
+ * @param {object} event
  *
  * @memberof DashboardHead
  */
@@ -104,33 +108,32 @@ export class NavigationBar extends React.Component {
   /**It returns nav element
    *
    * @returns {object} jsx
+   *
    * @memberof Navigation
    */
   render() {
     const { isAuthenticated } = this.props.user;
     return (
-      <div>
-        <nav className="custom-nav-wrapper">
-          <div className="container nav-wrapper">
-            <Link to={isAuthenticated ? "#" : "/"}
-              className="brand-logo custom-logo-wrap">
+      <nav className="custom-nav-wrapper">
+        <div className="container nav-wrapper">
+          <Link to={isAuthenticated ? "#" : "/"}
+            className="brand-logo custom-logo-wrap">
               HelloBooks
-            </Link>
-            <Link to={isAuthenticated ? "#" : "/"}
-              data-activates="mobile-demo"
-              className="button-collapse"
-            >
-              <i className="material-icons">menu</i>
-            </Link>
-            { isAuthenticated ?
-              <UserLinks
-                isAdmin={this.state.isAdmin}
-                signOutAction={this.props.signOutAction}
-                total={this.state.total}
-              /> : <GuestLinks /> }
-          </div>
-        </nav>
-      </div>
+          </Link>
+          <Link to={isAuthenticated ? "#" : "/"}
+            data-activates="mobile-demo"
+            className="button-collapse"
+          >
+            <i className="material-icons">menu</i>
+          </Link>
+          { isAuthenticated ?
+            <UserLinks
+              isAdmin={this.state.isAdmin}
+              signOutAction={this.props.signOutAction}
+              total={this.state.total}
+            /> : <GuestLinks /> }
+        </div>
+      </nav>
     );
   }
 }

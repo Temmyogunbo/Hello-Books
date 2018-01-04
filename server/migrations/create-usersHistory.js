@@ -5,7 +5,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       UserId: {
         type: Sequelize.INTEGER,
@@ -13,8 +13,8 @@ module.exports = {
         onUpdate: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       BookId: {
         type: Sequelize.INTEGER,
@@ -22,34 +22,34 @@ module.exports = {
         onUpdate: 'CASCADE',
         references: {
           model: 'Books',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       dueDate: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.NOW,
       },
       borrowedDate: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.NOW,
       },
       returned: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down(queryInterface) {
     return queryInterface.dropTable('Histories');
-  }
+  },
 };

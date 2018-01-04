@@ -8,24 +8,24 @@ import {
 
 /**Dispatched category action
  *
- * @param {object} category
+ * @param {object} category - contains category object to be dispatched
  *
- * @return {book} category - dispatched category object
+ * @return {object} category - dispatched category object
  */
 const createBookCategory = category => ({
   type: CREATE_BOOK_CATEGORY,
-  category
+  category,
 });
 
 /**Dispatched category action
  *
- * @param {object} category
+ * @param {object} category - contains category object to be dispatched
  *
  * @return {object} category - dispatched category object
  */
 const getBookCategory = category => ({
   type: GET_BOOK_CATEGORY,
-  category
+  category,
 });
 
 
@@ -39,8 +39,7 @@ export const getBookCategoryAction = () => dispatch =>
       dispatch(getBookCategory(response.data));
     })
     .catch((error) => {
-      toastr.error(error.response.data);
-      return error;
+      toastr.error(error.response.data.message);
     });
 
 /**It returns created category object
@@ -52,11 +51,13 @@ export const getBookCategoryAction = () => dispatch =>
 export const createBookCategoryAction =
 categoryData => dispatch => axios.post('/api/v1/category', categoryData)
   .then((response) => {
-    dispatch(createBookCategory(response.data.category));
+    dispatch(createBookCategory(response.data));
     toastr.success('You added a category');
+    return response;
   })
   .catch((error) => {
-    toastr.error(error.response.data.errors[0].message.message);
+    toastr.error(error.response.data.message);
+    return error;
   });
 export default {
   createBookCategoryAction,

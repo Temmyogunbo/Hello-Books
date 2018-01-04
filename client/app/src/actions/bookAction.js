@@ -17,70 +17,70 @@ import {
 /**
  *Dispatched action to edit book
 
- * @param {object} book
+ * @param {object} book - book object
  *
- * @return {book} object
+ * @return {object} book
  */
 export const editBook = book => ({
   type: EDIT_BOOK,
-  book
+  book,
 });
 
 /**Dispatched action to add book
  *
- * @param {object} book
+ * @param {object} book - book object
  *
  * @return {book} book - dispatched book object
  */
 export const addBook = book => ({
   type: ADD_BOOK,
-  book
+  book,
 });
 
 /**Dispatched action to delete book
  *
- * @param {bookId} id
+ * @param {number} id - book id
  *
  * @return {object} description delete book object
  *
  */
 export const deleteBook = id => ({
   type: DELETE_BOOK,
-  id
+  id,
 });
 
 /**Dispatched action to get all books
  *
- * @param {books} books
+ * @param {object} books - books object
  *
  * @return {object} object
  *
  */
 export const getAllBooks = books => ({
   type: GET_ALL_BOOKS,
-  books
+  books,
 });
 
 /**Dispatched borrow book action
  *
  * @return {object} All books
  *
- * @param {error} id - dispatched book id
+ * @param {number} id - dispatched book id
  */
 export const borrowBook = id => ({
   type: BORROW_A_BOOK,
-  id
+  id,
 });
 
 /**Dispatched return book action
  *
  * @return {returnMessage} returnMessage - dispatched returned message
  *
- * @param {object} bookReturned book details
+ * @param {object} bookReturned - book details
  */
 export const returnBook = bookReturned => ({
   type: RETURN_A_BOOK,
-  bookReturned
+  bookReturned,
 });
 
 /**It returns book object
@@ -94,9 +94,11 @@ export const addBookAction = bookData => dispatch =>
     .then((response) => {
       dispatch(addBook(response.data.book));
       toastr.success('Book(s) successfully added to the library.');
+      return response;
     })
     .catch((error) => {
       toastr.error(error.response.data.message);
+      return error;
     });
 
 /**It returns all book object
@@ -105,7 +107,7 @@ export const addBookAction = bookData => dispatch =>
  *
  * @return {object} - returns an object of books
  */
-export const getAllBooksAction = bookData => dispatch => {
+export const getBookOrBooksAction = bookData => dispatch => {
   let bookRoute =
    `/api/v1/books?page=${bookData.currentPage}&` +
    `itemsCountPerPage=${bookData.itemsCountPerPage}`;
@@ -121,14 +123,14 @@ export const getAllBooksAction = bookData => dispatch => {
     dispatch(getAllBooks(response.data));
   })
     .catch((error) => {
-      toastr.error(error.response.data.errors[0].message);
+      toastr.error(error.response.data.message);
     });
 };
 /**It returns borrow book object
  *
-* @param {bookData} bookData
+* @param {object} bookData - bookData object
 
-* @return {object} response
+* @return {object} response - response object
 */
 export const borrowBookAction = bookData => dispatch =>
   axios.post(
@@ -166,7 +168,7 @@ export const returnBookAction = returnData => dispatch =>
       getAllNotificationsAction({
         userId: `${returnData.userId}`,
         bookId: `${returnData.BookId}`,
-        notificationType: 'BOOK_RETURNED'
+        notificationType: 'BOOK_RETURNED',
       }, dispatch);
     })
     .catch((error) => {
@@ -196,17 +198,19 @@ export const deleteBookAction = bookData => dispatch =>
 */
 export const editBookAction = bookData => (dispatch) =>
   axios.put(`/api/v1/books/${bookData.id}`, bookData)
-    .then(() => {
-      dispatch(editBook(bookData));
+    .then((response) => {
+      dispatch(editBook(response.data));
       toastr.success('Book updated successfully');
+      return response;
     })
     .catch((error) => {
       toastr.error(error.response.data.message);
+      return error;
     });
 export default {
   editBookAction,
   addBookAction,
-  getAllBooksAction,
+  getBookOrBooksAction,
   borrowBookAction,
   returnBookAction,
   deleteBookAction

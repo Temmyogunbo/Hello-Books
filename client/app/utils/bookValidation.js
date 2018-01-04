@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 
 /**It validates books data
  *
- * @param  {object} formData
+ * @param  {object} formData - form data object
  *
  * @return {object} object- contains errors and boolean
  */

@@ -5,32 +5,32 @@ import {
 
 /**Dispatched notifications and total action
  *
- * @param {any} notifications
- * @param {any} total
+ * @param {object} notifications - notifications object
+ * @param {number} total - total number of notifcations
  *
  * @return {object} returns object
  */
 const getAllNotifications = (notifications, total) => ({
   type: GET_ALL_NOTIFICATIONS,
   notifications,
-  total
+  total,
 });
 
 /**It returns all notifications object
  *
 * @return {object} - returns an object of notifications
 
-* @param {any} data
-@param {any} dispatch
+* @param {object} newNotifications - newNotifications object
+* @param {function} dispatch
 */
-export const getAllNotificationsAction = (data, dispatch) => {
+export const getAllNotificationsAction = (newNotifications, dispatch) => {
   const promise = new Promise((resolve, reject) => {
     socket.emit(
       'ADD_NEW_NOTIFICATION',
       {
-        userId: data.userId,
-        bookId: data.bookId,
-        notificationType: data.notificationType
+        userId: newNotifications.userId,
+        bookId: newNotifications.bookId,
+        notificationType: newNotifications.notificationType,
       }
     );
     resolve(socket.emit(
@@ -48,13 +48,13 @@ export const getAllNotificationsAction = (data, dispatch) => {
 
 /**It returns all notifications object
  *
-* @return {object} - returns
+* @return {object} - return object
 
-* @param {any} data
-@param {any} dispatch
+* @param {object} allNotifications - allNotifications object
+@param {function} dispatch
 */
-export const getNotificationsAction = (data) => dispatch => {
-  socket.emit('GET_ALL_NOTIFICATIONS', data);
+export const getNotificationsAction = (allNotifications) => dispatch => {
+  socket.emit('GET_ALL_NOTIFICATIONS', allNotifications);
   socket.on('GET_ALL_NOTIFICATIONS', (notifications) => {
     dispatch(getAllNotifications(notifications.rows, notifications.count));
   });
@@ -65,11 +65,11 @@ export const getNotificationsAction = (data) => dispatch => {
  *
 * @return {object} - returns an object of category
 
-* @param {any} data
-@param {any} dispatch
+* @param {object} updateNotification - updateNotefication object
+@param {function} dispatch
 */
-export const updateNotificationAction = (data) => dispatch => {
-  socket.emit('UPDATE_NOTIFICATION', { id: data.id });
+export const updateNotificationAction = (updateNotification) => dispatch => {
+  socket.emit('UPDATE_NOTIFICATION', { id: updateNotification.id });
   socket.on('UPDATE_NOTIFICATION', () => {
     socket.emit(
       'GET_ALL_NOTIFICATIONS',
@@ -84,5 +84,5 @@ export const updateNotificationAction = (data) => dispatch => {
 export default {
   getAllNotificationsAction,
   updateNotificationAction,
-  getNotificationsAction
+  getNotificationsAction,
 };

@@ -18,8 +18,12 @@ const defaultProps = ({
 
 /**It returns a div element of pagination
  *
+ * @param {number} activePage - it stores active page
+  * @param {number} itemsCountPerPAge - it stores items count per page
+   * @param {number} pageRangeDisplayed - it stores page raqnge number
+   * @param {number} totalItemsCount - it stores total number of items
+    * @param {function} handlePageChange - points to handlePageChange funtion
  *
- * @param {any} props
  * @returns {object} jsx
  */
 function Pagination({
@@ -32,6 +36,7 @@ function Pagination({
   return (
     <div className="col s6 m6 l6 push-l6 push-s4 push-m6 pagination">
       <PaginationJs
+
         activePage={activePage}
         itemsCountPerPage={itemsCountPerPage}
         pageRangeDisplayed={pageRangeDisplayed}

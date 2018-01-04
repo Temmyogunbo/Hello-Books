@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import models from '../models';
-import Authentication from '../Authentication';
+import Authentication from '../helper/Authentication';
 
 require('dotenv').config();
 /**
@@ -15,8 +15,8 @@ class UsersController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} returns object
  *
@@ -38,12 +38,12 @@ class UsersController {
           email,
           password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
           membership: 'gold',
-          role: 'users'
+          role: 'users',
         },
         {
           fields: ['fullName', 'userName', 'password',
-            'email', 'membership', 'role']
-        }
+            'email', 'membership', 'role'],
+        },
       )
       .then((user) => {
         const {
@@ -52,7 +52,7 @@ class UsersController {
           userName,
           membership,
           id,
-          role
+          role,
         } = user;
         const token = Authentication.getToken({
           email,
@@ -60,7 +60,7 @@ class UsersController {
           userName,
           membership,
           id,
-          role
+          role,
         });
         response.status(201).json({
           success: true,
@@ -71,18 +71,22 @@ class UsersController {
           membership,
           id,
           role,
-          token
+          token,
         });
       })
       .catch((error) => {
         if (error.name === 'SequelizeUniqueConstraintError') {
           if (error.fields.userName) {
-            response.status(401).json({
-              message: 'Username already exist.'
+            response.status(409).json({
+              message: 'Username already exist.',
+            });
+          } else if (error.fields.email) {
+            response.status(409).json({
+              message: 'Email has been taken.',
             });
           } else {
-            response.status(401).json({
-              message: 'Email has been taken.'
+            response.status(500).json({
+              message: 'An error occured',
             });
           }
         }
@@ -93,8 +97,8 @@ class UsersController {
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request - request object
+ * @param {object} response - response object
  *
  * @returns {object} return object
  *
@@ -103,14 +107,19 @@ class UsersController {
   static signUserIn(request, response) {
     return models.User.findOne({
       where: {
-        userName: request.body.userName
+        userName: request.body.userName,
       },
       attributes: ['userName',
         'password',
         'email', 'membership', 'role', 'id', 'fullName'],
-      limit: 1
+      limit: 1,
     })
       .then((user) => {
+        if (!user) {
+          return response.status(401).json({
+            message: 'Invalid username or password',
+          });
+        }
         const {
           email,
           userName,
@@ -138,27 +147,29 @@ class UsersController {
               id,
               role,
               membership,
-              token
+              token,
             });
           }
         } else {
           return response.status(401).json({
             success: false,
-            message: 'Wrong username/password.'
+            message: 'Invalid username or password',
           });
         }
       })
-      .catch(() => response.status(401).json({
-        message: 'You are not registered'
-      }));
+      .catch(() => {
+        response.status(500).json({
+          message: 'An error occured',
+        });
+      });
   }
   /**
  * Change user password
  *
  * @static
  *
- * @param {any} request
- * @param {any} response
+ * @param {object} request - request object
+ * @param {object} response -response object
  *
  * @returns {object} returns object
  *
@@ -168,37 +179,42 @@ class UsersController {
     const {
       newPassword,
       oldPassword,
-      userName
+      userName,
     } = request.body;
     return models.User.findOne({
       where: {
-        userName
+        userName,
       },
       attributes: ['password'],
-      limit: 1
+      limit: 1,
     })
       .then((password) => {
         if (bcrypt.compareSync(oldPassword, password.password)) {
           return models.User.update(
             {
-              password: bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10))
+              password: bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10)),
             },
             {
               where: {
-                userName
-              }
-            }
+                userName,
+              },
+              returning: true,
+              plain: true,
+            },
           )
-            .then(newUpdate => response.status(204).json(newUpdate))
-            .catch(() => response.status(400)
-              .json({ message: 'Your password cannot be updated.' }));
+            .then(newUpdate => response.status(200)
+              .json(newUpdate[1].dataValues))
+            .catch(() =>
+              response.status(500)
+                .json({ message: 'An error occured' }));
         }
-        return response.status(403).json({
-          message: 'Your old password is incorrect.'
+        return response.status(400).json({
+          message: 'Your old password is incorrect.',
         });
       })
-      .catch(() => response.status(400)
-        .json({ message: 'You are not a valid user.' }));
+      .catch(() =>
+        response.status(500)
+          .json({ message: 'An error occured' }));
   }
 }
 

@@ -9,23 +9,24 @@ const propTypes = {
 /**
  *It returns a div element
  *
- * @param {any} {total}
+ * @param {number} total - it stores total number for notifications
+ *
  * @returns {object} jsx
  */
 function NotificationIcon({ total }) {
   return (
-    <div className="row" style={{ height: "10px" }}>
-      <Link to="/notifications">
-        <div className="col s4">
-          <i className="material-icons">
+    <Link to="/notifications" className="row">
+      <i className="material-icons col s2 m2 l3">
             notifications
-          </i>
-        </div>
-        <div className="col s2 notif-icon" style={{ color: 'red' }}>
-          <div >{total === 0 ? null : total}</div>
-        </div>
-      </Link>
-    </div>
+      </i>
+      <h6
+        className="col s2 m2 l2 pull-s2 pull-m2"
+        style={{ color: "red" }}
+      >
+        {total === 0 ? null : total}
+      </h6>
+
+    </Link>
   );
 }
 

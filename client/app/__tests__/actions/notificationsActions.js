@@ -5,8 +5,6 @@ import configureMockStore from 'redux-mock-store';
 
 import {
   getAllNotificationsAction,
-  updateNotificationAction,
-  getNotificationsAction
 } from '../../src/actions/notificationsAction';
 import {
   GET_ALL_NOTIFICATIONS,

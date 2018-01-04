@@ -8,13 +8,20 @@ import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
+import axios from 'axios';
+import toastr from 'toastr';
 
 import setAuthToken from '../utils/authorization';
-import { setAuthUser } from './actions/userActions';
+import { setAuthUser, signOutAction } from './actions/userActions';
 import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import '../src/asset/sass/style.scss';
 import '../../node_modules/toastr/toastr.scss';
+
+toastr.options = {
+  preventDuplicates: true,
+  preventOpenDuplicates: true
+};
 
 const store = createStore(
   rootReducer,
@@ -23,11 +30,19 @@ const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );
+const history = createHistory();
+
+axios.interceptors.response.use((response) => response, (error) => {
+  if (error.response.status === 401 || error.response.status === 403) {
+    store.dispatch(signOutAction());
+  }
+  return Promise.reject(error);
+});
+
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   store.dispatch(setAuthUser(jwtDecode(localStorage.jwtToken)));
 }
-const history = createHistory();
 window.$ = $;
 
 ReactDOM.render(

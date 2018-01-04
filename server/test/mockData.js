@@ -2,23 +2,23 @@ import bcrypt from 'bcrypt';
 
 const admin = {
   userName: 'admin',
-  password: 'emmanuel'
+  password: 'emmanuel',
 };
 const user = {
   userName: 'temmy',
-  password: 'emmanuel'
+  password: 'emmanuel',
 
 };
 const user2 = {
   userName: 'enodi1000',
-  password: 'emmanuel'
+  password: 'emmanuel',
 
 };
 const sampleUser1 = {
   fullName: 'john doe',
   userName: 'james',
   email: 'john@andela.com',
-  password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(8), null)
+  password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(8), null),
 };
 const sampleUser2 = {
   fullName: 'full Name',
@@ -42,7 +42,7 @@ const sampleUser5 = {
   fullName: 'jake doe',
   userName: 'doel',
   email: 'jake@andela.com',
-  password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(8), null)
+  password: bcrypt.hashSync('emmanuel', bcrypt.genSaltSync(8), null),
 };
 export default {
   user,
@@ -52,6 +52,6 @@ export default {
   sampleUser2,
   sampleUser3,
   sampleUser4,
-  sampleUser5
+  sampleUser5,
 };
 

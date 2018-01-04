@@ -2,11 +2,13 @@
  * LocalStorageMock serve as a mock of the localStorage for testing in Jest
  * @class LocalStorageMock
  */
-export default class LocalStorage {
+class LocalStorage {
   /**
-     * @description creates a new instance of this class
+     * It creates a new instance of this class
+     *
      * @constructor
-     * @memberOf LocalStorageMock
+     *
+     * @memberOf LocalStorage
      */
   constructor() {
     /** @type {Object} */
@@ -14,46 +16,54 @@ export default class LocalStorage {
   }
 
   /**
-     * @description clears the store
-     * @method
-     * @memberOf LocalStorageMock
-     * @returns {void}
+     * It clears the store
+     *
+     * @memberOf LocalStorage
+     *
+     * @returns {undefined}
      */
   clear() {
     this.store = {};
   }
 
   /**
-     * @description returns the value stored on the supplied key
-     * @method
-     * @memberOf LocalStorageMock
+     * it returns the value stored on the supplied key
+     *
+     * @memberOf LocalStorage
+     *
      * @param {string} key The item's key to retrieve from
-     * @returns {void}
+     *
+     * @returns {undefined}
      */
   getItem(key) {
     return this.store[key] || null;
   }
 
   /**
-     * @description sets the store with the supplied key
-     * @method
-     * @memberOf LocalStorageMock
+     * sets the store with the supplied key
+     *
+     * @memberOf LocalStorage
+     *
      * @param {Object} key The key to store
      * @param {string} value The value to set the key to
-     * @returns {void}
+     *
+     * @returns {undefined}
      */
   setItem(key, value) {
     this.store[key] = value;
   }
 
   /**
-     * @description removes the item from the store corresponding to the key
-     * @method
-     * @memberOf LocalStorageMock
-     * @param {Object} key The key to remove
-     * @returns {void}
-     */
+ * it removes item from the local storage
+ *
+ * @param {string} key to be removed
+ *
+ * @memberof LocalStorage
+ *
+ * @returns {object} key to remove
+ */
   removeItem(key) {
     delete this.store[key];
   }
 }
+export default LocalStorage;

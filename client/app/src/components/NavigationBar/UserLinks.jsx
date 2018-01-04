@@ -7,12 +7,15 @@ import NotificationIcon from '../Notifications/NotificationIcon';
 const propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   signOutAction: PropTypes.func.isRequired,
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
 };
 
 /**it returns unordered list element
  *
- * @param {any} props
+ * @param {boolean} isAdmin - it stores boolean value
+ *  @param {function} signOutAction - signOutAction function for userLinks
+  * @param {number} total - it stores total number of notifications
+
  *
  * @returns {object} jsx
  */
@@ -23,13 +26,14 @@ function UserLinks({ isAdmin, signOutAction, total }) {
         id="nav-mobile"
         className="right hide-on-med-and-down"
       >
-        {isAdmin ? <li>
-          <NotificationIcon total={total}/>
-        </li> : <li>
-          <Link to="/history">
+        <li>
+          {isAdmin ?
+            <NotificationIcon total={total}/> :
+            <Link to="/history">
               History
-          </Link>
-        </li>}
+            </Link>
+          }
+        </li>
         <li>
           <Link to="/collections">
                         Collections
@@ -46,14 +50,14 @@ function UserLinks({ isAdmin, signOutAction, total }) {
         id="mobile-demo"
         className="side-nav"
       >
-        {isAdmin ? <li>
-          <NotificationIcon total={total}/>
-        </li> : <li>
-          <Link to="/history" id="history-nav-link">
+        <li>
+          {isAdmin ?
+            <NotificationIcon total={total}/> :
+            <Link to="/history" id="history-nav-link">
               History
-          </Link>
-        </li>}
-
+            </Link>
+          }
+        </li>
         <li>
           <Link to="/collections">
                         Collection

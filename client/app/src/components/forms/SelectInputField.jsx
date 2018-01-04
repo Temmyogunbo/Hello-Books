@@ -8,20 +8,20 @@ const propTypes = {
   error: PropTypes.string,
   textArea: PropTypes.string,
   items: PropTypes.array.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
 };
 SelectFieldGroup.defaultProps = {
   field: '',
-  items: []
+  items: [],
 };
 /**It returns select component
  *
  *
- *  @param {type}  field
- *  @param {type}  value
- *  @param {type}   label
- *  @param {type}  errors
- *  @param {type}   handleChange
+ *  @param {string}  field - field string
+ *  @param {string}  value - value string
+ *  @param {string}   label - label string
+ *  @param {object}  errors - errors object
+ *  @param {function}   handleChange - handleChange function
  * @returns {object} jsx
  */
 function SelectFieldGroup({
@@ -30,7 +30,7 @@ function SelectFieldGroup({
   label,
   error,
   items,
-  handleChange
+  handleChange,
 }) {
   const selectList = items.map(eachItem => (
     <option
@@ -40,21 +40,19 @@ function SelectFieldGroup({
     </option>
   ));
   return (
-    <div >
-      <div className="row">
-        <label>{label}</label>
-        <select
-          className="browser-default"
-          onChange={handleChange}
-          name={field}
-          value={value}>
-          <option>Select a {field}</option>
-          {selectList}
-        </select>
-        <span className="error-block">
-          {error}
-        </span>
-      </div>
+    <div className="row">
+      <label>{label}</label>
+      <select
+        className="browser-default"
+        onChange={handleChange}
+        name={field}
+        value={value}>
+        <option>Select a {field}</option>
+        {selectList}
+      </select>
+      <span className="error-block">
+        {error}
+      </span>
     </div>
   );
 }

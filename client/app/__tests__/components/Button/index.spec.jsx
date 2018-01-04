@@ -12,7 +12,7 @@ const props = {
   id: 'none',
   onClick: jest.fn(),
   icon: '',
-  style: ''
+  style: '',
 };
 
 describe('Given a Button component', () => {

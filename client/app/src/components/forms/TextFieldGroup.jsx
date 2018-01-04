@@ -3,32 +3,33 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   field: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string,
+    PropTypes.number]),
   label: PropTypes.string.isRequired,
   error: PropTypes.string,
   icon: PropTypes.string,
   textArea: PropTypes.string,
   id: PropTypes.string,
   type: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
 };
 TextFieldGroup.defaultProps = {
   type: 'text',
   id: '',
   field: '',
-  icon: ''
+  icon: '',
 };
 /**It either returns input field or textarea
  *
  *
- * @param {type}  id
- *  @param {type}  field
- *  @param {type}  value
- *  @param {type}   label
- *  @param {type}  errors
- *  @param {type}   type
- *  @param {type}   icon
- *  @param {type}   handleChange
+ * @param {string}  id - textFieldGroup id
+ *  @param {string}  field - field string for textFieldGroup
+ *  @param {string}  value - value string for textFieldGroup
+ *  @param {string}   label - label string for textFieldGroup
+ *  @param {object}  errors - errors object for textFieldGroup
+ *  @param {string}   type - type of textFieldGroup
+ *  @param {string}   icon - textFieldGroup icon if available
+ *  @param {function}   handleChange - function for textFieldGroup
  * }
  * @returns {object} jsx
  */
@@ -41,33 +42,31 @@ function TextFieldGroup({
   type,
   icon,
   textArea,
-  handleChange
+  handleChange,
 }) {
   return (
-    <div >
-      <div className="input-field">
-        <label htmlFor={id}>
-          <i className="material-icons">{icon}</i> {label}
-        </label>{textArea ?
-          <textarea
-            className="materialize-textarea"
-            value={textArea}
-            onChange={handleChange}
-            name={field}
-          /> :
-          <input
-            name={field}
-            id={id}
-            type={type}
-            className="validate"
-            value={value}
-            onChange={handleChange}
-          />}
+    <div className="input-field">
+      <label htmlFor={id}>
+        <i className="material-icons">{icon}</i> {label}
+      </label>{textArea ?
+        <textarea
+          className="materialize-textarea"
+          value={textArea}
+          onChange={handleChange}
+          name={field}
+        /> :
+        <input
+          name={field}
+          id={id}
+          type={type}
+          className="validate"
+          value={value}
+          onChange={handleChange}
+        />}
 
-        <span className="error-block">
-          {error}
-        </span>
-      </div>
+      <span className="error-block">
+        {error}
+      </span>
     </div>
   );
 }

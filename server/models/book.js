@@ -5,44 +5,44 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
-        min: 2
-      }
+        min: 2,
+      },
     },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     imagePublicId: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     category: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     quantity: {
       type: DataTypes.INTEGER,
@@ -54,16 +54,16 @@ export default (sequelize, DataTypes) => {
           if (parseInt(value, 10) < 0) {
             throw new Error('Only positive value is allow');
           }
-        }
-      }
-    }
+        },
+      },
+    },
   });
   Book.associate = (models) => {
     Book.belongsTo(models.Categories, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       foreignKey: 'category',
-      targetKey: 'category'
+      targetKey: 'category',
     });
   };
   return Book;
