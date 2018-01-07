@@ -10,7 +10,8 @@ function Footer() {
     <div className="footer-push-top">
       <footer className="footer">
         <div className="footer-copyright container">
-              © 2017 Copyright Ogunbo Emmanuel, All rights reserved.
+              © {new Date().getFullYear()} Copyright Ogunbo Emmanuel,
+               All rights reserved.
         </div>
       </footer>
     </div>
